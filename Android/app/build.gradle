@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -30,15 +35,58 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk true
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation libs.bundles.androidx
+    implementation libs.android.material
+    implementation libs.hilt
+    implementation libs.databinding
+
+    implementation libs.bundles.retrofit.bundles
+    implementation libs.bundles.okhttp3.bundles
+
+    testImplementation libs.junit
+
+    androidTestImplementation libs.android.test.junit
+    androidTestImplementation libs.android.test.espresso
+
+    kapt libs.hilt.complier
+
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
+
+    implementation libs.kakao.sdk.user
+
+    implementation libs.viewpager.indicator
+
+    implementation libs.room
+    kapt libs.room.compiler
+
+    implementation libs.firebase.messaging
+
+    implementation platform(libs.firebase.bom)
+
+    implementation libs.lottie
+
+    implementation libs.tedpermission
+}
+
+kapt {
+    correctErrorTypes true
 }
