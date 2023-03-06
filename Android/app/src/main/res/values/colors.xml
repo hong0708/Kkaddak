@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bitter_sweet">#FF6161</color>
+    <color name="han_purple">#530FFF</color>
+    <color name="neon_pink">#FF61D6</color>
+    <color name="nobel">#999999</color>
+    <color name="night_rider">#303030</color>
+    <color name="charcoal">#494949</color>
+    <color name="nero">#282828</color>
 </resources>
