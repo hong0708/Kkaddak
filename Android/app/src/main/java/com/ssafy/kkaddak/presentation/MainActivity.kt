@@ -1,7 +1,8 @@
-package com.ssafy.kkaddak
+package com.ssafy.kkaddak.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ssafy.kkaddak.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
