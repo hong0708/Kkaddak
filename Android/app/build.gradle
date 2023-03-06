@@ -71,8 +71,6 @@ dependencies {
     implementation libs.glide
     annotationProcessor libs.glide.compiler
 
-    implementation libs.kakao.sdk.user
-
     implementation libs.viewpager.indicator
 
     implementation libs.room
