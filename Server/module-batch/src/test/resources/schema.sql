@@ -1,0 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS `coredb`;
+CREATE SCHEMA IF NOT EXISTS `batchdb`;
+USE `coredb`;
+
+CREATE TABLE IF NOT EXISTS `Music` (
+    `id` int NOT NULL AUTO_INCREMENT
+);

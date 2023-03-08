@@ -1,0 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS `coredb`;
+USE `coredb`;
+
+CREATE TABLE IF NOT EXISTS `Music` (
+    `id` int NOT NULL AUTO_INCREMENT
+);
