@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/SongListFragment"
+        android:id="@+id/songListFragment"
         android:icon="@drawable/selector_menu_song_list"
         android:title="@string/content_menu_song_list" />
     <item
-        android:id="@+id/WalletFragment"
+        android:id="@+id/walletFragment"
         android:icon="@drawable/selector_menu_wallet"
         android:title="@string/content_menu_wallet" />
 
@@ -14,11 +14,11 @@
         android:title=""
         android:enabled="false"/>
     <item
-        android:id="@+id/MarketFragment"
+        android:id="@+id/marketFragment"
         android:icon="@drawable/selector_menu_market"
         android:title="@string/content_menu_market" />
     <item
-        android:id="@+id/ProfileFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/selector_menu_profile"
         android:title="@string/content_menu_profile" />
 </menu>

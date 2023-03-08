@@ -8,30 +8,30 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ssafy.kkaddak.presentation.home.HomeFragment"
-        android:label="HomeFragment"
+        android:label="homeFragment"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/marketFragment"
         android:name="com.ssafy.kkaddak.presentation.market.MarketFragment"
-        android:label="MarketFragment"
+        android:label="marketFragment"
         tools:layout="@layout/fragment_market"/>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.ssafy.kkaddak.presentation.profile.ProfileFragment"
-        android:label="ProfileFragment"
+        android:label="profileFragment"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/songListFragment"
         android:name="com.ssafy.kkaddak.presentation.songlist.SongListFragment"
-        android:label="SongListFragment"
+        android:label="songListFragment"
         tools:layout="@layout/fragment_song_list"/>
 
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.ssafy.kkaddak.presentation.wallet.WalletFragment"
-        android:label="WalletFragment"
+        android:label="walletFragment"
         tools:layout="@layout/fragment_wallet"/>
 </navigation>

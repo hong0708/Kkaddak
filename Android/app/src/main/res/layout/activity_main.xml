@@ -12,8 +12,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black">
+            android:layout_height="match_parent">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host"
@@ -23,10 +22,8 @@
                 app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 app:navGraph="@navigation/navigation_main" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,8 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="32dp"
-            android:src="@drawable/ic_menu_home"
             android:backgroundTint="@color/black"
+            android:contentDescription="@string/image_fab_home"
+            android:src="@drawable/ic_menu_home"
             app:fabCustomSize="62dp"
             app:maxImageSize="63dp"
             app:tint="@null" />
