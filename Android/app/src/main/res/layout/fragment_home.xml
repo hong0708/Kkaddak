@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +10,165 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@drawable/bg_home">
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_title_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/tmon_monsori"
+                    android:text="@string/title_home_1"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title_home_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/tmon_monsori"
+                    android:textColor="@color/bitter_sweet"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_home"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_home"
+                    tools:text="세림" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/tmon_monsori"
+                    android:text="@string/title_home_2"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_title_home_nickname"
+                    app:layout_constraintTop_toTopOf="@id/tv_title_home_nickname" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tv_sub_title_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_home_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_home_nickname">
+
+                    <TextView
+                        android:id="@+id/tv_sub_title_home_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_light"
+                        android:text="@string/content_home_1"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_work_count"
+                        app:layout_constraintEnd_toEndOf="@id/tv_work_count"
+                        app:layout_constraintStart_toStartOf="@id/tv_work_count"
+                        app:layout_constraintTop_toBottomOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/tv_work_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sub_title_home_1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gmarket_sans_bold"
+                            android:textColor="@color/han_purple"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gmarket_sans_light"
+                            android:gravity="center"
+                            android:lineSpacingExtra="5dp"
+                            android:text="@string/content_home_2"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_home_nft"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="24dp"
+                    android:contentDescription="@string/image_home_nft"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_sub_title_home"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_home_nickname"
+                    tools:src="@drawable/ic_home_nft" />
+
+                <TextView
+                    android:id="@+id/tv_new_song"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="46dp"
+                    android:fontFamily="@font/tmon_monsori"
+                    android:text="@string/title_home_new_song"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title_home"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_nft" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_new_song"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="@id/tv_new_song"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_song"
+                    tools:listitem="@layout/item_home_new_song" />
+
+                <TextView
+                    android:id="@+id/tv_real_time_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/tmon_monsori"
+                    android:text="@string/title_home_real_time_chart"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintStart_toStartOf="@id/rv_new_song"
+                    app:layout_constraintTop_toBottomOf="@id/rv_new_song" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintStart_toStartOf="@id/tv_real_time_chart"
+                    app:layout_constraintTop_toBottomOf="@id/tv_real_time_chart" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

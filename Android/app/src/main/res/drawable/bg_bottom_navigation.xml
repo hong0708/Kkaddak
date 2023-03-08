@@ -25,4 +25,25 @@
       </gradient>
     </aapt:attr>
   </path>
+  <path
+      android:pathData="M0,16C0,7.16 7.16,0 16,0H344C352.84,0 360,7.16 360,16V63H0V16Z"
+      android:fillColor="#2A3547"
+      android:fillAlpha="0.3"/>
+  <path
+      android:strokeWidth="1"
+      android:pathData="M16,0.5H344C352.56,0.5 359.5,7.44 359.5,16V62.5H0.5V16C0.5,7.44 7.44,0.5 16,0.5Z"
+      android:strokeAlpha="0.5"
+      android:fillColor="#00000000">
+    <aapt:attr name="android:strokeColor">
+      <gradient 
+          android:startX="66.72"
+          android:startY="-41.12"
+          android:endX="133.35"
+          android:endY="87.22"
+          android:type="linear">
+        <item android:offset="0" android:color="#FF444444"/>
+        <item android:offset="1" android:color="#60515151"/>
+      </gradient>
+    </aapt:attr>
+  </path>
 </vector>

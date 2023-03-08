@@ -1,9 +1,33 @@
 <resources>
     <string name="app_name">Kkaddak</string>
+
+    <!-- Main -->
     <string name="content_menu_song_list">목록</string>
     <string name="content_menu_wallet">지갑</string>
     <string name="content_menu_home">홈</string>
     <string name="content_menu_market">마켓</string>
     <string name="content_menu_profile">프로필</string>
     <string name="image_fab_home">image_fab_home</string>
+
+    <!-- Home -->
+    <string name="title_home_1">센스있는 창작가</string>
+    <string name="title_home_new_song">들어봐야 하는 신곡</string>
+    <string name="title_home_real_time_chart">실시간 차트</string>
+    <string name="title_home_2">님!</string>
+    <string name="content_home_1">현재까지</string>
+    <string name="content_home_2">  개의 작품을\n창작하셨군요!</string>
+    <string name="image_home_nft">image_home_nft</string>
+    <string name="image_home_new_song">image_home_new_song</string>
+    <string name="image_home_song_info">image_home_song_info</string>
+    <string name="image_song_play_btn">image_song_play_btn</string>
+
+    <!-- Profile -->
+    <string name="image_btn_to_mypage">image_btn_to_mypage</string>
+    <string name="image_add_song">image_add_song</string>
+    <string name="image_profile">image_profile</string>
+    <string name="title_profile_work">work</string>
+    <string name="title_profile_follower">follower</string>
+    <string name="title_profile_following">following</string>
+    <string name="image_follow_btn">image_follow_btn</string>
+    <string name="title_follow_btn">Follow</string>
 </resources>
