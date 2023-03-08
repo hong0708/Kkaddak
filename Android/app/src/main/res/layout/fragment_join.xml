@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -87,14 +88,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_nick_name">
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:hint="닉네임을 6자 이내로 입력해주세요."
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:fontFamily="@font/gmarket_sans_light"
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:autofillHints="nickname"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:hint="@string/content_join_nick_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="15dp"
+                android:textColor="@color/dark_gray"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_check_nick_name"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_check_nick_name"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius40"
+                android:gravity="center"
+                android:text="@string/content_check_nickname"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gmarket_sans_bold"
-                android:text="시작하기"
+                android:text="@string/content_end_join"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
