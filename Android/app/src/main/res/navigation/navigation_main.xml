@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ssafy.kkaddak.presentation.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.MarketFragment"
+        android:label="MarketFragment"
+        tools:layout="@layout/fragment_market"/>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/songListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.SongListFragment"
+        android:label="SongListFragment"
+        tools:layout="@layout/fragment_song_list"/>
+
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.ssafy.kkaddak.presentation.wallet.WalletFragment"
+        android:label="WalletFragment"
+        tools:layout="@layout/fragment_wallet"/>
+</navigation>
