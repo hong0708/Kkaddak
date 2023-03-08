@@ -9,6 +9,15 @@
     <string name="content_menu_profile">프로필</string>
     <string name="image_fab_home">image_fab_home</string>
 
+    <!-- Splash -->
+    <string name="splash_main">splash_main</string>
+    <string name="content_kakao_login">카카오 계정으로 1초 로그인</string>
+    <string name="image_kakao_login_icon">image_kakao_login_icon</string>
+    <string name="image_arrow_left">image_arrow_left</string>
+    <string name="title_join">회원 정보 입력</string>
+    <string name="image_profile_camera">image_profile_camera</string>
+    <string name="content_nickname">닉네임</string>
+
     <!-- Home -->
     <string name="title_home_1">센스있는 창작가</string>
     <string name="title_home_new_song">들어봐야 하는 신곡</string>
