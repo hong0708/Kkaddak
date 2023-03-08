@@ -6,4 +6,19 @@
     <string name="content_menu_market">마켓</string>
     <string name="content_menu_profile">프로필</string>
     <string name="image_fab_home">image_fab_home</string>
+
+    <!-- Market -->
+    <string name="market_title">Market</string>
+    <string name="market_allnfts">All NFTs</string>
+    <string name="market_selling">Selling</string>
+    <string name="market_bidding">Bidding</string>
+    <string name="market_bookmark">Bookmark</string>
+    <string name="market_like">0</string>
+    <string name="market_creator">창작자</string>
+    <string name="market_contour"> | </string>
+    <string name="market_song_title">노래 제목</string>
+    <string name="market_nft_enddate">23.03.23</string>
+    <string name="market_nft_price">6.64</string>
+    <string name="image_market_notification">image_market_notification</string>
+    <string name="image_market_upload">image_market_upload</string>
 </resources>
