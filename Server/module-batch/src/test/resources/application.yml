@@ -1,0 +1,62 @@
+server:
+  port: 8088
+
+spring:
+  #  빈 정의를 덮어쓰도록 허용하는 방법
+  #  임시 대책이기 때문에 근본대책 필요
+  main:
+    allow-bean-definition-overriding: true
+
+  config:
+    activate:
+      on-profile: batchtest
+  batchdb:
+    datasource:
+      jdbc-url:
+        jdbc:h2:mem:batchdb;
+        MODE=MySQL;
+        DB_CLOSE_DELAY=-1;
+        DB_CLOSE_ON_EXIT=FALSE;
+        IGNORECASE=TRUE;
+        DATABASE_TO_LOWER=TRUE #;INIT=CREATE SCHEMA schema1
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+  coredb:
+    datasource:
+      jdbc-url:
+        jdbc:h2:mem:coredb;
+        MODE=MySQL;DB_CLOSE_DELAY=-1;
+        DB_CLOSE_ON_EXIT=FALSE;
+        IGNORECASE=TRUE;
+        DATABASE_TO_LOWER=TRUE #;INIT=CREATE SCHEMA schema2
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+
+  redis:
+    host: redisdb
+    port: 6379
+    password: kkaddak208!
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  batch:
+    job:
+      enabled: false   # batch server 실행시켰을 때, 실행되는지 아닌지
+    jdbc:
+      isolation-level-for-create: default
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace #show parameter binding
+      SQL: DEBUG
