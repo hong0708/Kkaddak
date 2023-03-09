@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_indigo_to_han_purple_angle270_radius30"
+            android:paddingBottom="33dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:contentDescription="@string/image_delete_page"
+                android:src="@drawable/ic_delete_page"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_image_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="21dp"
+                android:contentDescription="@string/image_download"
+                android:src="@drawable/ic_image_download"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_image_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/image_share"
+                android:src="@drawable/ic_image_share"
+                app:layout_constraintEnd_toStartOf="@id/iv_image_download"
+                app:layout_constraintTop_toTopOf="@id/iv_image_download" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/image_select_home_nft"
+                android:src="@drawable/ic_select_home_nft"
+                app:layout_constraintEnd_toStartOf="@id/iv_image_share"
+                app:layout_constraintTop_toTopOf="@id/iv_image_share" />
+
+            <ImageView
+                android:id="@+id/iv_nft"
+                android:layout_width="165dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/image_nft"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_share"
+                tools:src="@drawable/ic_home_nft" />
+
+            <TextView
+                android:id="@+id/tv_title_song_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@string/title_song_name"
+                android:textColor="@color/very_light_grey"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_nft" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/tv_title_song_name"
+                app:layout_constraintTop_toTopOf="@id/tv_title_song_name"
+                tools:text="까딱까딱" />
+
+            <TextView
+                android:id="@+id/tv_created_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@string/title_created_date"
+                android:textColor="@color/very_light_grey"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_song_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/tv_created_date"
+                app:layout_constraintTop_toTopOf="@id/tv_created_date"
+                tools:text="2023.03.03" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
