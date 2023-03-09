@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -32,8 +31,8 @@
                     android:id="@+id/iv_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_market_notification"
-                    android:contentDescription="@string/image_market_notification"/>
+                    android:contentDescription="@string/image_market_notification"
+                    android:src="@drawable/ic_market_notification" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,48 +61,60 @@
                 android:layout_marginVertical="20dp"
                 android:orientation="horizontal">
 
-                <Button
+                <TextView
+                    android:id="@+id/tv_all_nfts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
+                    android:gravity="center"
                     android:text="@string/market_allnfts"
-                    android:textAllCaps="false"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <Button
+                <TextView
+                    android:id="@+id/tv_selling_nft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
+                    android:gravity="center"
                     android:text="@string/market_selling"
-                    android:textAllCaps="false"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <Button
+                <TextView
+                    android:id="@+id/tv_bidding_nft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
+                    android:gravity="center"
                     android:text="@string/market_bidding"
-                    android:textAllCaps="false"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <Button
+                <TextView
+                    android:id="@+id/tv_bookmark_nft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
+                    android:gravity="center"
                     android:text="@string/market_bookmark"
-                    android:textAllCaps="false"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
