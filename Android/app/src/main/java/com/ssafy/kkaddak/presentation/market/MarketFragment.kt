@@ -11,4 +11,5 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     override fun initView() {
 
     }
+
 }
