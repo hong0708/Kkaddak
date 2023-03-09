@@ -13,8 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_kakao_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -22,13 +22,12 @@
 
             <ImageView
                 android:id="@+id/iv_kakao_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
                 android:contentDescription="@string/image_kakao_login_icon"
-                android:src="@drawable/ic_kakao_login"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_kakao_login" />
 
             <TextView
                 android:id="@+id/tv_kakao_login"
