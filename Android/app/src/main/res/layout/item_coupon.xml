@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="280dp"
+        android:layout_height="160dp"
+        android:background="@drawable/ic_nft_ticket_1" />
+</layout>

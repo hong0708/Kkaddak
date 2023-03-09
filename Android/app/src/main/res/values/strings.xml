@@ -79,4 +79,14 @@
     <string name="image_share">image_share</string>
     <string name="image_select_home_nft">image_select_home_nft</string>
     <string name="image_nft">image_nft</string>
+
+    <!-- My Page -->
+    <string name="title_mypage">MYPAGE</string>
+    <string name="title_favorite_song">내가 좋아한 음악</string>
+    <string name="content_show_entire">전체보기</string>
+    <string name="title_history">히스토리</string>
+    <string name="content_coupon">쿠폰함</string>
+    <string name="content_logout">로그아웃</string>
+    <string name="title_coupon">쿠폰함</string>
+    <string name="content_exchange_nft">NFT로 교환하시겠습니까?</string>
 </resources>

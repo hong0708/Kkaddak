@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="145dp"
+        android:layout_height="145dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/image_home_new_song"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_home_nft" />
+
+        <ImageView
+            android:id="@+id/iv_song_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:contentDescription="@string/image_home_song_info"
+            android:src="@drawable/bg_mypage_song"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/iv_song_info"
+            app:layout_constraintTop_toTopOf="@id/iv_song_info"
+            tools:text="Out of time" />
+
+        <TextView
+            android:id="@+id/tv_song_creator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/gmarket_sans_light"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/tv_song_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_song_title"
+            tools:text="The Weekend"
+            tools:ignore="SmallSp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
