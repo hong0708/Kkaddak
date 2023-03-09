@@ -9,9 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bitter_sweet">#FF6161</color>
     <color name="han_purple">#530FFF</color>
+    <color name="indigo">#65188D</color>
     <color name="neon_pink">#FF61D6</color>
     <color name="nobel">#999999</color>
+    <color name="dark_gray">#AAAAAA</color>
+    <color name="spun_pearl">#A5A5A6</color>
+    <color name="dim_gray">#656565</color>
     <color name="night_rider">#303030</color>
     <color name="charcoal">#494949</color>
     <color name="nero">#282828</color>
+    <color name="very_light_grey">#CBCBCB</color>
 </resources>

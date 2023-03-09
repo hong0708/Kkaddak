@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -7,7 +9,244 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <TextView
+            android:id="@+id/tv_profile_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="33dp"
+            android:fontFamily="@font/gmarket_sans_bold"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="갱갱" />
+
+        <ImageView
+            android:id="@+id/iv_btn_to_mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="30dp"
+            android:contentDescription="@string/image_btn_to_mypage"
+            android:src="@drawable/ic_profile_btn_to_mypage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="22dp"
+            android:src="@drawable/ic_add_song"
+            android:contentDescription="@string/image_add_song"
+            app:layout_constraintEnd_toStartOf="@+id/iv_btn_to_mypage"
+            app:layout_constraintTop_toTopOf="@id/iv_btn_to_mypage" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profile_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/iv_btn_to_mypage"
+            app:layout_constraintStart_toStartOf="@id/tv_profile_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname">
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_marginTop="43dp"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/image_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_menu_home" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_profile_detail_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="43dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_profile_work"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_profile_work_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_bold"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_profile_work"
+                        app:layout_constraintEnd_toEndOf="@id/tv_profile_work"
+                        app:layout_constraintStart_toStartOf="@id/tv_profile_work"
+                        tools:text="10" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:text="@string/title_profile_work"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_profile_follower"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintEnd_toStartOf="@id/cl_profile_following"
+                    app:layout_constraintStart_toEndOf="@id/cl_profile_work"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_profile_follower_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_bold"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_profile_follower"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="100" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_follower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:text="@string/title_profile_follower"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_profile_following"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_profile_following_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_bold"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_profile_following"
+                        app:layout_constraintEnd_toEndOf="@id/tv_profile_following"
+                        app:layout_constraintStart_toStartOf="@id/tv_profile_following"
+                        tools:text="200" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_following"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:text="@string/title_profile_following"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_follow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_profile_follow"
+                android:contentDescription="@string/image_follow_btn"
+                app:layout_constraintEnd_toEndOf="@id/cl_profile_detail_info"
+                app:layout_constraintStart_toStartOf="@id/cl_profile_detail_info"
+                app:layout_constraintTop_toBottomOf="@id/cl_profile_detail_info" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/title_follow_btn"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_follow"
+                app:layout_constraintEnd_toEndOf="@id/iv_follow"
+                app:layout_constraintStart_toStartOf="@id/iv_follow"
+                app:layout_constraintTop_toTopOf="@id/iv_follow" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_profile_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/cl_profile_info"
+            app:layout_constraintStart_toStartOf="@id/cl_profile_info"
+            app:layout_constraintTop_toBottomOf="@id/cl_profile_info"
+            tools:text="gang gang! 트렌디한 음악가 갱갱입니당~!\n팔로우해주세용!" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_description"
+            app:tabIconTint="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorHeight="2dp"
+            app:tabTextColor="@color/white">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_profile_tab_song" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_profile_tab_nft" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_curation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tl_profile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

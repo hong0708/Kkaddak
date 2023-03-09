@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_kakao_login"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_kakao_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:contentDescription="@string/image_kakao_login_icon"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_kakao_login" />
+
+            <TextView
+                android:id="@+id/tv_kakao_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:gravity="center"
+                android:text="@string/content_kakao_login"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_kakao_login"
+                app:layout_constraintEnd_toEndOf="@id/iv_kakao_login"
+                app:layout_constraintStart_toStartOf="@id/iv_kakao_login"
+                app:layout_constraintTop_toTopOf="@id/iv_kakao_login" />
+
+            <ImageView
+                android:id="@+id/iv_kakao_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/image_kakao_login_icon"
+                android:src="@drawable/ic_kakao_login_icon"
+                app:layout_constraintBottom_toBottomOf="@id/iv_kakao_login"
+                app:layout_constraintEnd_toStartOf="@id/tv_kakao_login"
+                app:layout_constraintTop_toTopOf="@id/iv_kakao_login" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
