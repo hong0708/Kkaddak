@@ -9,6 +9,22 @@
     <string name="content_menu_profile">프로필</string>
     <string name="image_fab_home">image_fab_home</string>
 
+    <!-- Splash -->
+    <string name="splash_main">splash_main</string>
+    <string name="content_kakao_login">카카오 계정으로 1초 로그인</string>
+    <string name="image_kakao_login_icon">image_kakao_login_icon</string>
+    <string name="image_arrow_left">image_arrow_left</string>
+    <string name="title_join">회원 정보 입력</string>
+    <string name="image_profile_camera">image_profile_camera</string>
+    <string name="content_nickname">닉네임</string>
+    <string name="content_join_nick_name">닉네임을 6자 이내로 입력해주세요.</string>
+    <string name="content_complete_join_kka">까</string>
+    <string name="content_complete_join_ddak">딱</string>
+    <string name="content_complete_join1">에 오신 것을</string>
+    <string name="content_complete_join2">환영합니다! \n 당신의 취향을 찾고 \n 공유해보세요!</string>
+    <string name="content_end_join">시작하기</string>
+    <string name="content_check_nickname">중복 체크</string>
+
     <!-- Home -->
     <string name="title_home_1">센스있는 창작가</string>
     <string name="title_home_new_song">들어봐야 하는 신곡</string>
