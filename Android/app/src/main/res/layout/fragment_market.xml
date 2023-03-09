@@ -42,7 +42,7 @@
                     android:layout_toStartOf="@+id/iv_upload"
                     android:layout_toEndOf="@+id/iv_notification"
                     android:fontFamily="@font/gmarket_sans_bold"
-                    android:text="@string/market_title"
+                    android:text="@string/title_market"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
                     android:gravity="center"
-                    android:text="@string/market_allnfts"
+                    android:text="@string/content_market_allnfts"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
                     android:gravity="center"
-                    android:text="@string/market_selling"
+                    android:text="@string/content_market_selling"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
                     android:gravity="center"
-                    android:text="@string/market_bidding"
+                    android:text="@string/content_market_bidding"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_market_btn"
                     android:gravity="center"
-                    android:text="@string/market_bookmark"
+                    android:text="@string/content_market_bookmark"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
