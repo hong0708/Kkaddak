@@ -50,4 +50,14 @@
     <!-- Update Profile -->
     <string name="title_update_profile">회원 정보 수정</string>
     <string name="content_update_profile">수정하기</string>
+    <string name="content_register_nft">홈 화면에 등록하시겠습니까?\n기존 NFT가 대체됩니다.</string>
+    <string name="content_confirm">확인</string>
+    <string name="content_cancel">취소</string>
+    <string name="title_song_name">노래 제목</string>
+    <string name="title_created_date">창작 날짜</string>
+    <string name="image_delete_page">image_delete_page</string>
+    <string name="image_download">image_download</string>
+    <string name="image_share">image_share</string>
+    <string name="image_select_home_nft">image_select_home_nft</string>
+    <string name="image_nft">image_nft</string>
 </resources>
