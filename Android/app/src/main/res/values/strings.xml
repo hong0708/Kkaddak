@@ -102,4 +102,21 @@
     <string name="content_logout">로그아웃</string>
     <string name="title_coupon">쿠폰함</string>
     <string name="content_exchange_nft">NFT로 교환하시겠습니까?</string>
+    <string name="title_playlist">PLAYLIST</string>
+
+    <!-- Playlist -->
+    <string name="image_song">image_song</string>
+    <string name="image_song_delete_btn">image_song_delete_btn</string>
+    <string name="content_delete_song">음악을\n플레이리스트에서\n삭제하시겠습니까?</string>
+    <string name="image_playlist_to_detail">image_playlist_to_detail</string>
+
+    <!-- Song List -->
+    <string name="content_genre_dance">댄스</string>
+    <string name="content_genre_hiphop">힙합</string>
+    <string name="content_genre_rb"><![CDATA[R&B]]></string>
+    <string name="content_genre_indie">인디</string>
+    <string name="content_genre_rock">록</string>
+    <string name="content_genre_jazz">재즈</string>
+    <string name="content_genre_classic">클래식</string>
+    <string name="content_search_song">제목과 창작자로 검색해보세요!</string>
 </resources>
