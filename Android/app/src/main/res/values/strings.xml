@@ -109,6 +109,10 @@
     <string name="image_song_delete_btn">image_song_delete_btn</string>
     <string name="content_delete_song">음악을\n플레이리스트에서\n삭제하시겠습니까?</string>
     <string name="image_playlist_to_detail">image_playlist_to_detail</string>
+    <string name="image_song_detail_favorite">image_song_detail_favorite</string>
+    <string name="image_previous_song">image_previous_song</string>
+    <string name="image_song_play">image_song_play</string>
+    <string name="image_next">image_next</string>
 
     <!-- Song List -->
     <string name="content_genre_dance">댄스</string>
