@@ -14,9 +14,12 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_image_radius48"
+            android:clipToOutline="true"
             android:contentDescription="@string/image_home_new_song"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_home_nft" />
+            tools:srcCompat="@tools:sample/avatars"
+            tools:targetApi="s" />
 
         <ImageView
             android:id="@+id/iv_song_info"
@@ -50,8 +53,8 @@
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/tv_song_title"
             app:layout_constraintTop_toBottomOf="@id/tv_song_title"
-            tools:text="The Weekend"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            tools:text="The Weekend" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
