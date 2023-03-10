@@ -127,7 +127,7 @@
     <string name="content_music_upload">업로드</string>
     <string name="content_music_cancel">취소</string>
     <string name="content_cover_picture">커버 사진</string>
-    <string name="music_cover_picture">music_cover_picture</string>
+    <string name="image_music_cover">image_music_cover</string>
     <string name="content_music_cover_info">음악을 대표할 수 있는\n커버 사진을 등록해주세요!</string>
     <string name="title_music_genre">장르</string>
     <string name="title_music_atmosphere">분위기</string>
