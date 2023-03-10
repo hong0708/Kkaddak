@@ -89,4 +89,11 @@
     <string name="content_logout">로그아웃</string>
     <string name="title_coupon">쿠폰함</string>
     <string name="content_exchange_nft">NFT로 교환하시겠습니까?</string>
+    <string name="title_playlist">PLAYLIST</string>
+
+    <!-- Playlist -->
+    <string name="image_song">image_song</string>
+    <string name="image_song_delete_btn">image_song_delete_btn</string>
+    <string name="content_delete_song">음악을\n플레이리스트에서\n삭제하시겠습니까?</string>
+    <string name="image_playlist_to_detail">image_playlist_to_detail</string>
 </resources>
