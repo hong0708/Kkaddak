@@ -65,6 +65,20 @@
     <string name="title_profile_following">following</string>
     <string name="image_follow_btn">image_follow_btn</string>
     <string name="title_follow_btn">Follow</string>
+    <string name="title_wallet">WALLET</string>
+    <string name="content_total_balance">Total Balance(ETC)</string>
+    <string name="content_charge">충전하기</string>
+    <string name="content_recent_transaction">최근 거래 내역</string>
+    <string name="title_charge_amount">충전 금액</string>
+    <string name="content_krw">KRW</string>
+    <string name="title_exchange_amount">변환 금액</string>
+    <string name="content_eth">ETH</string>
+    <string name="content_market_price">현재 시세를 적용한 변환 금액입니다.</string>
+    <string name="content_payment_confirm">결제하기</string>
+    <string name="content_payment_cancel">취소</string>
+
+    <!-- Wallet -->
+
 
     <!-- Update Profile -->
     <string name="title_update_profile">회원 정보 수정</string>
