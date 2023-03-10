@@ -119,4 +119,24 @@
     <string name="content_genre_jazz">재즈</string>
     <string name="content_genre_classic">클래식</string>
     <string name="content_search_song">제목과 창작자로 검색해보세요!</string>
+
+    <!-- Upload Music -->
+    <string name="title_upload_music">업로드</string>
+    <string name="title_music_title">제목</string>
+    <string name="title_music_file">파일</string>
+    <string name="content_music_upload">업로드</string>
+    <string name="content_music_cancel">취소</string>
+    <string name="content_cover_picture">커버 사진</string>
+    <string name="music_cover_picture">music_cover_picture</string>
+    <string name="content_music_cover_info">음악을 대표할 수 있는\n커버 사진을 등록해주세요!</string>
+    <string name="title_music_genre">장르</string>
+    <string name="title_music_atmosphere">분위기</string>
+    <string name="title_music_atmosphere_funny">신나는</string>
+    <string name="title_music_atmosphere_tranquil">차분한</string>
+    <string name="title_music_atmosphere_comfortable">편안한</string>
+    <string name="title_music_atmosphere_dark">어두운</string>
+    <string name="title_music_atmosphere_fresh">상큼한</string>
+    <string name="title_music_atmosphere_sentimental">감성적인</string>
+    <string name="title_music_atmosphere_hip">힙한</string>
+    <string name="content_register_music">등록하기</string>
 </resources>

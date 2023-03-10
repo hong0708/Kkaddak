@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gmarket_sans_bold"
-            android:text="업로드"
+            android:text="@string/title_upload_music"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
@@ -36,11 +36,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_back" />
 
-
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/cl_confirm_upload"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_upload">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="제목"
+                    android:text="@string/title_music_title"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +66,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:autofillHints="no"
-                    android:background="@drawable/bg_rect_stroke1_neon_pink50_radius10"
+                    android:background="@drawable/bg_rect_stroke1_neon_pink50_nero_radius10"
                     android:fontFamily="@font/gmarket_sans_medium"
                     android:inputType="text"
                     android:paddingStart="15dp"
@@ -77,13 +78,329 @@
                     tools:ignore="LabelFor,RtlSymmetry"
                     tools:text="까딱까딱" />
 
+                <TextView
+                    android:id="@+id/tv_music_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/title_music_file"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_music_title" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_music_file"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/nero"
+                    app:layout_constraintTop_toBottomOf="@id/tv_music_file">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:autofillHints="no"
+                        android:background="@drawable/bg_rect_stroke1_neon_pink50_radius10"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:inputType="text"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="110dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="LabelFor,RtlSymmetry"
+                        tools:text="까딱까딱" />
+
+                    <TextView
+                        android:id="@+id/tv_upload_music"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius40"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:gravity="center"
+                        android:text="@string/content_music_upload"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cancel_upload_music"
+                        android:layout_width="45dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="7dp"
+                        android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius40"
+                        android:fontFamily="@font/gmarket_sans_medium"
+                        android:gravity="center"
+                        android:text="@string/content_music_cancel"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_upload_music"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_music_cover_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/content_cover_picture"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_music_file" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_music_cover"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/nero"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_music_cover_picture">
+
+                    <ImageView
+                        android:id="@+id/iv_camera_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="@string/music_cover_picture"
+                        android:src="@drawable/ic_camera"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_music_cover_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:fontFamily="@font/gmarket_sans_light"
+                    android:text="@string/content_music_cover_info"
+                    android:textColor="@color/bitter_sweet"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_music_cover"
+                    app:layout_constraintStart_toEndOf="@id/cl_music_cover" />
+
+                <TextView
+                    android:id="@+id/tv_genre_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/title_music_genre"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_music_cover" />
+
+                <LinearLayout
+                    android:id="@+id/ll_genre_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/tv_genre_title">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_indigo_to_navy_blue_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_dance"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_hiphop"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_rb"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_indie"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_rock"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_jazz"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_classic"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_atmosphere_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/title_music_atmosphere"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_genre_list" />
+
+                <LinearLayout
+                    android:id="@+id/ll_atmosphere_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/tv_atmosphere_title">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_indigo_to_navy_blue_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_funny"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_tranquil"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_comfortable"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_dark"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_fresh"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_sentimental"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/title_music_atmosphere_hip"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_confirm"
+            android:id="@+id/cl_confirm_upload"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
@@ -95,7 +412,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gmarket_sans_bold"
-                android:text="등록하기"
+                android:text="@string/content_register_music"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
