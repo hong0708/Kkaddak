@@ -55,6 +55,10 @@
     <string name="image_home_new_song">image_home_new_song</string>
     <string name="image_home_song_info">image_home_song_info</string>
     <string name="image_song_play_btn">image_song_play_btn</string>
+    <string name="image_home_play_info">image_home_play_info</string>
+    <string name="image_home_play_info_next">image_home_play_info_next</string>
+    <string name="image_home_play_info_state">image_home_play_info_state</string>
+    <string name="image_home_play_info_favorite">image_home_play_info_favorite</string>
 
     <!-- Profile -->
     <string name="image_btn_to_mypage">image_btn_to_mypage</string>
