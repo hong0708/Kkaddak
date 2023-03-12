@@ -11,6 +11,7 @@
 
     <!-- Market -->
     <string name="title_market">Market</string>
+    <string name="content_market_noti_count">0</string>
     <string name="content_market_allnfts">All NFTs</string>
     <string name="content_market_selling">Selling</string>
     <string name="content_market_bidding">Bidding</string>
