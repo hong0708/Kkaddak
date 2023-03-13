@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.data.remote.datasource.user
 
+import com.ssafy.kkaddak.data.remote.service.UserApiService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
