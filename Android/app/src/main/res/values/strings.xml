@@ -157,4 +157,9 @@
     <string name="title_music_atmosphere_sentimental">감성적인</string>
     <string name="title_music_atmosphere_hip">힙한</string>
     <string name="content_register_music">등록하기</string>
+    <string name="image_upload_nft_image">image_upload_nft_image</string>
+    <string name="content_upload_min_bid_eth">content_upload_min_bid_eth</string>
+    <string name="content_select_nft_image">content_select_nft_image</string>
+    <string name="content_select_end_date">content_select_end_date</string>
+    <string name="image_upload_nft_item">image_upload_nft_item</string>
 </resources>
