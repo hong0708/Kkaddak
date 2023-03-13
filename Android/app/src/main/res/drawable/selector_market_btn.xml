@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_market_btn_selected" android:state_selected="true" />
-    <item android:drawable="@drawable/ic_market_btn" android:state_selected="false" />
+    <item android:drawable="@drawable/bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2" android:state_checked="true" />
+    <item android:drawable="@drawable/bg_rect_bastille_radius50" android:state_checked="false" />
 </selector>

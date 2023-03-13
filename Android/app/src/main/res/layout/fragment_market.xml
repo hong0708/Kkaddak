@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,115 +10,169 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:padding="20dp">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:padding="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/ll_market_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:clipChildren="false"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/image_market_notification"
-                    android:src="@drawable/ic_market_notification" />
+                    android:src="@drawable/ic_market_notification"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
+                    android:id="@+id/tv_market_noti_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="106dp"
-                    android:layout_marginEnd="107dp"
-                    android:layout_toStartOf="@+id/iv_upload"
-                    android:layout_toEndOf="@+id/iv_notification"
-                    android:fontFamily="@font/gmarket_sans_bold"
-                    android:text="@string/market_title"
+                    android:gravity="center"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/content_market_noti_count"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:textSize="24sp" />
+                    android:background="@drawable/bg_circle_torch_red"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/iv_notification"
+                    android:visibility="invisible"/>
 
-                <ImageView
-                    android:id="@+id/iv_upload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:contentDescription="@string/image_market_upload"
-                    android:src="@drawable/ic_market_upload" />
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+
+            <Space
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20dp"
-                android:orientation="horizontal">
+                android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/tv_all_nfts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_market_btn"
-                    android:gravity="center"
-                    android:text="@string/market_allnfts"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_title_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/title_market"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@id/iv_upload"
+                app:layout_constraintStart_toEndOf="@id/iv_notification"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/tv_selling_nft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_market_btn"
-                    android:gravity="center"
-                    android:text="@string/market_selling"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tv_bidding_nft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_market_btn"
-                    android:gravity="center"
-                    android:text="@string/market_bidding"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tv_bookmark_nft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_market_btn"
-                    android:gravity="center"
-                    android:text="@string/market_bookmark"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/image_market_upload"
+                android:src="@drawable/ic_market_upload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_market_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@id/rv_market_nft_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_market_header">
+
+            <TextView
+                android:id="@+id/tv_all_nfts"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/selector_market_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/content_market_allnfts"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:clickable="true"
+                app:layout_constraintEnd_toStartOf="@id/tv_selling_nft"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore= "TouchTargetSizeCheck"/>
+
+            <TextView
+                android:id="@+id/tv_selling_nft"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/selector_market_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/content_market_selling"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_bidding_nft"
+                app:layout_constraintStart_toEndOf="@id/tv_all_nfts"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bidding_nft"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/selector_market_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/content_market_bidding"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_bookmark_nft"
+                app:layout_constraintStart_toEndOf="@id/tv_selling_nft"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bookmark_nft"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/selector_market_btn"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@string/content_market_bookmark"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_bidding_nft"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_market_nft_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_market_btn"
+            app:layoutManager="GridLayoutManager"
+            app:spanCount="2">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

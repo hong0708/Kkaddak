@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_rect_eclipse_radius20"
-    android:orientation="vertical">
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#383838">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,9 +20,8 @@
                 android:id="@+id/iv_nft_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rect_radius20_nft_image"
-                android:src="@drawable/ic_nft_mockup"
                 android:contentDescription="@string/image_nft_item"
+                android:src="@drawable/ic_nft_mockup1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -31,19 +30,20 @@
                 android:id="@+id/ll_nft_like"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_rect_bastille_radius30"
                 android:gravity="center"
                 android:padding="3dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_rect_bastille_radius30"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_nft_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/image_nft_like"
-                    android:background="@drawable/selector_market_like" />
+                    android:background="@drawable/selector_market_like"
+                    android:contentDescription="@string/image_nft_like" />
 
                 <Space
                     android:layout_width="0dp"
@@ -55,9 +55,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="2dp"
-                    android:text="@string/market_like"
-                    android:textSize="8.5sp"
+                    android:text="@string/content_market_like"
                     android:textColor="@color/black"
+                    android:textSize="8.5sp"
                     tools:ignore="SmallSp" />
 
             </LinearLayout>
@@ -70,8 +70,8 @@
             android:orientation="vertical"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_nft_item">
 
             <LinearLayout
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@string/market_creator"
+                    android:text="@string/content_market_creator"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="3dp"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@string/market_contour"
+                    android:text="@string/content_market_contour"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@string/market_song_title"
+                    android:text="@string/content_market_song_title"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="3dp"
                     android:background="@drawable/ic_timer"
-                    android:contentDescription="@string/image_action_timer"/>
+                    android:contentDescription="@string/image_action_timer" />
 
                 <TextView
                     android:id="@+id/tv_nft_action_date"
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gmarket_sans_medium"
                     android:gravity="center"
-                    android:text="@string/market_nft_enddate"
+                    android:text="@string/content_market_nft_enddate"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="3dp"
                     android:background="@drawable/ic_ethereum"
-                    android:contentDescription="@string/image_ethereum"/>
+                    android:contentDescription="@string/image_ethereum" />
 
                 <TextView
                     android:id="@+id/tv_nft_action_price"
@@ -157,7 +157,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gmarket_sans_medium"
                     android:gravity="center"
-                    android:text="@string/market_nft_price"
+                    android:text="@string/content_market_nft_price"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
@@ -165,4 +165,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
