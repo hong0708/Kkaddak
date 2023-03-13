@@ -1,4 +1,4 @@
-package com.example.kkaddak.api.service;
+package com.example.kkaddak.core.service;
 
 
 import lombok.RequiredArgsConstructor;
