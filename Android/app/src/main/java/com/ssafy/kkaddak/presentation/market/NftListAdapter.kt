@@ -17,12 +17,9 @@ class NftItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as NftItemViewHolder).onBind(listData[position])
-
     }
 
-    override fun getItemCount(): Int {
-        return listData.size
-    }
+    override fun getItemCount(): Int = listData.size
 
     fun addItem(data: NftItem) {
         // 외부에서 item을 추가시킬 함수입니다.
