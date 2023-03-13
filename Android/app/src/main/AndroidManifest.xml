@@ -16,8 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kkaddak"
         tools:targetApi="31">
+        <activity android:name=".presentation.splash.SplashActivity"/>
         <activity
-            android:name=".presentation.splash.SplashActivity"
+            android:name=".presentation.join.InitActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +44,6 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
-
 
             <meta-data
                 android:name="android.app.lib_name"

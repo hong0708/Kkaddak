@@ -16,9 +16,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private val joinViewModel by viewModels<JoinViewModel>()
     private val callback = initKakaoLoginCallback()
 
-    override fun initView() {
-
-    }
+    override fun initView() {}
 
     private fun initListener() {
         binding.clKakaoLogin.setOnClickListener {
