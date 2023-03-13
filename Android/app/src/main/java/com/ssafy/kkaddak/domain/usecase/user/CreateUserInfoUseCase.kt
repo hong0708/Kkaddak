@@ -1,5 +1,8 @@
 package com.ssafy.kkaddak.domain.usecase.user
 
+import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.domain.entity.user.User
+import com.ssafy.kkaddak.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody

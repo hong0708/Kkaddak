@@ -4,6 +4,8 @@ import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.user.User
+import com.ssafy.kkaddak.domain.entity.user.UserProfile
+import com.ssafy.kkaddak.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 import javax.inject.Inject
