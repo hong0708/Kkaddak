@@ -29,6 +29,15 @@
     <string name="image_action_timer">image_action_timer</string>
     <string name="image_ethereum">image_ethereum</string>
 
+    <!-- upload Market -->
+    <string name="title_upload_market">경매 등록</string>
+    <string name="content_upload_nft_image">NFT 선택</string>
+    <string name="content_select_nft">선택하기</string>
+    <string name="content_end_date">마감 날짜</string>
+    <string name="content_min_bid_eth">최소 입찰 금액</string>
+    <string name="content_ethereum">ETH</string>
+    <string name="content_upload_nft">등록하기</string>
+
     <!-- Splash -->
     <string name="splash_main">splash_main</string>
     <string name="content_kakao_login">카카오 계정으로 1초 로그인</string>
