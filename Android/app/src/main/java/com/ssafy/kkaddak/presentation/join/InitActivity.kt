@@ -6,7 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.ActivityInitBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InitActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInitBinding
