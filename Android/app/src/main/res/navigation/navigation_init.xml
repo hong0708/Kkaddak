@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_joinFragment_to_completeJoinFragment"
             app:destination="@id/completeJoinFragment" />
+        <action
+            android:id="@+id/action_joinFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment

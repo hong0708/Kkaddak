@@ -13,22 +13,18 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun createUserInfo(
         nickName: String,
-        profileImg: MultipartBody.Part?,
-        fcmToken: String
+        profileImg: MultipartBody.Part?
     ): UserResponse {
         val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
         map["nickName"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
-        map["fcmToken"] = fcmToken.toRequestBody("text/plain".toMediaTypeOrNull())
         return userApiService.createUserInfo(map, profileImg)
     }
 
     override suspend fun createUserInfoWithoutImg(
-        nickName: String,
-        fcmToken: String
+        nickName: String
     ): UserResponse {
         val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
         map["nickName"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
-        map["fcmToken"] = fcmToken.toRequestBody("text/plain".toMediaTypeOrNull())
         return userApiService.createUserInfo(map, null)
     }
 

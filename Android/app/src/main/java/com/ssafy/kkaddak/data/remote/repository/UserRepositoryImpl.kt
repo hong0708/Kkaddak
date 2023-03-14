@@ -16,19 +16,17 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun createUserInfo(
         nickName: String,
-        profileImg: MultipartBody.Part?,
-        fcmToken: String
+        profileImg: MultipartBody.Part?
     ): Resource<User> =
         wrapToResource(Dispatchers.IO) {
-            userRemoteDataSource.createUserInfo(nickName, profileImg, fcmToken).toDomainModel()
+            userRemoteDataSource.createUserInfo(nickName, profileImg).toDomainModel()
         }
 
     override suspend fun createUserInfoWithoutImg(
-        nickName: String,
-        fcmToken: String
+        nickName: String
     ): Resource<User> =
         wrapToResource(Dispatchers.IO) {
-            userRemoteDataSource.createUserInfoWithoutImg(nickName, fcmToken).toDomainModel()
+            userRemoteDataSource.createUserInfoWithoutImg(nickName).toDomainModel()
         }
 
     override suspend fun checkDuplication(nickName: String): Resource<Boolean> =
