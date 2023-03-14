@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class MemberDetails extends User {
 
-    private final Member member;
+private final Member member;
 
     public MemberDetails(Member member) {
         super(member.getEmail(), "", List.of(new SimpleGrantedAuthority("USER")));
