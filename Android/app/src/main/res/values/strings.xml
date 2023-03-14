@@ -37,6 +37,28 @@
     <string name="content_min_bid_eth">최소 입찰 금액</string>
     <string name="content_ethereum">ETH</string>
     <string name="content_upload_nft">등록하기</string>
+    <string name="image_upload_nft_image">image_upload_nft_image</string>
+    <string name="content_upload_min_bid_eth">content_upload_min_bid_eth</string>
+    <string name="content_select_nft_image">content_select_nft_image</string>
+    <string name="content_select_end_date">content_select_end_date</string>
+    <string name="image_upload_nft_item">image_upload_nft_item</string>
+
+    <!-- biding market-->
+    <string name="title_bid_song_title">까딱까딱</string>
+    <string name="content_by">by</string>
+    <string name="content_bid_creator">갱갱</string>
+    <string name="content_min_eth">최소 금액</string>
+    <string name="content_bid_min_eth">0.008</string>
+    <string name="content_deadline">마감 기한</string>
+    <string name="content_bid_deadline">2023.03.04</string>
+    <string name="content_my_eth">내 입찰가</string>
+    <string name="content_bid_my_eth">0.015</string>
+    <string name="content_bid_nft">입찰하기</string>
+    <string name="content_holding_eth">보유 금액</string>
+    <string name="content_bid_holding_eth">0.135</string>
+    <string name="content_bidding_eth">입찰 금액</string>
+    <string name="content_bid_bidding_eth">0.15</string>
+
 
     <!-- Splash -->
     <string name="splash_main">splash_main</string>
@@ -157,9 +179,9 @@
     <string name="title_music_atmosphere_sentimental">감성적인</string>
     <string name="title_music_atmosphere_hip">힙한</string>
     <string name="content_register_music">등록하기</string>
-    <string name="image_upload_nft_image">image_upload_nft_image</string>
-    <string name="content_upload_min_bid_eth">content_upload_min_bid_eth</string>
-    <string name="content_select_nft_image">content_select_nft_image</string>
-    <string name="content_select_end_date">content_select_end_date</string>
-    <string name="image_upload_nft_item">image_upload_nft_item</string>
+    <string name="image_bid_nft_image">image_bid_nft_image</string>
+    <string name="image_bid_nft_like">image_bid_nft_like</string>
+    <string name="image_bid_nft_creator_profile">image_bid_nft_creator_profile</string>
+    <string name="image_focusing_end_date">image_focusing_end_date</string>
+
 </resources>

@@ -14,7 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="300dp"
             android:layout_height="500dp"
-            android:background="@drawable/bg_rect_charcoal_radius30"
+            android:background="@drawable/bg_rect_trans25_charcoal_radius30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
