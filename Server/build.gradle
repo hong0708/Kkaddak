@@ -33,7 +33,6 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-log4j2'   // log4j2
-        implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.3'   // log4j2
 
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -77,6 +76,7 @@ project(':module-core'){
     jar { enabled = true }
 
     dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.3'
         //Redis
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     }
@@ -90,10 +90,13 @@ project(':module-api') {
         implementation project(':module-core') // 컴파일 시 module-core project 로딩
         implementation 'org.springframework.boot:spring-boot-starter-web'
 
+        // [JWT]
+        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+        implementation 'org.springframework.security:spring-security-core:5.7.6'
+
 //        //swagger
 //        implementation 'io.springfox:springfox-boot-starter:3.0.0'
 //        implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
     }
 }
 
@@ -108,8 +111,9 @@ project(':module-batch'){
         // batch 관련 의존성
         implementation 'org.springframework.boot:spring-boot-starter-batch'
         testImplementation 'org.springframework.batch:spring-batch-test'
-    }
 
+
+    }
 }
 
 

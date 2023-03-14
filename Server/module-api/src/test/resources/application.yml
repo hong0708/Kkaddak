@@ -43,7 +43,11 @@ spring:
     # 어플리케이션 실행 시점에서 데이터베이스 연결이 아직 준비되지 않았더라도 예외가 발생 안함. 어플리케이션 안전성과 신뢰성 높임
     defer-datasource-initialization: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-
+  jwt:
+    key: service-key
+    live:
+      atk : 12096000000 # 2WN
+      rtk : 12096000000  #2주
   redis:
     host: redisdb
     port: 6379
