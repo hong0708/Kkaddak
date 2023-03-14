@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ssafy.kkaddak.presentation.join.JoinViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,9 +50,10 @@
 
             <ImageView
                 android:id="@+id/iv_profile_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:contentDescription="@string/image_profile"
+                android:profileImgUri="@{viewModel.profileImgUri}"
                 android:src="@drawable/ic_profile_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,8 +61,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_profile_camera_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:contentDescription="@string/image_profile_camera"
                 android:src="@drawable/ic_profile_camera_circle"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_nick_name">
 
             <EditText
+                android:id="@+id/et_check_nick_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:autofillHints="nickname"

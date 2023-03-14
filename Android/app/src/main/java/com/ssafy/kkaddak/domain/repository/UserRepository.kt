@@ -8,11 +8,10 @@ import okhttp3.MultipartBody
 interface UserRepository {
     suspend fun createUserInfo(
         nickName: String,
-        profileImg: MultipartBody.Part?,
-        fcmToken: String
+        profileImg: MultipartBody.Part?
     ): Resource<User>
 
-    suspend fun createUserInfoWithoutImg(nickName: String, fcmToken: String): Resource<User>
+    suspend fun createUserInfoWithoutImg(nickName: String): Resource<User>
 
     suspend fun checkDuplication(nickName: String): Resource<Boolean>
 

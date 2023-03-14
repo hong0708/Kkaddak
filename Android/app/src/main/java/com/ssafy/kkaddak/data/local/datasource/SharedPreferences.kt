@@ -18,6 +18,9 @@ class SharedPreferences(context: Context) {
         get() = prefs.getBoolean("isLoggedIn", false)
         set(value) = prefs.edit().putBoolean("isLoggedIn", value).apply()
 
+    var nickname: String?
+        get() = prefs.getString("nickname", null)
+        set(value) = prefs.edit().putString("nickname", value).apply()
 
     fun clearPreferences() {
         prefs.edit().clear().apply()
