@@ -63,10 +63,3 @@ custom:
   path:
     upload-images: '/var/lib/images'
 
-
-
-  #  flyway 설정으로 대체 가능한지 확인해야 함
-  #  sql:
-  #    init:
-  #      mode: always
-

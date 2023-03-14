@@ -21,7 +21,7 @@ Configutation:
       AppenderRef:
         - ref: Console_Appender
     Logger:
-      - name: com.campinity
+      - name: com.kkaddak
         additivity: false
         level: debug
         AppenderRef:
