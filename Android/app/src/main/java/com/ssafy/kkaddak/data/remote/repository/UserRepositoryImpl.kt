@@ -6,7 +6,6 @@ import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.user.User
 import com.ssafy.kkaddak.domain.entity.user.UserProfile
 import com.ssafy.kkaddak.domain.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -18,29 +17,29 @@ class UserRepositoryImpl @Inject constructor(
         nickName: String,
         profileImg: MultipartBody.Part?
     ): Resource<User> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             userRemoteDataSource.createUserInfo(nickName, profileImg).toDomainModel()
         }
 
     override suspend fun createUserInfoWithoutImg(
         nickName: String
     ): Resource<User> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             userRemoteDataSource.createUserInfoWithoutImg(nickName).toDomainModel()
         }
 
     override suspend fun checkDuplication(nickName: String): Resource<Boolean> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             userRemoteDataSource.checkDuplication(nickName)
         }
 
     override suspend fun cancelSignUp(): Resource<Boolean> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             userRemoteDataSource.cancelSignUp()
         }
 
     override suspend fun getUserProfile(): Resource<UserProfile> =
-        wrapToResource(Dispatchers.IO){
+        wrapToResource{
             userRemoteDataSource.getUserProfileImg().toDomainModel()
         }
 }

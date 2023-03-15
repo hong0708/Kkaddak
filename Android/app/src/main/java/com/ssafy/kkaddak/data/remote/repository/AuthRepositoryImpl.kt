@@ -6,7 +6,6 @@ import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRequest
 import com.ssafy.kkaddak.domain.entity.auth.Token
 import com.ssafy.kkaddak.domain.repository.AuthRepository
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -14,12 +13,12 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
 
     override suspend fun loginRequest(body: AuthRequest): Resource<Token> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             authRemoteDataSource.loginRequest(body.accessToken).toDomainModel()
         }
 
     override suspend fun getNewToken(): Resource<Token> =
-        wrapToResource(Dispatchers.IO) {
+        wrapToResource {
             authRemoteDataSource.getNewToken().toDomainModel()
         }
 }
