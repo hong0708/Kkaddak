@@ -8,10 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class MemberResDto {
-    @ApiModelProperty(example = "status 상태 코드")
-    private int statusCode;
-    @ApiModelProperty(example = "status 상태 메세지")
-    private String statusMessage;
+
     @ApiModelProperty(example = "member 식별 아이디")
     private String memberId;
     @ApiModelProperty(example = "email")
@@ -24,17 +21,12 @@ public class MemberResDto {
     private String memberType;
 
     @Builder
-    public MemberResDto(Member member, int statusCode, String statusMessage) {
+    public MemberResDto(Member member) {
         this.memberId = member.getUuid().toString();
         this.email = member.getEmail();
         this.profilePath = member.getProfilePath();
         this.nickname = member.getNickname();
         this.memberType = member.getMemberType().getParam();
-        this.statusCode = statusCode;
-        this.statusMessage = statusMessage;
+
     }
-    public void setStatusCode(int statusCode){
-        this.statusCode = statusCode;
-    }
-    public void setStatusMessage(String message) { this.statusMessage = message; }
 }

@@ -1,6 +1,7 @@
 package com.example.kkaddak.api.service.impl;
 
 import com.example.kkaddak.api.config.jwt.JwtProvider;
+import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
 import com.example.kkaddak.api.service.MemberService;
 import com.example.kkaddak.core.entity.Member;
@@ -26,7 +27,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final MemberRepository  memberRepository;
     private final JwtProvider jwtProvider;
     private final ImageUtil imageUtil;
-    public TokenResDto kakaoLogin(String accessToken) throws JsonProcessingException
+    public DataResDto<?> kakaoLogin(String accessToken) throws JsonProcessingException
     {
         // 1. "인가 코드"로 "액세스 토큰" 요청 -> 안드로이드에서 엑세스 토큰을 전송해주기 때문에 생략
 //        String accessToken = getAccessToken(code);
@@ -48,8 +48,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Authentication authentication = forceLogin((Member)resMap.get("member"));
         // 5. response Header에 JWT 토큰 추가
         TokenResDto token = KakaoMemberAuthenticationInput(authentication, (Boolean)resMap.get("isExist"));
-
-        return token;
+        return DataResDto.builder().data(token).statusCode(200).statusMessage("카카오 로그인이 승인되었습니다.").build();
     }
 
     /** 1. "인가코드"로 "액세스 토큰" 요청
@@ -129,7 +128,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private Map<String, Object> signupKakaoUserIfNeed(SocialMemberInfoDto kakaoMemberInfo)
     {
         Map<String, Object> resMap = new HashMap<>();
-        Boolean isExist = true;
+        boolean isExist = true;
         Member member = memberRepository.findMemberByEmail(kakaoMemberInfo.getEmail())
                 .orElse(null);
 
@@ -172,8 +171,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     /** JwtAuthenticationFilter에서 유저 정보를 토큰에 담을 때 사용
      * @param email the username identifying the user whose data is required.
-     * @return
-     * @throws UsernameNotFoundException
+     * @return : UserDetails
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
@@ -184,20 +182,25 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public MemberResDto signup(SignupReqDto info, Member member)
+    public DataResDto<?> signup(SignupReqDto info, Member member)
     {
         String profilePath = "";
+        MemberResDto memberResDto;
         try {
             profilePath = imageUtil.uploadImage(info.getProfileImg(), "member");
             member.setMemberDetail(info.getNickname(), profilePath);
-            return MemberResDto.builder().member(memberRepository.save(member)).build();
+            memberResDto = MemberResDto.builder().member(memberRepository.save(member)).build();
+            return DataResDto.builder().data(memberResDto)
+                    .statusMessage("회원 정보가 정상적으로 저장되었습니다.").statusCode(200).build();
         }
         catch(IllegalArgumentException e){
-            return MemberResDto.builder().statusCode(400).statusMessage("파일 타입이 올바르지 않습니다.").build();
+            return DataResDto.builder().statusCode(400).statusMessage("파일 타입이 올바르지 않습니다.").build();
         }
         catch(Exception e){
-            return MemberResDto.builder().statusCode(500).statusMessage("이미지 저장 과정에서 에러가 발생했습니다.").build();
+            return DataResDto.builder().statusCode(500).statusMessage("이미지 저장 과정에서 에러가 발생했습니다.").build();
         }
+
+
     }
 
     @Override
@@ -207,25 +210,30 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public EscapeResDto findMemberById(int memberId)
+    public DataResDto<?> findMemberById(int memberId)
     {
         Member member = memberRepository.findById(memberId).orElse(null);
         if (!Objects.isNull(member) && Objects.isNull(member.getNickname())) {
                 memberRepository.deleteById(memberId);
-            return EscapeResDto.builder()
-                    .statusCode(200)
+                EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(true).build();
+            return DataResDto.builder()
+                    .data(escapeResDto)
                     .statusMessage("비정상적으로 회원가입이 진행되었습니다.")
-                    .isEscape(true).build();
+                    .statusCode(200).build();
+
         }
-        else if (Objects.isNull(member))
-            return EscapeResDto.builder()
-                    .statusCode(400)
+        else if (Objects.isNull(member)){
+            EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(false).build();
+            return DataResDto.builder()
+                    .data(escapeResDto)
                     .statusMessage(ErrorMessageEnum.USER_NOT_EXIST.getMessage())
-                    .isEscape(false).build();
-        return EscapeResDto.builder()
-                .statusCode(200)
+                    .statusCode(400).build();
+        }
+        EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(false).build();
+        return DataResDto.builder()
+                .data(escapeResDto)
                 .statusMessage("정상적으로 회원가입이 진행되었습니다.")
-                .isEscape(false).build();
+                .statusCode(200).build();
     }
 
 }
