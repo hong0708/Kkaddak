@@ -27,7 +27,9 @@ public class AppConfig {
 
     // security 설정 활성화
     private static final String[] ALLOWED_ENDPOINT = {
-            "/v2/api-docs",
+            "/v2/api-docs/**",
+            "/swagger.json",
+            "/webjars/**",
             "/swagger/**",
             "/swagger-ui/**",
             "/swagger-resources/**",

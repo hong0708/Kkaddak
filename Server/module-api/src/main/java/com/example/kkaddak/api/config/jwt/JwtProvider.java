@@ -1,5 +1,7 @@
 package com.example.kkaddak.api.config.jwt;
 
+import com.example.kkaddak.api.dto.BaseResDto;
+import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.Subject;
 import com.example.kkaddak.api.dto.member.TokenResDto;
 import com.example.kkaddak.core.entity.Member;
@@ -46,8 +48,6 @@ public class JwtProvider {
         // Redis에 refresh token 관리
         redisDao.setValues(member.getEmail(), rtk, Duration.ofMillis(rtkLive));
         return TokenResDto.builder()
-                .statusCode(200)
-                .statusMessage("access & refersh token 발급되었습니다.")
                 .accessToken(atk)
                 .refreshToken(rtk)
                 .isExist(isExist)
@@ -76,23 +76,18 @@ public class JwtProvider {
         return objectMapper.readValue(subjectStr, Subject.class);
     }
 
-    public TokenResDto reissueAtk(Member member) throws JsonProcessingException {
+    public DataResDto reissueAtk(Member member) throws JsonProcessingException {
         String rtkInRedis = redisDao.getValues(member.getEmail());
-        if (Objects.isNull(rtkInRedis))
-            return TokenResDto.builder()
-                    .statusCode(401)
-                    .statusMessage("refresh token이 만료되었습니다.")
-                    .isExist(false)
-                    .build();
+        TokenResDto tokenResDto;
+        if (Objects.isNull(rtkInRedis)){
+            tokenResDto = TokenResDto.builder().isExist(false).build();
+            return DataResDto.builder().data(tokenResDto).statusCode(401).statusMessage("refresh token이 만료되었습니다.").build();
+        }
 
         Subject atkSubject = Subject.atk(member);
         String atk = createToken(atkSubject, atkLive);
-        return TokenResDto.builder()
-                .statusCode(200)
-                .statusMessage("access token 재발급되었습니다.")
-                .accessToken(atk)
-                .refreshToken(null)
-                .isExist(true).build();
+        tokenResDto = TokenResDto.builder().accessToken(atk).isExist(true).build();
+        return DataResDto.builder().data(tokenResDto).statusCode(200).statusMessage("access token 재발급되었습니다.").build();
     }
 
 }

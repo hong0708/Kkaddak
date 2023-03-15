@@ -1,11 +1,19 @@
 package com.example.kkaddak.api.config;
 
+import com.fasterxml.classmate.TypeResolver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
@@ -16,11 +24,16 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {
+@EnableWebMvc
+@RequiredArgsConstructor
+public class Swagger2Config implements WebMvcConfigurer {
+    private final TypeResolver typeResolver;
 
     private static final String API_NAME = "Kkaddak API";
     private static final String API_VERSION = "1.0";
@@ -41,8 +54,11 @@ public class Swagger2Config {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+//                .consumes(getConsumeContentTypes())
+//                .produces(getProduceContentTypes())
                 // Spring Security의 @AuthenticationPrincipal 어노테이션이 붙은 파라미터들은 문서화하지 않도록 설정하는 메소드
                 .ignoredParameterTypes(AuthenticationPrincipal.class)
+                .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(Page.class)))
                 .apiInfo(swaggerInfo())
                 .securityContexts(Arrays.asList(securityContext())) // JWT 인증 헤더를 포함하도록 Swagger에 설정
                 .securitySchemes(Arrays.asList(apiKey())) // : JWT 인증 토큰을 Swagger에 적용
@@ -52,6 +68,19 @@ public class Swagger2Config {
                 .build()
                 .useDefaultResponseMessages(false); // 모든 응답 코드에 대해 Swagger 기본 응답 메시지를 사용하지 않도록 설정하는 메소드
     }
+
+//    private Set<String> getConsumeContentTypes() {
+//        Set<String> consumes = new HashSet<>();
+//        consumes.add("application/json;charset=UTF-8");
+//        consumes.add("application/x-www-form-urlencoded");
+//        return consumes;
+//    }
+//
+//    private Set<String> getProduceContentTypes() {
+//        Set<String> produces = new HashSet<>();
+//        produces.add("application/json;charset=UTF-8");
+//        return produces;
+//    }
 
     // swagger에서 jwt 토큰값 넣기위한 설정 -> JWT를 인증 헤더로 포함하도록 ApiKey 를 정의.
     private ApiKey apiKey() {
