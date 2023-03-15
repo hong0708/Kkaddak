@@ -6,6 +6,9 @@ spring:
   #  임시 대책이기 때문에 근본대책 필요
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   profiles:
     active: local # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.

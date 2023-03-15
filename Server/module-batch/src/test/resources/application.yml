@@ -49,7 +49,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  batch:
+
     job:
       enabled: false   # batch server 실행시켰을 때, 실행되는지 아닌지
     jdbc:
