@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/image_arrow_left"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title_bid_nft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarket_sans_bold"
+            android:text="@string/title_bid_song_title"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+        <ImageView
+            android:id="@+id/iv_bid_nft_image"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/bg_image_radius20"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/image_bid_nft_image"
+            android:src="@drawable/ic_nft_mockup1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_bid_nft" />
+
+        <TextView
+            android:id="@+id/tv_content_bid_nft_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:gravity="center"
+            android:text="@string/title_bid_song_title"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@id/iv_bid_nft_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_image" />
+
+        <ImageView
+            android:id="@+id/iv_bid_nft_creator_profile"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_circle"
+            android:clipToOutline="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_profile_image"
+            android:contentDescription="@string/image_bid_nft_creator_profile"
+            app:layout_constraintEnd_toStartOf="@id/tv_content_by"
+            app:layout_constraintStart_toStartOf="@id/iv_bid_nft_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_bid_nft_title" />
+
+        <TextView
+            android:id="@+id/tv_content_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_by"
+            android:textColor="@color/charcoal"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_bid_nft_creator"
+            app:layout_constraintStart_toEndOf="@id/iv_bid_nft_creator_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_bid_nft_title" />
+
+        <TextView
+            android:id="@+id/tv_bid_nft_creator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_bid_creator"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/tv_content_by"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_bid_nft_title" />
+
+        <ImageView
+            android:id="@+id/iv_bid_nft_like"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/image_bid_nft_like"
+            android:background="@drawable/selector_market_like_nft_detail"
+            app:layout_constraintEnd_toEndOf="@id/iv_bid_nft_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_image" />
+
+        <TextView
+            android:id="@+id/tv_content_min_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_min_eth"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/iv_bid_nft_creator_profile"
+            app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_creator_profile" />
+
+        <TextView
+            android:id="@+id/tv_content_bid_min_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_bid_min_eth"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content_min_eth"
+            app:layout_constraintStart_toEndOf="@id/tv_content_min_eth"
+            app:layout_constraintTop_toTopOf="@id/tv_content_min_eth" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_ethereum"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content_min_eth"
+            app:layout_constraintStart_toEndOf="@id/tv_content_bid_min_eth"
+            app:layout_constraintTop_toTopOf="@id/tv_content_min_eth" />
+
+        <TextView
+            android:id="@+id/tv_content_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:paddingVertical="15dp"
+            android:text="@string/content_deadline"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_content_my_eth"
+            app:layout_constraintStart_toStartOf="@id/iv_bid_nft_creator_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_min_eth" />
+
+        <TextView
+            android:id="@+id/tv_content_bid_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_bid_deadline"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content_deadline"
+            app:layout_constraintStart_toEndOf="@id/tv_content_deadline"
+            app:layout_constraintTop_toTopOf="@id/tv_content_deadline" />
+
+        <TextView
+            android:id="@+id/tv_content_my_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_my_eth"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/iv_bid_nft_creator_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_deadline" />
+
+        <TextView
+            android:id="@+id/tv_content_bid_my_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_bid_my_eth"
+            android:textColor="#ff00ff"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content_my_eth"
+            app:layout_constraintStart_toEndOf="@id/tv_content_my_eth"
+            app:layout_constraintTop_toTopOf="@id/tv_content_my_eth" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@string/content_ethereum"
+            android:textColor="#ff00ff"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_content_my_eth"
+            app:layout_constraintStart_toEndOf="@id/tv_content_bid_my_eth"
+            app:layout_constraintTop_toTopOf="@id/tv_content_my_eth" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_upload"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/content_bid_nft"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
