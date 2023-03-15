@@ -119,9 +119,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_end_date"
+            android:id="@+id/cl_deadline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -130,30 +129,29 @@
             app:layout_constraintTop_toBottomOf="@+id/cl_song_title">
 
             <TextView
-                android:id="@+id/tv_end_date"
+                android:id="@+id/tv_deadline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gmarket_sans_medium"
-                android:text="@string/content_end_date"
+                android:text="@string/content_deadline_date"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_upload_end_date"
+                android:id="@+id/cl_upload_deadline"
                 android:layout_width="173dp"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_rect_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_end_date"
-                app:layout_constraintEnd_toStartOf="@id/tv_select_end_date">
+                app:layout_constraintTop_toBottomOf="@id/tv_deadline"
+                app:layout_constraintEnd_toStartOf="@id/tv_select_deadline">
 
                 <TextView
-                    android:id="@+id/tv_upload_end_date"
+                    android:id="@+id/tv_upload_deadline"
                     android:layout_width="173dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gmarket_sans_medium"
@@ -168,7 +166,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_select_end_date"
+                android:id="@+id/tv_select_deadline"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
@@ -178,10 +176,8 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_upload_end_date" />
-
+                app:layout_constraintStart_toEndOf="@id/cl_upload_deadline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_min_bid_eth"
@@ -190,8 +186,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_end_date">
-
+            app:layout_constraintTop_toBottomOf="@+id/cl_deadline">
 
             <TextView
                 android:id="@+id/tv_min_bid_eth"
@@ -203,7 +198,6 @@
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_upload_min_bid_eth"
@@ -228,11 +222,10 @@
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp"
                     android:importantForAutofill="no"
-                    android:hint="0.00eth"
+                    android:hint=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="Labelfor"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -246,7 +239,6 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/cl_upload_min_bid_eth"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -269,8 +261,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -33,14 +33,14 @@
     <string name="title_upload_market">경매 등록</string>
     <string name="content_upload_nft_image">NFT 선택</string>
     <string name="content_select_nft">선택하기</string>
-    <string name="content_end_date">마감 날짜</string>
+    <string name="content_deadline_date">마감 날짜</string>
     <string name="content_min_bid_eth">최소 입찰 금액</string>
     <string name="content_ethereum">ETH</string>
     <string name="content_upload_nft">등록하기</string>
     <string name="image_upload_nft_image">image_upload_nft_image</string>
     <string name="content_upload_min_bid_eth">content_upload_min_bid_eth</string>
     <string name="content_select_nft_image">content_select_nft_image</string>
-    <string name="content_select_end_date">content_select_end_date</string>
+    <string name="content_select_deadline">content_select_deadline</string>
     <string name="image_upload_nft_item">image_upload_nft_item</string>
 
     <!-- biding market-->
@@ -182,6 +182,8 @@
     <string name="image_bid_nft_image">image_bid_nft_image</string>
     <string name="image_bid_nft_like">image_bid_nft_like</string>
     <string name="image_bid_nft_creator_profile">image_bid_nft_creator_profile</string>
-    <string name="image_focusing_end_date">image_focusing_end_date</string>
+    <string name="image_focusing_deadline">image_focusing_deadline</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

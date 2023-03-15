@@ -25,28 +25,48 @@
                 android:layout_height="55dp"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/bg_rect_white_smoke_radius30"
-                android:contentDescription="@string/image_focusing_end_date"
+                android:contentDescription="@string/image_focusing_deadline"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.385" />
 
-            <DatePicker
-                android:id="@+id/dp_end_date"
+            <NumberPicker
+                android:id="@+id/np_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:theme="@style/DatePickerStyle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/np_month"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            </DatePicker>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.27" />
 
+            <NumberPicker
+                android:id="@+id/np_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/DatePickerStyle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/np_year"
+                app:layout_constraintEnd_toStartOf="@id/np_day"
+                app:layout_constraintVertical_bias="0.27" />
+
+            <NumberPicker
+                android:id="@+id/np_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/DatePickerStyle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/np_month"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.271" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/cl_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -80,10 +100,6 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
