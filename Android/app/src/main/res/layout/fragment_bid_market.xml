@@ -12,7 +12,7 @@
         android:background="@color/black">
 
         <ImageView
-            android:id="@+id/btn_back"
+            android:id="@+id/iv_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="30dp"
@@ -30,10 +30,10 @@
             android:text="@string/title_bid_song_title"
             android:textColor="@color/white"
             android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
 
         <ImageView
             android:id="@+id/iv_bid_nft_image"
@@ -230,6 +230,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

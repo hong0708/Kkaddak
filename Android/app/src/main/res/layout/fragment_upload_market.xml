@@ -13,7 +13,7 @@
         android:background="@color/black">
 
         <ImageView
-            android:id="@+id/btn_back"
+            android:id="@+id/iv_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="30dp"
@@ -31,10 +31,10 @@
             android:text="@string/title_upload_market"
             android:textColor="@color/white"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_choose_nft"
@@ -99,7 +99,7 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/bg_rect_neon_pink50_radius10"
+            android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_song_title">
@@ -145,7 +145,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_rect_neon_pink50_radius10"
+                android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_deadline"
                 app:layout_constraintEnd_toStartOf="@id/tv_select_deadline">
@@ -205,7 +205,7 @@
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bg_rect_neon_pink50_radius10"
+                android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_min_bid_eth"
                 app:layout_constraintEnd_toStartOf="@id/tv_ethereum">

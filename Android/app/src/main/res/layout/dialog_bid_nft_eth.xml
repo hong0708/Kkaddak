@@ -46,7 +46,7 @@
                     android:layout_width="173dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_rect_stroke3_neon_pink50_nero_radius10"
+                    android:background="@drawable/bg_rect_trans50_neon_pink50_nero_radius10_stroke3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_holding_eth"
                     app:layout_constraintTop_toBottomOf="@id/tv_holding_eth">
@@ -82,8 +82,6 @@
                     app:layout_constraintStart_toEndOf="@id/cl_bid_holding_eth" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_biding_eth"
                 android:layout_width="wrap_content"
@@ -109,7 +107,7 @@
                     android:layout_width="173dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_rect_stroke3_neon_pink50_nero_radius10"
+                    android:background="@drawable/bg_rect_trans50_neon_pink50_nero_radius10_stroke3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_bidding_eth"
                     app:layout_constraintTop_toBottomOf="@id/tv_bidding_eth">
@@ -145,10 +143,6 @@
                     app:layout_constraintStart_toEndOf="@id/cl_bid_bidding_eth" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="wrap_content"
@@ -182,11 +176,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
