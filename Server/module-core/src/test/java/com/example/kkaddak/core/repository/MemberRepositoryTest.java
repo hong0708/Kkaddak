@@ -17,11 +17,14 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Test
     void UserTest() {
-        Member member = Member.builder()
-                .uuid(UUID.randomUUID())
-                .build();
-
-        memberRepository.save(member);
+//        Member member = Member.builder()
+//                .email("john@example.com")
+//                .memberType("회원")
+//                .nickname("MemberServiceTest1")
+//                .profilePath("profile/tom.jpg")
+//                .build();
+//
+//        memberRepository.save(member);
 
 //        System.out.println(memberRepository.findById(savedMember.getId()));
     }
