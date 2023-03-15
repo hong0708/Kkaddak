@@ -6,6 +6,9 @@ spring:
 #  임시 대책이기 때문에 근본대책 필요
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   datasource:
     # 메모리 내에서 caredb 데이터베이스 생성

@@ -13,8 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public interface MemberService {
     TokenResDto kakaoLogin(String accessToken) throws JsonProcessingException;
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-    MemberResDto signup(SignupReqDto signupReqDto, Member member) throws Exception;
+    MemberResDto signup(SignupReqDto signupReqDto, Member member);
     Boolean checkNicknameDuplicate(String nickname, Member member);
-
     EscapeResDto findMemberById(int memberId);
 }
