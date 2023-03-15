@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,6 +27,11 @@ public class AppConfig {
 
     // security 설정 활성화
     private static final String[] ALLOWED_ENDPOINT = {
+            "/v2/api-docs",
+            "/swagger/**",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/images/**/**",
             "/api/v1/members/kakao-login"
     };
 
@@ -40,6 +46,8 @@ public class AppConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(ALLOWED_ENDPOINT).permitAll()
