@@ -7,6 +7,7 @@ import lombok.Getter;
 public class SocialMemberInfoDto {
     private String email;
 
+
     public SocialMemberInfoDto(String email) {
         this.email = email;
     }

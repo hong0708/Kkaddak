@@ -184,7 +184,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public MemberResDto signup(SignupReqDto info, Member member) throws Exception
+    public MemberResDto signup(SignupReqDto info, Member member)
     {
         String profilePath = "";
         try {
@@ -192,11 +192,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
             member.setMemberDetail(info.getNickname(), profilePath);
             return MemberResDto.builder().member(memberRepository.save(member)).build();
         }
-        catch(IOException | IllegalStateException | SecurityException | NullPointerException e){
-            return MemberResDto.builder().statusCode(500).statusMessage("이미지 저장 과정에서 에러가 발생했습니다.").build();
-        }
         catch(IllegalArgumentException e){
             return MemberResDto.builder().statusCode(400).statusMessage("파일 타입이 올바르지 않습니다.").build();
+        }
+        catch(Exception e){
+            return MemberResDto.builder().statusCode(500).statusMessage("이미지 저장 과정에서 에러가 발생했습니다.").build();
         }
     }
 
