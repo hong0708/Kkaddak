@@ -53,30 +53,30 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_upload_nft_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_upload_nft_image"
                 android:layout_marginTop="10dp"
                 android:contentDescription="@string/image_upload_nft_image"
-                app:layout_constraintTop_toBottomOf="@id/tv_nft_image"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:src="@drawable/ic_upload_nft_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_nft_image" />
 
             <TextView
                 android:id="@+id/tv_select_nft_image"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
-                android:gravity="center"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius10"
+                android:gravity="center"
                 android:text="@string/content_select_nft"
-                android:textSize="16sp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/iv_upload_nft_image"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_upload_nft_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,8 +90,8 @@
             android:text="@string/content_market_song_title"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/cl_choose_nft"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_choose_nft" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_song_title"
@@ -115,7 +115,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,21 +147,22 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_deadline"
-                app:layout_constraintEnd_toStartOf="@id/tv_select_deadline">
+                app:layout_constraintEnd_toStartOf="@id/tv_select_deadline"
+                app:layout_constraintTop_toBottomOf="@id/tv_deadline">
 
                 <TextView
                     android:id="@+id/tv_upload_deadline"
                     android:layout_width="173dp"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:fontFamily="@font/gmarket_sans_light"
+                    android:gravity="center_vertical"
                     android:maxLines="1"
                     android:paddingStart="15dp"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="RtlSymmetry"/>
+                    tools:ignore="RtlSymmetry" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -207,38 +208,38 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_min_bid_eth"
-                app:layout_constraintEnd_toStartOf="@id/tv_ethereum">
+                app:layout_constraintEnd_toStartOf="@id/tv_ethereum"
+                app:layout_constraintTop_toBottomOf="@id/tv_min_bid_eth">
 
                 <EditText
                     android:id="@+id/tv_upload_min_bid_eth"
                     android:layout_width="173dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gmarket_sans_medium"
+                    android:hint=""
+                    android:importantForAutofill="no"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:inputType="text"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp"
-                    android:importantForAutofill="no"
-                    android:hint=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="Labelfor"/>
+                    tools:ignore="Labelfor" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_ethereum"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:gravity="center"
                 android:layout_marginStart="10dp"
+                android:gravity="center"
                 android:text="@string/content_ethereum"
-                android:textSize="16sp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/cl_upload_min_bid_eth"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cl_upload_min_bid_eth" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
