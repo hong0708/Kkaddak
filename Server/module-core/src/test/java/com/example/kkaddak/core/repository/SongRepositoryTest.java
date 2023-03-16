@@ -22,25 +22,25 @@ public class SongRepositoryTest {
 
     @Test
     void UserTest() {
-//        Member member = Member.builder()
-//                .email("john@example.com")
-//                .memberType("회원")
-//                .nickname("MemberServiceTest1")
-//                .profilePath("profile/tom.jpg")
-//                .build();
-//
-//        Member savedMember = memberRepository.save(member);
-//
-//        Song song = new Song();
-//        song.setTitle("hi");
-//        song.setSongPath("aa");
-//        song.setCoverPath("bbb");
-//        song.setGenre("좋은");
-//        song.setMood("ㅋㅋ");
-//        song.setMember(savedMember);
-//
-//        Song savedSong = songRepository.save(song);
-//
-//        System.out.println(songRepository.findTop10ByOrderByUploadedAtDesc());
+        Member member = Member.builder()
+                .email("john@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest1")
+                .profilePath("profile/tom.jpg")
+                .build();
+
+        Member savedMember = memberRepository.save(member);
+
+        Song song = new Song();
+        song.setTitle("hi");
+        song.setSongPath("aa");
+        song.setCoverPath("bbb");
+        song.setGenre("좋은");
+        song.setMood("ㅋㅋ");
+        song.setMember(savedMember);
+
+        Song savedSong = songRepository.save(song);
+
+        System.out.println(songRepository.findTop10ByOrderByUploadedAtDesc());
     }
 }
