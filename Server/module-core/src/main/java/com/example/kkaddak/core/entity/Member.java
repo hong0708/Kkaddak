@@ -1,13 +1,12 @@
 package com.example.kkaddak.core.entity;
 
 import com.example.kkaddak.core.utils.MemberType;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +25,10 @@ public class Member {
     private String profilePath;
     @Enumerated(value = EnumType.STRING)
     private MemberType memberType;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Song> likeList = new ArrayList<>();
 
     @Builder
     public Member(String email, String nickname, String profilePath, String memberType) {
