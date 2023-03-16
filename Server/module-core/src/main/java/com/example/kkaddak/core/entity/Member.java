@@ -26,10 +26,6 @@ public class Member {
     @Enumerated(value = EnumType.STRING)
     private MemberType memberType;
 
-    @OneToMany(mappedBy = "member")
-    @ToString.Exclude
-    private List<PlayList> playlist = new ArrayList<>();
-
     @ManyToMany
     @ToString.Exclude
     private List<Song> likeList = new ArrayList<>();
@@ -46,13 +42,5 @@ public class Member {
     public void setMemberDetail(String nickname, String profilePath) {
         this.nickname = nickname;
         this.profilePath = profilePath;
-    }
-
-    public void addSong(Song song) {
-        likeList.add(song);
-    }
-
-    public void removeSong(Song song) {
-        likeList.remove(song);
     }
 }

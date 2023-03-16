@@ -40,10 +40,6 @@ public class Song {
     @ToString.Exclude
     private Member member;
 
-    @OneToMany(mappedBy = "song")
-    @ToString.Exclude
-    private List<PlayList> playList = new ArrayList<>();
-
     @Builder
     public Song(String title, String songPath, String coverPath, String genre, String mood, Member member) {
         this.songUuid = UUID.randomUUID();

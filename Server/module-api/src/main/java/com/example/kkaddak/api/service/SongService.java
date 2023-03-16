@@ -1,7 +1,9 @@
 package com.example.kkaddak.api.service;
 
 
+import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.SongReqDto;
+import com.example.kkaddak.api.dto.SongResDto;
 import com.example.kkaddak.core.entity.Song;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,11 @@ import java.util.UUID;
 
 @Service
 public interface SongService {
-    Song uploadSong(SongReqDto songReqDto, UUID memberUuid) throws IOException;
+    DataResDto<?> uploadSong(SongReqDto songReqDto, UUID memberUuid) throws IOException;
 
-    Song getSong(UUID songId);
+    DataResDto<?> getSong(Integer songId);
 
-    List<Song> getAllSong();
+    DataResDto<?> getAllSong();
 
-    List<Song> getLatestSong();
+    DataResDto<?> getLatestSong();
 }

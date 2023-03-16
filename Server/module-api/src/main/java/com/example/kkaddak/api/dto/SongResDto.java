@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -15,9 +16,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class SongResDto {
-
-    @Autowired
-    MemberRepository memberRepository;
 
     @ApiModelProperty(example = "음악 식별 아이디")
     UUID songUuid;
