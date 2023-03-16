@@ -7,14 +7,13 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="300dp"
             android:layout_height="309dp"
-            android:background="@drawable/bg_rect_trans25_charcoal_radius30"
+            android:background="@drawable/bg_rect_charcoal_radius30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,10 +47,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/DatePickerStyle"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/np_year"
                 app:layout_constraintEnd_toStartOf="@id/np_day"
+                app:layout_constraintStart_toEndOf="@id/np_year"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.27" />
 
             <NumberPicker

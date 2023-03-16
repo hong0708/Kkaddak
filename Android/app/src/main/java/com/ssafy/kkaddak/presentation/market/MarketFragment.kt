@@ -15,6 +15,12 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     override fun initView() {
         nftinit()
         getNft()
+        binding.ivUpload.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host, UploadMarketFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun nftinit() {
