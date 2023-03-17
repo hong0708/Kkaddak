@@ -34,7 +34,8 @@ public class AppConfig {
             "/swagger-ui/**",
             "/swagger-resources/**",
             "/images/**/**",
-            "/api/v1/members/kakao-login"
+            "/api/v1/members/kakao-login",
+            "/h2-console"
     };
 
     /** SecurityFilterChain : Spring Security 필터 체인에서 가장 첫 번째 필터

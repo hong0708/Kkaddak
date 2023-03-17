@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,6 +38,8 @@ public class MemberServiceTest {
         Member member2 = Member.builder()
                 .email("boby@example.com")
                 .memberType("회원")
+                .nickname("MemberServiceTest2")
+                .profilePath("profile/bom.jpg")
                 .build();
         Member savedMember2 = memberRepository.save(member2);
 
