@@ -39,6 +39,8 @@ tedpermission = "3.3.0"
 
 work-runtime-ktx = "2.7.1"
 
+exoplayer = "2.18.4"
+
 [libraries]
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -73,6 +75,9 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "bom
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 tedpermission = { module = "io.github.ParkSangGwon:tedpermission-normal", version.ref = "tedpermission" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
+exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
