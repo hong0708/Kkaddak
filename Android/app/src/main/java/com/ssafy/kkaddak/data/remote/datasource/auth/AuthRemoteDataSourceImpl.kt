@@ -10,8 +10,8 @@ class AuthRemoteDataSourceImpl @Inject constructor(
 ) : AuthRemoteDataSource {
 
     override suspend fun loginRequest(code: String): AuthResponse =
-        authApiService.loginRequest(code)
+        authApiService.loginRequest(code).data!!
 
     override suspend fun getNewToken(): AuthResponse =
-        refreshApiService.getNewToken()
+        refreshApiService.getNewToken().data!!
 }

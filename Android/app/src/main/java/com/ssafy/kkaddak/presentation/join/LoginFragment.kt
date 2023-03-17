@@ -23,7 +23,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initView() {
         initListener()
-        observeJoinViewModel()
+        isMember()
     }
 
     override fun onResume() {
@@ -47,7 +47,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private fun initKakaoLoginCallback(): (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e("login", "카카오계정으로 로그인 실패", error)
-            navigate(LoginFragmentDirections.actionLoginFragmentToJoinFragment())
         } else if (token != null) {
             Log.i("login", "카카오계정으로 로그인 성공 ${token.accessToken}")
             joinViewModel.requestLogin(AuthRequest(token.accessToken))
@@ -57,7 +56,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         }
     }
 
-    private fun observeJoinViewModel() {
+    private fun isMember() {
         joinViewModel.isExist.observe(viewLifecycleOwner) {
             when (it) {
                 true -> {

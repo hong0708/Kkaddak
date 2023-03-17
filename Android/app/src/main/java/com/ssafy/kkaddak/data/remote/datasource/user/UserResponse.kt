@@ -7,14 +7,14 @@ import com.ssafy.kkaddak.domain.entity.user.User
 data class UserResponse(
     @SerializedName("email")
     val email: String,
-    @SerializedName("nickName")
-    val nickName: String,
-    @SerializedName("profileImg")
-    val profileImg: String?
+    @SerializedName("nickname")
+    val nickname: String,
+    @SerializedName("profilePath")
+    val profilePath: String?
 ) : DataToDomainMapper<User> {
     override fun toDomainModel(): User {
         return User(
-            email, nickName, profileImg
+            email, nickname, profilePath
         )
     }
 }

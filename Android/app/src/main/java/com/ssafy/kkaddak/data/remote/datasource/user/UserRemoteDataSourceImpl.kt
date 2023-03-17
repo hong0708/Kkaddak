@@ -16,23 +16,23 @@ class UserRemoteDataSourceImpl @Inject constructor(
         profileImg: MultipartBody.Part?
     ): UserResponse {
         val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
-        map["nickName"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
-        return userApiService.createUserInfo(map, profileImg)
+        map["nickname"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
+        return userApiService.createUserInfo(map, profileImg).data!!
     }
 
     override suspend fun createUserInfoWithoutImg(
         nickName: String
     ): UserResponse {
         val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
-        map["nickName"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
-        return userApiService.createUserInfo(map, null)
+        map["nickname"] = nickName.toRequestBody("text/plain".toMediaTypeOrNull())
+        return userApiService.createUserInfo(map, null).data!!
     }
 
     override suspend fun checkDuplication(nickName: String): Boolean =
-        userApiService.checkDuplication(nickName)
+        userApiService.checkDuplication(nickName).data!!
 
     override suspend fun cancelSignUp(): Boolean =
-        userApiService.cancelSignUp()
+        userApiService.cancelSignUp().data!!
 
     override suspend fun getUserProfileImg(): UserProfileResponse =
         userApiService.getUserProfile()

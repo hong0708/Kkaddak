@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.data.remote.service
 
+import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
 import com.ssafy.kkaddak.data.remote.datasource.user.UserProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.user.UserResponse
 import okhttp3.MultipartBody
@@ -8,17 +9,17 @@ import retrofit2.http.*
 
 interface UserApiService {
     @Multipart
-    @POST("/api/v4/members/sign-up")
+    @POST("/api/v1/members/sign-up")
     suspend fun createUserInfo(
         @PartMap map: Map<String, @JvmSuppressWildcards RequestBody>,
         @Part image: MultipartBody.Part?
-    ): UserResponse
+    ): BaseResponse<UserResponse>
 
-    @GET("/api/v4/members/nicknames/{nickname}/exists")
-    suspend fun checkDuplication(@Path("nickname") nickname: String): Boolean
+    @GET("/api/v1/members/nicknames/{nickname}/exists")
+    suspend fun checkDuplication(@Path("nickname") nickname: String): BaseResponse<Boolean>
 
     @POST("/api/v4/members/cancel-sign-up")
-    suspend fun cancelSignUp(): Boolean
+    suspend fun cancelSignUp(): BaseResponse<Boolean>
 
     @GET("/api/v4/members/member-image")
     suspend fun getUserProfile(): UserProfileResponse
