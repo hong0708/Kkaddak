@@ -38,8 +38,8 @@
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:layout_marginTop="22dp"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/image_song"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
@@ -75,86 +75,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:src="@drawable/ic_song_detail_favorite"
             android:contentDescription="@string/image_song_detail_favorite"
+            android:src="@drawable/ic_song_detail_favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_song_creator" />
 
-        <SeekBar
-            android:id="@+id/seek_bar"
-            android:layout_width="0dp"
+        <com.google.android.exoplayer2.ui.PlayerControlView
+            android:id="@+id/playerControlView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
+            android:layout_marginHorizontal="40dp"
             android:layout_marginTop="40dp"
-            android:maxHeight="3dp"
-            android:minHeight="3dp"
-            android:progressDrawable="@drawable/player_seek_background"
-            android:thumb="@drawable/player_seek_thumb"
+            app:controller_layout_id="@layout/custom_music_player"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_favorite"
-            tools:progress="40" />
+            app:show_timeout="0"
+            app:use_controller="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/gmarket_sans_medium"
-            android:textColor="@color/neon_pink"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/seek_bar"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar"
-            tools:text="0:36" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/gmarket_sans_medium"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/seek_bar"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar"
-            tools:text="3:40" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/seek_bar">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_song_detail_previous"
-                android:contentDescription="@string/image_previous_song"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_song_detail_play"
-                android:contentDescription="@string/image_song_play"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_song_detail_next"
-                android:contentDescription="@string/image_next"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
