@@ -5,7 +5,7 @@ buildscript {
     repositories {
 
         mavenCentral()  // Maven Central repository
-
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
@@ -33,7 +33,6 @@ subprojects {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-log4j2'   // log4j2
-
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         annotationProcessor 'org.projectlombok:lombok'
@@ -43,10 +42,10 @@ subprojects {
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
         // MariaDB
+        implementation 'org.mariadb.jdbc:mariadb-java-client'
         runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-
         // h2
-        runtimeOnly 'com.h2database:h2'
+        //runtimeOnly 'com.h2database:h2'
         testImplementation 'com.h2database:h2'
 
         implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -79,6 +78,11 @@ project(':module-core'){
         implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.3'
         //Redis
         implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+        // 유사도 검사 라이브러리
+        implementation group: 'com.github.fracpete', name: 'musicg', version: '1.4.2.2'
+        implementation 'org.bytedeco:javacv:1.5.7'
+        implementation group: 'org.bytedeco', name: 'javacv-platform', version: '1.5.8'
     }
 }
 
@@ -97,6 +101,7 @@ project(':module-api') {
         // swagger
         implementation 'io.springfox:springfox-boot-starter:3.0.0'
         implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     }
 }
 
@@ -111,7 +116,6 @@ project(':module-batch'){
         // batch 관련 의존성
         implementation 'org.springframework.boot:spring-boot-starter-batch'
         testImplementation 'org.springframework.batch:spring-batch-test'
-
 
     }
 }
