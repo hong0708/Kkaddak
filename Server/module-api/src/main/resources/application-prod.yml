@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://coredb:3306/coredb
-    username: kkaddak
-    password: kkaddak208!

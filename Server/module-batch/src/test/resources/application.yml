@@ -2,11 +2,6 @@ server:
   port: 8088
 
 spring:
-  #  빈 정의를 덮어쓰도록 허용하는 방법
-  #  임시 대책이기 때문에 근본대책 필요
-  main:
-    allow-bean-definition-overriding: true
-
   config:
     activate:
       on-profile: batchtest
@@ -41,7 +36,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true #To beautify or pretty print the SQL

@@ -12,9 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {"com.example.kkaddak.batch", "com.example.kkaddak.core"})
 @EnableScheduling
-@EnableJpaAuditing
 @EnableBatchProcessing
-@ConditionalOnMissingBean(name = "jpaAuditingHandler")
 @ComponentScan("com.example.kkaddak.core")
 @ComponentScan("com.example.kkaddak.batch")
 public class ModuleBatchApplication {

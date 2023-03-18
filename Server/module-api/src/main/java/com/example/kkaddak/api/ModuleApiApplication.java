@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@ConditionalOnMissingBean(name = "jpaAuditingHandler")
-@EnableJpaAuditing
 @ComponentScan("com.example.kkaddak.core")
 @ComponentScan("com.example.kkaddak.api")
 @EnableJpaRepositories("com.example.kkaddak.core")
