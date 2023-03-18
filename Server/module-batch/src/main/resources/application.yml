@@ -4,8 +4,6 @@ server:
 spring:
   #  빈 정의를 덮어쓰도록 허용하는 방법
   #  임시 대책이기 때문에 근본대책 필요
-  main:
-    allow-bean-definition-overriding: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -40,10 +38,8 @@ spring:
       isolation-level-for-create: default
 
 logging:
-  level:
-    org.hibernate:
-      type.descriptor.sql: trace #show parameter binding
-      SQL: DEBUG
+  log4j2:
+    config: classpath:log4j2.yml
 
 custom:
   path:
