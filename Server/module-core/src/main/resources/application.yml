@@ -5,7 +5,7 @@ spring:
   #  빈 정의를 덮어쓰도록 허용하는 방법
   #  임시 대책이기 때문에 근본대책 필요
   profiles:
-    active: local # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
+    active: prod # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
 
   jwt:
     key: service-key
@@ -36,11 +36,6 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
-  redis:
-    host: redisdb
-    port: 6379
-    password: kkaddak208!
 
 logging:
   log4j2:
