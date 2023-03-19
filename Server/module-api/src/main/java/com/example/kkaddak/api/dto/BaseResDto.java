@@ -5,6 +5,7 @@ import lombok.*;
 
 @ToString
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseResDto {
 
     private int statusCode;

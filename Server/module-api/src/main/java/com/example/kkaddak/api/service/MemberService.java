@@ -7,7 +7,9 @@ import com.example.kkaddak.core.entity.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface MemberService {
     DataResDto<?> kakaoLogin(String accessToken) throws JsonProcessingException;
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
