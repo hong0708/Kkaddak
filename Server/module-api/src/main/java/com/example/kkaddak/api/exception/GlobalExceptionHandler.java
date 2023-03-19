@@ -1,5 +1,6 @@
 package com.example.kkaddak.api.exception;
 
+import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.ExceptionResDto;
 import com.example.kkaddak.core.exception.IllegalMemberTypeException;
 import org.springframework.http.HttpStatus;
@@ -7,17 +8,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.xml.crypto.Data;
+import java.io.IOException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ExceptionResDto> handle(BadRequestException e){
-        ExceptionResDto response = new ExceptionResDto(e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public DataResDto<?> handle(BadRequestException e){
+        return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public DataResDto<?> handle(IllegalArgumentException e){
+        return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
     }
     @ExceptionHandler(IllegalMemberTypeException.class)
-    public ResponseEntity<ExceptionResDto> handle(IllegalMemberTypeException e){
-        ExceptionResDto response = new ExceptionResDto(e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public DataResDto<?> handle(IllegalMemberTypeException e){
+        return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
     }
 
+    @ExceptionHandler(IOException.class)
+    public DataResDto<?> handle(IOException e){
+        return DataResDto.builder().statusCode(500).statusMessage(e.getMessage()).build();
+    }
 }
