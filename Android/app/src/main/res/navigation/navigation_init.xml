@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_init"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
+        android:label="splashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.LoginFragment"
+        android:label="loginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_joinFragment"
+            app:destination="@id/joinFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/joinFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.JoinFragment"
+        android:label="splashFragment"
+        tools:layout="@layout/fragment_join">
+        <action
+            android:id="@+id/action_joinFragment_to_completeJoinFragment"
+            app:destination="@id/completeJoinFragment" />
+        <action
+            android:id="@+id/action_joinFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/completeJoinFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.CompleteJoinFragment"
+        android:label="CompleteJoinFragment"
+        tools:layout="@layout/fragment_complete_join">
+        <action
+            android:id="@+id/action_completeJoinFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.ssafy.kkaddak.presentation.MainActivity"
+        android:label="mainActivity"
+        tools:layout="@layout/activity_main" />
+</navigation>
