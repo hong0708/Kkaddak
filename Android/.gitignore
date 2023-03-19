@@ -22,8 +22,6 @@ output.json
 # IntelliJ
 *.iml
 .idea/
-misc.xml
-gradle.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
