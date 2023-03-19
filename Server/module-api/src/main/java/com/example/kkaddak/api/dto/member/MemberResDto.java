@@ -2,11 +2,14 @@ package com.example.kkaddak.api.dto.member;
 
 import com.example.kkaddak.core.entity.Member;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberResDto {
 
     @ApiModelProperty(example = "member 식별 아이디")

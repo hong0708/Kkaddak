@@ -2,12 +2,11 @@ package com.example.kkaddak.api.dto.member;
 
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @ToString
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TokenResDto {
 
     @ApiModelProperty(example = "access_token")
