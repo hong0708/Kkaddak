@@ -1,11 +1,10 @@
 package com.example.kkaddak.api.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @ToString
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class DataResDto<T> extends BaseResDto {
     private T data;
 

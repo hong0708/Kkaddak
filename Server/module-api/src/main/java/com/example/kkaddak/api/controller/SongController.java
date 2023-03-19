@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Api(tags = "음악 관련 API")
 @RestController
-@RequestMapping
+@RequestMapping("/api/v2/song")
 @RequiredArgsConstructor
 public class SongController {
     private final SongServiceImpl songService;
@@ -37,7 +37,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 상세 조회하여 객체 형태로 반환하는 API")
-    @GetMapping("/api/v1/song/{id}")
+    @GetMapping("/{id}")
     public DataResDto<?> getSong(@PathVariable(name = "id") Integer songId) {
         return songService.getSong(songId);
     }
@@ -47,7 +47,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 전체 조회하여 리스트 형태로 반환하는 API")
-    @GetMapping("/api/v1/song/list/all")
+    @GetMapping("/list/all")
     public DataResDto<?> getAllSong() {
         return songService.getAllSong();
     }
@@ -58,7 +58,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 최신 순으로 조회하여 리스트 형태로 반환하는 API")
-    @GetMapping("/api/v1/song/list/latest")
+    @GetMapping("/list/latest")
     public DataResDto<?> getLatestSong() {
         return songService.getLatestSong();
     }
@@ -69,7 +69,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 생성 및 음악 객체 반환하는 API")
-    @PostMapping("/api/v1/song/upload")
+    @PostMapping("/upload")
     public DataResDto<?> uploadSong(@RequestBody SongReqDto songReqDto, @AuthenticationPrincipal MemberDetails memberDetails) throws IOException {
         return songService.uploadSong(songReqDto, memberDetails.getMember().getUuid());
     }
@@ -80,13 +80,9 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악를 생성 및 음악 객체 반환하는 API")
-    @GetMapping("/pai/v1/song/like/{id}/{songId}")
+    @GetMapping("/like/{id}/{songId}")
     public ResponseEntity<String> likeSong() {
         return ResponseEntity.status(HttpStatus.OK).body("success");
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
 }
