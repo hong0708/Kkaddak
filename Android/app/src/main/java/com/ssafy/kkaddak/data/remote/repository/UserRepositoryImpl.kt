@@ -4,7 +4,6 @@ import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.user.User
-import com.ssafy.kkaddak.domain.entity.user.UserProfile
 import com.ssafy.kkaddak.domain.repository.UserRepository
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -38,8 +37,8 @@ class UserRepositoryImpl @Inject constructor(
             userRemoteDataSource.cancelSignUp()
         }
 
-    override suspend fun getUserProfile(): Resource<UserProfile> =
+    override suspend fun getUserProfile(): Resource<String?> =
         wrapToResource{
-            userRemoteDataSource.getUserProfileImg().toDomainModel()
+            userRemoteDataSource.getUserProfileImg()
         }
 }

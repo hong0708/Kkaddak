@@ -2,7 +2,6 @@ package com.ssafy.kkaddak.domain.repository
 
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.user.User
-import com.ssafy.kkaddak.domain.entity.user.UserProfile
 import okhttp3.MultipartBody
 
 interface UserRepository {
@@ -17,5 +16,5 @@ interface UserRepository {
 
     suspend fun cancelSignUp(): Resource<Boolean>
 
-    suspend fun getUserProfile(): Resource<UserProfile>
+    suspend fun getUserProfile(): Resource<String?>
 }
