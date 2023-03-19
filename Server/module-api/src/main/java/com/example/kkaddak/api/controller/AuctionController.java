@@ -13,10 +13,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Api(tags = "경매 API")
@@ -32,7 +29,7 @@ public class AuctionController {
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
     @ApiOperation(value = "경매 생성 API", notes = "")
-    @GetMapping("/create")
+    @PostMapping("/create")
     public DataResDto<?> createAuction(
             @AuthenticationPrincipal MemberDetails memberDetails,
             AuctionReqDto auctionReqDto)
