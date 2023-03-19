@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
-import com.ssafy.kkaddak.data.remote.datasource.user.UserProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.user.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,5 +21,5 @@ interface UserApiService {
     suspend fun cancelSignUp(): BaseResponse<Boolean>
 
     @GET("/api/v4/members/member-image")
-    suspend fun getUserProfile(): UserProfileResponse
+    suspend fun getUserProfile(): String?
 }

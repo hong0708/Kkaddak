@@ -34,6 +34,6 @@ class UserRemoteDataSourceImpl @Inject constructor(
     override suspend fun cancelSignUp(): Boolean =
         userApiService.cancelSignUp().data!!
 
-    override suspend fun getUserProfileImg(): UserProfileResponse =
+    override suspend fun getUserProfileImg(): String? =
         userApiService.getUserProfile()
 }
