@@ -16,6 +16,7 @@ import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.user.RequestCancelSignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -141,23 +142,22 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    fun setNickname(nickname: String) {
-        viewModelScope.launch {
-            _nickname.value = nickname
-        }
-    }
-
-    fun checkDuplication() {
-        viewModelScope.launch {
+    suspend fun checkDuplication() =
+        viewModelScope.async {
             when (val value = checkDuplicationUseCase.checkDuplication(nickname.value!!)) {
                 is Resource.Success<Boolean> -> {
                     _isDuplicate.value = value.data
+                    return@async 1
                 }
                 is Resource.Error -> {
                     Log.e("checkDuplication", "checkDuplication: ${value.errorMessage}")
+                    return@async 0
                 }
             }
-        }
+        }.await()
+
+    fun returnDuplicationTrue() {
+        _isDuplicate.value = true
     }
 
     fun cancelSignUp(): Boolean {
