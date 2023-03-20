@@ -25,7 +25,14 @@ public class GlobalExceptionHandler {
     public DataResDto<?> handle(IllegalMemberTypeException e){
         return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
     }
-
+    @ExceptionHandler(NoContentException.class)
+    public DataResDto<?> handle(NoContentException e){
+        return DataResDto.builder().statusCode(204).statusMessage(e.getMessage()).build();
+    }
+    @ExceptionHandler(PagingQueryException.class)
+    public DataResDto<?> handle(PagingQueryException e){
+        return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
+    }
     @ExceptionHandler(IOException.class)
     public DataResDto<?> handle(IOException e){
         return DataResDto.builder().statusCode(500).statusMessage(e.getMessage()).build();

@@ -1,12 +1,10 @@
-package com.example.kkaddak.api.dto;
+package com.example.kkaddak.api.dto.auction;
 
 import com.example.kkaddak.core.entity.Auction;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,8 +24,8 @@ public class AuctionResDto {
         this.auctionId = auction.getId();
         this.nftId = auction.getNftId();
         this.nftImagePath = auction.getNftImagePath();
-        this.creatorName = auction.getCreatorName();;
-        this.songTitle = auction.getSongTitle();;
+        this.creatorName = auction.getCreatorName();
+        this.songTitle = auction.getSongTitle();
         this.expiredDate = auction.getExpiredDate().toString();
         this.bidStartPrice = auction.getBidStartPrice();
         this.isClose = auction.getIsClose() ;
