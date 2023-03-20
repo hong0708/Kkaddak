@@ -6,6 +6,7 @@ import com.example.kkaddak.api.dto.SongResDto;
 import com.example.kkaddak.api.dto.member.MemberResDto;
 import com.example.kkaddak.api.service.SongService;
 import com.example.kkaddak.core.entity.LikeList;
+import com.example.kkaddak.api.utils.AmazonS3Client;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.entity.PlayList;
 import com.example.kkaddak.core.entity.Song;
@@ -33,18 +34,21 @@ public class SongServiceImpl implements SongService {
 
     private final PlayListRepository playListRepository;
 
+    private final AmazonS3Client amazonS3Client;
     @Override
     public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException {
         try {
-            if (songReqDto.getSongTitle() == null || songReqDto.getSongPath() == null ||
-                    songReqDto.getCoverPath() == null || songReqDto.getGenre() == null || songReqDto.getMood() == null) {
-                throw new IllegalArgumentException("songReqDto값이 정확하지 않습니다");
-            }
+            // AmazonS3Client 인스턴스 생성
+            AmazonS3Client amazonS3Client = new AmazonS3Client("region", "accessKeyId", "secretAccessKey", "bucketName");
+
+            // 파일 업로드하고 S3 URL 받아오기
+            String songUrl = amazonS3Client.uploadFile("songs", songReqDto.getSongFile().getOriginalFilename(), songReqDto.getSongFile().getInputStream());
+            String coverUrl = amazonS3Client.uploadFile("covers", songReqDto.getCoverFile().getOriginalFilename(), songReqDto.getCoverFile().getInputStream());
 
             Song song = Song.builder()
                     .title(songReqDto.getSongTitle())
-                    .songPath(songReqDto.getSongPath())
-                    .coverPath(songReqDto.getCoverPath())
+                    .songPath(songUrl)
+                    .coverPath(coverUrl)
                     .genre(songReqDto.getGenre())
                     .mood(songReqDto.getMood())
                     .member(member)

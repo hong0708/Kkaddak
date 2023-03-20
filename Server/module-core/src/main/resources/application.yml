@@ -5,7 +5,7 @@ spring:
   #  빈 정의를 덮어쓰도록 허용하는 방법
   #  임시 대책이기 때문에 근본대책 필요
   profiles:
-    active: prod # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
+    active: local # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
 
   jwt:
     key: service-key
@@ -44,6 +44,13 @@ logging:
 custom:
   path:
     upload-images: '/var/lib/images'
+
+aws:
+  s3:
+    region: "ap-northeast-2"
+    access-key-id: "AKIA6DD3NTVFRWHK3T6W"
+    secret-access-key: "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"
+    bucket-name: "kkaddak"
 
   # 부하 테스트 이후 설정 최적화하기
 #  hikari:
