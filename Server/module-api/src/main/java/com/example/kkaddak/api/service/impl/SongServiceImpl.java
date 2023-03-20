@@ -5,8 +5,10 @@ import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
 import com.example.kkaddak.api.dto.member.MemberResDto;
 import com.example.kkaddak.api.service.SongService;
+import com.example.kkaddak.core.entity.LikeList;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.entity.Song;
+import com.example.kkaddak.core.repository.LikeListRepository;
 import com.example.kkaddak.core.repository.MemberRepository;
 import com.example.kkaddak.core.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +27,11 @@ import java.util.stream.Collectors;
 public class SongServiceImpl implements SongService {
     private final SongRepository songRepository;
 
-    private final MemberRepository memberRepository;
+    private final LikeListRepository likeListRepository;
 
     @Override
-    public DataResDto<?> uploadSong(SongReqDto songReqDto, UUID memberUuid) throws IOException {
+    public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException {
         try {
-            Member member = memberRepository.findByUuid(memberUuid)
-                    .orElseThrow(() -> new IllegalArgumentException("멤버 id값이 존재하지 않습니다"));
-
             if (songReqDto.getSongTitle() == null || songReqDto.getSongPath() == null ||
                     songReqDto.getCoverPath() == null || songReqDto.getGenre() == null || songReqDto.getMood() == null) {
                 throw new IllegalArgumentException("songReqDto값이 정확하지 않습니다");
@@ -69,7 +68,7 @@ public class SongServiceImpl implements SongService {
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
         }
         catch(IllegalArgumentException e){
-            return DataResDto.builder().statusCode(400).statusMessage("음악 Uuid가 올바르지 않습니다.").build();
+            return DataResDto.builder().statusCode(400).statusMessage("음악 songId가 올바르지 않습니다.").build();
         }
 
     }
@@ -102,6 +101,54 @@ public class SongServiceImpl implements SongService {
             return DataResDto.builder().data(songResDtoList)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
         } catch(Exception e) {
+            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
+        }
+    }
+
+    @Override
+    public DataResDto<?> clickLikeBtn(Member member, Integer songId) {
+        try {
+            Song song = songRepository.findById(songId)
+                    .orElseThrow(() -> new IllegalArgumentException(""));
+
+            String message = "";
+
+            boolean checkValue = likeListRepository.existsByMemberAndSong(member, song);
+            if (checkValue) {
+                message = "음악 좋아요를 취소했습니다.";
+
+                LikeList likeList = likeListRepository.findByMemberAndSong(member, song)
+                        .orElseThrow(() -> new IllegalArgumentException(""));
+
+                likeListRepository.delete(likeList);
+            } else {
+                message = "음악 좋아요를 선택했습니다.";
+                LikeList likeList = LikeList.builder()
+                        .member(member)
+                        .song(song)
+                        .build();
+                likeListRepository.save(likeList);
+            }
+            return DataResDto.builder().statusCode(200).statusMessage(message).statusCode(200).build();
+        } catch (IllegalArgumentException e) {
+            return DataResDto.builder().statusCode(400).statusMessage("음악 songId가 올바르지 않습니다.").build();
+        } catch (Exception e) {
+            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
+        }
+    }
+
+    @Override
+    public DataResDto<?> getLikeList(Member member) {
+        try {
+            List<LikeList> likeList = likeListRepository.findByMember(member);
+            if (likeList == null || likeList.isEmpty()) {
+                return DataResDto.builder().data(Collections.emptyList())
+                        .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
+            }
+            List<SongResDto> songResDtoList = likeList.stream().map(likes -> new SongResDto(likes.getSong())).collect(Collectors.toList());
+            return DataResDto.builder().data(songResDtoList)
+                    .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
+        } catch (Exception e) {
             return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
         }
     }
