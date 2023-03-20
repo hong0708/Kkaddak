@@ -11,6 +11,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     override fun initView() {
         initTabLayout()
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.ivUploadMusic.setOnClickListener {
+            navigate(ProfileFragmentDirections.actionProfileFragmentToUploadMusicFragment())
+        }
     }
 
     private fun initTabLayout() {

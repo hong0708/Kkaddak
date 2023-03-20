@@ -21,7 +21,11 @@
         android:id="@+id/profileFragment"
         android:name="com.ssafy.kkaddak.presentation.profile.ProfileFragment"
         android:label="profileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_uploadMusicFragment"
+            app:destination="@id/uploadMusicFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/songListFragment"
@@ -48,4 +52,10 @@
             android:name="songId"
             app:argType="long" />
     </fragment>
+
+    <fragment
+        android:id="@+id/uploadMusicFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.UploadMusicFragment"
+        android:label="UploadMusicFragment"
+        tools:layout="@layout/fragment_upload_music" />
 </navigation>
