@@ -18,7 +18,7 @@ import java.math.BigInteger
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
 private const val CONTRACT_ADDRESS = "0xD2ec852c1B011f4Fb286396830a9457d6DE3eBF4"
 private var MY_WALLET_ADDRESS = ""
-val TAG = "wallet info"
+private const val TAG = "wallet info"
 
 fun generateWallet() {
     Thread {
@@ -73,7 +73,7 @@ fun generateWallet() {
     }.start()
 }
 
-fun insertuserWallet(){
+fun insertUserWallet(){
     Thread {
         // 개인 키 추출
         val privateKey: String = "b89cd06cf5acd5e0d1b1dc0c7e29233c318d42f8c77a3af82a8f3ff53ae1577c"
