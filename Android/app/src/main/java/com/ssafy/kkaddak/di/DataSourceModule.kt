@@ -1,9 +1,11 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.service.AuthApiService
 import com.ssafy.kkaddak.data.remote.service.RefreshApiService
+import com.ssafy.kkaddak.data.remote.service.SongApiService
 import com.ssafy.kkaddak.data.remote.service.UserApiService
 import dagger.Module
 import dagger.Provides
@@ -27,4 +29,9 @@ object DataSourceModule {
         userApiService: UserApiService
     ): UserRemoteDataSourceImpl = UserRemoteDataSourceImpl(userApiService)
 
+    @Provides
+    @Singleton
+    fun provideSongDataSource(
+        songApiService: SongApiService
+    ): SongRemoteDataSourceImpl = SongRemoteDataSourceImpl(songApiService)
 }

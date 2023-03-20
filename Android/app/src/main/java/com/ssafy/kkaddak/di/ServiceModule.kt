@@ -5,6 +5,7 @@ import com.ssafy.kkaddak.NoAuthInterceptorClient
 import com.ssafy.kkaddak.RefreshInterceptorClient
 import com.ssafy.kkaddak.data.remote.service.AuthApiService
 import com.ssafy.kkaddak.data.remote.service.RefreshApiService
+import com.ssafy.kkaddak.data.remote.service.SongApiService
 import com.ssafy.kkaddak.data.remote.service.UserApiService
 import dagger.Module
 import dagger.Provides
@@ -37,4 +38,11 @@ object ServiceModule {
         @AuthInterceptorClient retrofit: Retrofit
     ): UserApiService =
         retrofit.create(UserApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSongApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): SongApiService =
+        retrofit.create(SongApiService::class.java)
 }

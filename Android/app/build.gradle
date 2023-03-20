@@ -86,6 +86,14 @@ dependencies {
 
     // kakao login
     implementation libs.kakao.sdk.user
+
+    implementation libs.exoplayer
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.ui
+
+    implementation libs.exoplayer
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.ui
 }
 
 kapt {

@@ -1,9 +1,11 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.domain.repository.AuthRepository
+import com.ssafy.kkaddak.domain.repository.SongRepository
 import com.ssafy.kkaddak.domain.repository.UserRepository
 import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
+import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
 import dagger.Module
@@ -35,4 +37,8 @@ object UseCaseModule {
     fun provideCheckDuplicationUseCase(userRepository: UserRepository): CheckDuplicationUseCase =
         CheckDuplicationUseCase(userRepository)
 
+    @Singleton
+    @Provides
+    fun provideGetSongsUseCase(songRepository: SongRepository): GetSongsUseCase =
+        GetSongsUseCase(songRepository)
 }

@@ -39,6 +39,8 @@ tedpermission = "3.3.0"
 
 work-runtime-ktx = "2.7.1"
 
+exoplayer = "2.18.4"
+
 kakao_sdk_version = "2.11.2"
 
 [libraries]
@@ -75,6 +77,9 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "bom
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 tedpermission = { module = "io.github.ParkSangGwon:tedpermission-normal", version.ref = "tedpermission" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work-runtime-ktx" }
+exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 kakao-sdk-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao_sdk_version" }
 
 [bundles]
