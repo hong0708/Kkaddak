@@ -45,6 +45,7 @@ object UseCaseModule {
     @Provides
     fun provideRequestCancelSignUpUseCase(userRepository: UserRepository): RequestCancelSignUpUseCase =
         RequestCancelSignUpUseCase(userRepository)
+
     @Singleton
     @Provides
     fun provideGetSongsUseCase(songRepository: SongRepository): GetSongsUseCase =
