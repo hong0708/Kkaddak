@@ -73,6 +73,56 @@ fun generateWallet() {
     }.start()
 }
 
+fun insertuserWallet(){
+    Thread {
+        // 개인 키 추출
+        val privateKey: String = "b89cd06cf5acd5e0d1b1dc0c7e29233c318d42f8c77a3af82a8f3ff53ae1577c"
+        val publicKey: String = "0xf10ccb49335c686147bdba507482bb3d3e3af1c4"
+
+        // Ethereum 네트워크에 연결
+        val web3j = Web3j.build(HttpService(INFURA_URL))
+
+        //val transactionManager = RawTransactionManager(web3j, publicKey)
+
+        /*val contract1 = ERC20.load(
+            CONTRACT_ADDRESS,
+            web3j,
+            Address(CONTRACT_OWNER_ADDRESS,  web3j.ethChainId().send()),
+            DefaultGasProvider()
+        )*/
+
+//        여기서 CONTRACT_OWNER_ADDRESS는 컨트랙트 소유자의 주소를 나타내는 문자열 상수입니다.
+//        EthereumContext.getChainId()는 이더리움 블록체인 네트워크의 체인 ID를 가져오는 데 사용됩니다.
+//        주의할 점은, 해당 주소로 컨트랙트에 대한 모든 작업이 수행됩니다.
+//        따라서 해당 주소에는 컨트랙트 작업에 필요한 충분한 이더가 있어야 합니다.
+//        또한, 해당 주소는 컨트랙트의 소유자가 아닐 수도 있습니다.
+
+        // 컨트랙트의 RemoteCall 객체 생성
+        val contract = ERC20.load(
+            CONTRACT_ADDRESS,
+            web3j,
+            Credentials.create(privateKey),
+            DefaultGasProvider()
+        )
+        val call: RemoteCall<BigInteger>? = contract.balanceOf(publicKey)
+
+        try {
+            // 컨트랙트에서 나의 지갑 잔액 및 토큰 이름 가져오기
+            val result = call?.send()
+            val balance = result.toString()
+//            val tokenName = result.component2()
+
+            // 잔액 계산
+            val balanceDecimal = BigDecimal(balance)
+            val balanceInEther = Convert.fromWei(balanceDecimal, Convert.Unit.ETHER)
+
+            Log.d(TAG, "Balance of $publicKey : $balanceInEther $balance")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d(TAG, "abc: ${e.toString()}")
+        }
+    }.start()
+}
 
 fun generateAccountAddress(publicKey: ByteArray): String {
     // Add 04 prefix to indicate that it's uncompressed public key.
