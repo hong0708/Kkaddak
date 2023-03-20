@@ -10,7 +10,8 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class PlayList {
+public class LikeList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
@@ -23,12 +24,9 @@ public class PlayList {
     @ToString.Exclude
     private Song song;
 
-    private Long addedDate;
-
     @Builder
-    public PlayList(Member member, Song song) {
+    public LikeList(Member member, Song song) {
         this.member = member;
         this.song = song;
-        this.addedDate = System.currentTimeMillis();
     };
 }

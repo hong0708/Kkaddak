@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface SongRepository extends JpaRepository<Song, Integer> {
-    Optional<Song> findBySongUuid(UUID songUuid);
 
     Optional<Song> findById(Integer songId);
 
