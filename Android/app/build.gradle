@@ -90,6 +90,10 @@ dependencies {
     implementation libs.exoplayer
     implementation libs.exoplayer.core
     implementation libs.exoplayer.ui
+
+    implementation libs.exoplayer
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.ui
 }
 
 kapt {
