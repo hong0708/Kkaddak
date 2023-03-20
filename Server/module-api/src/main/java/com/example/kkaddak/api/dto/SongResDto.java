@@ -4,10 +4,7 @@ import com.example.kkaddak.core.entity.PlayList;
 import com.example.kkaddak.core.entity.Song;
 import com.example.kkaddak.core.repository.MemberRepository;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SongResDto {
 
     @ApiModelProperty(example = "음악 식별 아이디")

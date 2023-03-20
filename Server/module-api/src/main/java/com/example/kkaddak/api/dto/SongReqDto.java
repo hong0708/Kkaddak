@@ -3,10 +3,12 @@ package com.example.kkaddak.api.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SongReqDto {
     @ApiModelProperty(
             value = "음악 제목",
