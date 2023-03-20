@@ -110,7 +110,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public DataResDto<?> clickLikeBtn(Member member, Integer songId) {
+    public DataResDto<?> clickLikeSong(Member member, Integer songId) {
         try {
             Song song = songRepository.findById(songId)
                     .orElseThrow(() -> new IllegalArgumentException(""));

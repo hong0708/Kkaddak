@@ -22,7 +22,7 @@ public interface SongService {
 
     DataResDto<?> getLatestSong();
 
-    DataResDto<?> clickLikeBtn(Member member, Integer songId);
+    DataResDto<?> clickLikeSong(Member member, Integer songId);
 
     DataResDto<?> getLikeList(Member member);
 
