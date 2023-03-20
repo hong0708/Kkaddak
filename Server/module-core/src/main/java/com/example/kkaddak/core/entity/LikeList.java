@@ -3,32 +3,30 @@ package com.example.kkaddak.core.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 @ToString(callSuper = true)
-public class PlayList {
+public class LikeList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @ToString.Exclude
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "song_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @ToString.Exclude
     private Song song;
 
-    private Long addedDate;
-
     @Builder
-    public PlayList(Member member, Song song) {
+    public LikeList(Member member, Song song) {
         this.member = member;
         this.song = song;
-        this.addedDate = System.currentTimeMillis();
     };
 }
