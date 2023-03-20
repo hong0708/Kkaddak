@@ -23,7 +23,7 @@ object BindingAdapters {
     @BindingAdapter("android:normalImgUri")
     fun ImageView.setNormalImg(imgUri: String?) {
         Glide.with(this.context)
-            .load(imgUri)
+            .load("http://j8d208.p.ssafy.io:8087/images$imgUri")
             .placeholder(R.drawable.bg_image_not_found)
             .error(R.drawable.bg_image_not_found)
             .into(this)

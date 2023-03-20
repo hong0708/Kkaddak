@@ -3,7 +3,7 @@ package com.ssafy.kkaddak.data.remote.repository
 import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSource
-import com.ssafy.kkaddak.domain.entity.SongItem
+import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.repository.SongRepository
 import javax.inject.Inject
 

@@ -2,21 +2,22 @@ package com.ssafy.kkaddak.data.remote.datasource.song
 
 import com.google.gson.annotations.SerializedName
 import com.ssafy.kkaddak.data.remote.datasource.base.DataToDomainMapper
-import com.ssafy.kkaddak.domain.entity.SongItem
+import com.ssafy.kkaddak.domain.entity.song.SongItem
 
 data class SongResponse(
-    @SerializedName("track")
-    val track: String,
-    @SerializedName("streamUrl")
-    val streamUrl: String,
-    @SerializedName("artist")
-    val artist: String,
-    @SerializedName("coverUrl")
-    val coverUrl: String
+    @SerializedName("songTitle")
+    val songTitle: String,
+    @SerializedName("songPath")
+    val songPath: String,
+    @SerializedName("coverPath")
+    val coverPath: String,
+    @SerializedName("genre")
+    val genre: String,
+    @SerializedName("mood")
+    val mood: String,
+    @SerializedName("nickname")
+    val nickname: String
 ) : DataToDomainMapper<SongItem> {
-    fun toDomainModel(id: Long): SongItem =
-        SongItem(id = id, track, streamUrl, artist, coverUrl)
-
     override fun toDomainModel(): SongItem =
-        SongItem(1, track, streamUrl, artist, coverUrl)
+        SongItem(songTitle, songPath, coverPath, genre, mood, nickname)
 }

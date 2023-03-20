@@ -6,7 +6,7 @@
     <data>
         <variable
             name="song"
-            type="com.ssafy.kkaddak.domain.entity.SongItem" />
+            type="com.ssafy.kkaddak.domain.entity.song.SongItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/bg_image_radius10"
             android:clipToOutline="true"
-            android:normalImgUri="@{song.coverUrl}"
+            android:normalImgUri="@{song.coverPath}"
             android:contentDescription="@string/image_song"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                 android:fontFamily="@font/gmarket_sans_medium"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="@{song.track}"
+                android:text="@{song.songTitle}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Out of time" />
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/gmarket_sans_light"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:text="@{song.artist}"
+                android:text="@{song.nickname}"
                 app:layout_constraintStart_toStartOf="@id/tv_song_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_song_title"
                 tools:text="The Weekend" />

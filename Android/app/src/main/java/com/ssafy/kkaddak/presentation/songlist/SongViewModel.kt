@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
-import com.ssafy.kkaddak.domain.entity.SongItem
-import com.ssafy.kkaddak.domain.usecase.getSongsUseCase
+import com.ssafy.kkaddak.domain.entity.song.SongItem
+import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SongViewModel @Inject constructor(
-    private val getSongsUseCase: getSongsUseCase
+    private val getSongsUseCase: GetSongsUseCase
 ) : ViewModel() {
 
     private val _songListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
