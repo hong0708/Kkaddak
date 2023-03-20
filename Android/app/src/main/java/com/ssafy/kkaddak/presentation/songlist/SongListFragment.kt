@@ -1,6 +1,6 @@
 package com.ssafy.kkaddak.presentation.songlist
 
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
@@ -13,7 +13,7 @@ class SongListFragment :
     BaseFragment<FragmentSongListBinding>(R.layout.fragment_song_list) {
 
     private val songAdapter by lazy { SongAdapter(this::getSongDetail) }
-    private val songViewModel by viewModels<SongViewModel>()
+    private val songViewModel by activityViewModels<SongViewModel>()
 
     override fun initView() {
         initRecyclerView()
@@ -31,7 +31,7 @@ class SongListFragment :
         songViewModel.getSongs()
     }
 
-    private fun getSongDetail(songId: Long) {
+    private fun getSongDetail(songId: Int) {
         navigate(
             SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(
                 songId

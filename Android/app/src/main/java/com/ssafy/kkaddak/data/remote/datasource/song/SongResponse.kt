@@ -5,6 +5,8 @@ import com.ssafy.kkaddak.data.remote.datasource.base.DataToDomainMapper
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 
 data class SongResponse(
+    @SerializedName("songId")
+    val songId: Int,
     @SerializedName("songTitle")
     val songTitle: String,
     @SerializedName("songPath")
@@ -16,8 +18,8 @@ data class SongResponse(
     @SerializedName("mood")
     val mood: String,
     @SerializedName("nickname")
-    val nickname: String
+    val nickname: String?
 ) : DataToDomainMapper<SongItem> {
     override fun toDomainModel(): SongItem =
-        SongItem(songTitle, songPath, coverPath, genre, mood, nickname)
+        SongItem(songId, songTitle, songPath, coverPath, genre, mood, nickname)
 }

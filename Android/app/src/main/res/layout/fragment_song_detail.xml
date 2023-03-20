@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="songDetail"
+            type="com.ssafy.kkaddak.domain.entity.song.SongItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/iv_song_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -40,6 +43,7 @@
             android:layout_marginTop="22dp"
             android:contentDescription="@string/image_song"
             android:scaleType="centerCrop"
+            android:normalImgUri="@{songDetail.coverPath}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_back" />
@@ -52,6 +56,7 @@
             android:fontFamily="@font/gmarket_sans_bold"
             android:textColor="@color/white"
             android:textSize="28sp"
+            android:text="@{songDetail.songTitle}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_song"
@@ -65,6 +70,7 @@
             android:fontFamily="@font/gmarket_sans_medium"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:text="@{songDetail.nickname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_song_title"
