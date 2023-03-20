@@ -5,4 +5,6 @@ interface SongRemoteDataSource {
     suspend fun getMusics(): List<SongResponse>
 
     suspend fun getMusic(songId: Int): SongResponse
+
+    suspend fun getPlayList(): List<SongResponse>
 }

@@ -12,4 +12,7 @@ interface SongApiService {
 
     @GET("/api/v2/song/{id}")
     suspend fun getMusic(@Path("id") songId: Int): BaseResponse<SongResponse>
+
+    @GET("/api/v2/song/song/myPlay/list")
+    suspend fun getPlayList(): BaseResponse<List<SongResponse>>
 }
