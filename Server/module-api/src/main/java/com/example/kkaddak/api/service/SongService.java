@@ -25,4 +25,10 @@ public interface SongService {
     DataResDto<?> clickLikeBtn(Member member, Integer songId);
 
     DataResDto<?> getLikeList(Member member);
+
+    DataResDto<?> addMyPlayList(Member member, Integer songId);
+
+    DataResDto<?> deleteMyPlayList(Member member, Integer songId);
+
+    DataResDto<?> getPlayList(Member member);
 }

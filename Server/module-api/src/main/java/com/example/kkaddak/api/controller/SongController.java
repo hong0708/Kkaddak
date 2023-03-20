@@ -79,7 +79,7 @@ public class SongController {
             @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
-    @ApiOperation(value = "음악 좋아요 및 음악 객체 반환하는 API")
+    @ApiOperation(value = "음악 좋아요 좋아요 취소 및 음악 객체 반환하는 API")
     @GetMapping("/api/v1/song/like/{songId}")
     public DataResDto<?> likeSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
         return songService.clickLikeBtn(memberDetails.getMember(), songId);
@@ -89,12 +89,45 @@ public class SongController {
             @ApiResponse(code = 200, message = "음악 좋아요 리스트 조회가 성공했을 때 응답"),
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
-    @ApiOperation(value = "음악 좋아요 리스트를 최신 순으로 조회하여 리스트 형태로 반환하는 API")
+    @ApiOperation(value = "음악 좋아요 리스트를 반환하는 API")
     @GetMapping("/api/v1/song/like/list")
     public DataResDto<?> getLikeList(@AuthenticationPrincipal MemberDetails memberDetails) {
         return songService.getLikeList(memberDetails.getMember());
     }
-    
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "나의 플레이 리스트에 추가가 성공했을 때 응답"),
+            @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "나의 플레이 리스트에 추가하는 API")
+    @GetMapping("/api/v1/song/myPlay/{songId}")
+    public DataResDto<?> AddMyPlayListSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
+        return songService.addMyPlayList(memberDetails.getMember(), songId);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "나의 플레이 리스트에 제거가 성공했을 때 응답"),
+            @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+            @ApiResponse(code = 406, message = "나의 플레이 리스트에서 음악이 존재하지 않을 때 응답"),
+    })
+    @ApiOperation(value = "나의 플레이 리스트에서 제거하는 API")
+    @GetMapping("/api/v1/song/myPlay/{songId}/delete")
+    public DataResDto<?> DeleteMyPlayListSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
+        return songService.deleteMyPlayList(memberDetails.getMember(), songId);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "나의 플레이 리스트 조회가 성공했을 때 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "나의 플레이 리스트를 최신 순으로 조회하여 리스트 형태로 반환하는 API")
+    @GetMapping("/api/v1/song/myPlay/list")
+    public DataResDto<?> getPlayList(@AuthenticationPrincipal MemberDetails memberDetails) {
+        return songService.getPlayList(memberDetails.getMember());
+    }
+
 
     @GetMapping("/hello")
     public String hello() {

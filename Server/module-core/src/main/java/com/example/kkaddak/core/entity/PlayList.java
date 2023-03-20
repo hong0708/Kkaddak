@@ -3,24 +3,24 @@ package com.example.kkaddak.core.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 @ToString(callSuper = true)
 public class PlayList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @ToString.Exclude
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "song_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @ToString.Exclude
     private Song song;
 
     private Long addedDate;
