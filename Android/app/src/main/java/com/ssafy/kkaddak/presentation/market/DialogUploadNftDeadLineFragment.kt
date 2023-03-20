@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.DialogUploadNftDeadlineBinding
 
-class UploadDeadLineFragment : DialogFragment() {
+class DialogUploadNftDeadLineFragment : DialogFragment() {
 
     private var _binding: DialogUploadNftDeadlineBinding? = null
     private val binding get() = _binding!!

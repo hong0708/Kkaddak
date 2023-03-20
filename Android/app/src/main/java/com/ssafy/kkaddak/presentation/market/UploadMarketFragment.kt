@@ -24,13 +24,21 @@ class UploadMarketFragment :
 
     override fun initView() {
         (activity as MainActivity).hideNav()
-        binding.tvSelectNftImage.setOnClickListener { }
-        binding.tvSelectDeadline.setOnClickListener {
-            val dialog = UploadDeadLineFragment()
-            dialog.show(requireActivity().supportFragmentManager, "UploadDeadLineFragment")
+        binding.tvSelectNftImage.setOnClickListener {
+            val dialog = DialogUploadNftDetailFragment()
+            dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
 
-            dialog.setFragmentInterfacer(object : UploadDeadLineFragment.FragmentInterfacer {
-                //인터페이스 값 받아오기
+            dialog.setFragmentInterfacer(object : DialogUploadNftDetailFragment.FragmentInterfacer {
+                override fun onButtonClick(input: String) {
+
+                }
+            })
+        }
+        binding.tvSelectDeadline.setOnClickListener {
+            val dialog = DialogUploadNftDeadLineFragment()
+            dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDeadLineFragment")
+
+            dialog.setFragmentInterfacer(object : DialogUploadNftDeadLineFragment.FragmentInterfacer {
                 override fun onButtonClick(input: String) {
                     binding.tvUploadDeadline.setText(input)
                 }
