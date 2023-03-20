@@ -87,7 +87,7 @@ public class MemberController {
 
     @ApiResponses({
             @ApiResponse(code = 200, message = "정상적으로 유저 삭제 됐을 경우"),
-            @ApiResponse(code = 400, message = "존재하지 않는 회원일 경우")
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우")
     })
     @ApiOperation(value = "유저 회원가입 이탈시 유저 삭제 API")
     @PostMapping("/cancel-sign-up")
@@ -95,6 +95,31 @@ public class MemberController {
             @AuthenticationPrincipal MemberDetails memberDetails)
     {
         return memberService.findMemberById(memberDetails.getMember().getId());
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "구독 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우")
+    })
+    @ApiOperation(value = "구독 API")
+    @GetMapping("/follow/{artistId}")
+    public DataResDto<?> followMember(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("artistId") String artistUuid)
+    {
+        return memberService.followMember(memberDetails.getMember(), artistUuid);
+    }
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "구독 취소 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 구독한 상태가 아닌 경우")
+    })
+    @ApiOperation(value = "구독 취소 API")
+    @GetMapping("/unfollow/{artistId}")
+    public DataResDto<?> unfollowMember(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("artistId") String artistUuid)
+    {
+        return memberService.unfollowMember(memberDetails.getMember(), artistUuid);
     }
 
 

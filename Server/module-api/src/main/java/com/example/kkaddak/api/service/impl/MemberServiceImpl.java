@@ -3,8 +3,12 @@ package com.example.kkaddak.api.service.impl;
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
+import com.example.kkaddak.api.exception.BadRequestException;
+import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
+import com.example.kkaddak.core.entity.Follow;
 import com.example.kkaddak.core.entity.Member;
+import com.example.kkaddak.core.repository.FollowRepository;
 import com.example.kkaddak.core.repository.MemberRepository;
 import com.example.kkaddak.core.utils.ErrorMessageEnum;
 import com.example.kkaddak.core.utils.ImageUtil;
@@ -34,8 +38,10 @@ import java.util.*;
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository  memberRepository;
+    private final FollowRepository followRepository;
     private final JwtProvider jwtProvider;
     private final ImageUtil imageUtil;
+
     public DataResDto<?> kakaoLogin(String accessToken) throws JsonProcessingException
     {
         // 1. "인가 코드"로 "액세스 토큰" 요청 -> 안드로이드에서 엑세스 토큰을 전송해주기 때문에 생략
@@ -227,7 +233,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
             return DataResDto.builder()
                     .data(escapeResDto)
                     .statusMessage(ErrorMessageEnum.USER_NOT_EXIST.getMessage())
-                    .statusCode(400).build();
+                    .statusCode(404).build();
         }
         EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(false).build();
         return DataResDto.builder()
@@ -236,4 +242,38 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .statusCode(200).build();
     }
 
+    @Override
+    public DataResDto<?> followMember(Member follower, String otherUuid)
+    {
+        Member followed = memberRepository.findByUuid(UUID.fromString(otherUuid))
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
+        Follow follow = Follow.builder().follower(follower).following(followed).build();
+        followRepository.save(follow);
+        return DataResDto.builder()
+                .statusCode(200)
+                .statusMessage("구독되었습니다.")
+                .data(FollowResDto.builder()
+                        .myFollowers(followRepository.countByFollowing(follower))
+                        .myFollwings(followRepository.countByFollower(follower))
+                        .build())
+                .build();
+    }
+
+    @Override
+    public DataResDto<?> unfollowMember(Member follower, String otherUuid)
+    {
+        Member followed = memberRepository.findByUuid(UUID.fromString(otherUuid))
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
+        Follow follow = followRepository.findByFollowerAndFollowing(follower, followed)
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.FOLLOW_NOT_EXIST.getMessage()));
+        followRepository.delete(follow);
+        return DataResDto.builder()
+                .statusCode(204)
+                .statusMessage("구독이 취소되었습니다.")
+                .data(FollowResDto.builder()
+                        .myFollowers(followRepository.countByFollowing(follower))
+                        .myFollwings(followRepository.countByFollower(follower))
+                        .build())
+                .build();
+    }
 }
