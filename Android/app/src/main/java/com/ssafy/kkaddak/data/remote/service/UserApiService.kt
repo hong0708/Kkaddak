@@ -17,9 +17,9 @@ interface UserApiService {
     @GET("/api/v1/members/nicknames/{nickname}/exists")
     suspend fun checkDuplication(@Path("nickname") nickname: String): BaseResponse<Boolean>
 
-    @POST("/api/v4/members/cancel-sign-up")
+    @POST("/api/v1/members/cancel-sign-up")
     suspend fun cancelSignUp(): BaseResponse<Boolean>
 
-    @GET("/api/v4/members/member-image")
+    @GET("/api/v1/members/member-image")
     suspend fun getUserProfile(): String?
 }

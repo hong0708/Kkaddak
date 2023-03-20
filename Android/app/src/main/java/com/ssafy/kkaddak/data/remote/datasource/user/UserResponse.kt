@@ -12,9 +12,6 @@ data class UserResponse(
     @SerializedName("profilePath")
     val profilePath: String?
 ) : DataToDomainMapper<User> {
-    override fun toDomainModel(): User {
-        return User(
-            email, nickname, profilePath
-        )
-    }
+    override fun toDomainModel(): User =
+        User(email, nickname, profilePath)
 }

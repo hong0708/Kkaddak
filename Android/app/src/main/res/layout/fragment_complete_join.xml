@@ -12,6 +12,7 @@
         android:background="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_welcome_kkaddak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
