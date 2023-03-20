@@ -42,7 +42,6 @@ public class AuctionServiceImpl implements AuctionService {
             String query = "SELECT * FROM (select id from coredb.auction order by id desc limit :limit ) a1 Join coredb.auction a2 on a1.id = a2.id";
             nativeQuery = entityManager.createNativeQuery(query, Auction.class);
             nativeQuery.setParameter("limit", limit);
-            System.out.println("here it is");
         }
         else{
             String query = "SELECT * FROM (select id from coredb.auction where id < :lastId order by id desc limit :limit ) a1 Join coredb.auction a2 on a1.id = a2.id";
