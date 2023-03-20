@@ -1,6 +1,6 @@
 package com.ssafy.kkaddak.presentation.market
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -24,11 +24,11 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun nftinit() {
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.rv_market_nft_list)
-
         nftadapter = NftItemAdapter()
-        recyclerView?.adapter = nftadapter
-        recyclerView?.run {
+        binding.rvMarketNftList.apply {
+            adapter = nftadapter
+            layoutManager =
+                GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             val spanCount = 2
             val space = 20
             addItemDecoration(GridSpaceItemDecoration(spanCount, space))

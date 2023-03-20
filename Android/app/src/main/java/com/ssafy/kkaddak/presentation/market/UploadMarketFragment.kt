@@ -29,8 +29,7 @@ class UploadMarketFragment :
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
 
             dialog.setFragmentInterfacer(object : DialogUploadNftDetailFragment.FragmentInterfacer {
-                override fun onButtonClick(input: String) {
-
+                override fun onSendNftInfo(input: UploadNftItem) {
                 }
             })
         }
