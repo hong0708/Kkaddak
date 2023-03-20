@@ -15,4 +15,14 @@ class SongRepositoryImpl @Inject constructor(
         wrapToResource {
             songRemoteDataSource.getMusics().map { it.toDomainModel() }
         }
+
+    override suspend fun getMusic(songId: Int): Resource<SongItem> =
+        wrapToResource {
+            songRemoteDataSource.getMusic(songId).toDomainModel()
+        }
+
+    override suspend fun getPlayList(): Resource<List<SongItem>> =
+        wrapToResource {
+            songRemoteDataSource.getPlayList().map { it.toDomainModel() }
+        }
 }

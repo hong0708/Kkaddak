@@ -9,7 +9,7 @@ import com.ssafy.kkaddak.databinding.ItemSongBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 
 class SongAdapter(
-    private val onItemClicked: (songId: Long) -> Unit
+    private val onItemClicked: (songId: Int) -> Unit
 ) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
     private var items: List<SongItem> = listOf()
@@ -30,13 +30,13 @@ class SongAdapter(
 
     class SongViewHolder(
         private val binding: ItemSongBinding,
-        private val onItemClicked: (songId: Long) -> Unit
+        private val onItemClicked: (songId: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SongItem) {
             binding.song = data
-//            binding.root.setOnClickListener {
-//                onItemClicked(data.id)
-//            }
+            binding.root.setOnClickListener {
+                onItemClicked(data.songId)
+            }
         }
     }
 

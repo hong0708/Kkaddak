@@ -46,6 +46,15 @@
         tools:layout="@layout/fragment_song_detail" >
         <argument
             android:name="songId"
-            app:argType="long" />
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_songDetailFragment_to_songListFragment"
+            app:destination="@id/songListFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/playListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.PlayListFragment"
+        android:label="PlayListFragment"
+        tools:layout="@layout/fragment_playlist" />
 </navigation>
