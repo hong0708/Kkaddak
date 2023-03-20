@@ -102,7 +102,7 @@ public class MemberController {
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우")
     })
     @ApiOperation(value = "구독 API")
-    @GetMapping("/follow/{artistId}")
+    @PostMapping("/follow/{artistId}")
     public DataResDto<?> followMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
             @PathVariable("artistId") String artistUuid)
@@ -114,7 +114,7 @@ public class MemberController {
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 구독한 상태가 아닌 경우")
     })
     @ApiOperation(value = "구독 취소 API")
-    @GetMapping("/unfollow/{artistId}")
+    @PostMapping("/unfollow/{artistId}")
     public DataResDto<?> unfollowMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
             @PathVariable("artistId") String artistUuid)
