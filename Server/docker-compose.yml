@@ -46,7 +46,7 @@ services:
     ports:
       - 8087:8087
     volumes:
-      - ./backup/upload-images:/var/lib/images
+      - upload-images:/var/lib/images
 
   module-batch:
     build: ./module-batch
