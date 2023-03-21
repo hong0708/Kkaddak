@@ -16,11 +16,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class SongResDto {
-
-    @ApiModelProperty(example = "음악 아이디")
-    Integer songId;
     @ApiModelProperty(example = "음악 식별 아이디")
-    UUID songUuid;
+    UUID songId;
     @ApiModelProperty(example = "음악 제목")
     String songTitle;
     @ApiModelProperty(example = "음악 파일 경로")
@@ -41,8 +38,7 @@ public class SongResDto {
 
     @Builder
     public SongResDto(Song song) {
-        this.songId = song.getId();
-        this.songUuid = song.getSongUuid();
+        this.songId = song.getSongUuid();
         this.songTitle = song.getTitle();
         this.songPath = song.getSongPath();
         this.coverPath = song.getCoverPath();
@@ -54,8 +50,7 @@ public class SongResDto {
 
     @Builder
     public SongResDto(Song song, boolean like) {
-        this.songId = song.getId();
-        this.songUuid = song.getSongUuid();
+        this.songId = song.getSongUuid();
         this.songTitle = song.getTitle();
         this.songPath = song.getSongPath();
         this.coverPath = song.getCoverPath();

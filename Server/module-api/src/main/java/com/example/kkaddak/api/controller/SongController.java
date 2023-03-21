@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 @Api(tags = "음악 관련 API")
 @RestController
@@ -29,9 +30,9 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 상세 조회하여 객체 형태로 반환하는 API")
-    @GetMapping("/{id}")
-    public DataResDto<?> getSong(@PathVariable(name = "id") Integer songId, @AuthenticationPrincipal MemberDetails memberDetails) {
-        return songService.getSong(songId, memberDetails.getMember());
+    @GetMapping("/{songId}")
+    public DataResDto<?> getSong(@PathVariable(name = "songId") UUID songUuid, @AuthenticationPrincipal MemberDetails memberDetails) {
+        return songService.getSong(songUuid, memberDetails.getMember());
     }
 
     @ApiResponses({
@@ -73,8 +74,8 @@ public class SongController {
     })
     @ApiOperation(value = "음악 좋아요 좋아요 취소 및 음악 객체 반환하는 API")
     @GetMapping("/like/{songId}")
-    public DataResDto<?> likeSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
-        return songService.clickLikeSong(memberDetails.getMember(), songId);
+    public DataResDto<?> likeSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") UUID songUuid) {
+        return songService.clickLikeSong(memberDetails.getMember(), songUuid);
     }
 
     @ApiResponses({
@@ -95,8 +96,8 @@ public class SongController {
     })
     @ApiOperation(value = "나의 플레이 리스트에서 제거하는 API")
     @GetMapping("/myPlay/{songId}/delete")
-    public DataResDto<?> DeleteMyPlayListSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
-        return songService.deleteMyPlayList(memberDetails.getMember(), songId);
+    public DataResDto<?> DeleteMyPlayListSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") UUID songUuid) {
+        return songService.deleteMyPlayList(memberDetails.getMember(), songUuid);
     }
 
     @ApiResponses({
@@ -104,7 +105,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "나의 플레이 리스트를 최신 순으로 조회하여 리스트 형태로 반환하는 API")
-    @GetMapping("/song/myPlay/list")
+    @GetMapping("/myPlay/list")
     public DataResDto<?> getPlayList(@AuthenticationPrincipal MemberDetails memberDetails) {
         return songService.getPlayList(memberDetails.getMember());
     }
@@ -114,7 +115,7 @@ public class SongController {
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
     @ApiOperation(value = "음악을 검색하여 리스트 형태로 반환하는 API")
-    @GetMapping("/song/search")
+    @GetMapping("/search")
     public DataResDto<?> getSearchList(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Map<String, String> param) {
         return songService.getSearchList(param);
     }

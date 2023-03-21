@@ -17,17 +17,17 @@ import java.util.UUID;
 public interface SongService {
     DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException;
 
-    DataResDto<?> getSong(Integer songId, Member member);
+    DataResDto<?> getSong(UUID songUuid, Member member);
 
     DataResDto<?> getAllSong();
 
     DataResDto<?> getLatestSong();
 
-    DataResDto<?> clickLikeSong(Member member, Integer songId);
+    DataResDto<?> clickLikeSong(Member member, UUID songUuid);
 
     DataResDto<?> getLikeList(Member member);
 
-    DataResDto<?> deleteMyPlayList(Member member, Integer songId);
+    DataResDto<?> deleteMyPlayList(Member member, UUID songUuid);
 
     DataResDto<?> getPlayList(Member member);
 

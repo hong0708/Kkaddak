@@ -41,6 +41,11 @@ public class SongRepositoryTest {
                 mood1("hi").mood2("").mood3("").build();
 
         Mood savedMood = moodRepository.save(mood);
+        System.out.println(1);
+        System.out.println(1);
+        System.out.println(1);
+
+        System.out.println(savedMood);
 
         Song song = Song.builder()
                 .title("hi")
