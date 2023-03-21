@@ -2,6 +2,9 @@ package com.example.kkaddak.api.dto;
 
 
 import lombok.*;
+import org.springframework.util.ObjectUtils;
+
+import java.util.Objects;
 
 @ToString
 @Getter
@@ -12,7 +15,7 @@ public class BaseResDto {
     private String statusMessage;
 
     public BaseResDto(int statusCode, String statusMessage) {
-        this.statusCode = statusCode;
+        this.statusCode = statusCode == 0 ? 200 : statusCode;
         this.statusMessage = statusMessage;
     }
 }

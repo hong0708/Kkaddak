@@ -30,7 +30,7 @@ public class AuctionServiceImpl implements AuctionService {
         Auction auction = Auction.builder().seller(seller).auction(auctionReqDto).build();
         Auction savedAuction = auctionRepo.save(auction);
         AuctionResDto auctionResDto = AuctionResDto.builder().auction(savedAuction).build();
-        return DataResDto.builder().statusCode(200).statusMessage("옥션이 성공적으로 생성되었습니다.")
+        return DataResDto.builder().statusMessage("옥션이 성공적으로 생성되었습니다.")
                 .data(auctionResDto)
                 .build();
     }
@@ -59,8 +59,10 @@ public class AuctionServiceImpl implements AuctionService {
         if (Objects.equals(resultList.size(), 0)) throw new NoContentException("조회된 경매 목록이 없습니다.");
 
 
-        List<AuctionResDto> PagingResponse = (List<AuctionResDto>) resultList.stream().map(auction -> AuctionResDto.builder().auction((Auction) auction).build()).collect(Collectors.toList());
-        return DataResDto.builder().statusCode(200).statusMessage("경매 목록 페이징 조회되었습니니다.")
+        List<AuctionResDto> PagingResponse = (List<AuctionResDto>) resultList.stream()
+                .map(auction -> AuctionResDto.builder().auction((Auction) auction).build())
+                .collect(Collectors.toList());
+        return DataResDto.builder().statusMessage("경매 목록 페이징 조회되었습니니다.")
                 .data(PagingResponse).build();
     }
 }
