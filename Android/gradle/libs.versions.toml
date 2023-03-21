@@ -43,9 +43,9 @@ exoplayer = "2.18.4"
 
 kakao_sdk_version = "2.11.2"
 
-web3j_core = "5.0.0"
+web3j_core = "4.9.7"
 
-web3j_contracts = "5.0.0"
+web3j_contracts = "4.9.7"
 
 bouncycastle = "1.68"
 
