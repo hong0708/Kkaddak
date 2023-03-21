@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentProfileBinding
@@ -9,8 +10,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
+    private val profileViewModel by viewModels<ProfileViewModel>()
+
     override fun initView() {
         initTabLayout()
+        setData()
     }
 
     private fun initTabLayout() {
@@ -23,5 +27,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 tab.setIcon(tabIcons[position])
             }.attach()
         }
+    }
+
+    private fun setData() {
+        profileViewModel.profileData.observe(viewLifecycleOwner) {
+            binding.profile = it
+        }
+        profileViewModel.getProfileInfo("조미니언즈")
     }
 }

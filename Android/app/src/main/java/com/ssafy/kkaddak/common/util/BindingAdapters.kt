@@ -20,6 +20,17 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("android:profileImgStr")
+    fun ImageView.setProfileImg(imgUri: String?) {
+        Glide.with(this.context)
+            .load("http://j8d208.p.ssafy.io:8087/images$imgUri")
+            .placeholder(R.drawable.ic_profile_image)
+            .error(R.drawable.ic_profile_image)
+            .circleCrop()
+            .into(this)
+    }
+
+    @JvmStatic
     @BindingAdapter("android:normalImgUri")
     fun ImageView.setNormalImg(imgUri: String?) {
         Glide.with(this.context)
