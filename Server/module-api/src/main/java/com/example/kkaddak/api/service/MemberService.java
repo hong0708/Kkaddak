@@ -18,5 +18,6 @@ public interface MemberService {
     DataResDto<?> findMemberById(int memberId);
     DataResDto<?> followMember(Member member, String otherId);
     DataResDto<?> unfollowMember(Member member, String otherId);
+    DataResDto<?> getProfile(Member requester, String memberUuid);
 
 }
