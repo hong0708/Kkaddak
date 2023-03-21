@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SignupReqDto {
+public class ProfileReqDto {
     @ApiModelProperty(
             value = "닉네임",
             required = true,
@@ -27,7 +27,7 @@ public class SignupReqDto {
     private MultipartFile profileImg;
 
     @Builder
-    public SignupReqDto(String nickname, Object profileImg) {
+    public ProfileReqDto(String nickname, Object profileImg) {
         this.nickname = nickname;
 
         EmptyMultiPartFile emptyFile = new EmptyMultiPartFile();
