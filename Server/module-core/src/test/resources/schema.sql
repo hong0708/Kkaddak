@@ -61,3 +61,14 @@ CREATE TABLE IF NOT EXISTS `auction` (
     CONSTRAINT FKasojcnrr08a6k9aobcfhofh2y
      FOREIGN KEY (`seller_id`) REFERENCES member (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `follow`
+(
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `follower_id`  INT DEFAULT NULL,
+    `following_id` INT DEFAULT NULL,
+    CONSTRAINT FKkcoemc64xrm83cdmhyaphcuiu
+        FOREIGN KEY (`following_id`) REFERENCES `member` (`id`),
+    CONSTRAINT FKtps7gpodlrhxlji90u6r3mlng
+        FOREIGN KEY (`follower_id`) REFERENCES `member` (`id`)
+);

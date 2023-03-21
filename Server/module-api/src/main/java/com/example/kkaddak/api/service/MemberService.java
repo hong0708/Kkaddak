@@ -16,4 +16,7 @@ public interface MemberService {
     DataResDto<?> signup(SignupReqDto signupReqDto, Member member);
     Boolean checkNicknameDuplicate(String nickname, Member member);
     DataResDto<?> findMemberById(int memberId);
+    DataResDto<?> followMember(Member member, String otherId);
+    DataResDto<?> unfollowMember(Member member, String otherId);
+
 }
