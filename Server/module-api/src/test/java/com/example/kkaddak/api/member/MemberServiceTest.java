@@ -2,6 +2,7 @@ package com.example.kkaddak.api.member;
 
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.FollowResDto;
+import com.example.kkaddak.api.dto.member.ProfileResDto;
 import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
@@ -15,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,5 +88,34 @@ public class MemberServiceTest {
         assertEquals(res3.getData().getMyFollwings(), 0);
 
         assertThrows(NotFoundException.class, () -> memberService.unfollowMember(followed, follower.getUuid().toString()));
+    }
+
+    @Test
+    @DisplayName("member 조회 기능 테스트")
+    void ProfileServiceTest(){
+
+        Member member1 = Member.builder()
+                .email("john@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest1")
+                .profilePath("profile/tom.jpg")
+                .build();
+        Member savedMember1 = memberRepository.save(member1);
+        Member member2 = Member.builder()
+                .email("boby@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest2")
+                .profilePath("profile/bom.jpg")
+                .build();
+        Member savedMember2 = memberRepository.save(member2);
+
+        DataResDto<ProfileResDto> res = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember1.getUuid().toString());
+        assertEquals(res.getData().isMine(), true);
+        DataResDto<ProfileResDto> res1 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember2.getUuid().toString());
+        assertEquals(res1.getData().isMine(), false);
+        DataResDto<ProfileResDto> res2 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember2, savedMember1.getUuid().toString());
+        assertEquals(res2.getData().isMine(), false);
+        assertThrows(NotFoundException.class, () -> memberService.getProfile(savedMember1, UUID.randomUUID().toString()));
+        assertThrows(IllegalArgumentException.class, () -> memberService.getProfile(savedMember1, "UUID.randomUUID().toString())"));
     }
 }
