@@ -3,6 +3,7 @@ package com.example.kkaddak.api.service;
 
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.EditProfileReqDto;
+import com.example.kkaddak.api.dto.member.LogoutReqDto;
 import com.example.kkaddak.api.dto.member.ProfileReqDto;
 import com.example.kkaddak.core.entity.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,4 +22,5 @@ public interface MemberService {
     DataResDto<?> unfollowMember(Member member, String otherId);
     DataResDto<?> getProfile(Member requester, String nickname);
     DataResDto<?> updateProfile(Member member, EditProfileReqDto editInfo) throws Exception;
+    DataResDto<?> logout(Member member, LogoutReqDto logoutReqDto);
 }
