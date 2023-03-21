@@ -12,19 +12,29 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `mood` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mood1` varchar(255) DEFAULT NULL,
+  `mood2` varchar(255) DEFAULT NULL,
+  `mood3` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `song` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `cover_path` VARCHAR(255) DEFAULT NULL,
-    `genre` VARCHAR(255) DEFAULT NULL,
-    `mood` VARCHAR(255) DEFAULT NULL,
-    `song_path` VARCHAR(255) DEFAULT NULL,
-    `song_uuid` CHAR(36) DEFAULT NULL,
-    `title` VARCHAR(255) DEFAULT NULL,
-    `upload_date` BIGINT(20) DEFAULT NULL,
-    `member_id` INT(11) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `FKln77pl0kiwceje9wi2qn9jj4c` (`member_id`),
-    CONSTRAINT `FKln77pl0kiwceje9wi2qn9jj4c` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cover_path` varchar(255) DEFAULT NULL,
+  `genre` varchar(255) DEFAULT NULL,
+  `song_path` varchar(255) DEFAULT NULL,
+  `song_uuid` char(36) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `upload_date` bigint(20) DEFAULT NULL,
+  `member_id` int(11) DEFAULT NULL,
+  `moods_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKln77pl0kiwceje9wi2qn9jj4c` (`member_id`),
+  KEY `FKk07ok9wqkt23ybj2lhxoxhj5r` (`moods_id`),
+  CONSTRAINT `FKk07ok9wqkt23ybj2lhxoxhj5r` FOREIGN KEY (`moods_id`) REFERENCES `mood` (`id`),
+  CONSTRAINT `FKln77pl0kiwceje9wi2qn9jj4c` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `member_like_list` (
@@ -47,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `play_list` (
     CONSTRAINT `FK2gi6hat3h1e23eg6oa5pd6kts` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`),
     CONSTRAINT `FK3g07bajw78i2boa7r5chrp3fm` FOREIGN KEY (`song_id`) REFERENCES `song` (`id`)
 );
+
 CREATE TABLE IF NOT EXISTS `auction` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `bid_start_price` DOUBLE,

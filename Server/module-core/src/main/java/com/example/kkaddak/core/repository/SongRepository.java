@@ -11,12 +11,14 @@ import java.util.UUID;
 
 public interface SongRepository extends JpaRepository<Song, Integer> {
 
-    Optional<Song> findById(Integer songId);
+    Optional<Song> findBySongUuid(UUID songUuid);
+
+    Optional<Song> findByMember(Member member);
 
     void deleteById(Integer songId);
 
     @Query("SELECT m FROM Song m ORDER BY m.uploadDate DESC")
-    List<Song> findTop10ByOrderByUploadedAtDesc();
+    List<Song> findTop5ByOrderByUploadedAtDesc();
 
     List<Song> findAll();
 }

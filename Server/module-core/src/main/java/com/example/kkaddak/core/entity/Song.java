@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,24 +31,25 @@ public class Song {
 
     private String genre;
 
-    private String mood;
-
     private Long uploadDate;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    @ToString.Exclude
+//    @ToString.Exclude
     private Member member;
 
+    @OneToOne
+    private Mood moods;
+
     @Builder
-    public Song(String title, String songPath, String coverPath, String genre, String mood, Member member) {
+    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member) {
         this.songUuid = UUID.randomUUID();
         this.title = title;
         this.songPath = songPath;
         this.coverPath = coverPath;
         this.genre = genre;
-        this.mood = mood;
         this.uploadDate = System.currentTimeMillis();
         this.member = member;
+        this.moods = moods;
     }
 }
