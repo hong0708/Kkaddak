@@ -1,7 +1,9 @@
 package com.example.kkaddak.api.member;
 
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.member.EditProfileReqDto;
 import com.example.kkaddak.api.dto.member.FollowResDto;
+import com.example.kkaddak.api.dto.member.MemberResDto;
 import com.example.kkaddak.api.dto.member.ProfileResDto;
 import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.exception.NotFoundException;
@@ -91,7 +93,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("member 조회 기능 테스트")
+    @DisplayName("유저 조회 기능 테스트")
     void ProfileServiceTest(){
 
         Member member1 = Member.builder()
@@ -109,13 +111,42 @@ public class MemberServiceTest {
                 .build();
         Member savedMember2 = memberRepository.save(member2);
 
-        DataResDto<ProfileResDto> res = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember1.getUuid().toString());
+        DataResDto<ProfileResDto> res = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember1.getNickname());
         assertEquals(res.getData().isMine(), true);
-        DataResDto<ProfileResDto> res1 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember2.getUuid().toString());
+        DataResDto<ProfileResDto> res1 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember2.getNickname());
         assertEquals(res1.getData().isMine(), false);
-        DataResDto<ProfileResDto> res2 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember2, savedMember1.getUuid().toString());
+        DataResDto<ProfileResDto> res2 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember2, savedMember1.getNickname());
         assertEquals(res2.getData().isMine(), false);
-        assertThrows(NotFoundException.class, () -> memberService.getProfile(savedMember1, UUID.randomUUID().toString()));
-        assertThrows(IllegalArgumentException.class, () -> memberService.getProfile(savedMember1, "UUID.randomUUID().toString())"));
+        assertThrows(NotFoundException.class, () -> memberService.getProfile(savedMember1, "notFoundException"));
+    }
+
+    @Test
+    @DisplayName("유저 프로필 수정 테스트")
+    void EditProfileTest() throws Exception {
+
+        Member member1 = Member.builder()
+                .email("john@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest1")
+                .profilePath("profile/tom.jpg")
+                .build();
+        Member savedMember1 = memberRepository.save(member1);
+        Member member2 = Member.builder()
+                .email("boby@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest2")
+                .profilePath("profile/bom.jpg")
+                .build();
+        Member savedMember2 = memberRepository.save(member2);
+        DataResDto<MemberResDto> res = (DataResDto<MemberResDto>) memberService.updateProfile(savedMember1,
+                EditProfileReqDto.builder().isUpdating(true).nickname("ok").build());
+        assertEquals(res.getData().getNickname(), "ok");
+        assertEquals(res.getData().getProfilePath(), "");
+
+        DataResDto<MemberResDto> res1 = (DataResDto<MemberResDto>) memberService.updateProfile(savedMember2,
+                EditProfileReqDto.builder().isUpdating(false).nickname("ok").build());
+        assertEquals(res1.getData().getNickname(), "ok");
+        assertEquals(res1.getData().getProfilePath(), "profile/bom.jpg");
+
     }
 }
