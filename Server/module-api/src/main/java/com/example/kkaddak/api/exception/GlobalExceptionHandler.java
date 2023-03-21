@@ -3,6 +3,7 @@ package com.example.kkaddak.api.exception;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.ExceptionResDto;
 import com.example.kkaddak.core.exception.IllegalMemberTypeException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalMemberTypeException.class)
     public DataResDto<?> handle(IllegalMemberTypeException e){
         return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
+    }
+    @ExceptionHandler(NotFoundException.class)
+    public DataResDto<?> handle(NotFoundException e){
+        return DataResDto.builder().statusCode(404).statusMessage(e.getMessage()).build();
     }
     @ExceptionHandler(NoContentException.class)
     public DataResDto<?> handle(NoContentException e){
