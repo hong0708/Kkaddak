@@ -4,11 +4,11 @@ package com.example.kkaddak.api.dto.member;
 import lombok.Getter;
 
 @Getter
-public class SocialMemberInfoDto {
+public class EmailReqDto {
     private String email;
 
 
-    public SocialMemberInfoDto(String email) {
+    public EmailReqDto(String email) {
         this.email = email;
     }
 
