@@ -4,6 +4,6 @@ data class ProfileItem(
     val memberId: String,
     val nickname: String,
     val profilepath: String,
-    val account: String?,
+    val account: String,
     val mine: Boolean,
 )

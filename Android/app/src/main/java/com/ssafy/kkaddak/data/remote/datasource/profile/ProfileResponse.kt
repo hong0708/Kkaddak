@@ -12,7 +12,7 @@ data class ProfileResponse(
     @SerializedName("profilepath")
     val profilepath: String,
     @SerializedName("account")
-    val account: String?,
+    val account: String,
     @SerializedName("mine")
     val mine: Boolean,
 ) : DataToDomainMapper<ProfileItem> {
