@@ -282,12 +282,22 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public DataResDto<?> getProfile(Member requester, String nickname) {
         ProfileResDto profile;
         if (Objects.equals(requester.getNickname(), nickname)){
-            profile = ProfileResDto.builder().member(requester).isMine(true).build();
+            profile = ProfileResDto.builder()
+                    .member(requester)
+                    .isMine(true)
+                    .myFollowers(followRepository.countByFollowing(requester))
+                    .myFolloings(followRepository.countByFollower(requester))
+                    .build();
         }
         else{
             Member savedMember = memberRepository.findByNicknameAndIdNot(nickname, requester.getId())
                     .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
-            profile = ProfileResDto.builder().member(savedMember).isMine(false).build();
+            profile = ProfileResDto.builder()
+                    .member(savedMember)
+                    .isMine(false)
+                    .myFollowers(followRepository.countByFollowing(savedMember))
+                    .myFolloings(followRepository.countByFollower(savedMember))
+                    .build();
         }
         return DataResDto.builder()
                 .statusMessage("조회한 유저의 프로필 정보입니다.")
