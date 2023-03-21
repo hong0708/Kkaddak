@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="songDetail"
             type="com.ssafy.kkaddak.domain.entity.song.SongItem" />
@@ -41,12 +42,16 @@
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:layout_marginTop="22dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bg_image_radius48"
+            android:clipToOutline="true"
             android:contentDescription="@string/image_song"
-            android:scaleType="centerCrop"
             android:normalImgUri="@{songDetail.coverPath}"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_back" />
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            tools:targetApi="s" />
 
         <TextView
             android:id="@+id/tv_song_title"
@@ -54,9 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="47dp"
             android:fontFamily="@font/gmarket_sans_bold"
+            android:text="@{songDetail.songTitle}"
             android:textColor="@color/white"
             android:textSize="28sp"
-            android:text="@{songDetail.songTitle}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_song"
@@ -68,9 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@{songDetail.nickname}"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="@{songDetail.nickname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_song_title"
@@ -90,9 +95,10 @@
         <com.google.android.exoplayer2.ui.PlayerControlView
             android:id="@+id/playerControlView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:layout_marginHorizontal="40dp"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
             app:controller_layout_id="@layout/custom_music_player"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
