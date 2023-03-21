@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="profile"
+            type="com.ssafy.kkaddak.domain.entity.profile.ProfileItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +23,7 @@
             android:fontFamily="@font/gmarket_sans_bold"
             android:textColor="@color/white"
             android:textSize="24sp"
+            android:text="@{profile.nickname}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="갱갱" />
@@ -60,6 +63,7 @@
                 android:layout_height="86dp"
                 android:layout_marginTop="43dp"
                 android:scaleType="fitXY"
+                android:profileImgStr="@{profile.profilepath}"
                 android:contentDescription="@string/image_profile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
