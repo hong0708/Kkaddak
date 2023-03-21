@@ -1,6 +1,5 @@
 package com.example.kkaddak.api.config.jwt;
 
-import com.example.kkaddak.api.dto.BaseResDto;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.Subject;
 import com.example.kkaddak.api.dto.member.TokenResDto;

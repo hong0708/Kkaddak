@@ -21,6 +21,8 @@ public class Member {
     private String email;
     private String nickname;
     private String profilePath;
+    private String account;
+
     @Enumerated(value = EnumType.STRING)
     private MemberType memberType;
 
