@@ -5,7 +5,6 @@ import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.service.AuctionService;
 import com.example.kkaddak.core.dto.AuctionReqDto;
-import com.example.kkaddak.core.entity.Auction;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.repository.MemberRepository;
 import com.example.kkaddak.core.repository.AuctionRepository;
@@ -46,7 +45,7 @@ public class auctionServiceTest {
                 .creatorName("songCreator")
                 .songTitle("songTitle")
                 .nftId("nftIdFromContract")
-                .expiredDate(LocalDate.now())
+                .expiredDate(LocalDate.now().toString())
                 .nftImagePath("imagePath")
                 .bidStartPrice(0.1)
                 .build();
