@@ -46,4 +46,17 @@ class MainActivity : AppCompatActivity() {
 
         navController.graph = navGraph
     }
+
+    fun HideBottomNavigation(state: Boolean) {
+        when(state) {
+            true -> {
+                binding.bottomNavigation.visibility = View.GONE
+                binding.fabHome.visibility = View.GONE
+            }
+            else -> {
+                binding.bottomNavigation.visibility = View.VISIBLE
+                binding.fabHome.visibility = View.VISIBLE
+            }
+        }
+    }
 }
