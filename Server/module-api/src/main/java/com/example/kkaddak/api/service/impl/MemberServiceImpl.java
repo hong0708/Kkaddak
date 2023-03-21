@@ -348,4 +348,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         redisDao.setValues(logoutReqDto.getAtk(), "logout", expiration, TimeUnit.MILLISECONDS);
         return DataResDto.builder().statusMessage("로그아웃되었습니다.").data(true).build();
     }
+
+    @Override
+    public DataResDto<?> saveAccount(Member member, AccountReqDto accountReqDto) {
+        member.setAccount(accountReqDto.getAccount());
+        memberRepository.save(member);
+        return DataResDto.builder()
+                .statusMessage("지갑 주소가 저장되었습니다.")
+                .data(true).build();
+    }
 }

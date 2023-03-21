@@ -1,10 +1,7 @@
 package com.example.kkaddak.api.member;
 
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.member.EditProfileReqDto;
-import com.example.kkaddak.api.dto.member.FollowResDto;
-import com.example.kkaddak.api.dto.member.MemberResDto;
-import com.example.kkaddak.api.dto.member.ProfileResDto;
+import com.example.kkaddak.api.dto.member.*;
 import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
@@ -147,6 +144,27 @@ public class MemberServiceTest {
                 EditProfileReqDto.builder().isUpdating(false).nickname("ok").build());
         assertEquals(res1.getData().getNickname(), "ok");
         assertEquals(res1.getData().getProfilePath(), "profile/bom.jpg");
+
+    }
+
+    @Test
+    @DisplayName("지갑 저장 테스트")
+    void SaveAccountTest() throws Exception {
+
+        Member member1 = Member.builder()
+                .email("john@example.com")
+                .memberType("회원")
+                .nickname("MemberServiceTest1")
+                .profilePath("profile/tom.jpg")
+                .build();
+        Member savedMember1 = memberRepository.save(member1);
+
+        DataResDto<Boolean> res1 = (DataResDto<Boolean>) memberService.saveAccount(savedMember1,
+                AccountReqDto.builder().account("accountAddress").build());
+        assertEquals(res1.getData(), true);
+
+        Member memberWithAccount = memberRepository.findById(savedMember1.getId()).orElse(null);
+        assertEquals(memberWithAccount.getAccount(), "accountAddress");
 
     }
 }

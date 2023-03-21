@@ -3,10 +3,7 @@ package com.example.kkaddak.api.controller;
 
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.member.EditProfileReqDto;
-import com.example.kkaddak.api.dto.member.LogoutReqDto;
-import com.example.kkaddak.api.dto.member.MemberDetails;
-import com.example.kkaddak.api.dto.member.ProfileReqDto;
+import com.example.kkaddak.api.dto.member.*;
 import com.example.kkaddak.api.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
@@ -138,7 +135,9 @@ public class MemberController {
 
     @ApiResponses({
             @ApiResponse(code = 200, message = "정상적으로 수정 됐을 경우 응답"),
-            @ApiResponse(code = 400, message = "입력값이 올바르지 않는 경우 응답")
+            @ApiResponse(code = 400, message = "입력값이 올바르지 않는 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
+
     })
     @ApiOperation(value = "프로필 수정 API")
     @PostMapping("/profile")
@@ -152,8 +151,8 @@ public class MemberController {
 
 
     @ApiResponses({
-            @ApiResponse(code = 200, message = "정상적으로 로그아웃 됐을 경우"),
-            @ApiResponse(code = 400, message = "존재하지 않는 회원일 경우")
+            @ApiResponse(code = 200, message = "정상적으로 로그아웃 됐을 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
     })
     @ApiOperation(value = "로그아웃 API")
     @PostMapping("/logout")
@@ -161,4 +160,18 @@ public class MemberController {
     {
         return memberService.logout(memberDetails.getMember(), logoutDTO);
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "정상적으로 로그아웃 됐을 경우 응답"),
+            @ApiResponse(code = 400, message = "존재하지 않는 회원일 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
+    })
+    @ApiOperation(value = "지갑 계정 저장 API")
+    @PostMapping("/account")
+    public DataResDto<?> logout(@RequestBody AccountReqDto accountReqDto, @AuthenticationPrincipal MemberDetails memberDetails)
+    {
+        return memberService.saveAccount(memberDetails.getMember(), accountReqDto);
+    }
+
+
 }
