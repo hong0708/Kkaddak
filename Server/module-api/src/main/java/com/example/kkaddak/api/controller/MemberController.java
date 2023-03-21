@@ -2,24 +2,20 @@ package com.example.kkaddak.api.controller;
 
 
 import com.example.kkaddak.api.config.jwt.JwtProvider;
-import com.example.kkaddak.api.dto.BaseResDto;
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.member.EditProfileReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
-import com.example.kkaddak.api.dto.member.SignupReqDto;
-import com.example.kkaddak.api.dto.member.TokenResDto;
+import com.example.kkaddak.api.dto.member.ProfileReqDto;
 import com.example.kkaddak.api.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,9 +50,9 @@ public class MemberController {
     @PostMapping(value = "/sign-up", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public DataResDto<?> signUp(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            SignupReqDto signupReqDto)
+            ProfileReqDto profileReqDto)
     {
-        return memberService.signup(signupReqDto,  memberDetails.getMember());
+        return memberService.signup(profileReqDto,  memberDetails.getMember());
     }
     @ApiResponses({
             @ApiResponse(code = 200, message = "요청이 정상적으로 처리됐을 경우"),
@@ -129,13 +125,26 @@ public class MemberController {
             @ApiResponse(code = 400, message = "입력값이 올바르지 않는 경우 응답"),
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
     })
-    @ApiOperation(value = "구독 취소 API", notes = "본인 및 아티스트 프로필 조회 시 요청 api입니다.")
-    @GetMapping("/profile/{memberId}")
+    @ApiOperation(value = "프로필 조회 API", notes = "본인 및 아티스트 프로필 조회 시 요청 api입니다.")
+    @GetMapping("/profile/{nickname}")
     public DataResDto<?> getProfile(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            @PathVariable("memberId") String memberUuid)
+            @PathVariable("nickname") String nickname)
     {
-        return memberService.getProfile(memberDetails.getMember(), memberUuid);
+        return memberService.getProfile(memberDetails.getMember(), nickname);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "정상적으로 수정 됐을 경우 응답"),
+            @ApiResponse(code = 400, message = "입력값이 올바르지 않는 경우 응답")
+    })
+    @ApiOperation(value = "프로필 수정 API")
+    @PostMapping("/profile")
+    public DataResDto<?> updateProfile(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) EditProfileReqDto editProfileReqDto
+            ) throws Exception
+    {
+        return memberService.updateProfile(memberDetails.getMember(), editProfileReqDto);
+    }
 }
