@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +31,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final JwtProvider jwtProvider;
+
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "정상적으로 로그인 됐을 경우"),
             @ApiResponse(code = 400, message = "유효하지 않은 access token 값 입력시 오류"),
@@ -122,5 +124,18 @@ public class MemberController {
         return memberService.unfollowMember(memberDetails.getMember(), artistUuid);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "프로필 조회 성공 시 응답"),
+            @ApiResponse(code = 400, message = "입력값이 올바르지 않는 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
+    })
+    @ApiOperation(value = "구독 취소 API", notes = "본인 및 아티스트 프로필 조회 시 요청 api입니다.")
+    @GetMapping("/profile/{memberId}")
+    public DataResDto<?> getProfile(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("memberId") String memberUuid)
+    {
+        return memberService.getProfile(memberDetails.getMember(), memberUuid);
+    }
 
 }

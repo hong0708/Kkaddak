@@ -197,7 +197,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
             member.setMemberDetail(info.getNickname(), profilePath);
             memberResDto = MemberResDto.builder().member(memberRepository.save(member)).build();
             return DataResDto.builder().data(memberResDto)
-                    .statusMessage("회원 정보가 정상적으로 저장되었습니다.").statusCode(200).build();
+                    .statusMessage("회원 정보가 정상적으로 저장되었습니다.").build();
         }
         catch(IllegalArgumentException e){
             return DataResDto.builder().statusCode(400).statusMessage("파일 타입이 올바르지 않습니다.").build();
@@ -205,8 +205,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         catch(Exception e){
             return DataResDto.builder().statusCode(500).statusMessage("이미지 저장 과정에서 에러가 발생했습니다.").build();
         }
-
-
     }
 
     @Override
@@ -224,8 +222,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(true).build();
             return DataResDto.builder()
                     .data(escapeResDto)
-                    .statusMessage("비정상적으로 회원가입이 진행되었습니다.")
-                    .statusCode(200).build();
+                    .statusMessage("비정상적으로 회원가입이 진행되었습니다.").build();
 
         }
         else if (Objects.isNull(member)){
@@ -238,8 +235,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         EscapeResDto escapeResDto = EscapeResDto.builder().isEscape(false).build();
         return DataResDto.builder()
                 .data(escapeResDto)
-                .statusMessage("정상적으로 회원가입이 진행되었습니다.")
-                .statusCode(200).build();
+                .statusMessage("정상적으로 회원가입이 진행되었습니다.").build();
     }
 
     @Override
@@ -250,12 +246,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Follow follow = Follow.builder().follower(follower).following(followed).build();
         followRepository.save(follow);
         return DataResDto.builder()
-                .statusCode(200)
                 .statusMessage("구독되었습니다.")
                 .data(FollowResDto.builder()
                         .myFollowers(followRepository.countByFollowing(follower))
-                        .myFollwings(followRepository.countByFollower(follower))
-                        .build())
+                        .myFollwings(followRepository.countByFollower(follower)).build())
                 .build();
     }
 
@@ -275,5 +269,21 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                         .myFollwings(followRepository.countByFollower(follower))
                         .build())
                 .build();
+    }
+
+    @Override
+    public DataResDto<?> getProfile(Member requester, String memberUuid) {
+        ProfileResDto profile;
+        if (Objects.equals(requester.getUuid().toString(), memberUuid)){
+            profile = ProfileResDto.builder().member(requester).isMine(true).build();
+        }
+        else{
+            Member savedMember = memberRepository.findByUuid(UUID.fromString(memberUuid))
+                    .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
+            profile = ProfileResDto.builder().member(savedMember).isMine(false).build();
+        }
+        return DataResDto.builder()
+                .statusMessage("조회한 유저의 프로필 정보입니다.")
+                .data(profile).build();
     }
 }
