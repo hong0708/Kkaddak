@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,16 +40,16 @@ public class SongReqDto {
     @ApiModelProperty(
             value = "음악 분위기",
             required = true,
-            dataType = "String"
+            dataType = "List"
     )
-    String mood;
+    List<String> moods;
 
     @Builder
-    public SongReqDto(String songTitle, String songPath, String coverPath, String genre, String mood) {
+    public SongReqDto(String songTitle, String songPath, String coverPath, String genre, List<String> moods) {
         this.songTitle = songTitle;
         this.songPath = songPath;
         this.coverPath = coverPath;
         this.genre = genre;
-        this.mood = mood;
+        this.moods = moods;
     }
 }

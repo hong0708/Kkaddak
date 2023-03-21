@@ -5,24 +5,16 @@ import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
 import com.example.kkaddak.api.dto.member.MemberResDto;
 import com.example.kkaddak.api.service.SongService;
-import com.example.kkaddak.core.entity.LikeList;
-import com.example.kkaddak.core.entity.Member;
-import com.example.kkaddak.core.entity.PlayList;
-import com.example.kkaddak.core.entity.Song;
-import com.example.kkaddak.core.repository.LikeListRepository;
-import com.example.kkaddak.core.repository.MemberRepository;
-import com.example.kkaddak.core.repository.PlayListRepository;
-import com.example.kkaddak.core.repository.SongRepository;
+import com.example.kkaddak.core.entity.*;
+import com.example.kkaddak.core.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 @Service
 @RequiredArgsConstructor
@@ -33,20 +25,39 @@ public class SongServiceImpl implements SongService {
 
     private final PlayListRepository playListRepository;
 
+    private final MoodRepository moodRepository;
+
     @Override
     public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException {
         try {
             if (songReqDto.getSongTitle() == null || songReqDto.getSongPath() == null ||
-                    songReqDto.getCoverPath() == null || songReqDto.getGenre() == null || songReqDto.getMood() == null) {
+                    songReqDto.getCoverPath() == null || songReqDto.getGenre() == null || songReqDto.getMoods() == null) {
                 throw new IllegalArgumentException("songReqDto값이 정확하지 않습니다");
             }
+
+            System.out.println("sdnaivdnfalk");
+            Mood mood;
+            if (songReqDto.getMoods().size() == 1) {
+                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                        mood2("").mood3("").build();
+            } else if (songReqDto.getMoods().size() == 2) {
+                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                        mood2(songReqDto.getMoods().get(1)).mood3("").build();
+            } else {
+                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                        mood2(songReqDto.getMoods().get(1)).mood3(songReqDto.getMoods().get(2)).build();
+            }
+            System.out.println(mood);
+            Mood savedMood = moodRepository.save(mood);
+
+            System.out.println(savedMood);
 
             Song song = Song.builder()
                     .title(songReqDto.getSongTitle())
                     .songPath(songReqDto.getSongPath())
                     .coverPath(songReqDto.getCoverPath())
                     .genre(songReqDto.getGenre())
-                    .mood(songReqDto.getMood())
+                    .moods(savedMood)
                     .member(member)
                     .build();
 
@@ -63,11 +74,26 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public DataResDto<?> getSong(Integer songId) {
+    public DataResDto<?> getSong(Integer songId, Member member) {
         try {
             Song song = songRepository.findById(songId)
                     .orElseThrow(() -> new IllegalArgumentException("값이 존재하지 않습니다"));
-            SongResDto songResDto = new SongResDto(song);
+
+            boolean like = likeListRepository.existsByMemberAndSong(member, song);
+            boolean checkValue = playListRepository.existsByMemberAndSong(member, song);
+
+            if (checkValue) {
+                PlayList playList = playListRepository.findByMemberAndSong(member, song)
+                        .orElseThrow(() -> new IllegalArgumentException(""));
+                playListRepository.delete(playList);
+            } 
+            PlayList playList = PlayList.builder()
+                    .member(member)
+                    .song(song)
+                    .build();
+            playListRepository.save(playList);
+
+            SongResDto songResDto = new SongResDto(song, like);
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
         }
@@ -96,7 +122,7 @@ public class SongServiceImpl implements SongService {
     @Override
     public DataResDto<?> getLatestSong() {
         try {
-            List<Song> songList = songRepository.findTop10ByOrderByUploadedAtDesc();
+            List<Song> songList = songRepository.findTop5ByOrderByUploadedAtDesc();
             if (songList == null || songList.isEmpty()) {
                 return DataResDto.builder().data(Collections.emptyList())
                         .statusMessage("음악 최신 리스트 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
@@ -158,31 +184,6 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public DataResDto<?> addMyPlayList(Member member, Integer songId) {
-        try {
-            Song song = songRepository.findById(songId)
-                    .orElseThrow(() -> new IllegalArgumentException("음악 songId가 올바르지 않습니다."));
-
-            boolean checkValue = playListRepository.existsByMemberAndSong(member, song);
-            if (!checkValue) {
-                PlayList playList = PlayList.builder()
-                        .member(member)
-                        .song(song)
-                        .build();
-                playListRepository.save(playList);
-            } else {
-                throw new IllegalArgumentException("이미 나의 플레이 리스트에 존재하는 음악 입니다.");
-            }
-
-            return DataResDto.builder().statusCode(200).statusMessage("음악을 플레이리스트에 추가하였습니다.").statusCode(200).build();
-        } catch (IllegalArgumentException e) {
-            return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
-        } catch (Exception e) {
-            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
-        }
-    }
-
-    @Override
     public DataResDto<?> deleteMyPlayList(Member member, Integer songId) {
         try {
             Song song = songRepository.findById(songId)
@@ -219,6 +220,17 @@ public class SongServiceImpl implements SongService {
             }
             List<SongResDto> songResDtoList = playList.stream().map(play -> new SongResDto(play.getSong())).collect(Collectors.toList());
             return DataResDto.builder().data(songResDtoList)
+                    .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
+        } catch (Exception e) {
+            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
+        }
+    }
+
+    @Override
+    public DataResDto<?> getSearchList(Map<String, String> param) {
+        try {
+
+            return DataResDto.builder().data("d")
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").statusCode(200).build();
         } catch (Exception e) {
             return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();

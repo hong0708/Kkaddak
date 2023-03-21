@@ -1,5 +1,7 @@
 package com.example.kkaddak.api.dto;
 
+import com.example.kkaddak.core.entity.Member;
+import com.example.kkaddak.core.entity.Mood;
 import com.example.kkaddak.core.entity.PlayList;
 import com.example.kkaddak.core.entity.Song;
 import com.example.kkaddak.core.repository.MemberRepository;
@@ -15,6 +17,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class SongResDto {
 
+    @ApiModelProperty(example = "음악 아이디")
+    Integer songId;
     @ApiModelProperty(example = "음악 식별 아이디")
     UUID songUuid;
     @ApiModelProperty(example = "음악 제목")
@@ -26,21 +30,39 @@ public class SongResDto {
     @ApiModelProperty(example = "음악 장르")
     String genre;
     @ApiModelProperty(example = "음악 분위기")
-    String mood;
+    Mood moods;
     @ApiModelProperty(example = "음악 업로드 날짜")
     Long uploadDate;
     @ApiModelProperty(example = "음악 생성자")
     String nickname;
+    @ApiModelProperty(example = "음악 좋아요")
+    boolean like = false;
+
 
     @Builder
     public SongResDto(Song song) {
+        this.songId = song.getId();
         this.songUuid = song.getSongUuid();
         this.songTitle = song.getTitle();
         this.songPath = song.getSongPath();
         this.coverPath = song.getCoverPath();
         this.genre = song.getGenre();
-        this.mood = song.getMood();
+        this.moods = song.getMoods();
         this.uploadDate = song.getUploadDate();
         this.nickname = song.getMember().getNickname();
+    }
+
+    @Builder
+    public SongResDto(Song song, boolean like) {
+        this.songId = song.getId();
+        this.songUuid = song.getSongUuid();
+        this.songTitle = song.getTitle();
+        this.songPath = song.getSongPath();
+        this.coverPath = song.getCoverPath();
+        this.genre = song.getGenre();
+        this.moods = song.getMoods();
+        this.uploadDate = song.getUploadDate();
+        this.nickname = song.getMember().getNickname();
+        this.like = like;
     }
 }

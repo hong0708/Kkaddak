@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public interface SongService {
     DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException;
 
-    DataResDto<?> getSong(Integer songId);
+    DataResDto<?> getSong(Integer songId, Member member);
 
     DataResDto<?> getAllSong();
 
@@ -26,9 +27,9 @@ public interface SongService {
 
     DataResDto<?> getLikeList(Member member);
 
-    DataResDto<?> addMyPlayList(Member member, Integer songId);
-
     DataResDto<?> deleteMyPlayList(Member member, Integer songId);
 
     DataResDto<?> getPlayList(Member member);
+
+    DataResDto<?> getSearchList(Map<String, String> param);
 }

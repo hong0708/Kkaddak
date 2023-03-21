@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Api(tags = "음악 관련 API")
 @RestController
@@ -29,8 +30,8 @@ public class SongController {
     })
     @ApiOperation(value = "음악을 상세 조회하여 객체 형태로 반환하는 API")
     @GetMapping("/{id}")
-    public DataResDto<?> getSong(@PathVariable(name = "id") Integer songId) {
-        return songService.getSong(songId);
+    public DataResDto<?> getSong(@PathVariable(name = "id") Integer songId, @AuthenticationPrincipal MemberDetails memberDetails) {
+        return songService.getSong(songId, memberDetails.getMember());
     }
 
     @ApiResponses({
@@ -87,17 +88,6 @@ public class SongController {
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message = "나의 플레이 리스트에 추가가 성공했을 때 응답"),
-            @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
-            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
-    })
-    @ApiOperation(value = "나의 플레이 리스트에 추가하는 API")
-    @GetMapping("/myPlay/{songId}")
-    public DataResDto<?> AddMyPlayListSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") Integer songId) {
-        return songService.addMyPlayList(memberDetails.getMember(), songId);
-    }
-
-    @ApiResponses({
             @ApiResponse(code = 200, message = "나의 플레이 리스트에 제거가 성공했을 때 응답"),
             @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
@@ -117,5 +107,15 @@ public class SongController {
     @GetMapping("/song/myPlay/list")
     public DataResDto<?> getPlayList(@AuthenticationPrincipal MemberDetails memberDetails) {
         return songService.getPlayList(memberDetails.getMember());
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "음악 검색이 성공했을 때 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "음악을 검색하여 리스트 형태로 반환하는 API")
+    @GetMapping("/song/search")
+    public DataResDto<?> getSearchList(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam Map<String, String> param) {
+        return songService.getSearchList(param);
     }
 }
