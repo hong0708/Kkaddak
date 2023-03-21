@@ -3,7 +3,6 @@ package com.example.kkaddak.api.controller;
 
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
-import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.service.AuctionService;
 import com.example.kkaddak.core.dto.AuctionReqDto;
 import com.example.kkaddak.core.entity.Member;

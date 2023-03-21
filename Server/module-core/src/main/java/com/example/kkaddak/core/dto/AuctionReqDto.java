@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,12 +20,12 @@ public class AuctionReqDto {
     private Double bidStartPrice;
 
     @Builder
-    public AuctionReqDto(String nftId, String nftImagePath, String creatorName, String songTitle, LocalDate expiredDate, Double bidStartPrice) {
+    public AuctionReqDto(String nftId, String nftImagePath, String creatorName, String songTitle, String expiredDate, Double bidStartPrice) {
         this.nftId = nftId;
         this.nftImagePath = nftImagePath;
         this.creatorName = creatorName;
         this.songTitle = songTitle;
-        this.expiredDate = expiredDate;
+        this.expiredDate = LocalDate.parse(expiredDate, DateTimeFormatter.ISO_DATE);
         this.bidStartPrice = bidStartPrice;
     }
 }
