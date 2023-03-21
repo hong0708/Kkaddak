@@ -5,6 +5,7 @@ import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.service.AuctionService;
 import com.example.kkaddak.core.dto.AuctionReqDto;
+import com.example.kkaddak.core.entity.Auction;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.repository.MemberRepository;
 import com.example.kkaddak.core.repository.AuctionRepository;
@@ -65,9 +66,9 @@ public class auctionServiceTest {
     @Test
     @DisplayName("경매 조회 query dsl 테스트")
     void AuctionRepositoryTest() throws Exception {
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction1").expiredDate(LocalDate.now()).build()).build());
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction2").expiredDate(LocalDate.now()).build()).build());
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction3").expiredDate(LocalDate.now()).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction1").expiredDate(String.valueOf(LocalDate.now())).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction2").expiredDate(String.valueOf(LocalDate.now())).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction3").expiredDate(String.valueOf(LocalDate.now())).build()).build());
 
         DataResDto<List<AuctionResDto>> auctions1 = (DataResDto<List<AuctionResDto>>) auctionService.getAuctionAllByPaging(4L, -1L);
         assertEquals(auctions1.getData().size(), 3);
