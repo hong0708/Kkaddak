@@ -39,4 +39,5 @@ public class Member {
         this.nickname = nickname;
         this.profilePath = profilePath;
     }
+
 }

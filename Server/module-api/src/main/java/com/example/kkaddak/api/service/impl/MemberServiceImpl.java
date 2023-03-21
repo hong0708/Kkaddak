@@ -3,7 +3,6 @@ package com.example.kkaddak.api.service.impl;
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
-import com.example.kkaddak.api.exception.BadRequestException;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
 import com.example.kkaddak.core.entity.Follow;
@@ -29,7 +28,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -47,7 +48,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         // 1. "인가 코드"로 "액세스 토큰" 요청 -> 안드로이드에서 엑세스 토큰을 전송해주기 때문에 생략
 //        String accessToken = getAccessToken(code);
         // 2. 토큰으로 카카오 API 호출
-        SocialMemberInfoDto kakaoUserInfo = getKakaoUserInfo(accessToken);
+        EmailReqDto kakaoUserInfo = getKakaoUserInfo(accessToken);
         // 3. 카카오ID로 회원가입 처리
         Map<String, Object> resMap = signupKakaoUserIfNeed(kakaoUserInfo);
         // 4. 강제 로그인 처리
@@ -100,7 +101,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
      * @param accessToken :  액세스 토큰으로 카카오 API를 호출
      * @return SocialMemberInfoDto : 카카오에서 받은 사용자 이메일이 담긴 DTO
      */
-    private SocialMemberInfoDto getKakaoUserInfo(String accessToken) throws JsonProcessingException
+    private EmailReqDto getKakaoUserInfo(String accessToken) throws JsonProcessingException
     {
         // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
@@ -124,14 +125,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         String email = jsonNode.get("kakao_account").get("email").asText();
 
-        return new SocialMemberInfoDto(email);
+        return new EmailReqDto(email);
     }
 
     /** 3. 카카오 email로 회원가입 처리
      * @param kakaoMemberInfo : 카카오로부터 받은 user info
      * @return Map<String, Object> : member 정보와 기존에 존재하던 사용자인지 아닌지 여부 정보
      */
-    private Map<String, Object> signupKakaoUserIfNeed(SocialMemberInfoDto kakaoMemberInfo)
+    private Map<String, Object> signupKakaoUserIfNeed(EmailReqDto kakaoMemberInfo)
     {
         Map<String, Object> resMap = new HashMap<>();
         boolean isExist = true;
@@ -188,7 +189,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public DataResDto<?> signup(SignupReqDto info, Member member)
+    public DataResDto<?> signup(ProfileReqDto info, Member member)
     {
         String profilePath = "";
         MemberResDto memberResDto;
@@ -272,18 +273,50 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
-    public DataResDto<?> getProfile(Member requester, String memberUuid) {
+    public DataResDto<?> getProfile(Member requester, String nickname) {
         ProfileResDto profile;
-        if (Objects.equals(requester.getUuid().toString(), memberUuid)){
+        if (Objects.equals(requester.getNickname(), nickname)){
             profile = ProfileResDto.builder().member(requester).isMine(true).build();
         }
         else{
-            Member savedMember = memberRepository.findByUuid(UUID.fromString(memberUuid))
+            Member savedMember = memberRepository.findByNicknameAndIdNot(nickname, requester.getId())
                     .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
             profile = ProfileResDto.builder().member(savedMember).isMine(false).build();
         }
         return DataResDto.builder()
                 .statusMessage("조회한 유저의 프로필 정보입니다.")
                 .data(profile).build();
+    }
+
+    @Override
+    public DataResDto<?> updateProfile(Member member, EditProfileReqDto editInfo) throws Exception {
+        MultipartFile profileImg = editInfo.getProfileImg();
+        String nickName = editInfo.getNickname();
+        String profileImgPath = member.getProfilePath();
+        if (editInfo.getIsUpdating()){
+            // 기존에 프로필 이미지 존재하고, 업로드 된 파일이 존재하는 경우
+            if (!ObjectUtils.isEmpty(member.getProfilePath()) && profileImg.getSize() != 0) {
+                // 기존 프로필 이미지 제거
+                imageUtil.removeImage(member.getProfilePath());
+                profileImgPath = imageUtil.uploadImage(profileImg, "member");
+            }
+            else {
+                // 업로드된 파일이 null인 경우 기존 프로필 지우고 경로 "" 설정
+                if (profileImg.getSize() == 0) {
+                    imageUtil.removeImage(member.getProfilePath());
+                    profileImgPath = "";
+                }
+                // 기존 프로필 이미지가 존재하지 않은데, profile이미지가 업로드 된 경우
+                else if (ObjectUtils.isEmpty(member.getProfilePath())) {
+                    profileImgPath = imageUtil.uploadImage(profileImg, "member");
+                }
+            }
+        }
+        member.setMemberDetail(nickName, profileImgPath);
+        memberRepository.save(member);
+        return DataResDto.builder()
+                .statusMessage("프로필 수정이 완료되었습니다.")
+                .data(MemberResDto.builder().member(member).build())
+                .build();
     }
 }
