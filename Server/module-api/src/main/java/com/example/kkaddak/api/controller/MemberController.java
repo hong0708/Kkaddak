@@ -4,6 +4,7 @@ package com.example.kkaddak.api.controller;
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.EditProfileReqDto;
+import com.example.kkaddak.api.dto.member.LogoutReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
 import com.example.kkaddak.api.dto.member.ProfileReqDto;
 import com.example.kkaddak.api.service.MemberService;
@@ -131,6 +132,7 @@ public class MemberController {
             @AuthenticationPrincipal MemberDetails memberDetails,
             @PathVariable("nickname") String nickname)
     {
+
         return memberService.getProfile(memberDetails.getMember(), nickname);
     }
 
@@ -146,5 +148,17 @@ public class MemberController {
             ) throws Exception
     {
         return memberService.updateProfile(memberDetails.getMember(), editProfileReqDto);
+    }
+
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "정상적으로 로그아웃 됐을 경우"),
+            @ApiResponse(code = 400, message = "존재하지 않는 회원일 경우")
+    })
+    @ApiOperation(value = "로그아웃 API")
+    @PostMapping("/logout")
+    public DataResDto<?> logout(@RequestBody LogoutReqDto logoutDTO, @AuthenticationPrincipal MemberDetails memberDetails)
+    {
+        return memberService.logout(memberDetails.getMember(), logoutDTO);
     }
 }

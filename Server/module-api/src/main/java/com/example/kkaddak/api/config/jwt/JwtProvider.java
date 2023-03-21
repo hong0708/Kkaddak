@@ -89,4 +89,8 @@ public class JwtProvider {
         return DataResDto.builder().data(tokenResDto).statusCode(200).statusMessage("access token 재발급되었습니다.").build();
     }
 
+    public Long getExpiration(String atk) {
+        Date expiration = Jwts.parser().setSigningKey(key.getBytes()).parseClaimsJws(atk).getBody().getExpiration();
+        return expiration.getTime() - new Date().getTime();
+    }
 }
