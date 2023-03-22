@@ -19,6 +19,7 @@
     <color name="dark_gray">#AAAAAA</color>
     <color name="spun_pearl">#A5A5A6</color>
     <color name="dim_gray">#656565</color>
+    <color name="dim_gray_transparent90">#E6656565</color>
     <color name="night_rider">#303030</color>
     <color name="charcoal">#494949</color>
     <color name="gains_boro_transparent10">#1AD9D9D9</color>

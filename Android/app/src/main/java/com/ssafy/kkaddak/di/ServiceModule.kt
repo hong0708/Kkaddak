@@ -60,4 +60,11 @@ object ServiceModule {
         @AuthInterceptorClient retrofit: Retrofit
     ): ProfileApiService =
         retrofit.create(ProfileApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHomeApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): HomeApiService =
+        retrofit.create(HomeApiService::class.java)
 }
