@@ -286,7 +286,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                     .member(requester)
                     .isMine(true)
                     .myFollowers(followRepository.countByFollowing(requester))
-                    .myFolloings(followRepository.countByFollower(requester))
+                    .myFollowings(followRepository.countByFollower(requester))
                     .build();
         }
         else{
@@ -296,7 +296,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                     .member(savedMember)
                     .isMine(false)
                     .myFollowers(followRepository.countByFollowing(savedMember))
-                    .myFolloings(followRepository.countByFollower(savedMember))
+                    .myFollowings(followRepository.countByFollower(savedMember))
                     .build();
         }
         return DataResDto.builder()
@@ -356,5 +356,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         return DataResDto.builder()
                 .statusMessage("지갑 주소가 저장되었습니다.")
                 .data(true).build();
+    }
+
+    @Override
+    public DataResDto<?> getMyProfile(Member member) {
+        return DataResDto.builder()
+                .statusMessage("조회한 유저의 프로필 정보입니다.")
+                .data(HomeProfileResDto.builder().member(member).build())
+                .build();
     }
 }
