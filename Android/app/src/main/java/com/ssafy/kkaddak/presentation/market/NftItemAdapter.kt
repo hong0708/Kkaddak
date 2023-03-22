@@ -41,7 +41,10 @@ class NftItemAdapter : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() 
                 tvNftLike.text = data.likecount.toString()
                 tvNftCreator.text = data.nftCreator
                 tvNftSongTitle.text = data.nftSingTitle
-                tvNftActionDate.text = data.nftDeadline
+                val year = data.nftDeadline.substring(2, 4)
+                val month = data.nftDeadline.substring(5, 7)
+                val day = data.nftDeadline.substring(8, 10)
+                tvNftActionDate.text = String.format("%s.%s.%s", year, month, day)
                 tvNftActionPrice.text = String.format("%.2f", data.nftPrice)
             }
         }
