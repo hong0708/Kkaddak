@@ -8,6 +8,7 @@ import com.ssafy.kkaddak.data.remote.service.RefreshApiService
 import com.ssafy.kkaddak.data.remote.service.SongApiService
 import com.ssafy.kkaddak.data.remote.service.UserApiService
 import com.ssafy.kkaddak.data.remote.service.MarketApiService
+import com.ssafy.kkaddak.data.remote.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,4 +54,11 @@ object ServiceModule {
         @AuthInterceptorClient retrofit: Retrofit
     ): MarketApiService =
         retrofit.create(MarketApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideProfileApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): ProfileApiService =
+        retrofit.create(ProfileApiService::class.java)
 }

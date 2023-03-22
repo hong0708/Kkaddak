@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="profile"
+            type="com.ssafy.kkaddak.domain.entity.profile.ProfileItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="33dp"
             android:fontFamily="@font/gmarket_sans_bold"
+            android:text="@{profile.nickname}"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-1dp"
             android:layout_marginEnd="22dp"
-            android:src="@drawable/ic_add_song"
             android:contentDescription="@string/image_add_song"
+            android:src="@drawable/ic_add_song"
             app:layout_constraintEnd_toStartOf="@+id/iv_btn_to_mypage"
             app:layout_constraintTop_toTopOf="@id/iv_btn_to_mypage" />
 
@@ -59,8 +63,9 @@
                 android:layout_width="86dp"
                 android:layout_height="86dp"
                 android:layout_marginTop="43dp"
-                android:scaleType="fitXY"
                 android:contentDescription="@string/image_profile"
+                android:profileImgStr="@{profile.profilepath}"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_menu_home" />
@@ -84,9 +89,11 @@
 
                     <TextView
                         android:id="@+id/tv_profile_work_cnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="19dp"
                         android:fontFamily="@font/gmarket_sans_bold"
+                        android:gravity="center"
+                        android:text="@{Integer.toString(profile.mySongs)}"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/tv_profile_work"
@@ -99,9 +106,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_medium"
+                        android:gravity="center"
                         android:text="@string/title_profile_work"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,6 +128,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_bold"
+                        android:gravity="center"
+                        android:text="@{Integer.toString(profile.myFollowers)}"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/tv_profile_follower"
@@ -132,9 +142,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_medium"
+                        android:gravity="center"
                         android:text="@string/title_profile_follower"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -146,6 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cl_profile_follower"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -153,6 +165,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_bold"
+                        android:gravity="center"
+                        android:text="@{Integer.toString(profile.myFollowings)}"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@id/tv_profile_following"
@@ -165,9 +179,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_medium"
+                        android:gravity="center"
                         android:text="@string/title_profile_following"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -178,9 +193,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:contentDescription="@string/image_follow_btn"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg_profile_follow"
-                android:contentDescription="@string/image_follow_btn"
                 app:layout_constraintEnd_toEndOf="@id/cl_profile_detail_info"
                 app:layout_constraintStart_toStartOf="@id/cl_profile_detail_info"
                 app:layout_constraintTop_toBottomOf="@id/cl_profile_detail_info" />
