@@ -173,5 +173,15 @@ public class MemberController {
         return memberService.saveAccount(memberDetails.getMember(), accountReqDto);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "정상적으로 홈 프로필이 조회됐을 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
 
+    })
+    @ApiOperation(value = "홈 프로필 API")
+    @GetMapping("/my-profile")
+    public DataResDto<?> getMyProfile(@AuthenticationPrincipal MemberDetails memberDetails)
+    {
+        return memberService.getMyProfile(memberDetails.getMember());
+    }
 }

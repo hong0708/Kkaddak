@@ -32,7 +32,7 @@ public class MemberServiceTest {
     MemberService memberService;
 
     @Test
-    @DisplayName("유저 관련 테스트")
+    @DisplayName("유저 관련 서비스 테스트")
     void MemberServiceTest1() {
         Member member1 = Member.builder()
                 .email("john@example.com")
@@ -56,7 +56,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("유저 구독 테스트")
+    @DisplayName("유저 구독 서비스 테스트")
     void FollowTest() {
         Member member1 = Member.builder()
                 .email("john@example.com")
@@ -90,7 +90,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("유저 조회 기능 테스트")
+    @DisplayName("유저 조회 기능 서비스 테스트")
     void ProfileServiceTest(){
 
         Member member1 = Member.builder()
@@ -118,7 +118,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("유저 프로필 수정 테스트")
+    @DisplayName("유저 프로필 수정 서비스 테스트")
     void EditProfileTest() throws Exception {
 
         Member member1 = Member.builder()
@@ -148,7 +148,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("지갑 저장 테스트")
+    @DisplayName("지갑 저장  서비스 테스트")
     void SaveAccountTest() throws Exception {
 
         Member member1 = Member.builder()
@@ -165,6 +165,22 @@ public class MemberServiceTest {
 
         Member memberWithAccount = memberRepository.findById(savedMember1.getId()).orElse(null);
         assertEquals(memberWithAccount.getAccount(), "accountAddress");
+    }
+    @Test
+    @DisplayName("홈 프로필 조회 서비스 테스트")
+    void HomeProfileTest() throws Exception {
 
+        Member member1 = Member.builder()
+                .email("john@example.com")
+                .memberType("회원")
+                .nickname("homeProfileNickname")
+                .profilePath("profile/tom.jpg")
+                .build();
+        Member savedMember1 = memberRepository.save(member1);
+
+        DataResDto<HomeProfileResDto> res1 = (DataResDto<HomeProfileResDto>) memberService.getMyProfile(savedMember1);
+        assertEquals(res1.getData().getMySongs(), 0);
+        assertEquals(res1.getData().getNickname(), "homeProfileNickname");
+        assertEquals(res1.getStatusCode(), 200);
     }
 }
