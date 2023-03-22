@@ -10,4 +10,7 @@ class HomeRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getLatestSongs(): List<SongResponse> =
         homeApiService.getLatestSongs().data!!
+
+    override suspend fun getHomeProfile(): HomeProfileResponse =
+        homeApiService.getHomeProfile().data!!
 }

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="homeProfile"
+            type="com.ssafy.kkaddak.domain.entity.home.HomeProfile" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +32,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="50dp"
                     android:fontFamily="@font/tmon_monsori"
-                    android:text="@string/title_home_1"
+                    android:text="@{homeProfile.mySongs==0 ? @string/title_home_1_listener : @string/title_home_1_creator}"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,36 +68,90 @@
                     app:layout_constraintStart_toStartOf="@id/tv_title_home_nickname"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_home_nickname">
 
-                    <TextView
-                        android:id="@+id/tv_sub_title_home_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gmarket_sans_light"
-                        android:text="@string/content_home_1"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toTopOf="@id/tv_work_count"
-                        app:layout_constraintEnd_toEndOf="@id/tv_work_count"
-                        app:layout_constraintStart_toStartOf="@id/tv_work_count"
-                        app:layout_constraintTop_toBottomOf="parent" />
-
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/tv_work_count"
+                        android:id="@+id/tv_sub_title_home_artist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_sub_title_home_1">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
+                            android:id="@+id/tv_sub_title_home_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/gmarket_sans_bold"
-                            android:textColor="@color/han_purple"
+                            android:fontFamily="@font/gmarket_sans_light"
+                            android:text="@string/content_home_1"
+                            android:textColor="@color/white"
                             android:textSize="16sp"
+                            app:layout_constraintBottom_toTopOf="@id/tv_sub_title_home_2"
+                            app:layout_constraintEnd_toEndOf="@id/tv_sub_title_home_2"
+                            app:layout_constraintStart_toStartOf="@id/tv_sub_title_home_2"
+                            app:layout_constraintTop_toBottomOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/tv_sub_title_home_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintBottom_toTopOf="@id/tv_sub_title_home_3"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="2" />
+                            app:layout_constraintTop_toBottomOf="@id/tv_sub_title_home_1">
+
+                            <TextView
+                                android:id="@+id/tv_song_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/gmarket_sans_bold"
+                                android:gravity="center"
+                                android:textColor="@color/han_purple"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/gmarket_sans_light"
+                                android:gravity="center"
+                                android:lineSpacingExtra="5dp"
+                                android:text="@string/content_home_2"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toEndOf="@id/tv_song_count"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/tv_sub_title_home_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_sub_title_home_2">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/gmarket_sans_light"
+                                android:gravity="center"
+                                android:lineSpacingExtra="5dp"
+                                android:text="@string/content_home_3"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/tv_sub_title_home_listener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -102,7 +159,7 @@
                             android:fontFamily="@font/gmarket_sans_light"
                             android:gravity="center"
                             android:lineSpacingExtra="5dp"
-                            android:text="@string/content_home_2"
+                            android:text="@string/content_home_listener"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
