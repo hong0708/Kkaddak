@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FollowResDto {
-    private Long myFollowers;
-    private Long myFollwings;
+    private int myFollowers;
+    private int myFollwings;
 
     @Builder
-    public FollowResDto(Long myFollowers, Long myFollwings) {
+    public FollowResDto(int myFollowers, int myFollwings) {
         this.myFollowers = myFollowers;
         this.myFollwings = myFollwings;
     }

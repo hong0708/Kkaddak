@@ -40,4 +40,7 @@ public class Member {
         this.profilePath = profilePath;
     }
 
+    public void setAccount(String account) {
+        this.account = account;
+    }
 }
