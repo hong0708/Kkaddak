@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.di
 import com.ssafy.kkaddak.domain.repository.*
 import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
+import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
@@ -75,4 +76,9 @@ object UseCaseModule {
     @Provides
     fun provideGetLatestSongsUseCase(homeRepository: HomeRepository): GetLatestSongsUseCase =
         GetLatestSongsUseCase(homeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetHomeProfileUseCase(homeRepository: HomeRepository): GetHomeProfileUseCase =
+        GetHomeProfileUseCase(homeRepository)
 }

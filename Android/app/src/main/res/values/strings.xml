@@ -81,12 +81,14 @@
     <string name="content_check_nickname">중복 체크</string>
 
     <!-- Home -->
-    <string name="title_home_1">센스있는 창작가</string>
+    <string name="title_home_1_creator">센스있는 창작가</string>
+    <string name="title_home_1_listener">안목있는 리스너</string>
     <string name="title_home_new_song">들어봐야 하는 신곡</string>
     <string name="title_home_real_time_chart">실시간 차트</string>
     <string name="title_home_2">님!</string>
     <string name="content_home_1">현재까지</string>
-    <string name="content_home_2">  개의 작품을\n창작하셨군요!</string>
+    <string name="content_home_2">개의 작품을</string>
+    <string name="content_home_3">창작하셨군요!</string>
     <string name="image_home_nft">image_home_nft</string>
     <string name="image_home_new_song">image_home_new_song</string>
     <string name="image_home_song_info">image_home_song_info</string>
@@ -95,6 +97,7 @@
     <string name="image_home_play_info_next">image_home_play_info_next</string>
     <string name="image_home_play_info_state">image_home_play_info_state</string>
     <string name="image_home_play_info_favorite">image_home_play_info_favorite</string>
+    <string name="content_home_listener">오늘은 음악을\n창작해보는건\n어떨까요?</string>
 
     <!-- Profile -->
     <string name="image_btn_to_mypage">image_btn_to_mypage</string>

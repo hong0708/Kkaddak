@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.home
 
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initView() {
         initRecyclerView()
+        setProfile()
     }
 
     private fun initRecyclerView() {
@@ -36,5 +38,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 songId
             )
         )
+    }
+
+    private fun setProfile() {
+        homeViewModel.homeProfile.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                binding.tvTitleHomeNickname.text = it.nickname
+                if (it.mySongs == 0) {
+                    binding.apply {
+                        tvSubTitleHomeArtist.visibility = View.GONE
+                        tvSubTitleHomeListener.visibility = View.VISIBLE
+                    }
+                } else {
+                    binding.apply {
+                        tvSubTitleHomeArtist.visibility = View.VISIBLE
+                        tvSubTitleHomeListener.visibility = View.GONE
+                        tvSongCount.text = it.mySongs.toString()
+                    }
+                }
+            }
+        }
+        homeViewModel.getHomeProfile()
     }
 }
