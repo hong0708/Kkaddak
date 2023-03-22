@@ -197,10 +197,11 @@
                     android:id="@+id/rv_new_song"
                     android:layout_width="0dp"
                     android:layout_height="300dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="30dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="@id/tv_new_song"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_new_song"
                     tools:listitem="@layout/item_home_new_song" />
 

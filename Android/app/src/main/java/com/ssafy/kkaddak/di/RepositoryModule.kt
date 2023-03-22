@@ -3,8 +3,6 @@ package com.ssafy.kkaddak.di
 import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.home.HomeRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.market.MarketRemoteDataSourceImpl
-import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSourceImpl
-import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.repository.AuthRepositoryImpl
 import com.ssafy.kkaddak.data.remote.repository.MarketRepositoryImpl
 import com.ssafy.kkaddak.data.remote.repository.SongRepositoryImpl
