@@ -75,14 +75,4 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.visibility = View.VISIBLE
         binding.fabHome.visibility = View.VISIBLE
     }
-
-    fun hideNav() {
-        binding.bottomNavigation.visibility = View.INVISIBLE
-        binding.fabHome.visibility = View.INVISIBLE
-    }
-
-    fun showNav() {
-        binding.bottomNavigation.visibility = View.VISIBLE
-        binding.fabHome.visibility = View.VISIBLE
-    }
 }

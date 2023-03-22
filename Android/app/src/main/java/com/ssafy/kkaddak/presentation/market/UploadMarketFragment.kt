@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentUploadMarketBinding
+import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.DialogUploadNftDetailBinding
+import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 
 class DialogUploadNftDetailFragment : DialogFragment() {
 
@@ -66,22 +67,22 @@ class DialogUploadNftDetailFragment : DialogFragment() {
 
     // 내가 보유한 Nft
     private fun getNft() {
-        var data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
-        uploadnftadapter?.addItem(data)
-        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
-        uploadnftadapter?.addItem(data)
+//        var data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
+//        uploadnftadapter?.addItem(data)
+//        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
+//        uploadnftadapter?.addItem(data)
     }
 
     override fun onDestroyView() {

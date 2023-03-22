@@ -1,12 +1,10 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.kkaddak.data.remote.datasource.market.MarketRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.user.UserRemoteDataSourceImpl
-import com.ssafy.kkaddak.data.remote.service.AuthApiService
-import com.ssafy.kkaddak.data.remote.service.RefreshApiService
-import com.ssafy.kkaddak.data.remote.service.SongApiService
-import com.ssafy.kkaddak.data.remote.service.UserApiService
+import com.ssafy.kkaddak.data.remote.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +32,10 @@ object DataSourceModule {
     fun provideSongDataSource(
         songApiService: SongApiService
     ): SongRemoteDataSourceImpl = SongRemoteDataSourceImpl(songApiService)
+
+    @Provides
+    @Singleton
+    fun provideMarketDataSource(
+        marketApiService: MarketApiService
+    ): MarketRemoteDataSourceImpl = MarketRemoteDataSourceImpl(marketApiService)
 }

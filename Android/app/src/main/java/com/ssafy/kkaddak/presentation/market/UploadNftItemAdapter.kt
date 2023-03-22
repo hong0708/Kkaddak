@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.ItemUploadNftBinding
+import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 
 class UploadNftItemAdapter : RecyclerView.Adapter<UploadNftItemAdapter.UploadNftItemViewHolder>() {
 
@@ -30,11 +32,7 @@ class UploadNftItemAdapter : RecyclerView.Adapter<UploadNftItemAdapter.UploadNft
         val binding: ItemUploadNftBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: UploadNftItem) {
-            binding.ivNftItem.setImageResource(data.nftitem)
+            Glide.with(binding.root).load(data.nftImagePath).into(binding.ivNftItem)
         }
-    }
-
-    fun addItem(data: UploadNftItem) {
-        items.add(data)
     }
 }
