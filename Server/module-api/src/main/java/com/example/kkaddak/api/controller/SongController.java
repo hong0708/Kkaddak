@@ -141,4 +141,14 @@ public class SongController {
                                        @RequestParam(name = "genre", defaultValue = "") String genre) {
         return songService.getSearchList(memberDetails.getMember(), nickname, title, genre);
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "음악 인기 순 리스트 조회가 성공했을 때 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "음악을 인기 순으로 조회하여 리스트 형태로 반환하는 API")
+    @GetMapping("/list/popularity")
+    public DataResDto<?> getPopularityList(@AuthenticationPrincipal MemberDetails memberDetails) {
+        return songService.getPopularityList(memberDetails.getMember());
+    }
 }

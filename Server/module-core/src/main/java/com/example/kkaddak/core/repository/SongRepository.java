@@ -20,8 +20,9 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     void deleteById(Integer songId);
 
-    @Query("SELECT m FROM Song m ORDER BY m.uploadDate DESC")
-    List<Song> findTop5ByOrderByUploadedAtDesc();
+    List<Song> findTop5ByOrderByUploadDateDesc();
+
+    List<Song> findTop12ByOrderByViewsDesc();
 
     List<Song> findAll();
 

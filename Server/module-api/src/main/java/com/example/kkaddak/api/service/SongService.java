@@ -34,4 +34,6 @@ public interface SongService {
     DataResDto<?> getSearchList(Member member, String nickname, String title, String genre);
 
     DataResDto<?> getSongByCreator(Member member);
+
+    DataResDto<?> getPopularityList(Member member);
 }

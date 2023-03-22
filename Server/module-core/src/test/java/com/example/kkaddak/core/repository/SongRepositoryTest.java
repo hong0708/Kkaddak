@@ -64,6 +64,6 @@ public class SongRepositoryTest {
 
         Song savedSong = songRepository.save(song);
 
-        System.out.println(searchRepository.searchSong("", "", ""));
+        System.out.println(songRepository.findTop5ByOrderByUploadDateDesc());
     }
 }
