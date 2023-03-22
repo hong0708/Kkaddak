@@ -5,7 +5,6 @@ import android.view.View
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentUploadMarketBinding
 import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
-import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 
 class UploadMarketFragment :
@@ -19,12 +18,10 @@ class UploadMarketFragment :
                 .replace(R.id.nav_host, MarketFragment())
                 .addToBackStack(null)
                 .commit()
-            (activity as MainActivity).showNav()
         }
     }
 
     override fun initView() {
-        (activity as MainActivity).hideNav()
         binding.tvSelectNftImage.setOnClickListener {
             val dialog = DialogUploadNftDetailFragment()
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
@@ -48,6 +45,5 @@ class UploadMarketFragment :
 
     override fun onPause() {
         super.onPause()
-        (activity as MainActivity).showNav()
     }
 }
