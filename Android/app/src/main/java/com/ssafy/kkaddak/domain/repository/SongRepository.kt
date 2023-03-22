@@ -10,4 +10,8 @@ interface SongRepository {
     suspend fun requestBookmark(songId: String)
 
     suspend fun cancelBookmark(songId: String)
+
+    suspend fun getMusic(songId: Int): Resource<SongItem>
+
+    suspend fun getPlayList(): Resource<List<SongItem>>
 }

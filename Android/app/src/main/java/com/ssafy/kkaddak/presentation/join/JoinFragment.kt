@@ -14,11 +14,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentJoinBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -59,43 +61,55 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
     private fun initListener() {
         binding.apply {
             clProfileImage.setOnClickListener { setAlbumView() }
-            etCheckNickName.addTextChangedListener { joinViewModel.setNickname(it.toString()) }
+
             btnBack.setOnClickListener { popBackStack() }
 
             clConfirm.setOnClickListener {
-                if (joinViewModel.profileImgUri.value == null) {
-                    joinViewModel.updateProfileWithoutImg()
+                if (joinViewModel.isDuplicate.value == false) {
+                    if (joinViewModel.profileImgUri.value == null) {
+                        joinViewModel.updateProfileWithoutImg()
+                    } else {
+                        joinViewModel.updateProfile()
+                    }
                 } else {
-                    joinViewModel.updateProfile()
+                    Toast.makeText(context, "닉네임 중복 확인을 먼저 해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
+
             tvCheckNickName.setOnClickListener {
                 if (joinViewModel.nickname.value == null) {
                     //showToast("닉네임을 입력해주세요.")
                     Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 } else {
-                    joinViewModel.checkDuplication()
+                    lifecycleScope.launch {
+                        val async = joinViewModel.checkDuplication()
+                        showDuplicateInfo(async)
+                    }
                 }
             }
         }
     }
 
+    private fun showDuplicateInfo(async: Int) {
+        if (joinViewModel.isDuplicate.value == true) {
+            Toast.makeText(context, "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun observeState() {
-        joinViewModel.isDuplicate.observe(viewLifecycleOwner) {
+        joinViewModel.isSuccess.observe(viewLifecycleOwner) {
             when (it) {
-                true -> //showToast("중복된 닉네임입니다.")
-                    Toast.makeText(context, "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show()
-                false -> //showToast("사용할 수 있는 닉네임입니다.")
-                    Toast.makeText(context, "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show()
+                true -> navigate(JoinFragmentDirections.actionJoinFragmentToCompleteJoinFragment())
                 else -> {}
             }
         }
 
-        joinViewModel.isSuccess.observe(viewLifecycleOwner) {
-            //Log.d(TAG, "observeState: ")
+        joinViewModel.profileImgUri.observe(viewLifecycleOwner) {
             when (it) {
-                true -> navigate(JoinFragmentDirections.actionJoinFragmentToCompleteJoinFragment())
-                else -> {}
+                null -> binding.tvProfileCameraIcon.visibility = View.VISIBLE
+                else -> binding.tvProfileCameraIcon.visibility = View.GONE
             }
         }
     }
@@ -103,6 +117,7 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
     private fun setTextWatcher() {
         binding.etCheckNickName.addTextChangedListener {
             joinViewModel.nickname.value = binding.etCheckNickName.text.toString()
+            joinViewModel.returnDuplicationTrue()
         }
     }
 
@@ -118,7 +133,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     )
                 )
-                binding.tvProfileCameraIcon.visibility = View.GONE
             }
             else -> {
                 ActivityCompat.requestPermissions(
