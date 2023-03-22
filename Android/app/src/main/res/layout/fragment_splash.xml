@@ -11,7 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_splash">
-
+        
+        <ImageView
+            android:id="@+id/test"
+            android:layout_width="53dp"
+            android:layout_height="61dp"
+            android:src="@drawable/word1"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/iv_splash_main"/>
+        
         <ImageView
             android:id="@+id/iv_splash_main"
             android:layout_width="match_parent"
