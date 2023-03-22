@@ -7,12 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
-<<<<<<< Android/app/src/main/java/com/ssafy/kkaddak/presentation/songlist/SongViewModel.kt
 import com.ssafy.kkaddak.domain.usecase.song.CancelBookmarkUseCase
-=======
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
->>>>>>> Android/app/src/main/java/com/ssafy/kkaddak/presentation/songlist/SongViewModel.kt
 import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.song.RequestBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
