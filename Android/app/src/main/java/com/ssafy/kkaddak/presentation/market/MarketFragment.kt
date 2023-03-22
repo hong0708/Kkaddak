@@ -193,4 +193,33 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             MarketFragmentDirections.actionMarketFragmentToBidMarketFragment(item)
         )
     }
+
+    fun onButtonClick(tv: TextView) {
+        when(tv) {
+            binding.tvAllNfts -> {
+                tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
+                binding.tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+            }
+            binding.tvSellingNft -> {
+                tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
+                binding.tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+            }
+            binding.tvBiddingNft -> {
+                tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
+                binding.tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+            }
+            binding.tvBookmarkNft -> {
+                tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
+                binding.tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+                binding.tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
+            }
+        }
+    }
 }
