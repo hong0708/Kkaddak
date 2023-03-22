@@ -3,11 +3,7 @@ package com.ssafy.kkaddak.di
 import com.ssafy.kkaddak.AuthInterceptorClient
 import com.ssafy.kkaddak.NoAuthInterceptorClient
 import com.ssafy.kkaddak.RefreshInterceptorClient
-import com.ssafy.kkaddak.data.remote.service.AuthApiService
-import com.ssafy.kkaddak.data.remote.service.RefreshApiService
-import com.ssafy.kkaddak.data.remote.service.SongApiService
-import com.ssafy.kkaddak.data.remote.service.UserApiService
-import com.ssafy.kkaddak.data.remote.service.MarketApiService
+import com.ssafy.kkaddak.data.remote.service.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +56,11 @@ object ServiceModule {
         @AuthInterceptorClient retrofit: Retrofit
     ): ProfileApiService =
         retrofit.create(ProfileApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHomeApiService(
+        @AuthInterceptorClient retrofit: Retrofit
+    ): HomeApiService =
+        retrofit.create(HomeApiService::class.java)
 }

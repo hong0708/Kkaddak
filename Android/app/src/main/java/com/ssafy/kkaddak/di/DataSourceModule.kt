@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.kkaddak.data.remote.datasource.home.HomeRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.market.MarketRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileRemoteDataSourceImpl
 import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSourceImpl
@@ -45,4 +46,10 @@ object DataSourceModule {
     fun provideProfileDataSource(
         profileApiService: ProfileApiService
     ): ProfileRemoteDataSourceImpl = ProfileRemoteDataSourceImpl(profileApiService)
+
+    @Provides
+    @Singleton
+    fun provideHomeDataSource(
+        homeApiService: HomeApiService
+    ): HomeRemoteDataSourceImpl = HomeRemoteDataSourceImpl(homeApiService)
 }
