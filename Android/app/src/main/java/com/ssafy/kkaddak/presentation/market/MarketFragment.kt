@@ -1,49 +1,43 @@
 package com.ssafy.kkaddak.presentation.market
 
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    var nftadapter: NftItemAdapter? = null
+    private var nftadapter: NftItemAdapter? = null
+    private val marketViewModel by activityViewModels<MarketViewModel>()
 
     override fun initView() {
-        nftinit()
-        getNft()
+        initRecyclerView()
+
+        binding.ivUpload.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host, UploadMarketFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
-    private fun nftinit() {
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.rv_market_nft_list)
-
+    private fun initRecyclerView() {
         nftadapter = NftItemAdapter()
-        recyclerView?.adapter = nftadapter
-        recyclerView?.run {
+        binding.rvMarketNftList.apply {
+            adapter = nftadapter
+            layoutManager =
+                GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             val spanCount = 2
             val space = 20
             addItemDecoration(GridSpaceItemDecoration(spanCount, space))
+
         }
-    }
-    private fun getNft() {
-        var data = NftItem(R.drawable.ic_nft_mockup1, 1, "창작자1", "노래 제목1", "23.03.10", 1.23)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup2, 2, "창작자2", "노래 제목2", "23.03.10", 1.24)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup3, 3, "창작자3", "노래 제목3", "23.03.10", 5.23)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup4, 4, "창작자4", "노래 제목4", "23.03.10", 8.23)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup1, 1, "창작자1", "노래 제목1", "23.03.10", 1.23)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup2, 2, "창작자2", "노래 제목2", "23.03.10", 1.24)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup3, 3, "창작자3", "노래 제목3", "23.03.10", 5.23)
-        nftadapter?.addItem(data)
-        data = NftItem(R.drawable.ic_nft_mockup4, 4, "창작자4", "노래 제목4", "23.03.10", 8.23)
-        nftadapter?.addItem(data)
+        marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
+            response?.let { nftadapter!!.setNfts(it) }
+        }
+        marketViewModel.getAllNfts(-1, 20)
     }
 }

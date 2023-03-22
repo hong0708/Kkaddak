@@ -1,11 +1,13 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.domain.repository.AuthRepository
+import com.ssafy.kkaddak.domain.repository.MarketRepository
 import com.ssafy.kkaddak.domain.repository.ProfileRepository
 import com.ssafy.kkaddak.domain.repository.SongRepository
 import com.ssafy.kkaddak.domain.repository.UserRepository
 import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
+import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
@@ -67,6 +69,11 @@ object UseCaseModule {
     @Provides
     fun provideGetPlayListUseCase(songRepository: SongRepository): GetPlayListUseCase =
         GetPlayListUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetAllNftsUseCase(marketRepository: MarketRepository): GetAllNftsUseCase =
+        GetAllNftsUseCase(marketRepository)
 
     @Singleton
     @Provides
