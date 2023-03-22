@@ -7,5 +7,6 @@ data class SongItem(
     val coverPath: String,
     val genre: String,
     val mood: String,
-    val nickname: String?
+    val nickname: String?,
+    val like: Boolean
 )

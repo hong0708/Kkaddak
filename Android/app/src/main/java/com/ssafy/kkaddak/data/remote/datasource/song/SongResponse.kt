@@ -18,8 +18,10 @@ data class SongResponse(
 //    @SerializedName("mood")
 //    val mood: String,
     @SerializedName("nickname")
-    val nickname: String?
+    val nickname: String?,
+    @SerializedName("like")
+    val like: Boolean
 ) : DataToDomainMapper<SongItem> {
     override fun toDomainModel(): SongItem =
-        SongItem(songId, songTitle, songPath, coverPath, genre, "A", nickname)
+        SongItem(songId, songTitle, songPath, coverPath, genre, "A", nickname, like)
 }

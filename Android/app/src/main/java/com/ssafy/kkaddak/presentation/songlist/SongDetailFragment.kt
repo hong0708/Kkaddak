@@ -24,6 +24,7 @@ class SongDetailFragment:
 
     override fun initView() {
         (activity as MainActivity).HideBottomNavigation(true)
+        observeData()
         initListener()
         getData()
         initPlayer()
@@ -33,6 +34,23 @@ class SongDetailFragment:
         binding.btnBack.setOnClickListener { popBackStack() }
         binding.ivSongList.setOnClickListener {
             navigate(SongDetailFragmentDirections.actionSongDetailFragmentToSongListFragment())
+        }
+        binding.ivFavorite.setOnClickListener {
+            if (songViewModel.songData.value!!.like) {
+                songViewModel.cancelBookmark(songViewModel.songData.value!!.songId)
+            } else {
+                songViewModel.requestBookmark(songViewModel.songData.value!!.songId)
+            }
+        }
+    }
+
+    private fun observeData() {
+        songViewModel.songData.observe(viewLifecycleOwner) {
+            if (it!!.like) {
+                binding.ivFavorite.setImageResource(R.drawable.ic_song_detail_favorite_selected)
+            } else {
+                binding.ivFavorite.setImageResource(R.drawable.ic_song_detail_favorite)
+            }
         }
     }
 
