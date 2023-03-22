@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentHomeBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -44,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         homeViewModel.homeProfile.observe(viewLifecycleOwner) { response ->
             response?.let {
                 binding.tvTitleHomeNickname.text = it.nickname
+                ApplicationClass.preferences.nickname = it.nickname
                 if (it.mySongs == 0) {
                     binding.apply {
                         tvSubTitleHomeArtist.visibility = View.GONE
