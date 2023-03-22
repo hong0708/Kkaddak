@@ -38,7 +38,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         _binding = DialogUploadNftDetailBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawableResource(R.color.trans80_black)
         nftinit()
-        getNft()
         return binding.root
     }
 
@@ -63,26 +62,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
             val space = 40
             addItemDecoration(GridSpaceItemDecoration(spanCount, space))
         }
-    }
-
-    // 내가 보유한 Nft
-    private fun getNft() {
-//        var data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup1, "노래 제목1")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup2, "노래 제목2")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup3, "노래 제목3")
-//        uploadnftadapter?.addItem(data)
-//        data = UploadNftItem(R.drawable.ic_nft_mockup4, "노래 제목4")
-//        uploadnftadapter?.addItem(data)
     }
 
     override fun onDestroyView() {
