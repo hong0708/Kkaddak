@@ -16,7 +16,7 @@ interface SongApiService {
     suspend fun cancelBookmark(@Path("songId") songId: String)
     
     @GET("/api/v2/song/{id}")
-    suspend fun getMusic(@Path("id") songId: Int): BaseResponse<SongResponse>
+    suspend fun getMusic(@Path("id") songId: String): BaseResponse<SongResponse>
 
     @GET("/api/v2/song/song/myPlay/list")
     suspend fun getPlayList(): BaseResponse<List<SongResponse>>
