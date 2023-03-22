@@ -2,6 +2,7 @@ package com.ssafy.kkaddak.presentation.profile
 
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentProfileBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -33,6 +34,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         profileViewModel.profileData.observe(viewLifecycleOwner) {
             binding.profile = it
         }
-        profileViewModel.getProfileInfo("조미니언즈")
+        profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
     }
 }

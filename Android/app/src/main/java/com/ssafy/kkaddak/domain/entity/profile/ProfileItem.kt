@@ -5,5 +5,8 @@ data class ProfileItem(
     val nickname: String,
     val profilepath: String,
     val account: String?,
+    val myFollowers: Int,
+    val myFollowings: Int,
+    val mySongs: Int,
     val mine: Boolean,
 )
