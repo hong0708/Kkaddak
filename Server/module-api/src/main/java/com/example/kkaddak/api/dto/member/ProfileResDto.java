@@ -13,14 +13,20 @@ public class ProfileResDto {
     private String profilepath;
     private String account;
     private boolean isMine;
+    private int myFollowers;
+    private int myFolloings;
+    private int mySongs;
 
     @Builder
-    public ProfileResDto(Member member, boolean isMine) {
+    public ProfileResDto(Member member, boolean isMine, int myFollowers, int myFolloings, int mySongs) {
         this.memberId = member.getUuid().toString();
         this.nickname = member.getNickname();
         this.email = member.getEmail();
         this.profilepath = member.getProfilePath();
         this.account = member.getAccount();
         this.isMine = isMine;
+        this.myFollowers = myFollowers;
+        this.myFolloings = myFolloings;
+        this.mySongs = mySongs;
     }
 }

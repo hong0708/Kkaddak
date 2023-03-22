@@ -68,6 +68,8 @@ CREATE TABLE IF NOT EXISTS `auction` (
     `nft_id` VARCHAR(255),
     `nft_image_path` VARCHAR(255),
     `song_title` VARCHAR(255),
+    `created_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
     `seller_id` INT,
     CONSTRAINT FKasojcnrr08a6k9aobcfhofh2y
     FOREIGN KEY (`seller_id`) REFERENCES member (`id`)

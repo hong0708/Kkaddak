@@ -2,15 +2,18 @@ package com.example.kkaddak.core.entity;
 
 import com.example.kkaddak.core.dto.AuctionReqDto;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @ToString(callSuper = true)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Auction {
+public class Auction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -9,6 +9,7 @@ import com.example.kkaddak.core.entity.Follow;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.repository.FollowRepository;
 import com.example.kkaddak.core.repository.MemberRepository;
+import com.example.kkaddak.core.repository.RedisDao;
 import com.example.kkaddak.core.utils.ErrorMessageEnum;
 import com.example.kkaddak.core.utils.ImageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,7 +33,11 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +45,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository  memberRepository;
     private final FollowRepository followRepository;
+    private final RedisDao redisDao;
     private final JwtProvider jwtProvider;
     private final ImageUtil imageUtil;
 
@@ -276,12 +282,22 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public DataResDto<?> getProfile(Member requester, String nickname) {
         ProfileResDto profile;
         if (Objects.equals(requester.getNickname(), nickname)){
-            profile = ProfileResDto.builder().member(requester).isMine(true).build();
+            profile = ProfileResDto.builder()
+                    .member(requester)
+                    .isMine(true)
+                    .myFollowers(followRepository.countByFollowing(requester))
+                    .myFolloings(followRepository.countByFollower(requester))
+                    .build();
         }
         else{
             Member savedMember = memberRepository.findByNicknameAndIdNot(nickname, requester.getId())
                     .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
-            profile = ProfileResDto.builder().member(savedMember).isMine(false).build();
+            profile = ProfileResDto.builder()
+                    .member(savedMember)
+                    .isMine(false)
+                    .myFollowers(followRepository.countByFollowing(savedMember))
+                    .myFolloings(followRepository.countByFollower(savedMember))
+                    .build();
         }
         return DataResDto.builder()
                 .statusMessage("조회한 유저의 프로필 정보입니다.")
@@ -318,5 +334,27 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .statusMessage("프로필 수정이 완료되었습니다.")
                 .data(MemberResDto.builder().member(member).build())
                 .build();
+    }
+
+    @Override
+    public DataResDto<?> logout(Member member, LogoutReqDto logoutReqDto) {
+                // refresh token 삭제
+        if(redisDao.getValues(member.getEmail()) != null) {
+            redisDao.deleteValues(member.getEmail());
+        }
+
+        // 해당 Access Token 유효시간 가지고 와서 BlackList 로 저장하기
+        Long expiration = jwtProvider.getExpiration(logoutReqDto.getAtk());
+        redisDao.setValues(logoutReqDto.getAtk(), "logout", expiration, TimeUnit.MILLISECONDS);
+        return DataResDto.builder().statusMessage("로그아웃되었습니다.").data(true).build();
+    }
+
+    @Override
+    public DataResDto<?> saveAccount(Member member, AccountReqDto accountReqDto) {
+        member.setAccount(accountReqDto.getAccount());
+        memberRepository.save(member);
+        return DataResDto.builder()
+                .statusMessage("지갑 주소가 저장되었습니다.")
+                .data(true).build();
     }
 }

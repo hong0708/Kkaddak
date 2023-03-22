@@ -46,7 +46,7 @@ public class auctionServiceTest {
                 .creatorName("songCreator")
                 .songTitle("songTitle")
                 .nftId("nftIdFromContract")
-                .expiredDate(LocalDate.now())
+                .expiredDate(LocalDate.now().toString())
                 .nftImagePath("imagePath")
                 .bidStartPrice(0.1)
                 .build();
@@ -66,9 +66,9 @@ public class auctionServiceTest {
     @Test
     @DisplayName("경매 조회 query dsl 테스트")
     void AuctionRepositoryTest() throws Exception {
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction1").expiredDate(LocalDate.now()).build()).build());
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction2").expiredDate(LocalDate.now()).build()).build());
-        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction3").expiredDate(LocalDate.now()).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction1").expiredDate(String.valueOf(LocalDate.now())).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction2").expiredDate(String.valueOf(LocalDate.now())).build()).build());
+        auctionRepository.save(Auction.builder().auction(AuctionReqDto.builder().songTitle("auction3").expiredDate(String.valueOf(LocalDate.now())).build()).build());
 
         DataResDto<List<AuctionResDto>> auctions1 = (DataResDto<List<AuctionResDto>>) auctionService.getAuctionAllByPaging(4L, -1L);
         assertEquals(auctions1.getData().size(), 3);
