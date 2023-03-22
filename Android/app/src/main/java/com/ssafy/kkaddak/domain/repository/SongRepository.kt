@@ -6,4 +6,8 @@ import com.ssafy.kkaddak.domain.entity.song.SongItem
 interface SongRepository {
 
     suspend fun getMusics(): Resource<List<SongItem>>
+
+    suspend fun requestBookmark(songId: String)
+
+    suspend fun cancelBookmark(songId: String)
 }
