@@ -16,7 +16,7 @@ class SongRemoteDataSourceImpl @Inject constructor(
     override suspend fun cancelBookmark(songId: String) =
         songApiService.cancelBookmark(songId)
 
-    override suspend fun getMusic(songId: Int): SongResponse =
+    override suspend fun getMusic(songId: String): SongResponse =
         songApiService.getMusic(songId).data!!
 
     override suspend fun getPlayList(): List<SongResponse> =
