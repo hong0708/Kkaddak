@@ -41,7 +41,7 @@ class SongViewModel @Inject constructor(
         }
     }
 
-    fun getSong(songId: Int) = viewModelScope.launch {
+    fun getSong(songId: String) = viewModelScope.launch {
         when (val value = getSongDetailUseCase(songId)) {
             is Resource.Success<SongItem> -> {
                 _songData.value = value.data

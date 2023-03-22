@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class GetSongDetailUseCase @Inject constructor(
     private val songRepository: SongRepository
 ) {
-    suspend operator fun invoke(songId: Int): Resource<SongItem> =
+    suspend operator fun invoke(songId: String): Resource<SongItem> =
         withContext(Dispatchers.IO) {
             songRepository.getMusic(songId)
         }

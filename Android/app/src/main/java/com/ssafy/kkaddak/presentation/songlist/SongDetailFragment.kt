@@ -39,6 +39,11 @@ class SongDetailFragment:
     private fun getData() {
         songViewModel.songData.observe(viewLifecycleOwner) {
             binding.songDetail = it
+            if (it != null) {
+                buildMediaSource(it.songPath).let {
+                    player?.prepare(it)
+                }
+            }
         }
         songViewModel.getSong(args.songId)
     }
@@ -46,9 +51,9 @@ class SongDetailFragment:
     private fun initPlayer(){
         player = ExoPlayer.Builder(requireContext()).build()
         binding.playerControlView.player = player
-        buildMediaSource().let {
-            player?.prepare(it)
-        }
+//        buildMediaSource().let {
+//            player?.prepare(it)
+//        }
         val mediaItems = ArrayList<MediaItem>()
 //        makePlayList(mediaItems)
 
@@ -58,13 +63,10 @@ class SongDetailFragment:
     }
 
     // 영상에 출력할 미디어 정보를 가져오는 클래스
-    private fun buildMediaSource(): MediaSource {
-        val sample = "https://ccrma.stanford.edu/~jos/mp3/harpsi-cs.mp3"
+    private fun buildMediaSource(songPath: String): MediaSource {
         val dataSourceFactory = DefaultDataSourceFactory(requireContext(), "sample")
-//        return ProgressiveMediaSource.Factory(dataSourceFactory)
-//            .createMediaSource(MediaItem.fromUri(recordInfo.fileDto.fileSavedPath))
         return ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri(sample))
+            .createMediaSource(MediaItem.fromUri("http://j8d208.p.ssafy.io:8087/images$songPath"))
     }
 
     // 일시중지

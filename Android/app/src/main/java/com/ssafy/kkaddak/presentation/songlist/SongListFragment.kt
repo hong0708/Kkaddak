@@ -31,7 +31,7 @@ class SongListFragment :
         songViewModel.getSongs()
     }
 
-    private fun getSongDetail(songId: Int) {
+    private fun getSongDetail(songId: String) {
         navigate(
             SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(
                 songId

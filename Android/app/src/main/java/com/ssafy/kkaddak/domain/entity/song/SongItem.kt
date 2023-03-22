@@ -1,7 +1,7 @@
 package com.ssafy.kkaddak.domain.entity.song
 
 data class SongItem(
-    val songId: Int,
+    val songId: String,
     val songTitle: String,
     val songPath: String,
     val coverPath: String,

@@ -7,7 +7,7 @@ interface SongRepository {
 
     suspend fun getMusics(): Resource<List<SongItem>>
 
-    suspend fun getMusic(songId: Int): Resource<SongItem>
+    suspend fun getMusic(songId: String): Resource<SongItem>
 
     suspend fun getPlayList(): Resource<List<SongItem>>
 }
