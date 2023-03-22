@@ -8,6 +8,7 @@ import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
+import com.ssafy.kkaddak.domain.usecase.song.RequestBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
 import dagger.Module
@@ -43,6 +44,11 @@ object UseCaseModule {
     @Provides
     fun provideGetSongsUseCase(songRepository: SongRepository): GetSongsUseCase =
         GetSongsUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestBookmarkUseCase(songRepository: SongRepository): RequestBookmarkUseCase =
+        RequestBookmarkUseCase(songRepository)
 
     @Singleton
     @Provides
