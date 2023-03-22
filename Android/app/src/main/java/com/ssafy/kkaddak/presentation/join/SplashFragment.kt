@@ -1,5 +1,10 @@
 package com.ssafy.kkaddak.presentation.join
 
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.ssafy.kkaddak.R
@@ -27,15 +32,40 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
 
         CoroutineScope(Dispatchers.Main).launch {
             // 프로젝트 진행을 위해 스킵
-//            fadeInView(binding.ivSplashMain, requireContext())
-//            delay(1000)
-//            Glide.with(requireActivity())
-//                .load(R.raw.splash)
-//                .into(binding.ivSplashMain)
-//            delay(3000)
-//            fadeOutView(binding.ivSplashMain, requireContext())
-//            fadeOutView(binding.clSplash, requireContext())
-//            delay(1000)
+            fadeInView(binding.ivSplashMain, requireContext())
+            fadeInView(binding.test, requireContext())
+
+            delay(1000)
+
+            val fadeInAnim = AnimationUtils.loadAnimation(context, R.anim.jump).apply {
+                //interpolator = AccelerateInterpolator()
+
+                interpolator = AccelerateInterpolator()
+                setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {}
+
+                    override fun onAnimationEnd(animation: Animation) {
+                        val reverseAnimation =
+                            AnimationUtils.loadAnimation(context, R.anim.jump_reverse)
+                                .apply {
+                                    interpolator = OvershootInterpolator()
+                                }
+                        view?.startAnimation(reverseAnimation)
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation) {}
+                })
+            }
+            binding.test.startAnimation(fadeInAnim)
+
+            Glide.with(requireActivity())
+                .load(R.raw.splash)
+                .into(binding.ivSplashMain)
+
+            delay(3000)
+            fadeOutView(binding.ivSplashMain, requireContext())
+            fadeOutView(binding.clSplash, requireContext())
+            delay(1000)
 
             if (SharedPreferences(requireContext()).isLoggedIn) {
                 joinViewModel.requestLogin(AuthRequest(SharedPreferences(requireContext()).accessToken!!))
