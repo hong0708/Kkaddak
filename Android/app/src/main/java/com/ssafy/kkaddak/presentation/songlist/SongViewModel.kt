@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SongViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
     private val requestBookmarkUseCase: RequestBookmarkUseCase,
-    private val cancelBookmarkUseCase: CancelBookmarkUseCase
+    private val cancelBookmarkUseCase: CancelBookmarkUseCase,
     private val getSongDetailUseCase: GetSongDetailUseCase,
     private val getPlayListUseCase: GetPlayListUseCase
 ) : ViewModel() {
@@ -51,8 +51,9 @@ class SongViewModel @Inject constructor(
 
     fun cancelBookmark(songId: String) = viewModelScope.launch {
         cancelBookmarkUseCase(songId)
+    }
 
-    fun getSong(songId: Int) = viewModelScope.launch {
+    fun getSong(songId: String) = viewModelScope.launch {
         when (val value = getSongDetailUseCase(songId)) {
             is Resource.Success<SongItem> -> {
                 _songData.value = value.data

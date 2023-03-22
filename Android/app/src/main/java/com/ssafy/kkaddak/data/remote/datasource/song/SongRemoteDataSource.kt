@@ -8,7 +8,7 @@ interface SongRemoteDataSource {
 
     suspend fun cancelBookmark(songId: String)
 
-    suspend fun getMusic(songId: Int): SongResponse
+    suspend fun getMusic(songId: String): SongResponse
 
     suspend fun getPlayList(): List<SongResponse>
 }

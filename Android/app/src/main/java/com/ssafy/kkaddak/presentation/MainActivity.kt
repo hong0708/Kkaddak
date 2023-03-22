@@ -1,14 +1,17 @@
 package com.ssafy.kkaddak.presentation
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.ActivityMainBinding
+import com.ssafy.kkaddak.presentation.songlist.SongService
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,5 +48,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.graph = navGraph
+
+        val intent = Intent(this, SongService::class.java)
+        startService(intent)
+    }
+
+    fun HideBottomNavigation(state: Boolean) {
+        when(state) {
+            true -> {
+                binding.bottomNavigation.visibility = View.GONE
+                binding.fabHome.visibility = View.GONE
+            }
+            else -> {
+                binding.bottomNavigation.visibility = View.VISIBLE
+                binding.fabHome.visibility = View.VISIBLE
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.ssafy.kkaddak.domain.entity.song.SongItem
 
 data class SongResponse(
     @SerializedName("songId")
-    val songId: Int,
+    val songId: String,
     @SerializedName("songTitle")
     val songTitle: String,
     @SerializedName("songPath")
@@ -15,11 +15,13 @@ data class SongResponse(
     val coverPath: String,
     @SerializedName("genre")
     val genre: String,
-    @SerializedName("mood")
-    val mood: String,
+//    @SerializedName("mood")
+//    val mood: String,
     @SerializedName("nickname")
-    val nickname: String?
+    val nickname: String?,
+    @SerializedName("like")
+    val like: Boolean
 ) : DataToDomainMapper<SongItem> {
     override fun toDomainModel(): SongItem =
-        SongItem(songId, songTitle, songPath, coverPath, genre, mood, nickname)
+        SongItem(songId, songTitle, songPath, coverPath, genre, "A", nickname, like)
 }
