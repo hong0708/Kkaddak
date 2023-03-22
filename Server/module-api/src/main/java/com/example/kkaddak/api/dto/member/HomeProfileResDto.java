@@ -8,28 +8,17 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProfileResDto {
-
+public class HomeProfileResDto {
     private String memberId;
     private String nickname;
-    private String email;
     private String profilepath;
-    private String account;
-    private boolean isMine;
-    private int myFollowers;
-    private int myFolloings;
     private int mySongs;
 
     @Builder
-    public ProfileResDto(Member member, boolean isMine, int myFollowers, int myFollowings, int mySongs) {
+    public HomeProfileResDto(Member member, int mySongs) {
         this.memberId = member.getUuid().toString();
         this.nickname = member.getNickname();
-        this.email = member.getEmail();
         this.profilepath = member.getProfilePath();
-        this.account = member.getAccount();
-        this.isMine = isMine;
-        this.myFollowers = myFollowers;
-        this.myFolloings = myFollowings;
         this.mySongs = mySongs;
     }
 }

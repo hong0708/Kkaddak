@@ -25,4 +25,5 @@ public interface MemberService {
     DataResDto<?> updateProfile(Member member, EditProfileReqDto editInfo) throws Exception;
     DataResDto<?> logout(Member member, LogoutReqDto logoutReqDto);
     DataResDto<?> saveAccount(Member member, AccountReqDto accountReqDto);
+    DataResDto<?> getMyProfile(Member member);
 }
