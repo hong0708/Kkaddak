@@ -9,10 +9,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
@@ -63,7 +68,9 @@ public class SongController {
     })
     @ApiOperation(value = "음악을 생성 및 음악 객체 반환하는 API")
     @PostMapping("/upload")
-    public DataResDto<?> uploadSong(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody SongReqDto songReqDto) throws IOException {
+    public DataResDto<?> uploadSong(@AuthenticationPrincipal MemberDetails memberDetails,
+                                    @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @Valid SongReqDto songReqDto) throws IOException {
+        // songFile과 coverFile을 songReqDto에 설정
         return songService.uploadSong(songReqDto, memberDetails.getMember());
     }
 

@@ -45,6 +45,14 @@ custom:
   path:
     upload-images: '/var/lib/images'
 
+aws:
+  access-key: 'AKIA6DD3NTVFQMLI45FF'
+  secret-key: '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'
+  region: 'ap-northeast-2'
+  s3:
+    bucket: kkaddak
+    base-url: 'https://kkaddak.s3.ap-northeast-2.amazonaws.com/'
+
   # 부하 테스트 이후 설정 최적화하기
 #  hikari:
 #    connectionTimeout: 30000

@@ -58,6 +58,14 @@ spring:
     activate:
       on-profile: apitest
 
+aws:
+  access-key: 'AKIA6DD3NTVFZ6TZ7Y2K'
+  secret-key: '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'
+  region: 'ap-northeast-2'
+  s3:
+    bucket: kkaddak
+    base-url: 'https://kkaddak.s3.ap-northeast-2.amazonaws.com/'
+
 logging:
   log4j2:
     config: classpath:log4j2.yml
