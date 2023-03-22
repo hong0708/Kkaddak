@@ -3,7 +3,11 @@ package com.ssafy.kkaddak.di
 import com.ssafy.kkaddak.AuthInterceptorClient
 import com.ssafy.kkaddak.NoAuthInterceptorClient
 import com.ssafy.kkaddak.RefreshInterceptorClient
-import com.ssafy.kkaddak.data.remote.service.*
+import com.ssafy.kkaddak.data.remote.service.AuthApiService
+import com.ssafy.kkaddak.data.remote.service.RefreshApiService
+import com.ssafy.kkaddak.data.remote.service.SongApiService
+import com.ssafy.kkaddak.data.remote.service.UserApiService
+import com.ssafy.kkaddak.data.remote.service.MarketApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

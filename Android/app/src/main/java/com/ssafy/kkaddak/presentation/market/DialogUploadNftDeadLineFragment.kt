@@ -13,16 +13,7 @@ class DialogUploadNftDeadLineFragment : DialogFragment() {
 
     private var _binding: DialogUploadNftDeadlineBinding? = null
     private val binding get() = _binding!!
-
-    //UploadMarketFragment에 데이터 넘겨주기 위한 인터페이스
-    interface FragmentInterfacer {
-        fun onButtonClick(input: String)
-    }
-
     private var fragmentInterfacer: FragmentInterfacer? = null
-    fun setFragmentInterfacer(fragmentInterfacer: FragmentInterfacer?) {
-        this.fragmentInterfacer = fragmentInterfacer
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,20 +24,10 @@ class DialogUploadNftDeadLineFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogUploadNftDeadlineBinding.inflate(inflater, container, false)
-        dialog?.window?.setBackgroundDrawableResource(R.color.trans80_black)
+        dialog?.window?.setBackgroundDrawableResource(R.color.black_tranparent80)
         return binding.root
-    }
-
-    private fun setDate(np: NumberPicker?, values: Array<String>) {
-        np?.displayedValues = values
-        np?.minValue = 0
-        np?.maxValue = values.size - 1
-        np?.value = 0 // Want to show "a" in number picker
-
-        np?.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        np?.wrapSelectorWheel = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,6 +58,21 @@ class DialogUploadNftDeadLineFragment : DialogFragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setDate(np: NumberPicker?, values: Array<String>) {
+        np?.displayedValues = values
+        np?.minValue = 0
+        np?.maxValue = values.size - 1
+        np?.value = 0 // Want to show "a" in number picker
+
+        np?.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        np?.wrapSelectorWheel = false
+    }
+
     private fun substr(str: String): String {
         return str.substring(0, str.length - 1)
     }
@@ -87,8 +83,12 @@ class DialogUploadNftDeadLineFragment : DialogFragment() {
         return str
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    //UploadMarketFragment에 데이터 넘겨주기 위한 인터페이스
+    interface FragmentInterfacer {
+        fun onButtonClick(input: String)
+    }
+
+    fun setFragmentInterfacer(fragmentInterfacer: FragmentInterfacer?) {
+        this.fragmentInterfacer = fragmentInterfacer
     }
 }

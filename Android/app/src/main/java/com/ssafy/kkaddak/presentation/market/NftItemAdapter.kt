@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.market
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -31,20 +32,22 @@ class NftItemAdapter : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() 
         val binding: ItemNftBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NftItem) {
-//            binding.ivNftItem.setImageResource(data.nftitem)
             Glide.with(binding.root)
                 .load("https://images.chosun.com/resizer/bBg130MbE91hOsknQObn8WKEu6M=/600x600/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/FKPYF7QGYFD7LH6SUQZMJWGGEI.png")
                 .into(binding.ivNftItem)
 //            Glide.with(binding.root).load(data.nftImagePath).into(binding.ivNftItem)
 
-            binding.tvNftLike.text = data.likecount.toString()
-            binding.tvNftCreator.text = data.nftCreator
-            binding.tvNftSongTitle.text = data.nftSingTitle
-            binding.tvNftActionDate.text = data.nftDeadline
-            binding.tvNftActionPrice.text = String.format("%.2f", data.nftPrice)
+            binding.apply {
+                tvNftLike.text = data.likecount.toString()
+                tvNftCreator.text = data.nftCreator
+                tvNftSongTitle.text = data.nftSingTitle
+                tvNftActionDate.text = data.nftDeadline
+                tvNftActionPrice.text = String.format("%.2f", data.nftPrice)
+            }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setNfts(nftItem: List<NftItem>) {
         this.items = nftItem
         notifyDataSetChanged()

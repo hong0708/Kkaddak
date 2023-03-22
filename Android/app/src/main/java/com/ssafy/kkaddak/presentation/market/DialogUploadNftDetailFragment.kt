@@ -15,15 +15,7 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     private var _binding: DialogUploadNftDetailBinding? = null
     private val binding get() = _binding!!
     var uploadnftadapter: UploadNftItemAdapter? = null
-
-    //UploadMarketFragment에 데이터 넘겨주기 위한 인터페이스
-    interface FragmentInterfacer {
-        fun onSendNftInfo(input: UploadNftItem)
-    }
     private var fragmentInterfacer: FragmentInterfacer? = null
-    fun setFragmentInterfacer(fragmentInterfacer: FragmentInterfacer?) {
-        this.fragmentInterfacer = fragmentInterfacer
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +26,9 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogUploadNftDetailBinding.inflate(inflater, container, false)
-        dialog?.window?.setBackgroundDrawableResource(R.color.trans80_black)
+        dialog?.window?.setBackgroundDrawableResource(R.color.black_tranparent80)
         nftinit()
         return binding.root
     }
@@ -52,6 +44,11 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun nftinit() {
         uploadnftadapter = UploadNftItemAdapter()
         binding.rvSelectNftItem.apply {
@@ -64,8 +61,12 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    //UploadMarketFragment에 데이터 넘겨주기 위한 인터페이스
+    interface FragmentInterfacer {
+        fun onSendNftInfo(input: UploadNftItem)
+    }
+
+    fun setFragmentInterfacer(fragmentInterfacer: FragmentInterfacer?) {
+        this.fragmentInterfacer = fragmentInterfacer
     }
 }
