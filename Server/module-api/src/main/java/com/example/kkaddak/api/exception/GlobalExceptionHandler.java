@@ -6,6 +6,7 @@ import com.example.kkaddak.core.exception.IllegalMemberTypeException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -41,5 +42,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IOException.class)
     public DataResDto<?> handle(IOException e){
         return DataResDto.builder().statusCode(500).statusMessage(e.getMessage()).build();
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public DataResDto<?> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        return DataResDto.builder().statusCode(400).statusMessage(exception.getMessage()).build();
     }
 }

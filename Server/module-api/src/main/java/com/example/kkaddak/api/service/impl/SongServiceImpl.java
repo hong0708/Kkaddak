@@ -3,18 +3,30 @@ package com.example.kkaddak.api.service.impl;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
-import com.example.kkaddak.api.dto.member.MemberResDto;
 import com.example.kkaddak.api.service.SongService;
 import com.example.kkaddak.core.entity.*;
 import com.example.kkaddak.core.repository.*;
+import com.example.kkaddak.core.entity.LikeList;
+import com.example.kkaddak.core.entity.Member;
+import com.example.kkaddak.core.entity.PlayList;
+import com.example.kkaddak.core.entity.Song;
+import com.example.kkaddak.core.repository.LikeListRepository;
+import com.example.kkaddak.core.repository.PlayListRepository;
+import com.example.kkaddak.core.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 @Service
 @RequiredArgsConstructor
@@ -25,16 +37,43 @@ public class SongServiceImpl implements SongService {
 
     private final PlayListRepository playListRepository;
 
+    @Autowired
+    private S3Client s3Client;
+
+    @Value("${aws.s3.bucket}")
+    private String s3Bucket;
+
+    @Value("${aws.s3.base-url}")
+    private String s3BaseUrl;
+
     private final MoodRepository moodRepository;
 
     @Override
     public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException {
         try {
-            if (songReqDto.getSongTitle() == null || songReqDto.getSongPath() == null ||
-                    songReqDto.getCoverPath() == null || songReqDto.getGenre() == null || songReqDto.getMoods() == null) {
-                throw new IllegalArgumentException("songReqDto값이 정확하지 않습니다");
-            }
+            // 음악 파일 저장
+            MultipartFile songFile = songReqDto.getSongFile();
+            String songFileName = songFile.getOriginalFilename();
+            String songFileKey = "songs/" + songFileName;
+            String songFileUrl = s3BaseUrl + songFileKey;
 
+            s3Client.putObject(PutObjectRequest.builder()
+                    .bucket(s3Bucket)
+                    .key(songFileKey)
+                    .build(), RequestBody.fromInputStream(songFile.getInputStream(), songFile.getSize()));
+
+            // 커버 이미지 파일 저장
+            MultipartFile coverFile = songReqDto.getCoverFile();
+            String coverFileName = coverFile.getOriginalFilename();
+            String coverFileKey = "covers/" + coverFileName;
+            String coverFileUrl = s3BaseUrl + coverFileKey;
+
+            s3Client.putObject(PutObjectRequest.builder()
+                    .bucket(s3Bucket)
+                    .key(coverFileKey)
+                    .build(), RequestBody.fromInputStream(coverFile.getInputStream(), coverFile.getSize()));
+
+            // DB에 저장
             Mood mood;
             if (songReqDto.getMoods().size() == 1) {
                 mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
@@ -50,8 +89,8 @@ public class SongServiceImpl implements SongService {
 
             Song song = Song.builder()
                     .title(songReqDto.getSongTitle())
-                    .songPath(songReqDto.getSongPath())
-                    .coverPath(songReqDto.getCoverPath())
+                    .songPath(songFileUrl)
+                    .coverPath(coverFileUrl)
                     .genre(songReqDto.getGenre())
                     .moods(savedMood)
                     .member(member)
@@ -65,7 +104,7 @@ public class SongServiceImpl implements SongService {
         } catch(IllegalArgumentException e) {
             return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
         } catch(Exception e) {
-            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
+            return DataResDto.builder().statusCode(500).statusMessage("서버 에러 : " + e.getMessage()).build();
         }
     }
 
@@ -82,7 +121,7 @@ public class SongServiceImpl implements SongService {
                 PlayList playList = playListRepository.findByMemberAndSong(member, song)
                         .orElseThrow(() -> new IllegalArgumentException(""));
                 playListRepository.delete(playList);
-            } 
+            }
             PlayList playList = PlayList.builder()
                     .member(member)
                     .song(song)
