@@ -19,9 +19,9 @@ public interface SongService {
 
     DataResDto<?> getSong(UUID songUuid, Member member);
 
-    DataResDto<?> getAllSong();
+    DataResDto<?> getAllSong(Member member);
 
-    DataResDto<?> getLatestSong();
+    DataResDto<?> getLatestSong(Member member);
 
     DataResDto<?> clickLikeSong(Member member, UUID songUuid);
 
@@ -31,5 +31,7 @@ public interface SongService {
 
     DataResDto<?> getPlayList(Member member);
 
-    DataResDto<?> getSearchList(Map<String, String> param);
+    DataResDto<?> getSearchList(Member member, String nickname, String title, String genre);
+
+    DataResDto<?> getSongByCreator(Member member);
 }

@@ -4,7 +4,10 @@ import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.entity.Song;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,7 +16,7 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     Optional<Song> findBySongUuid(UUID songUuid);
 
-    Optional<Song> findByMember(Member member);
+    List<Song> findByMember(Member member);
 
     void deleteById(Integer songId);
 
@@ -21,4 +24,5 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     List<Song> findTop5ByOrderByUploadedAtDesc();
 
     List<Song> findAll();
+
 }
