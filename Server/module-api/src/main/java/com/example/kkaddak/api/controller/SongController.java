@@ -48,7 +48,7 @@ public class SongController {
     })
     @ApiOperation(value = "나의 음악을 제거하는 API")
     @DeleteMapping("/delete/{songId}")
-    public DataResDto<?> DeleteSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") UUID songUuid) {
+    public DataResDto<?> deleteSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") UUID songUuid) {
         return songService.deleteSong(memberDetails.getMember(), songUuid);
     }
 
