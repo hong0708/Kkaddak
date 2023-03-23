@@ -7,9 +7,7 @@ interface SongRepository {
 
     suspend fun getMusics(): Resource<List<SongItem>>
 
-    suspend fun requestBookmark(songId: String)
-
-    suspend fun cancelBookmark(songId: String)
+    suspend fun requestBookmark(songId: String): Resource<Boolean>
 
     suspend fun getMusic(songId: String): Resource<SongItem>
 

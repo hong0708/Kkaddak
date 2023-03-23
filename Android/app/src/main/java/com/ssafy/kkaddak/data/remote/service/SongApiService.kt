@@ -9,11 +9,8 @@ interface SongApiService {
     @GET("/api/v2/song/list/all")
     suspend fun getMusics(): BaseResponse<List<SongResponse>>
 
-    @POST("/api/v2/song/like/{songId}")
-    suspend fun requestBookmark(@Body songId: String)
-
-    @DELETE("/api/v2/song/like/{songId}")
-    suspend fun cancelBookmark(@Path("songId") songId: String)
+    @POST("/api/v2/song/like")
+    suspend fun requestBookmark(@Body songId: String): BaseResponse<Boolean>
     
     @GET("/api/v2/song/{songId}")
     suspend fun getMusic(@Path("songId") songId: String): BaseResponse<SongResponse>

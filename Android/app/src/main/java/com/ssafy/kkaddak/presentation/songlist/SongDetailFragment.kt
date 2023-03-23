@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.songlist
 
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -12,6 +13,7 @@ import com.ssafy.kkaddak.databinding.FragmentSongDetailBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SongDetailFragment:
@@ -24,7 +26,6 @@ class SongDetailFragment:
 
     override fun initView() {
         (activity as MainActivity).HideBottomNavigation(true)
-        observeData()
         initListener()
         getData()
         initPlayer()
@@ -36,20 +37,12 @@ class SongDetailFragment:
             navigate(SongDetailFragmentDirections.actionSongDetailFragmentToSongListFragment())
         }
         binding.ivFavorite.setOnClickListener {
-            if (songViewModel.songData.value!!.like) {
-                songViewModel.cancelBookmark(songViewModel.songData.value!!.songId)
-            } else {
-                songViewModel.requestBookmark(songViewModel.songData.value!!.songId)
-            }
-        }
-    }
-
-    private fun observeData() {
-        songViewModel.songData.observe(viewLifecycleOwner) {
-            if (it!!.like) {
-                binding.ivFavorite.setImageResource(R.drawable.ic_song_detail_favorite_selected)
-            } else {
-                binding.ivFavorite.setImageResource(R.drawable.ic_song_detail_favorite)
+            lifecycleScope.launch {
+                val like = songViewModel.requestBookmark(args.songId)
+                if (like == "true")
+                    binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
+                else if (like == "false")
+                    binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
             }
         }
     }
@@ -57,6 +50,11 @@ class SongDetailFragment:
     private fun getData() {
         songViewModel.songData.observe(viewLifecycleOwner) {
             binding.songDetail = it
+            if (it!!.like)
+                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
+            else
+                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
+
             if (it != null) {
                 buildMediaSource(it.songPath).let {
                     player?.prepare(it)
