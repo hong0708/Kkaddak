@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,14 +28,13 @@ public class SongResDto {
     @ApiModelProperty(example = "음악 장르")
     String genre;
     @ApiModelProperty(example = "음악 분위기")
-    Mood moods;
+    List<String> moods = new ArrayList<>();
     @ApiModelProperty(example = "음악 업로드 날짜")
     Long uploadDate;
     @ApiModelProperty(example = "음악 생성자")
     String nickname;
     @ApiModelProperty(example = "음악 좋아요")
     boolean like = false;
-
 
     @Builder
     public SongResDto(Song song) {
@@ -43,9 +43,17 @@ public class SongResDto {
         this.songPath = song.getSongPath();
         this.coverPath = song.getCoverPath();
         this.genre = song.getGenre();
-        this.moods = song.getMoods();
         this.uploadDate = song.getUploadDate();
         this.nickname = song.getMember().getNickname();
+        if (!song.getMoods().getMood1().equals("")) {
+            this.moods.add(song.getMoods().getMood1());
+        }
+        if (!song.getMoods().getMood2().equals("")) {
+            this.moods.add(song.getMoods().getMood2());
+        }
+        if (!song.getMoods().getMood3().equals("")) {
+            this.moods.add(song.getMoods().getMood3());
+        }
     }
 
     @Builder
@@ -55,9 +63,18 @@ public class SongResDto {
         this.songPath = song.getSongPath();
         this.coverPath = song.getCoverPath();
         this.genre = song.getGenre();
-        this.moods = song.getMoods();
         this.uploadDate = song.getUploadDate();
         this.nickname = song.getMember().getNickname();
         this.like = like;
+
+        if (!song.getMoods().getMood1().equals("")) {
+            this.moods.add(song.getMoods().getMood1());
+        }
+        if (!song.getMoods().getMood2().equals("")) {
+            this.moods.add(song.getMoods().getMood2());
+        }
+        if (!song.getMoods().getMood3().equals("")) {
+            this.moods.add(song.getMoods().getMood3());
+        }
     }
 }
