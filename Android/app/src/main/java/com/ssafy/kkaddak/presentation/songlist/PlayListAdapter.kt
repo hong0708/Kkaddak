@@ -35,12 +35,14 @@ class PlayListAdapter(
         private val itemDeleted: (songId: String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SongItem) {
-            binding.song = data
-            binding.ivSongDelete.setOnClickListener {
-                itemDeleted(data.songId)
-            }
-            binding.root.setOnClickListener {
-                onItemClicked(data.songId)
+            binding.apply {
+                song = data
+                ivSongDelete.setOnClickListener {
+                    itemDeleted(data.songId)
+                }
+                root.setOnClickListener {
+                    onItemClicked(data.songId)
+                }
             }
         }
     }
