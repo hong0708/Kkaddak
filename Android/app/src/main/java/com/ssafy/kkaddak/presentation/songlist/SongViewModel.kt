@@ -8,10 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.usecase.song.*
-import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
-import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
-import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
-import com.ssafy.kkaddak.domain.usecase.song.RequestBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -35,11 +31,8 @@ class SongViewModel @Inject constructor(
     private val _playListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val playListData: LiveData<List<SongItem>?> = _playListData
 
-    private val _searchedListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
-    val searchedListData: LiveData<List<SongItem>?> = _searchedListData
-
     var keyword = ""
-    var filter: Array<String> = arrayOf()
+    var filter = arrayListOf<String>()
 
     fun getSongs() = viewModelScope.launch {
         when (val value = getSongsUseCase()) {

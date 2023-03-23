@@ -21,6 +21,6 @@ interface SongApiService {
     @GET("/api/v2/song/search")
     suspend fun searchMusic(
         @Query("keyWord") keyWord: String,
-        @Query("filter") filter: String
+        @Query("genre") filter: String
     ): BaseResponse<List<SongResponse>>
 }
