@@ -74,7 +74,5 @@ class AuctionRepositoryTest {
         List<AuctionConditionResDto> res4 = auctionRepository.findAuctionsByCondition(AuctionConditionReqDto.builder().lastId(3).limit(3).onlySelling(false).build(), member2.getId());
         assertFalse(res4.get(1).getIsLike());
 
-
-
     }
 }
