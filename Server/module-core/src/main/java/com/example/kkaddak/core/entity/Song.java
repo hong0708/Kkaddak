@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,6 +34,8 @@ public class Song {
 
     private Long uploadDate;
 
+    private Long views;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
 //    @ToString.Exclude
@@ -51,5 +54,6 @@ public class Song {
         this.uploadDate = System.currentTimeMillis();
         this.member = member;
         this.moods = moods;
+        this.views = 0L;
     }
 }

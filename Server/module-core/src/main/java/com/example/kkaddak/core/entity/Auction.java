@@ -43,4 +43,7 @@ public class Auction extends BaseEntity {
     public void setFinalPrice(Double finalPrice){
         this.highestBidPrice = finalPrice;
     }
+    public void closeAuction(){
+        this.isClose = true;
+    }
 }
