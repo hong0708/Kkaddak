@@ -10,6 +10,9 @@ interface HomeApiService {
     @GET("/api/v2/song/list/latest")
     suspend fun getLatestSongs(): BaseResponse<List<SongResponse>>
 
+    @GET("/api/v2/song/list/popularity")
+    suspend fun getPopularSongs(): BaseResponse<List<SongResponse>>
+
     @GET("/api/v1/members/my-profile")
     suspend fun getHomeProfile(): BaseResponse<HomeProfileResponse>
 }
