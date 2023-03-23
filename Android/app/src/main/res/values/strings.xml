@@ -79,6 +79,7 @@
     <string name="content_complete_join2">환영합니다! \n 당신의 취향을 찾고 \n 공유해보세요!</string>
     <string name="content_end_join">시작하기</string>
     <string name="content_check_nickname">중복 체크</string>
+    <string name="image_logo_word">image_logo_word</string>
 
     <!-- Home -->
     <string name="title_home_1_creator">센스있는 창작가</string>

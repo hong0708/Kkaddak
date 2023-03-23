@@ -14,21 +14,8 @@
             android:id="@+id/action_splashFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
         <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.ssafy.kkaddak.presentation.join.LoginFragment"
-        android:label="loginFragment"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_joinFragment"
+            android:id="@+id/action_splashFragment_to_joinFragment"
             app:destination="@id/joinFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
     </fragment>
 
     <fragment
@@ -39,9 +26,6 @@
         <action
             android:id="@+id/action_joinFragment_to_completeJoinFragment"
             app:destination="@id/completeJoinFragment" />
-        <action
-            android:id="@+id/action_joinFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment

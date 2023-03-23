@@ -26,7 +26,7 @@ class DialogUploadNftDeadLineFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DialogUploadNftDeadlineBinding.inflate(inflater, container, false)
-        dialog?.window?.setBackgroundDrawableResource(R.color.black_tranparent80)
+        dialog?.window?.setBackgroundDrawableResource(R.color.black_transparent80)
         return binding.root
     }
 

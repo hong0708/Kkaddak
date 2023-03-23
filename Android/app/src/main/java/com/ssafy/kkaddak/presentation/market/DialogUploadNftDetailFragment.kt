@@ -28,7 +28,7 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DialogUploadNftDetailBinding.inflate(inflater, container, false)
-        dialog?.window?.setBackgroundDrawableResource(R.color.black_tranparent80)
+        dialog?.window?.setBackgroundDrawableResource(R.color.black_transparent80)
         nftinit()
         return binding.root
     }
