@@ -101,7 +101,8 @@
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_contour"/>
+                        app:layout_constraintEnd_toStartOf="@id/tv_contour"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
                         android:id="@+id/tv_contour"
