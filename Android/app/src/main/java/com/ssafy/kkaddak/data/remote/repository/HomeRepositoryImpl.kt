@@ -17,6 +17,11 @@ class HomeRepositoryImpl @Inject constructor(
             homeRemoteDataSource.getLatestSongs().map { it.toDomainModel() }
         }
 
+    override suspend fun getPopularSongs(): Resource<List<SongItem>> =
+        wrapToResource {
+            homeRemoteDataSource.getPopularSongs().map { it.toDomainModel() }
+        }
+
     override suspend fun getHomeProfile(): Resource<HomeProfile> =
         wrapToResource {
             homeRemoteDataSource.getHomeProfile().toDomainModel()

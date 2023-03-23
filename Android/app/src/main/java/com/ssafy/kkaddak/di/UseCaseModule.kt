@@ -10,6 +10,7 @@ import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
+import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
@@ -92,4 +93,9 @@ object UseCaseModule {
     @Provides
     fun provideGetHomeProfileUseCase(homeRepository: HomeRepository): GetHomeProfileUseCase =
         GetHomeProfileUseCase(homeRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetPopularSongsUseCase(homeRepository: HomeRepository): GetPopularSongsUseCase =
+        GetPopularSongsUseCase(homeRepository)
 }

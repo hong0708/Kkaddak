@@ -8,5 +8,7 @@ interface HomeRepository {
 
     suspend fun getLatestSongs(): Resource<List<SongItem>>
 
+    suspend fun getPopularSongs(): Resource<List<SongItem>>
+
     suspend fun getHomeProfile(): Resource<HomeProfile>
 }

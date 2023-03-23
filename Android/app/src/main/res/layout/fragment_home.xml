@@ -214,17 +214,23 @@
                     android:text="@string/title_home_real_time_chart"
                     android:textColor="@color/white"
                     android:textSize="30sp"
-                    app:layout_constraintStart_toStartOf="@id/rv_new_song"
+                    app:layout_constraintStart_toStartOf="@id/tv_new_song"
                     app:layout_constraintTop_toBottomOf="@id/rv_new_song" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_popular_song"
                     android:layout_width="0dp"
-                    android:layout_height="65dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:layout_marginBottom="60dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constraintStart_toStartOf="@id/tv_real_time_chart"
-                    app:layout_constraintTop_toBottomOf="@id/tv_real_time_chart" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/rv_new_song"
+                    app:layout_constraintTop_toBottomOf="@id/tv_real_time_chart"
+                    app:spanCount="3"
+                    tools:listitem="@layout/item_home_popular_song" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

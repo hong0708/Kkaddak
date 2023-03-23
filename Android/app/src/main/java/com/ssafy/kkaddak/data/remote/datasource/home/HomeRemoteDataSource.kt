@@ -6,5 +6,7 @@ interface HomeRemoteDataSource {
 
     suspend fun getLatestSongs(): List<SongResponse>
 
+    suspend fun getPopularSongs(): List<SongResponse>
+
     suspend fun getHomeProfile(): HomeProfileResponse
 }
