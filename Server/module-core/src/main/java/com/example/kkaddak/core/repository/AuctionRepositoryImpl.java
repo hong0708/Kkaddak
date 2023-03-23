@@ -20,9 +20,9 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
 
     private final JPAQueryFactory jpaQueryFactory;
     private final QAuction auction = QAuction.auction;
+    private final QLikeAuction likeAuction = QLikeAuction.likeAuction;
     @Override
     public List<AuctionConditionResDto> findAuctionsByCondition(AuctionConditionReqDto c, int memberId) {
-        QLikeAuction likeAuction = QLikeAuction.likeAuction;
         List<Integer> ids = jpaQueryFactory
                 .select(auction.id)
                 .from(auction)
@@ -48,6 +48,42 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
                 )
                 .from(auction)
                 .where(auction.id.in(ids))
+                .leftJoin(likeAuction).on(auction.id.eq(likeAuction.auction.id))
+                .leftJoin(memberLikeAuction).on(
+                        auction.id.eq(memberLikeAuction.auction.id).and(memberLikeAuction.liker.id.eq(memberId))
+                )
+                .orderBy(auction.id.desc())
+                .groupBy(auction.id)
+                .fetch();
+    }
+
+    @Override
+    public List<AuctionConditionResDto> findAuctionsByMyLike(AuctionConditionReqDto c, int memberId) {
+        List<Integer> ids = jpaQueryFactory
+                .select(auction.id)
+                .from(auction)
+                .where(
+                        ltAuctionId(c.getLastId()),
+                        onlySelling(c.isOnlySelling())
+                )
+                .orderBy(auction.id.desc())
+                .limit(c.getLimit())
+                .fetch();
+
+        if(CollectionUtils.isEmpty(ids)){
+            return new ArrayList<>();
+        }
+        QLikeAuction memberLikeAuction = new QLikeAuction("memberLikeAuction");
+
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        AuctionConditionResDto.class,
+                        auction,
+                        likeAuction.id.count().as("cntLikeAuctions"),
+                        memberLikeAuction.id.isNotNull().as("isLike"))
+                )
+                .from(auction)
+                .where(auction.id.in(ids).and(memberLikeAuction.liker.id.eq(memberId)))
                 .leftJoin(likeAuction).on(auction.id.eq(likeAuction.auction.id))
                 .leftJoin(memberLikeAuction).on(
                         auction.id.eq(memberLikeAuction.auction.id).and(memberLikeAuction.liker.id.eq(memberId))

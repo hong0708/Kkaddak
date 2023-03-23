@@ -44,8 +44,19 @@ public class AuctionServiceImpl implements AuctionService {
                 .build();
     }
 
+    @Override
     public DataResDto<?> getAuctionAllByCondition(AuctionConditionReqDto condition, Member member) throws NoContentException {
         List<AuctionConditionResDto> res = auctionRepo.findAuctionsByCondition(condition, member.getId());
+        if (ObjectUtils.isEmpty(res))
+            throw new NoContentException("조회된 경매 목록이 없습니다.");
+        return DataResDto.builder()
+                .statusMessage("조건에 따라 경매 목록이 조회되었습니다.")
+                .data(res)
+                .build();
+    }
+    @Override
+    public DataResDto<?> getAuctionAllByMyLike(AuctionConditionReqDto condition, Member member) throws NoContentException {
+        List<AuctionConditionResDto> res = auctionRepo.findAuctionsByMyLike(condition, member.getId());
         if (ObjectUtils.isEmpty(res))
             throw new NoContentException("조회된 경매 목록이 없습니다.");
         return DataResDto.builder()

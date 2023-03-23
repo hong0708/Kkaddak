@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AuctionRepositoryCustom {
     List<AuctionConditionResDto> findAuctionsByCondition(AuctionConditionReqDto condition, int memberId);
+    List<AuctionConditionResDto> findAuctionsByMyLike(AuctionConditionReqDto condition, int memberId);
 }
