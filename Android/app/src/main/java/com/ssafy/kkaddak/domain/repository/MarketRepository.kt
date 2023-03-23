@@ -5,5 +5,5 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 interface MarketRepository {
 
-    suspend fun getAllNfts(lastId: Long, limit: Long) : Resource<List<NftItem>>
+    suspend fun getAllNfts(lastId: Long, limit: Long, onlySelling: Boolean) : Resource<List<NftItem>>
 }
