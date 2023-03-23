@@ -35,4 +35,8 @@ class SongRepositoryImpl @Inject constructor(
         wrapToResource {
             songRemoteDataSource.searchMusic(keyWord, filter).map { it.toDomainModel() }
         }
+
+    override suspend fun deletePlayList(songId: String) {
+        songRemoteDataSource.deletePlayList(songId)
+    }
 }

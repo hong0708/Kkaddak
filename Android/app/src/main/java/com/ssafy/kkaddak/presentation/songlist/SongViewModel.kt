@@ -19,7 +19,8 @@ class SongViewModel @Inject constructor(
     private val requestBookmarkUseCase: RequestBookmarkUseCase,
     private val getSongDetailUseCase: GetSongDetailUseCase,
     private val getPlayListUseCase: GetPlayListUseCase,
-    private val searchMusicUseCase: SearchMusicUseCase
+    private val searchMusicUseCase: SearchMusicUseCase,
+    private val deletePlayListUseCase: DeletePlayListUseCase
 ) : ViewModel() {
 
     private val _songListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
@@ -86,5 +87,9 @@ class SongViewModel @Inject constructor(
                 Log.e("searchMusic", "searchMusic: ${value.errorMessage}")
             }
         }
+    }
+
+    fun deletePlayList(songId: String) = viewModelScope.launch {
+        deletePlayListUseCase(songId)
     }
 }
