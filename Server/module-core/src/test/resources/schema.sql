@@ -75,3 +75,13 @@ CREATE TABLE IF NOT EXISTS `auction` (
     CONSTRAINT FKasojcnrr08a6k9aobcfhofh2y
      FOREIGN KEY (`seller_id`) REFERENCES member (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `like_auction`(
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `auction_id` INT NULL,
+    `liker_id`   INT NULL,
+    CONSTRAINT FK5ctkdcm3x2usk40a732iw8co4
+        FOREIGN KEY (`liker_id`) REFERENCES member (`id`),
+    CONSTRAINT FKtquifnctrh29uy2r495t9m3lq
+        FOREIGN KEY (`auction_id`) REFERENCES auction (`id`)
+);
