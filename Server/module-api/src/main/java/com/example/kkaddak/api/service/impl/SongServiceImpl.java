@@ -88,6 +88,7 @@ public class SongServiceImpl implements SongService {
                     .genre(songReqDto.getGenre())
                     .moods(savedMood)
                     .member(member)
+                    .songStatus(SongStatus.PROCEEDING)
                     .build();
 
             Song savedSong = songRepository.save(song);
