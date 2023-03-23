@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `song` (
   `views` bigint(20) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
   `moods_id` int(11) DEFAULT NULL,
+  `song_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKln77pl0kiwceje9wi2qn9jj4c` (`member_id`),
   KEY `FKk07ok9wqkt23ybj2lhxoxhj5r` (`moods_id`),
