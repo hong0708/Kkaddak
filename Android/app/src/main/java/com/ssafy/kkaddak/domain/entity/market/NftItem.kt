@@ -9,5 +9,6 @@ class NftItem(
     val nftDeadline: String,
     val nftPrice: Double,
     val isClosed: Boolean,
-    val likecount: Int,
+    val cntLikeAcution: Int,
+    val isLike: Boolean
 )

@@ -12,8 +12,8 @@ import javax.inject.Singleton
 class GetAllNftsUseCase @Inject constructor(
     private val marketRepository: MarketRepository
 ){
-    suspend operator fun invoke(lastId: Long, limit: Long): Resource<List<NftItem>> =
+    suspend operator fun invoke(lastId: Long, limit: Long, onlySelling: Boolean): Resource<List<NftItem>> =
         withContext(Dispatchers.IO) {
-            marketRepository.getAllNfts(lastId, limit)
+            marketRepository.getAllNfts(lastId, limit, onlySelling)
         }
 }
