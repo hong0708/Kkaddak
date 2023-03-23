@@ -28,4 +28,6 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     List<Song> findAll();
 
+    Boolean existsByCombination(String combination);
+
 }

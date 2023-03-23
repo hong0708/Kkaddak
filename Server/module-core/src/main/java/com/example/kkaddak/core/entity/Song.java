@@ -29,6 +29,8 @@ public class Song {
 
     private String genre;
 
+    private String combination;
+
     private Long uploadDate;
 
     private Long views;
