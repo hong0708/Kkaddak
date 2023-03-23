@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
+import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
@@ -21,7 +22,8 @@ class SongViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
     private val requestBookmarkUseCase: RequestBookmarkUseCase,
     private val getSongDetailUseCase: GetSongDetailUseCase,
-    private val getPlayListUseCase: GetPlayListUseCase
+    private val getPlayListUseCase: GetPlayListUseCase,
+    private val searchMusicUseCase: SearchMusicUseCase
 ) : ViewModel() {
 
     private val _songListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
@@ -32,6 +34,12 @@ class SongViewModel @Inject constructor(
 
     private val _playListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val playListData: LiveData<List<SongItem>?> = _playListData
+
+    private val _searchedListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
+    val searchedListData: LiveData<List<SongItem>?> = _searchedListData
+
+    var keyword = ""
+    var filter: Array<String> = arrayOf()
 
     fun getSongs() = viewModelScope.launch {
         when (val value = getSongsUseCase()) {
@@ -72,6 +80,17 @@ class SongViewModel @Inject constructor(
             }
             is Resource.Error -> {
                 Log.e("getPlayList", "getPlayList: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun searchMusic(keyWord: String, filter: String) = viewModelScope.launch {
+        when (val value = searchMusicUseCase(keyWord, filter)) {
+            is Resource.Success<List<SongItem>> -> {
+                _songListData.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("searchMusic", "searchMusic: ${value.errorMessage}")
             }
         }
     }

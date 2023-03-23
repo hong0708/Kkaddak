@@ -12,4 +12,6 @@ interface SongRepository {
     suspend fun getMusic(songId: String): Resource<SongItem>
 
     suspend fun getPlayList(): Resource<List<SongItem>>
+
+    suspend fun searchMusic(keyWord: String, filter: String): Resource<List<SongItem>>
 }
