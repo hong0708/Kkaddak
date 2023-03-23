@@ -53,7 +53,7 @@
     <string name="content_deadline">마감 기한</string>
     <string name="content_bid_deadline">2023.03.04</string>
     <string name="content_my_eth">내 입찰가</string>
-    <string name="content_bid_my_eth">0.015</string>
+    <string name="content_bid_my_eth">0.000</string>
     <string name="content_bid_nft">입찰하기</string>
     <string name="content_holding_eth">보유 금액</string>
     <string name="content_bid_holding_eth">0.135</string>
