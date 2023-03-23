@@ -3,17 +3,18 @@ package com.ssafy.kkaddak.presentation.market
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
     private var nftadapter: NftItemAdapter? = null
     private val marketViewModel by activityViewModels<MarketViewModel>()
+    private var isLoading = false
 
     override fun initView() {
         initRecyclerView()
@@ -34,6 +35,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun initRecyclerView() {
+
+        marketViewModel.getAllNfts(-1, 20, false)
+
         nftadapter = NftItemAdapter()
         binding.rvMarketNftList.apply {
             adapter = nftadapter
@@ -42,12 +46,44 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             val spanCount = 2
             val space = 20
             addItemDecoration(GridSpaceItemDecoration(spanCount, space))
-
         }
+
+        marketViewModel.nftTempData.observe(viewLifecycleOwner) {
+            marketViewModel.getSum()
+        }
+
         marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
             response?.let { nftadapter!!.setNfts(it) }
         }
-        marketViewModel.getAllNfts(-1, 20, false)
+
+        binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수 -1
+
+                // 스크롤이 최하단에 도착했을 때
+                if(!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                    isLoading = true
+                    addData()
+                }
+            }
+        })
+    }
+
+    private fun addData() {
+        if(marketViewModel.getTempSize() == null) return
+        if(marketViewModel.getTempSize()!! >= 20) {
+            if(marketViewModel.getSize() != null) {
+                val lastId = marketViewModel.getLastId()
+                lastId?.let { marketViewModel.getAllNfts(it, 20, false) }
+                marketViewModel.nftTempData.observe(viewLifecycleOwner) {
+                    marketViewModel.getSum()
+                }
+            }
+        }
+        isLoading = false
     }
 
     fun onButtonClick(tv: TextView) {
