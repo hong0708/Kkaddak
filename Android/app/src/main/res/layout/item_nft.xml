@@ -24,10 +24,11 @@
 
                 <ImageView
                     android:id="@+id/iv_nft_item"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:contentDescription="@string/image_nft_item"
                     android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/ic_nft_mockup1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

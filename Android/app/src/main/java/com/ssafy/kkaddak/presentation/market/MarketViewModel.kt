@@ -20,8 +20,8 @@ class MarketViewModel @Inject constructor(
     private val _nftListData: MutableLiveData<List<NftItem>?> = MutableLiveData()
     val nftListData: LiveData<List<NftItem>?> = _nftListData
 
-    fun getAllNfts(lastId: Long, limit: Long) = viewModelScope.launch {
-        when (val value = getAllNftsUseCase(lastId, limit)) {
+    fun getAllNfts(lastId: Long, limit: Long, onlySelling: Boolean) = viewModelScope.launch {
+        when (val value = getAllNftsUseCase(lastId, limit, onlySelling)) {
             is Resource.Success<List<NftItem>> -> {
                 _nftListData.value = value.data
             }

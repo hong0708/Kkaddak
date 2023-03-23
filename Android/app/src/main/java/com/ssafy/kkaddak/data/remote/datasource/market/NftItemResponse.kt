@@ -21,9 +21,11 @@ data class NftItemResponse(
     val bidStartPrice: Double,
     @SerializedName("isClosed")
     val isClosed: Boolean,
-//    @SerializedName("likeCount")
-//    val likeCount: Int
+    @SerializedName("cntLikeAuction")
+    val cntLikeAuction: Int,
+    @SerializedName("isLike")
+    val isLike: Boolean
 ) : DataToDomainMapper<NftItem> {
     override fun toDomainModel(): NftItem =
-        NftItem(actionId, nftId, creatorName, songTitle, nftImagePath, expiredDate,  bidStartPrice, isClosed, 0)
+        NftItem(actionId, nftId, creatorName, songTitle, nftImagePath, expiredDate,  bidStartPrice, isClosed, cntLikeAuction, isLike)
 }

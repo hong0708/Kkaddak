@@ -25,7 +25,10 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
                 .commit()
         }
         binding.tvAllNfts.setOnClickListener { onButtonClick(binding.tvAllNfts) }
-        binding.tvSellingNft.setOnClickListener { onButtonClick(binding.tvSellingNft) }
+        binding.tvSellingNft.setOnClickListener {
+            onButtonClick(binding.tvSellingNft)
+
+        }
         binding.tvBiddingNft.setOnClickListener { onButtonClick(binding.tvBiddingNft) }
         binding.tvBookmarkNft.setOnClickListener { onButtonClick(binding.tvBookmarkNft) }
     }
@@ -44,7 +47,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
             response?.let { nftadapter!!.setNfts(it) }
         }
-        marketViewModel.getAllNfts(-1, 20)
+        marketViewModel.getAllNfts(-1, 20, false)
     }
 
     fun onButtonClick(tv: TextView) {
