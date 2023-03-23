@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PlayListFragment :
     BaseFragment<FragmentPlaylistBinding>(R.layout.fragment_playlist) {
 
-    private val songAdapter by lazy { SongAdapter(this::getSongDetail) }
+    private val songAdapter by lazy { PlayListAdapter(this::getSongDetail, this::deleteSong) }
     private val songViewModel by activityViewModels<SongViewModel>()
 
     override fun initView() {
@@ -33,9 +33,14 @@ class PlayListFragment :
 
     private fun getSongDetail(songId: String) {
         navigate(
-            SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(
+            PlayListFragmentDirections.actionPlayListFragmentToSongDetailFragment(
                 songId
             )
         )
+    }
+
+    private fun deleteSong(songId: String) {
+        songViewModel.deletePlayList(songId)
+        songViewModel.getPlayList()
     }
 }

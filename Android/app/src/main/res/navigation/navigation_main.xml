@@ -60,5 +60,9 @@
         android:id="@+id/playListFragment"
         android:name="com.ssafy.kkaddak.presentation.songlist.PlayListFragment"
         android:label="PlayListFragment"
-        tools:layout="@layout/fragment_playlist" />
+        tools:layout="@layout/fragment_playlist" >
+        <action
+            android:id="@+id/action_playListFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+    </fragment>
 </navigation>

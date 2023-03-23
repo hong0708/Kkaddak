@@ -13,6 +13,7 @@ import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.song.DeletePlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
@@ -92,4 +93,9 @@ object UseCaseModule {
     @Provides
     fun provideGetPopularSongsUseCase(homeRepository: HomeRepository): GetPopularSongsUseCase =
         GetPopularSongsUseCase(homeRepository)
+
+    @Singleton
+    @Provides
+    fun provideDeletePlayListUseCase(songRepository: SongRepository): DeletePlayListUseCase =
+        DeletePlayListUseCase(songRepository)
 }
