@@ -11,8 +11,8 @@ class MarketRepositoryImpl @Inject constructor(
     private val marketRemoteDataSource: MarketRemoteDataSource
 ) : MarketRepository {
 
-    override suspend fun getAllNfts(lastId: Long, limit: Long): Resource<List<NftItem>> =
+    override suspend fun getAllNfts(lastId: Long, limit: Long, onlySelling: Boolean): Resource<List<NftItem>> =
         wrapToResource {
-            marketRemoteDataSource.getAllNfts(lastId, limit).map { it.toDomainModel() }
+            marketRemoteDataSource.getAllNfts(lastId, limit, onlySelling).map { it.toDomainModel() }
         }
 }
