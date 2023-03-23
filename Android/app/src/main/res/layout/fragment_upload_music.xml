@@ -289,7 +289,7 @@
                             android:layout_marginStart="9dp"
                             android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
                             android:gravity="center"
-                            android:text="@string/content_genre_classic"
+                            android:text="@string/content_genre_ballade"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -421,6 +421,5 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
