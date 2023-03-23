@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.domain.usecase.song
 
+import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.repository.SongRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,9 +11,8 @@ import javax.inject.Singleton
 class RequestBookmarkUseCase @Inject constructor(
     private val songRepository: SongRepository
 ) {
-    suspend operator fun invoke(songId: String) {
+    suspend operator fun invoke(songId: String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             songRepository.requestBookmark(songId)
         }
-    }
 }

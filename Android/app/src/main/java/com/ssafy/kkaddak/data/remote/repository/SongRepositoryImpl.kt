@@ -16,13 +16,10 @@ class SongRepositoryImpl @Inject constructor(
             songRemoteDataSource.getMusics().map { it.toDomainModel() }
         }
 
-    override suspend fun requestBookmark(songId: String) {
-        songRemoteDataSource.requestBookmark(songId)
-    }
-
-    override suspend fun cancelBookmark(songId: String) {
-        songRemoteDataSource.cancelBookmark(songId)
-    }
+    override suspend fun requestBookmark(songId: String): Resource<Boolean> =
+        wrapToResource {
+            songRemoteDataSource.requestBookmark(songId)
+        }
 
     override suspend fun getMusic(songId: String): Resource<SongItem> =
         wrapToResource {

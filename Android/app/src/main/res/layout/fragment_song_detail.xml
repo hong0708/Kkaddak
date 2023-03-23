@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:contentDescription="@string/image_song_detail_favorite"
-            android:src="@{songDetail.like ? @drawable/ic_song_detail_favorite_selected : @drawable/ic_song_detail_favorite}"
+            android:src="@drawable/ic_song_detail_favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_song_creator" />

@@ -4,9 +4,7 @@ interface SongRemoteDataSource {
 
     suspend fun getMusics(): List<SongResponse>
 
-    suspend fun requestBookmark(songId: String)
-
-    suspend fun cancelBookmark(songId: String)
+    suspend fun requestBookmark(songId: String): Boolean
 
     suspend fun getMusic(songId: String): SongResponse
 

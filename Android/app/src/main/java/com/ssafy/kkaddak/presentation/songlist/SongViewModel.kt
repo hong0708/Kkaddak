@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
-import com.ssafy.kkaddak.domain.usecase.song.CancelBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.song.RequestBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +20,6 @@ import javax.inject.Inject
 class SongViewModel @Inject constructor(
     private val getSongsUseCase: GetSongsUseCase,
     private val requestBookmarkUseCase: RequestBookmarkUseCase,
-    private val cancelBookmarkUseCase: CancelBookmarkUseCase,
     private val getSongDetailUseCase: GetSongDetailUseCase,
     private val getPlayListUseCase: GetPlayListUseCase
 ) : ViewModel() {
@@ -45,13 +44,15 @@ class SongViewModel @Inject constructor(
         }
     }
 
-    fun requestBookmark(songId: String) = viewModelScope.launch {
-        requestBookmarkUseCase(songId)
-    }
-
-    fun cancelBookmark(songId: String) = viewModelScope.launch {
-        cancelBookmarkUseCase(songId)
-    }
+    suspend fun requestBookmark(songId: String) = viewModelScope.async {
+        when (val value = requestBookmarkUseCase(songId)) {
+            is Resource.Success<Boolean> -> return@async value.data.toString()
+            is Resource.Error -> {
+                Log.e("requestBookmark", "requestBookmark: ${value.errorMessage}")
+                return@async "error"
+            }
+        }
+    }.await()
 
     fun getSong(songId: String) = viewModelScope.launch {
         when (val value = getSongDetailUseCase(songId)) {
