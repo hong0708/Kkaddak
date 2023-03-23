@@ -30,5 +30,5 @@ public class PlayList {
         this.member = member;
         this.song = song;
         this.addedDate = System.currentTimeMillis();
-    };
+    }
 }
