@@ -15,7 +15,7 @@ interface SongApiService {
     @GET("/api/v2/song/{songId}")
     suspend fun getMusic(@Path("songId") songId: String): BaseResponse<SongResponse>
 
-    @GET("/api/v2/song/song/myPlay/list")
+    @GET("/api/v2/song/myPlay/list")
     suspend fun getPlayList(): BaseResponse<List<SongResponse>>
 
     @GET("/api/v2/song/search")
@@ -23,4 +23,7 @@ interface SongApiService {
         @Query("keyWord") keyWord: String,
         @Query("genre") filter: String
     ): BaseResponse<List<SongResponse>>
+
+    @DELETE("/api/v2/song/myPlay/{songId}/delete")
+    suspend fun deletePlayList(@Path("songId") songId: String)
 }

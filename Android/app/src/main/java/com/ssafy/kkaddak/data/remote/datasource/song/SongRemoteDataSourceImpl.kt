@@ -21,4 +21,8 @@ class SongRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun searchMusic(keyWord: String, filter: String): List<SongResponse> =
         songApiService.searchMusic(keyWord, filter).data!!
+
+    override suspend fun deletePlayList(songId: String) {
+        songApiService.deletePlayList(songId)
+    }
 }
