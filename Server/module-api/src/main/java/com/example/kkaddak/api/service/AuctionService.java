@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public interface AuctionService {
     DataResDto<?> createAuction(AuctionReqDto auctionReqDto, Member member);
     DataResDto<?> getAuctionAllByCondition(AuctionConditionReqDto condition, Member member) throws NoContentException;
+    DataResDto<?> getAuctionAllByMyLike(AuctionConditionReqDto condition, Member member) throws NoContentException;
     DataResDto<?> likeAuction(Member liker, int auctionId);
     DataResDto<?> unlikeAuction(Member liker, int auctionId);
 }

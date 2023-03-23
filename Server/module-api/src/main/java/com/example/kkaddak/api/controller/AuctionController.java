@@ -38,13 +38,13 @@ public class AuctionController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "정상적으로 경매 등록이 성공한 응답"),
+            @ApiResponse(code = 200, message = "정상적으로 경매 조건 조회가 성공한 경우 응답"),
             @ApiResponse(code = 204, message = "조회된 아이템이 없을 경우 응답"),
             @ApiResponse(code = 400, message = "입력 타입 또는 값이 적적하지 않을 경우 응답"),
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
-    @ApiOperation(value = "경매 전체 페이징 조회 API",
-            notes = "최초 조회시 lastId 값을 -1(Long)으로 전송해주세요. 이 외 경우, 응답받은 경매들 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
+    @ApiOperation(value = "경매 조건 조회 API",
+            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 경매들 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
             "전체 목록 조회 시 onlySelling = false, selling 목록 조회 시 true 입니다.")
     @GetMapping("/condition")
     public DataResDto<?> getAuctionByCondition(
@@ -56,6 +56,27 @@ public class AuctionController {
                 .limit(limit).lastId(lastId).onlySelling(onlySelling)
                 .build();
         return auctionService.getAuctionAllByCondition(conditionReqDto, memberDetails.getMember());
+    }
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "정상적으로 경매 등록이 성공한 응답"),
+            @ApiResponse(code = 204, message = "조회된 아이템이 없을 경우 응답"),
+            @ApiResponse(code = 400, message = "입력 타입 또는 값이 적적하지 않을 경우 응답"),
+            @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
+    })
+    @ApiOperation(value = "경매 북마크 API",
+            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 경매들 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
+                    "전체 목록 조회 시 onlySelling = false, selling 목록 조회 시 true 입니다.\n" +
+                    "")
+    @GetMapping("/my-like")
+    public DataResDto<?> getAuctionByMyLike(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @RequestParam("limit") int limit,
+            @RequestParam("lastId") int lastId,
+            @RequestParam("onlySelling") boolean onlySelling) throws NoContentException {
+        AuctionConditionReqDto conditionReqDto = AuctionConditionReqDto.builder()
+                .limit(limit).lastId(lastId).onlySelling(onlySelling)
+                .build();
+        return auctionService.getAuctionAllByMyLike(conditionReqDto, memberDetails.getMember());
     }
 
     @ApiResponses({
@@ -70,11 +91,12 @@ public class AuctionController {
     {
         return auctionService.likeAuction(memberDetails.getMember(), auctionId);
     }
+
     @ApiResponses({
             @ApiResponse(code = 204, message = "경매 북마크 취소 성공시 응답"),
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
     })
-    @ApiOperation(value = "구독 취소 API")
+    @ApiOperation(value = "경매 북마크 취소 API")
     @PostMapping("/unlike/{auctionId}")
     public DataResDto<?> unfollowMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
