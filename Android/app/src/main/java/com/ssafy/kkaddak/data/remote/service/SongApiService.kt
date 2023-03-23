@@ -14,10 +14,16 @@ interface SongApiService {
 
     @DELETE("/api/v2/song/like/{songId}")
     suspend fun cancelBookmark(@Path("songId") songId: String)
-    
+
     @GET("/api/v2/song/{songId}")
     suspend fun getMusic(@Path("songId") songId: String): BaseResponse<SongResponse>
 
     @GET("/api/v2/song/song/myPlay/list")
     suspend fun getPlayList(): BaseResponse<List<SongResponse>>
+
+    @GET("/api/v2/song/search")
+    suspend fun searchMusic(
+        @Query("keyWord") keyWord: String,
+        @Query("filter") filter: String
+    ): BaseResponse<List<SongResponse>>
 }

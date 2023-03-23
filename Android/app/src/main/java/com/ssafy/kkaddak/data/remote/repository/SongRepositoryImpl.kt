@@ -33,4 +33,9 @@ class SongRepositoryImpl @Inject constructor(
         wrapToResource {
             songRemoteDataSource.getPlayList().map { it.toDomainModel() }
         }
+
+    override suspend fun searchMusic(keyWord: String, filter: String): Resource<List<SongItem>> =
+        wrapToResource {
+            songRemoteDataSource.searchMusic(keyWord, filter).map { it.toDomainModel() }
+        }
 }
