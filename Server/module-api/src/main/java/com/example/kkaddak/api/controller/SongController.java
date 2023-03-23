@@ -41,6 +41,18 @@ public class SongController {
     }
 
     @ApiResponses({
+            @ApiResponse(code = 200, message = "나의 음악 제거가 성공했을 때 응답"),
+            @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+            @ApiResponse(code = 406, message = "음악이 존재하지 않을 때 응답"),
+    })
+    @ApiOperation(value = "나의 음악을 제거하는 API")
+    @DeleteMapping("/delete/{songId}")
+    public DataResDto<?> DeleteSong(@AuthenticationPrincipal MemberDetails memberDetails, @PathVariable(name = "songId") UUID songUuid) {
+        return songService.deleteSong(memberDetails.getMember(), songUuid);
+    }
+
+    @ApiResponses({
             @ApiResponse(code = 200, message = "음악 전체 조회가 성공했을 때 응답"),
             @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
     })
@@ -82,8 +94,6 @@ public class SongController {
     @ApiOperation(value = "음악 좋아요 좋아요 취소 및 음악 객체 반환하는 API")
     @PostMapping("/like")
     public DataResDto<?> likeSong(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody SongIdReqDto songIdReqDto) {
-        System.out.println(songIdReqDto);
-        System.out.println(songIdReqDto.getSongId());
         return songService.clickLikeSong(memberDetails.getMember(), UUID.fromString(songIdReqDto.getSongId()));
     }
 
@@ -136,10 +146,9 @@ public class SongController {
     @ApiOperation(value = "음악을 검색하여 리스트 형태로 반환하는 API")
     @GetMapping("/search")
     public DataResDto<?> getSearchList(@AuthenticationPrincipal MemberDetails memberDetails,
-                                       @RequestParam(name = "nickname", defaultValue = "") String nickname,
-                                       @RequestParam(name = "title", defaultValue = "") String title,
+                                       @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
                                        @RequestParam(name = "genre", defaultValue = "") String genre) {
-        return songService.getSearchList(memberDetails.getMember(), nickname, title, genre);
+        return songService.getSearchList(memberDetails.getMember(), keyWord, genre);
     }
 
     @ApiResponses({

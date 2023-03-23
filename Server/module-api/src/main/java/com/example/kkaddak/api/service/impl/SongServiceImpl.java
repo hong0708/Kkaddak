@@ -103,6 +103,34 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    public DataResDto<?> deleteSong(Member member, UUID songUuid) {
+        try {
+            Song song = songRepository.findByMemberAndSongUuid(member, songUuid)
+                    .orElseThrow(() -> new IllegalArgumentException("값이 존재하지 않습니다"));
+
+            PlayList playList = playListRepository.findByMemberAndSong(member, song)
+                    .orElse(null);
+
+            LikeList likeList = likeListRepository.findByMemberAndSong(member, song)
+                    .orElse(null);
+
+            if (likeList != null) {
+                likeListRepository.delete(likeList);
+            }
+            if (playList != null) {
+                playListRepository.delete(playList);
+            }
+            songRepository.delete(song);
+
+            return DataResDto.builder().statusMessage("음악이 정상적으로 삭제되었습니다.").build();
+        } catch(IllegalArgumentException e) {
+            return DataResDto.builder().statusCode(400).statusMessage("음악 songId가 올바르지 않습니다.").build();
+        } catch(Exception e) {
+            return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
+        }
+    }
+
+    @Override
     public DataResDto<?> getSong(UUID songUuid, Member member) {
         try {
             Song song = songRepository.findBySongUuid(songUuid)
@@ -204,7 +232,7 @@ public class SongServiceImpl implements SongService {
                         .build();
                 likeListRepository.save(likeList);
             }
-            return DataResDto.builder().statusMessage(message).build();
+            return DataResDto.builder().data(!checkValue).statusMessage(message).build();
         } catch (IllegalArgumentException e) {
             return DataResDto.builder().statusCode(400).statusMessage("음악 songId가 올바르지 않습니다.").build();
         } catch (Exception e) {
@@ -284,9 +312,9 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public DataResDto<?> getSearchList(Member member, String nickname, String title, String genre) {
+    public DataResDto<?> getSearchList(Member member, String keyWord, String genre) {
         try {
-            List<Song> songList = searchRepository.searchSong(nickname, title, genre);
+            List<Song> songList = searchRepository.searchSong(keyWord, genre);
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {

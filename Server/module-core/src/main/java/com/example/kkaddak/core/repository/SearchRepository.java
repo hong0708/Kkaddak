@@ -18,7 +18,7 @@ public class SearchRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    public List<Song> searchSong(String nickname, String title, String genre) {
+    public List<Song> searchSong(String keyWord, String genre) {
         QSong qSong = QSong.song;
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         BooleanBuilder builder = new BooleanBuilder();
@@ -34,11 +34,8 @@ public class SearchRepository {
             }
         }
 
-        if (!nickname.equals("")) {
-            builder.and(qSong.member.nickname.containsIgnoreCase(nickname.trim()));
-        }
-        if (!title.equals("")) {
-            builder.and(qSong.title.containsIgnoreCase(title.trim()));
+        if (!keyWord.equals("")) {
+            builder.and(qSong.member.nickname.containsIgnoreCase(keyWord.trim()).or(qSong.title.containsIgnoreCase(keyWord.trim())));
         }
         if (!genre.equals("")) {
             builder.and(qSong.genre.eq(genreList.get(0)).or(qSong.genre.eq(genreList.get(1))).or(qSong.genre.eq(genreList.get(2)))

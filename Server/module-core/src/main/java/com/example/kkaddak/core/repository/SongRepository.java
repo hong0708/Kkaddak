@@ -16,6 +16,8 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     Optional<Song> findBySongUuid(UUID songUuid);
 
+    Optional<Song> findByMemberAndSongUuid(Member member, UUID songUuid);
+
     List<Song> findByMember(Member member);
 
     void deleteById(Integer songId);

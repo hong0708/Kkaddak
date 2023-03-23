@@ -28,5 +28,5 @@ public class LikeList {
     public LikeList(Member member, Song song) {
         this.member = member;
         this.song = song;
-    };
+    }
 }
