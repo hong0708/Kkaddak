@@ -4,9 +4,6 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +33,9 @@ public class Song {
 
     private Long views;
 
+    @Enumerated(EnumType.STRING)
+    private SongStatus songStatus;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
 //    @ToString.Exclude
@@ -45,7 +45,7 @@ public class Song {
     private Mood moods;
 
     @Builder
-    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member) {
+    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member, SongStatus songStatus) {
         this.songUuid = UUID.randomUUID();
         this.title = title;
         this.songPath = songPath;
@@ -54,6 +54,7 @@ public class Song {
         this.uploadDate = System.currentTimeMillis();
         this.member = member;
         this.moods = moods;
+        this.songStatus = songStatus;
         this.views = 0L;
     }
 }
