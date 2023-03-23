@@ -3,6 +3,7 @@ package com.example.kkaddak.api.service.impl;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
+import com.example.kkaddak.api.service.NFTService;
 import com.example.kkaddak.api.service.SongService;
 import com.example.kkaddak.core.entity.*;
 import com.example.kkaddak.core.repository.*;
@@ -28,6 +29,8 @@ public class SongServiceImpl implements SongService {
     private final LikeListRepository likeListRepository;
 
     private final PlayListRepository playListRepository;
+
+    private final NFTService nftService;
 
     @Autowired
     private S3Client s3Client;
@@ -94,7 +97,7 @@ public class SongServiceImpl implements SongService {
             Song savedSong = songRepository.save(song);
 
             SongResDto songResDto = new SongResDto(savedSong);
-            return DataResDto.builder().data(songResDto)
+            return DataResDto.builder().data("").data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
         } catch(IllegalArgumentException e) {
             return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();

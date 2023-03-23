@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `song` (
   `song_uuid` char(36) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `upload_date` bigint(20) DEFAULT NULL,
+  `views` bigint(20) DEFAULT NULL,
   `member_id` int(11) DEFAULT NULL,
   `moods_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
