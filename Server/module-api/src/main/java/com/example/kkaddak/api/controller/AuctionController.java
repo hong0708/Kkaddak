@@ -57,4 +57,29 @@ public class AuctionController {
                 .build();
         return auctionService.getAuctionAllByCondition(conditionReqDto, memberDetails.getMember());
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "경매 북마크 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우")
+    })
+    @ApiOperation(value = "경매 북마크 API")
+    @PostMapping("/like/{auctionId}")
+    public DataResDto<?> followMember(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("auctionId") Integer auctionId)
+    {
+        return auctionService.likeAuction(memberDetails.getMember(), auctionId);
+    }
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "경매 북마크 취소 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
+    })
+    @ApiOperation(value = "구독 취소 API")
+    @PostMapping("/unlike/{auctionId}")
+    public DataResDto<?> unfollowMember(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("auctionId") Integer auctionId)
+    {
+        return auctionService.unlikeAuction(memberDetails.getMember(), auctionId);
+    }
 }
