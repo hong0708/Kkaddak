@@ -232,7 +232,7 @@ public class SongServiceImpl implements SongService {
                         .build();
                 likeListRepository.save(likeList);
             }
-            return DataResDto.builder().statusMessage(message).build();
+            return DataResDto.builder().data(!checkValue).statusMessage(message).build();
         } catch (IllegalArgumentException e) {
             return DataResDto.builder().statusCode(400).statusMessage("음악 songId가 올바르지 않습니다.").build();
         } catch (Exception e) {
@@ -312,9 +312,9 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public DataResDto<?> getSearchList(Member member, String nickname, String title, String genre) {
+    public DataResDto<?> getSearchList(Member member, String keyWord, String genre) {
         try {
-            List<Song> songList = searchRepository.searchSong(nickname, title, genre);
+            List<Song> songList = searchRepository.searchSong(keyWord, genre);
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {

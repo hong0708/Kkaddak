@@ -33,7 +33,7 @@ public interface SongService {
 
     DataResDto<?> getPlayList(Member member);
 
-    DataResDto<?> getSearchList(Member member, String nickname, String title, String genre);
+    DataResDto<?> getSearchList(Member member, String keyWord, String genre);
 
     DataResDto<?> getSongByCreator(Member member);
 

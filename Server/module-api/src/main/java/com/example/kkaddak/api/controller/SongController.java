@@ -146,10 +146,9 @@ public class SongController {
     @ApiOperation(value = "음악을 검색하여 리스트 형태로 반환하는 API")
     @GetMapping("/search")
     public DataResDto<?> getSearchList(@AuthenticationPrincipal MemberDetails memberDetails,
-                                       @RequestParam(name = "nickname", defaultValue = "") String nickname,
-                                       @RequestParam(name = "title", defaultValue = "") String title,
+                                       @RequestParam(name = "keyWord", defaultValue = "") String keyWord,
                                        @RequestParam(name = "genre", defaultValue = "") String genre) {
-        return songService.getSearchList(memberDetails.getMember(), nickname, title, genre);
+        return songService.getSearchList(memberDetails.getMember(), keyWord, genre);
     }
 
     @ApiResponses({
