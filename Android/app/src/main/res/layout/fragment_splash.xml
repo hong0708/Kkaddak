@@ -10,27 +10,99 @@
         android:id="@+id/cl_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_splash">
-        
-        <ImageView
-            android:id="@+id/test"
-            android:layout_width="53dp"
-            android:layout_height="61dp"
-            android:src="@drawable/word1"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bg_splash"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/iv_splash_main"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/iv_splash_main"/>
-        
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_logo1"
+                android:layout_width="53dp"
+                android:layout_height="61dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/image_logo_word"
+                android:src="@drawable/ic_word_bittersweet1" />
+
+            <ImageView
+                android:id="@+id/iv_logo2"
+                android:layout_width="53dp"
+                android:layout_height="61dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/image_logo_word"
+                android:src="@drawable/ic_word_bittersweet2" />
+
+            <ImageView
+                android:id="@+id/iv_logo3"
+                android:layout_width="53dp"
+                android:layout_height="61dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/image_logo_word"
+                android:src="@drawable/ic_word_bittersweet1" />
+
+            <ImageView
+                android:id="@+id/iv_logo4"
+                android:layout_width="53dp"
+                android:layout_height="61dp"
+                android:contentDescription="@string/image_logo_word"
+                android:src="@drawable/ic_word_bittersweet2" />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/iv_splash_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/splash_main"
+            android:src="@drawable/ic_splash"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_kakao_login"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tv_kakao_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/content_kakao_login"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_kakao_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/image_kakao_login_icon"
+                android:src="@drawable/ic_kakao_login_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_kakao_login"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
