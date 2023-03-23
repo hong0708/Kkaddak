@@ -186,5 +186,6 @@
     <string name="title_music_atmosphere_sentimental">감성적인</string>
     <string name="title_music_atmosphere_hip">힙한</string>
     <string name="content_register_music">등록하기</string>
+    <string name="image_logo_word">image_logo_word</string>
 
 </resources>
