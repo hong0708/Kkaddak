@@ -290,13 +290,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                     .build();
         }
         else{
-            Member savedMember = memberRepository.findByNicknameAndIdNot(nickname, requester.getId())
+            Member other = memberRepository.findByNicknameAndIdNot(nickname, requester.getId())
                     .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
             profile = ProfileResDto.builder()
-                    .member(savedMember)
+                    .member(other)
                     .isMine(false)
-                    .myFollowers(followRepository.countByFollowing(savedMember))
-                    .myFollowings(followRepository.countByFollower(savedMember))
+                    .isFollowing(followRepository.existsByFollowerAndFollowing(requester, other))
+                    .myFollowers(followRepository.countByFollowing(other))
+                    .myFollowings(followRepository.countByFollower(other))
                     .build();
         }
         return DataResDto.builder()

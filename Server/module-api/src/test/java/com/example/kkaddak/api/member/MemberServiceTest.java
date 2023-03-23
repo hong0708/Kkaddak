@@ -109,11 +109,11 @@ public class MemberServiceTest {
         Member savedMember2 = memberRepository.save(member2);
 
         DataResDto<ProfileResDto> res = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember1.getNickname());
-        assertEquals(res.getData().isMine(), true);
+        assertEquals(res.getData().getIsMine(), true);
         DataResDto<ProfileResDto> res1 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember1, savedMember2.getNickname());
-        assertEquals(res1.getData().isMine(), false);
+        assertEquals(res1.getData().getIsMine(), false);
         DataResDto<ProfileResDto> res2 = (DataResDto<ProfileResDto>) memberService.getProfile(savedMember2, savedMember1.getNickname());
-        assertEquals(res2.getData().isMine(), false);
+        assertEquals(res2.getData().getIsMine(), false);
         assertThrows(NotFoundException.class, () -> memberService.getProfile(savedMember1, "notFoundException"));
     }
 
