@@ -17,6 +17,8 @@ import java.util.UUID;
 public interface SongService {
     DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException;
 
+    DataResDto<?> deleteSong(Member member, UUID songUuid);
+
     DataResDto<?> getSong(UUID songUuid, Member member);
 
     DataResDto<?> getAllSong(Member member);
