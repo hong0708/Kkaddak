@@ -73,6 +73,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="60dp"
             android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
