@@ -1,4 +1,4 @@
-package com.example.kkaddak.api.exception;
+package com.example.kkaddak.core.exception;
 
 import lombok.Getter;
 
