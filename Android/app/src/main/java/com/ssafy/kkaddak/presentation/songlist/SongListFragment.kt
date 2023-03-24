@@ -51,11 +51,11 @@ class SongListFragment :
                 filter.setOnClickListener {
                     if (filter.isSelected) {
                         filter.isSelected = false
-                        filter.setBackgroundResource(R.drawable.bg_rect_indigo_to_han_purple_angle270_radius30)
+                        filter.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius30)
                         songViewModel.filter.remove(filterList[i].text.toString())
                     } else {
                         filter.isSelected = true
-                        filter.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius30)
+                        filter.setBackgroundResource(R.drawable.bg_rect_indigo_to_han_purple_angle270_radius30)
                         songViewModel.filter.add(filterList[i].text.toString())
                     }
                     songViewModel.searchMusic(
