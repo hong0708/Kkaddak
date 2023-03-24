@@ -3,22 +3,37 @@ package com.example.kkaddak.api.service.impl;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
+import com.example.kkaddak.api.service.NFTService;
 import com.example.kkaddak.api.service.SongService;
+import com.example.kkaddak.api.utils.DynamicTimeWarping;
+import com.example.kkaddak.api.utils.FeatureExtractor;
 import com.example.kkaddak.core.entity.*;
 import com.example.kkaddak.core.repository.*;
+import com.example.kkaddak.core.utils.ImageUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.*;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +44,11 @@ public class SongServiceImpl implements SongService {
 
     private final PlayListRepository playListRepository;
 
-    @Autowired
-    private S3Client s3Client;
+    private final NFTService nftService;
+
+    private final S3Client s3Client;
+
+    private static final Logger logger = LogManager.getLogger(ImageUtil.class);
 
     @Value("${aws.s3.bucket}")
     private String s3Bucket;
@@ -38,12 +56,15 @@ public class SongServiceImpl implements SongService {
     @Value("${aws.s3.base-url}")
     private String s3BaseUrl;
 
+    @Value("${custom.path.upload-images}")
+    private String tempFilePath;
+
     private final MoodRepository moodRepository;
 
     private final SearchRepository searchRepository;
 
     @Override
-    public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException {
+    public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) {
         try {
             // 음악 파일 저장
             MultipartFile songFile = songReqDto.getSongFile();
@@ -81,6 +102,14 @@ public class SongServiceImpl implements SongService {
             }
             Mood savedMood = moodRepository.save(mood);
 
+            String combination = "";
+            Boolean isDup = false;
+
+            do {
+                combination = nftService.generateCombination();
+                isDup = songRepository.existsByCombination(combination);
+            } while (isDup);
+
             Song song = Song.builder()
                     .title(songReqDto.getSongTitle())
                     .songPath(songFileUrl)
@@ -88,12 +117,63 @@ public class SongServiceImpl implements SongService {
                     .genre(songReqDto.getGenre())
                     .moods(savedMood)
                     .member(member)
+                    .combination(combination)
                     .songStatus(SongStatus.PROCEEDING)
                     .build();
 
+            List<Song> songs = songRepository.findAll();
+
+            File uploadedMp3File = getAmazonObject(song.getSongPath());
+            float[][] mfcc1 = FeatureExtractor.extractMFCC(uploadedMp3File);
+            // thread로 for문 순회하면서 유사도 검사
+            CompletableFuture.runAsync(() -> {
+                int cnt = 0;
+                // upload된 파일 읽어들이기
+                for (Song s : songs) {
+                    cnt++;
+                    try {
+                        // S3에서 MP3 파일을 가져오기
+                        File sFile = getAmazonObject(s.getSongPath());
+                        float[][] mfcc2 = FeatureExtractor.extractMFCC(sFile);
+                        double similarity = DynamicTimeWarping.calculateDistance(mfcc1, mfcc2);
+
+                        logger.info("Similarity : " + similarity);
+                        if (similarity <= 10) {
+                            song.setSongStatus(SongStatus.REJECT);
+                            songRepository.save(song);
+                            return;
+                        }
+                    } catch (UnsupportedAudioFileException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+                logger.info("cnt : " + cnt);
+                song.setSongStatus(SongStatus.APPROVE);
+                songRepository.save(song);
+            }).exceptionally(ex -> {
+                // 예외가 발생한 경우 로깅
+                logger.info("CompletableFuture 작업 중 오류 발생: " + ex.getMessage());
+                ex.printStackTrace();
+                return null;
+            });;
+
             Song savedSong = songRepository.save(song);
 
-            SongResDto songResDto = new SongResDto(savedSong);
+            // convert combination string to list
+            List<Integer> combList = new ArrayList<>();
+            String[] combArr = combination.split(",");
+
+            for (String s : combArr) {
+                combList.add(Integer.parseInt(s));
+            }
+
+            SongResDto songResDto = SongResDto.builder()
+                    .song(savedSong)
+                    .songStatus(song.getSongStatus())
+                    .combination(combList).build();
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
         } catch(IllegalArgumentException e) {
@@ -141,7 +221,7 @@ public class SongServiceImpl implements SongService {
 
             songRepository.save(song);
 
-            boolean like = likeListRepository.existsByMemberAndSong(member, song);
+            boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
             boolean checkValue = playListRepository.existsByMemberAndSong(member, song);
 
             if (checkValue) {
@@ -155,7 +235,9 @@ public class SongServiceImpl implements SongService {
                     .build();
             playListRepository.save(playList);
 
-            SongResDto songResDto = new SongResDto(song, like);
+            SongResDto songResDto = SongResDto.builder()
+                    .song(song)
+                    .isLike(isLike).build();
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
         }
@@ -176,8 +258,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(new SongResDto(song, like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
+                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -198,8 +280,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(new SongResDto(song, like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
+                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -252,8 +334,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (LikeList likes: likeList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, likes.getSong());
-                songResDtoList.add(new SongResDto(likes.getSong(), like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, likes.getSong());
+                songResDtoList.add(SongResDto.builder().song(likes.getSong()).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -301,8 +383,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (PlayList plays: playList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, plays.getSong());
-                songResDtoList.add(new SongResDto(plays.getSong(), like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, plays.getSong());
+                songResDtoList.add(SongResDto.builder().song(plays.getSong()).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -319,8 +401,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(new SongResDto(song, like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
+                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -341,8 +423,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: createSongList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(new SongResDto(song, like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
+                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -363,8 +445,8 @@ public class SongServiceImpl implements SongService {
 
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: songList) {
-                boolean like = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(new SongResDto(song, like));
+                boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
+                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -372,5 +454,27 @@ public class SongServiceImpl implements SongService {
         } catch (Exception e) {
             return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
         }
+    }
+
+    private File getAmazonObject(String songPath) {
+        File file = null;
+        try {
+            GetObjectRequest objectRequest = GetObjectRequest.builder().bucket(s3Bucket).key(songPath.substring(s3BaseUrl.length())).build();
+
+            ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
+            byte[] data = objectBytes.asByteArray();
+
+            // Write the data to a local file.
+            file = new File(tempFilePath + "/tmp.mp3");
+            OutputStream os = new FileOutputStream(file);
+            os.write(data);
+            os.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
+
+        return file;
     }
 }
