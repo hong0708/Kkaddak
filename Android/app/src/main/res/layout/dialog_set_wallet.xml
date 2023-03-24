@@ -61,8 +61,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_wallet_address"
-                tools:ignore="LabelFor,RtlSymmetry"
-                tools:text="20000" />
+                tools:ignore="LabelFor,RtlSymmetry" />
 
             <TextView
                 android:id="@+id/tv_wallet_key"
@@ -93,8 +92,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_wallet_key"
-                tools:ignore="LabelFor,RtlSymmetry"
-                tools:text="0.0098" />
+                tools:ignore="LabelFor,RtlSymmetry" />
 
             <TextView
                 android:id="@+id/tv_market_price_reflection"

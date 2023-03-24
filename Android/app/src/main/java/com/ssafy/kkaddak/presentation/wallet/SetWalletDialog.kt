@@ -6,10 +6,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.DialogSetWalletBinding
 
-class ChargeDialog(val activity: Activity) : Dialog(activity) {
+class SetWalletDialog(
+    val activity: Activity,
+    private val listener: SetWalletDialogInterface
+) : Dialog(activity) {
 
     private lateinit var binding: DialogSetWalletBinding
 
@@ -36,20 +40,25 @@ class ChargeDialog(val activity: Activity) : Dialog(activity) {
 
             // 지갑 불러오기
             tvImportWallet.setOnClickListener {
-                WalletFunction().insertUserWallet(
+                ApplicationClass.preferences.walletAddress = etWalletAddress.text.toString()
+                ApplicationClass.preferences.privateKey = etWalletKey.text.toString()
+
+                listener.setWallet(
                     etWalletAddress.text.toString(),
                     etWalletKey.text.toString()
                 )
-
-                WalletFragment().getBalance()
+                dismiss()
             }
 
             // 지갑 생성
             tvMakeWallet.setOnClickListener {
                 WalletFunction().generateWallet()
-            }
 
-            WalletFragment().getBalance()
+                listener.setWallet(
+                    etWalletAddress.text.toString(),
+                    etWalletKey.text.toString()
+                )
+            }
         }
     }
 }
