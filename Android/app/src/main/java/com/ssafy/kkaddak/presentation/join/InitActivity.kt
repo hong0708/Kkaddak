@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.getHashKey
 import com.ssafy.kkaddak.databinding.ActivityInitBinding
@@ -21,6 +22,7 @@ class InitActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getHashKey(this)
+        ApplicationClass.preferences.clearPreferences()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_init) as NavHostFragment
