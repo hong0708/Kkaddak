@@ -5,6 +5,7 @@ import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
+import com.example.kkaddak.core.dto.MyFollowConditionDto;
 import com.example.kkaddak.core.entity.Follow;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.repository.FollowRepository;
@@ -364,6 +365,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         return DataResDto.builder()
                 .statusMessage("조회한 유저의 프로필 정보입니다.")
                 .data(HomeProfileResDto.builder().member(member).build())
+                .build();
+    }
+    public DataResDto<?> getMyFollowers(MyFollowConditionDto condition, Member member){
+        return DataResDto.builder()
+                .statusMessage("조건에 따라 조회된 팔로워 목록입니다.")
+                .data(memberRepository.findMyFollowersByMember(condition, member.getId()))
                 .build();
     }
 }
