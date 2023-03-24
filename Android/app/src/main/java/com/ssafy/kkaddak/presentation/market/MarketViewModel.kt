@@ -20,6 +20,16 @@ class MarketViewModel @Inject constructor(
     private val _nftTempData: MutableLiveData<List<NftItem>?> = MutableLiveData()
     val nftTempData: LiveData<List<NftItem>?> = _nftTempData
 
+    // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
+    private fun dup(list1: List<NftItem>, list2: List<NftItem>) : Boolean {
+        if(list1.isNotEmpty() && list2.isNotEmpty()) {
+            if (list1[list1.size - 1].acutionId <= list2[list2.size - 1].acutionId) {
+                return true
+            }
+        }
+        return false
+    }
+
     fun getAllNfts(lastId: Long, limit: Long, onlySelling: Boolean) = viewModelScope.launch {
         when (val value = getAllNftsUseCase(lastId, limit, onlySelling)) {
             is Resource.Success<List<NftItem>> -> {
@@ -31,12 +41,9 @@ class MarketViewModel @Inject constructor(
         }
     }
 
-    // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
-    fun dup(list1: List<NftItem>, list2: List<NftItem>) : Boolean {
-        if(list1.get(list1.size - 1).acutionId <= list2.get(list2.size - 1).acutionId) {
-            return true
-        }
-        return false
+    fun clearData() {
+        _nftListData.value = listOf()
+        _nftTempData.value = listOf()
     }
 
     fun getSum() {
@@ -57,6 +64,7 @@ class MarketViewModel @Inject constructor(
                 }
             }
         }
+
         _nftListData.value = joinedList
     }
 
@@ -71,5 +79,4 @@ class MarketViewModel @Inject constructor(
     fun getSize(): Int? {
         return _nftListData.value?.size
     }
-
 }
