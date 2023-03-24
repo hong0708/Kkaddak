@@ -6,7 +6,7 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 data class NftItemResponse(
     @SerializedName("auctionId")
-    val actionId: Int,
+    val auctionId: Int,
     @SerializedName("nftId")
     val nftId: String,
     @SerializedName("creatorName")
@@ -27,5 +27,5 @@ data class NftItemResponse(
     val isLike: Boolean
 ) : DataToDomainMapper<NftItem> {
     override fun toDomainModel(): NftItem =
-        NftItem(actionId, nftId, creatorName, songTitle, nftImagePath, expiredDate,  bidStartPrice, isClosed, cntLikeAuction, isLike)
+        NftItem(auctionId, nftId, creatorName, songTitle, nftImagePath, expiredDate,  bidStartPrice, isClosed, cntLikeAuction, isLike)
 }

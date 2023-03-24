@@ -14,16 +14,18 @@ import com.ssafy.kkaddak.databinding.ItemNftBinding
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 
-class NftItemAdapter : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() {
+class NftItemAdapter(
+    private val onItemClicked: (nftItem: NftItem) -> Unit
+) : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() {
 
     private var items: List<NftItem> = listOf()
     lateinit var binding: ItemNftBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NftItemViewHolder {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), R.layout.item_nft, parent, false
         )
-
-        return NftItemViewHolder(binding)
+        return NftItemViewHolder(binding, onItemClicked)
     }
 
     override fun onBindViewHolder(holder: NftItemViewHolder, position: Int) {
@@ -38,14 +40,15 @@ class NftItemAdapter : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() 
     }
 
     class NftItemViewHolder(
-        val binding: ItemNftBinding,
+        private val binding: ItemNftBinding,
+        private val onItemClicked: (nftItem: NftItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NftItem) {
             binding.apply {
                 ivNftItem.setNormalImg(data.nftImagePath)
                 tvNftLike.text = data.cntLikeAcution.toString()
                 tvNftCreator.text = data.nftCreator
-                tvNftSongTitle.text = data.nftSingTitle
+                tvNftSongTitle.text = data.nftSongTitle
                 val year = data.nftDeadline.substring(2, 4)
                 val month = data.nftDeadline.substring(5, 7)
                 val day = data.nftDeadline.substring(8, 10)
@@ -78,6 +81,10 @@ class NftItemAdapter : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() 
                 params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
                 params.topToBottom = binding.tvNftCreator.id
                 binding.tvContour.layoutParams = params
+            }
+
+            binding.root.setOnClickListener {
+                onItemClicked(data)
             }
         }
     }
