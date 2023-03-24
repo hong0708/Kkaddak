@@ -47,7 +47,7 @@ public class Song {
     private Mood moods;
 
     @Builder
-    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member, SongStatus songStatus) {
+    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member, SongStatus songStatus, String combination) {
         this.songUuid = UUID.randomUUID();
         this.title = title;
         this.songPath = songPath;
@@ -57,6 +57,7 @@ public class Song {
         this.member = member;
         this.moods = moods;
         this.songStatus = songStatus;
+        this.combination = combination;
         this.views = 0L;
     }
 }
