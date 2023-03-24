@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="nftItem"
+            type="com.ssafy.kkaddak.domain.entity.market.NftItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +49,7 @@
             android:scaleType="centerCrop"
             android:contentDescription="@string/image_bid_nft_image"
             android:src="@drawable/ic_nft_mockup1"
+            android:normalImgUri="@{nftItem.nftImagePath}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_bid_nft" />
@@ -56,11 +61,12 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/gmarket_sans_medium"
             android:gravity="center"
-            android:text="@string/title_bid_song_title"
+            android:text="@{nftItem.nftSongTitle}"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@id/iv_bid_nft_image"
-            app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_image" />
+            app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_image"
+            tools:text="@string/title_bid_song_title" />
 
         <ImageView
             android:id="@+id/iv_bid_nft_creator_profile"
@@ -94,11 +100,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/gmarket_sans_medium"
-            android:text="@string/content_bid_creator"
+            android:text="@{nftItem.nftCreator}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/tv_content_by"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_bid_nft_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_content_bid_nft_title"
+            tools:text="@string/content_bid_creator"/>
 
         <ImageView
             android:id="@+id/iv_bid_nft_like"
@@ -106,7 +113,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/image_bid_nft_like"
-            android:background="@drawable/selector_market_like_nft_detail"
+            android:src="@{nftItem.isLike ? @drawable/ic_market_like_selected : @drawable/ic_market_like}"
             app:layout_constraintEnd_toEndOf="@id/iv_bid_nft_image"
             app:layout_constraintTop_toBottomOf="@id/iv_bid_nft_image" />
 
@@ -166,12 +173,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:fontFamily="@font/gmarket_sans_medium"
-            android:text="@string/content_bid_deadline"
+            android:text="@{nftItem.nftDeadline}"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_content_deadline"
             app:layout_constraintStart_toEndOf="@id/tv_content_deadline"
-            app:layout_constraintTop_toTopOf="@id/tv_content_deadline" />
+            app:layout_constraintTop_toTopOf="@id/tv_content_deadline"
+            tools:text="@string/content_bid_deadline"/>
 
         <TextView
             android:id="@+id/tv_content_my_eth"

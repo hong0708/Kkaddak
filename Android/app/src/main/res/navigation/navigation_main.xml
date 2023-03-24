@@ -19,7 +19,24 @@
         android:id="@+id/marketFragment"
         android:name="com.ssafy.kkaddak.presentation.market.MarketFragment"
         android:label="marketFragment"
-        tools:layout="@layout/fragment_market" />
+        tools:layout="@layout/fragment_market">
+        <action
+            android:id="@+id/action_marketFragment_to_bidMarketFragment"
+            app:destination="@id/bidMarketFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bidMarketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.BidMarketFragment"
+        android:label="bidMarketFragment"
+        tools:layout="@layout/fragment_bid_market">
+        <argument
+            android:name="nftItem"
+            app:argType="com.ssafy.kkaddak.domain.entity.market.NftItem" />
+        <action
+            android:id="@+id/action_bidMarketFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
