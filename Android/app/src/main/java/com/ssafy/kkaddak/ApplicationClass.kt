@@ -21,6 +21,7 @@ class ApplicationClass: Application() {
         setupBouncyCastle()
     }
 
+    // BouncyCastleProvider가 아니면 Security에 BouncyCastleProvider를 등록
     private fun setupBouncyCastle() {
         val provider: Provider? = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME)
         if (provider?.javaClass != BouncyCastleProvider::class.java) {

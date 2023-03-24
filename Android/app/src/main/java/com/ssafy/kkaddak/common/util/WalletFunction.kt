@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.common.util
 
 import android.util.Log
+import android.widget.TextView
 import org.bouncycastle.crypto.digests.KeccakDigest
 import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Credentials
@@ -8,6 +9,7 @@ import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
+import org.web3j.tx.ReadonlyTransactionManager
 import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
@@ -16,7 +18,7 @@ private const val CONTRACT_ADDRESS = "0x987A75dB8A085B0147F022Cb2D0EeaDbEFadC712
 private var MY_WALLET_ADDRESS = ""
 private const val TAG = "wallet info"
 
-class WalletFunction(){
+class WalletFunction() {
 
     // Ethereum 네트워크에 연결
     private val web3j = Web3j.build(HttpService(INFURA_URL))
@@ -25,6 +27,9 @@ class WalletFunction(){
     private val gasPrice = BigInteger.valueOf(20_000_000_000L) // 20 Gwei
     private val gasLimit = BigInteger.valueOf(4_300_000) // 가스 한도
     private val contractGasProvider = StaticGasProvider(gasPrice, gasLimit)
+
+    // 트랜잭션 매니저 조회용
+    private val transactionManager = ReadonlyTransactionManager(web3j, CONTRACT_ADDRESS)
 
     fun generateWallet() {
         Thread {
@@ -39,8 +44,17 @@ class WalletFunction(){
 
             val address = generateAccountAddress(ecKeyPair.publicKey.toByteArray())
 
+
+            val token = ERC20_sol_KATToken(
+                CONTRACT_ADDRESS,
+                web3j,
+                transactionManager,
+                contractGasProvider
+            )
+
             // ERC20_sol_KATToken 객체 생성
-            val katToken = ERC20_sol_KATToken(CONTRACT_ADDRESS, web3j, credentials, contractGasProvider)
+            val katToken =
+                ERC20_sol_KATToken(CONTRACT_ADDRESS, web3j, credentials, contractGasProvider)
 
             val EOA = "0xf10ccb49335c686147bdba507482bb3d3e3af1c4"
             val remoteFunctionCall = katToken.balanceOf(EOA)
@@ -60,7 +74,8 @@ class WalletFunction(){
             val katToken = ERC20_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
-                Credentials.create(privateKey),
+                transactionManager,
+                //Credentials.create(privateKey),
                 contractGasProvider
             )
 
@@ -70,6 +85,34 @@ class WalletFunction(){
             try {
                 val balance = remoteFunctionCall.send()
                 Log.d("제발 한번만", "Balance of address $EOA: $balance")
+                //ApplicationClass.preferences.balance = (balance.toFloat() / 100000000).toString()
+            } catch (e: Exception) {
+                System.err.println("Error while fetching the balance: ${e.message}")
+            }
+        }.start()
+    }
+
+    fun balanceOf(walletAddress: String, textView: TextView) {
+
+        Thread {
+            val katToken = ERC20_sol_KATToken.load(
+                CONTRACT_ADDRESS,
+                web3j,
+                transactionManager,
+                //Credentials.create(privateKey),
+                contractGasProvider
+            )
+
+            //val EOA = "0xf10ccb49335c686147bdba507482bb3d3e3af1c4"
+            val remoteFunctionCall = katToken.balanceOf(walletAddress)
+
+            try {
+                val balance = remoteFunctionCall.send().toString()
+                val formattedBalance = (balance.toFloat() / 100000000).toString()
+                textView.post {
+                    textView.text = formattedBalance
+                }
+                //Log.d("제발 한번만", "Balance of balance $EOA: $balance")
                 //ApplicationClass.preferences.balance = (balance.toFloat() / 100000000).toString()
             } catch (e: Exception) {
                 System.err.println("Error while fetching the balance: ${e.message}")
