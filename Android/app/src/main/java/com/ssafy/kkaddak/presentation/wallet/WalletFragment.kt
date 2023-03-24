@@ -8,11 +8,26 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet) {
-    override fun initView() {
 
-        WalletFunction().insertUserWallet(
+    override fun initView() {
+        initListener()
+        getBalance()
+
+    }
+
+    private fun initListener() {
+
+        binding.apply {
+            clCharge.setOnClickListener {
+                ChargeDialog(requireActivity()).show()
+            }
+        }
+    }
+
+    fun getBalance() {
+        WalletFunction().balanceOf(
             "0xf10ccb49335c686147bdba507482bb3d3e3af1c4",
-            "b89cd06cf5acd5e0d1b1dc0c7e29233c318d42f8c77a3af82a8f3ff53ae1577c"
+            binding.tvTotalBalance
         )
     }
 }

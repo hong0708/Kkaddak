@@ -111,7 +111,7 @@
 
     <!-- Wallet -->
     <string name="title_wallet">WALLET</string>
-    <string name="content_total_balance">Total Balance(ETC)</string>
+    <string name="content_total_balance">Total Balance(KAT)</string>
     <string name="content_charge">충전하기</string>
     <string name="content_recent_transaction">최근 거래 내역</string>
     <string name="title_charge_amount">충전 금액</string>
