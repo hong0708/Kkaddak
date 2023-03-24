@@ -2,21 +2,16 @@ package com.example.kkaddak.api.member;
 
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
-import com.example.kkaddak.api.exception.NoContentException;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.MemberService;
 import com.example.kkaddak.core.entity.Member;
-import com.example.kkaddak.core.exception.IllegalMemberTypeException;
 import com.example.kkaddak.core.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,10 +1,8 @@
 package com.example.kkaddak.api.service.impl;
 
 
-import com.example.kkaddak.api.dto.member.FollowResDto;
-import com.example.kkaddak.api.exception.NoContentException;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.api.exception.NotFoundException;
-import com.example.kkaddak.api.exception.PagingQueryException;
 import com.example.kkaddak.core.dto.AuctionConditionReqDto;
 import com.example.kkaddak.core.dto.AuctionConditionResDto;
 import com.example.kkaddak.core.dto.AuctionReqDto;
@@ -12,7 +10,6 @@ import com.example.kkaddak.api.dto.auction.AuctionResDto;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.service.AuctionService;
 import com.example.kkaddak.core.entity.Auction;
-import com.example.kkaddak.core.entity.Follow;
 import com.example.kkaddak.core.entity.LikeAuction;
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.repository.AuctionRepository;
@@ -22,10 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package com.example.kkaddak.api.service;
 
-import com.example.kkaddak.api.exception.NoContentException;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.core.dto.AuctionConditionReqDto;
 import com.example.kkaddak.core.dto.AuctionReqDto;
 import com.example.kkaddak.api.dto.DataResDto;
