@@ -4,6 +4,8 @@ import com.example.kkaddak.core.dto.AuctionConditionReqDto;
 import com.example.kkaddak.core.dto.AuctionConditionResDto;
 import com.example.kkaddak.core.entity.QAuction;
 import com.example.kkaddak.core.entity.QLikeAuction;
+import com.example.kkaddak.core.exception.NoContentException;
+import com.example.kkaddak.core.utils.ErrorMessageEnum;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
     private final QAuction auction = QAuction.auction;
     private final QLikeAuction likeAuction = QLikeAuction.likeAuction;
     @Override
-    public List<AuctionConditionResDto> findAuctionsByCondition(AuctionConditionReqDto c, int memberId) {
+    public List<AuctionConditionResDto> findAuctionsByCondition(AuctionConditionReqDto c, int memberId) throws NoContentException {
         List<Integer> ids = jpaQueryFactory
                 .select(auction.id)
                 .from(auction)
@@ -35,7 +38,7 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
                 .fetch();
 
         if(CollectionUtils.isEmpty(ids)){
-            return new ArrayList<>();
+            throw new NoContentException(ErrorMessageEnum.NO_MORE_AUCTION.getMessage());
         }
         QLikeAuction memberLikeAuction = new QLikeAuction("memberLikeAuction");
 
@@ -58,7 +61,7 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
     }
 
     @Override
-    public List<AuctionConditionResDto> findAuctionsByMyLike(AuctionConditionReqDto c, int memberId) {
+    public List<AuctionConditionResDto> findAuctionsByMyLike(AuctionConditionReqDto c, int memberId) throws NoContentException {
         List<Integer> ids = jpaQueryFactory
                 .select(auction.id)
                 .from(auction)
@@ -71,7 +74,7 @@ public class AuctionRepositoryImpl implements AuctionRepositoryCustom{
                 .fetch();
 
         if(CollectionUtils.isEmpty(ids)){
-            return new ArrayList<>();
+            throw new NoContentException(ErrorMessageEnum.NO_MORE_AUCTION.getMessage());
         }
         QLikeAuction memberLikeAuction = new QLikeAuction("memberLikeAuction");
 

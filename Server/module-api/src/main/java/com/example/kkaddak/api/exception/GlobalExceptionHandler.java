@@ -1,16 +1,12 @@
 package com.example.kkaddak.api.exception;
 
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.ExceptionResDto;
 import com.example.kkaddak.core.exception.IllegalMemberTypeException;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.example.kkaddak.core.exception.NoContentException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 @RestControllerAdvice

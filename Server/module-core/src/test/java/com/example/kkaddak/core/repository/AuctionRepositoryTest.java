@@ -6,6 +6,7 @@ import com.example.kkaddak.core.dto.AuctionReqDto;
 import com.example.kkaddak.core.entity.Auction;
 import com.example.kkaddak.core.entity.LikeAuction;
 import com.example.kkaddak.core.entity.Member;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.querydsl.core.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class AuctionRepositoryTest {
     MemberRepository memberRepository;
     @Test
     @DisplayName("동적 쿼리 테스트")
-    void AuctionConditionTest() {
+    void AuctionConditionTest() throws NoContentException {
         Member member1 = Member.builder()
                 .email("AuctionCondition1@example.com")
                 .memberType("회원")
