@@ -15,7 +15,7 @@ data class ProfileResponse(
     val account: String?,
     @SerializedName("myFollowers")
     val myFollowers: Int,
-    @SerializedName("myFolloings")
+    @SerializedName("myFollowings")
     val myFollowings: Int,
     @SerializedName("mySongs")
     val mySongs: Int,
