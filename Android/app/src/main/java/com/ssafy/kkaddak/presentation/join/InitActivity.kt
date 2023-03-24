@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.common.util.getHashKey
 import com.ssafy.kkaddak.databinding.ActivityInitBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,8 +18,6 @@ class InitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        getHashKey(this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_init) as NavHostFragment

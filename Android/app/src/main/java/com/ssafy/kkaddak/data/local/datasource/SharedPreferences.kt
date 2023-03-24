@@ -22,6 +22,14 @@ class SharedPreferences(context: Context) {
         get() = prefs.getString("nickname", null)
         set(value) = prefs.edit().putString("nickname", value).apply()
 
+    var walletAddress: String?
+        get() = prefs.getString("walletAddress", "")
+        set(value) = prefs.edit().putString("walletAddress", value).apply()
+
+    var privateKey: String?
+        get() = prefs.getString("privateKey", "")
+        set(value) = prefs.edit().putString("privateKey", value).apply()
+
     fun clearPreferences() {
         prefs.edit().clear().apply()
     }

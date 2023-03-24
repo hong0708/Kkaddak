@@ -36,12 +36,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_wallet">
 
+            <ImageView
+                android:id="@+id/iv_open_wallet_dialog"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="19dp"
+                android:contentDescription="@string/image_show_wallet_dialog"
+                android:src="@drawable/ic_set_wallet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_charge"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -52,6 +63,24 @@
                     android:fontFamily="@font/gmarket_sans_bold"
                     android:gravity="center"
                     android:text="@string/content_charge"
+                    android:textColor="@color/white" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_wallet_info"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
+                app:layout_constraintBottom_toBottomOf="@id/cl_charge"
+                app:layout_constraintEnd_toStartOf="@+id/cl_charge">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/gmarket_sans_bold"
+                    android:gravity="center"
+                    android:text="@string/content_info_wallet"
                     android:textColor="@color/white" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -69,20 +98,35 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_total_balance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="36dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
                 android:fontFamily="@font/gmarket_sans_bold"
                 android:textColor="@color/white"
                 android:textSize="32sp"
-                app:layout_constraintBottom_toTopOf="@+id/cl_charge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_balance"
                 tools:text="1234.56789" />
 
+            <TextView
+                android:id="@+id/tv_no_wallet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="36dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/content_no_wallet"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_balance" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,8 +159,6 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_recent_transaction_list" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
