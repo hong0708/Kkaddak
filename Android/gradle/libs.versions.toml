@@ -43,6 +43,12 @@ exoplayer = "2.18.4"
 
 kakao_sdk_version = "2.11.2"
 
+web3j_core = "4.9.7"
+
+web3j_contracts = "4.9.7"
+
+bouncycastle = "1.68"
+
 [libraries]
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -81,6 +87,9 @@ exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "
 exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
 exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 kakao-sdk-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao_sdk_version" }
+web3j-core = { module = "org.web3j:core", version.ref = "web3j_core" }
+web3j-contracts = { module = "org.web3j:contracts", version.ref = "web3j_contracts" }
+bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
