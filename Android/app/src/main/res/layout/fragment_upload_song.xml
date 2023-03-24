@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@string/image_music_cover"
+                    android:text="@string/content_cover_picture"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,10 +176,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_music_cover_picture"
+                    <ImageView
+                        android:id="@+id/iv_music_cover_picture"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/image_music_cover" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -213,86 +214,106 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/tv_genre_title">
 
-                    <LinearLayout
+                    <RadioGroup
+                        android:id="@+id/rg_genre"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/bg_rect_indigo_to_navy_blue_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_dance"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_hiphop"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            <RadioButton
+                                android:id="@+id/rb_1"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_dance"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_rb"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            <RadioButton
+                                android:id="@+id/rb_2"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="9dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_hiphop"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_indie"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                            <RadioButton
+                                android:id="@+id/rb_3"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="9dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_rb"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                            <RadioButton
+                                android:id="@+id/rb_4"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="9dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_indie"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_rock"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="50dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_jazz"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            <RadioButton
+                                android:id="@+id/rb_5"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_rock"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="60dp"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="9dp"
-                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                            android:gravity="center"
-                            android:text="@string/content_genre_ballade"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                            <RadioButton
+                                android:id="@+id/rb_6"
+                                android:layout_width="50dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="9dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_jazz"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <RadioButton
+                                android:id="@+id/rb_7"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="9dp"
+                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                                android:button="@null"
+                                android:gravity="center"
+                                android:text="@string/content_genre_ballade"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </RadioGroup>
                 </LinearLayout>
 
                 <TextView

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="song"
             type="com.ssafy.kkaddak.domain.entity.song.SongItem" />
@@ -21,8 +22,8 @@
             android:adjustViewBounds="true"
             android:background="@drawable/bg_image_radius10"
             android:clipToOutline="true"
-            android:normalImgUri="@{song.coverPath}"
             android:contentDescription="@string/image_song"
+            android:coverNFTImgStr="@{song.coverPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,9 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@{song.songTitle}"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="@{song.songTitle}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Out of time" />
@@ -55,9 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:fontFamily="@font/gmarket_sans_light"
+                android:text="@{song.nickname}"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:text="@{song.nickname}"
                 app:layout_constraintStart_toStartOf="@id/tv_song_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_song_title"
                 tools:text="The Weekend" />

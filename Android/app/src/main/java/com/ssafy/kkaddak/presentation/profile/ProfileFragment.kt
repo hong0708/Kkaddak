@@ -14,8 +14,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private val profileViewModel by viewModels<ProfileViewModel>()
 
     override fun initView() {
+        initListener()
         initTabLayout()
         setData()
+    }
+
+    private fun initListener() {
+        binding.ivUploadSong.setOnClickListener {
+            navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
+        }
     }
 
     private fun initTabLayout() {

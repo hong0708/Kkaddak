@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.songlist
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,10 @@ import com.ssafy.kkaddak.domain.usecase.song.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +25,8 @@ class SongViewModel @Inject constructor(
     private val getSongDetailUseCase: GetSongDetailUseCase,
     private val getPlayListUseCase: GetPlayListUseCase,
     private val searchMusicUseCase: SearchMusicUseCase,
-    private val deletePlayListUseCase: DeletePlayListUseCase
+    private val deletePlayListUseCase: DeletePlayListUseCase,
+    private val uploadSongUseCase: UploadSongUseCase
 ) : ViewModel() {
 
     private val _songListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
@@ -32,6 +38,23 @@ class SongViewModel @Inject constructor(
     private val _playListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val playListData: LiveData<List<SongItem>?> = _playListData
 
+    // Create
+    private val _coverFile: MutableLiveData<Uri?> = MutableLiveData()
+    val coverFile: MutableLiveData<Uri?> = _coverFile
+
+    private var coverFileMultiPart: MultipartBody.Part? = null
+
+    private val _songFile: MutableLiveData<Uri?> = MutableLiveData()
+    val songFile: MutableLiveData<Uri?> = _songFile
+
+    private var songFileMultiPart: MultipartBody.Part? = null
+
+    var songTitle = ""
+    var genre = ""
+    var moods = arrayListOf<String>()
+
+
+    // Search
     var keyword = ""
     var filter = arrayListOf<String>()
 
@@ -91,5 +114,43 @@ class SongViewModel @Inject constructor(
 
     fun deletePlayList(songId: String) = viewModelScope.launch {
         deletePlayListUseCase(songId)
+    }
+
+    fun setCoverFile(uri: Uri, file: File) {
+        viewModelScope.launch {
+            _coverFile.value = uri
+            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            coverFileMultiPart =
+                MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
+        }
+    }
+
+    fun setSongFile(uri: Uri, file: File) {
+        viewModelScope.launch {
+            _songFile.value = uri
+            val requestFile = file.asRequestBody("audio/mpeg".toMediaTypeOrNull())
+            songFileMultiPart =
+                MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
+        }
+    }
+
+    fun uploadSong() {
+        viewModelScope.launch {
+            when (val value =
+                uploadSongUseCase(
+                    coverFileMultiPart,
+                    songFileMultiPart,
+                    moods,
+                    genre,
+                    songTitle
+                )) {
+                is Resource.Success<SongItem> -> {
+                    Log.d("uploadSong", "uploadSong: ${value.data}")
+                }
+                is Resource.Error -> {
+                    Log.e("uploadSong", "uploadSong: ${value.errorMessage}")
+                }
+            }
+        }
     }
 }

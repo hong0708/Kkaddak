@@ -6,7 +6,9 @@ data class SongItem(
     val songPath: String,
     val coverPath: String,
     val genre: String,
-    val mood: String,
+    val mood: List<String>?,
     val nickname: String?,
-    val like: Boolean
+    val like: Boolean,
+    val combination: List<Int>?,
+    val songStatus: String?
 )

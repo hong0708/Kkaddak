@@ -1,6 +1,10 @@
 package com.ssafy.kkaddak.data.remote.datasource.song
 
 import com.ssafy.kkaddak.data.remote.service.SongApiService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class SongRemoteDataSourceImpl @Inject constructor(
@@ -24,5 +28,22 @@ class SongRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun deletePlayList(songId: String) {
         songApiService.deletePlayList(songId)
+    }
+
+    override suspend fun uploadMusic(
+        coverFile: MultipartBody.Part?,
+        songFile: MultipartBody.Part?,
+        moods: List<String>,
+        genre: String,
+        songTitle: String
+    ): SongResponse {
+        val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
+        moods.forEachIndexed { index, value ->
+            val listBody = value.toRequestBody("text/plain".toMediaTypeOrNull())
+            map["moods[$index]"] = listBody
+        }
+        map["genre"] = genre.toRequestBody("text/plain".toMediaTypeOrNull())
+        map["songTitle"] = genre.toRequestBody("text/plain".toMediaTypeOrNull())
+        return songApiService.uploadMusic(map, coverFile, songFile).data!!
     }
 }

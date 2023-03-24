@@ -1,5 +1,7 @@
 package com.ssafy.kkaddak.data.remote.datasource.song
 
+import okhttp3.MultipartBody
+
 interface SongRemoteDataSource {
 
     suspend fun getMusics(): List<SongResponse>
@@ -13,4 +15,12 @@ interface SongRemoteDataSource {
     suspend fun searchMusic(keyWord: String, filter: String): List<SongResponse>
 
     suspend fun deletePlayList(songId: String)
+
+    suspend fun uploadMusic(
+        coverFile: MultipartBody.Part?,
+        songFile: MultipartBody.Part?,
+        moods: List<String>,
+        genre: String,
+        songTitle: String
+    ): SongResponse
 }

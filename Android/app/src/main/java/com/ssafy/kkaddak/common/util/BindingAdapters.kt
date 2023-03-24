@@ -20,6 +20,16 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("android:normalImgUri")
+    fun ImageView.setNormalImg(imgUri: Uri?) {
+        Glide.with(this.context)
+            .load(imgUri)
+            .placeholder(R.drawable.ic_profile_image)
+            .error(R.drawable.ic_profile_image)
+            .into(this)
+    }
+
+    @JvmStatic
     @BindingAdapter("android:profileImgStr")
     fun ImageView.setProfileImg(imgUri: String?) {
         Glide.with(this.context)
@@ -31,10 +41,20 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("android:normalImgUri")
+    @BindingAdapter("android:normalImgStr")
     fun ImageView.setNormalImg(imgUri: String?) {
         Glide.with(this.context)
             .load("http://j8d208.p.ssafy.io:8087/images$imgUri")
+            .placeholder(R.drawable.bg_image_not_found)
+            .error(R.drawable.bg_image_not_found)
+            .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:coverNFTImgStr")
+    fun ImageView.setCoverNFTImg(imgUri: String?) {
+        Glide.with(this.context)
+            .load(imgUri)
             .placeholder(R.drawable.bg_image_not_found)
             .error(R.drawable.bg_image_not_found)
             .into(this)

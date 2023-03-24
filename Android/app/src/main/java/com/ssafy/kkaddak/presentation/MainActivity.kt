@@ -37,16 +37,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.homeFragment)
         }
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.visibility = when (destination.id) {
-                R.id.songListFragment -> View.VISIBLE
-                R.id.walletFragment -> View.VISIBLE
-                R.id.marketFragment -> View.VISIBLE
-                R.id.profileFragment -> View.VISIBLE
-                else -> View.VISIBLE
-            }
-        }
-
         navController.graph = navGraph
 
         val intent = Intent(this, SongService::class.java)

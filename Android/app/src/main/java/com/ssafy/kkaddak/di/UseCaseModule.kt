@@ -13,11 +13,7 @@ import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
-import com.ssafy.kkaddak.domain.usecase.song.DeletePlayListUseCase
-import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
-import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
-import com.ssafy.kkaddak.domain.usecase.song.GetSongsUseCase
-import com.ssafy.kkaddak.domain.usecase.song.RequestBookmarkUseCase
+import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
 import dagger.Module
@@ -98,4 +94,9 @@ object UseCaseModule {
     @Provides
     fun provideDeletePlayListUseCase(songRepository: SongRepository): DeletePlayListUseCase =
         DeletePlayListUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideUploadSongUseCase(songRepository: SongRepository): UploadSongUseCase =
+        UploadSongUseCase(songRepository)
 }
