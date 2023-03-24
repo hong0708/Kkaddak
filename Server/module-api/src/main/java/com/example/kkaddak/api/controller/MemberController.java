@@ -6,6 +6,7 @@ import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.*;
 import com.example.kkaddak.api.service.MemberService;
 import com.example.kkaddak.core.dto.MyFollowConditionDto;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -193,9 +194,22 @@ public class MemberController {
     public DataResDto<?> getMyFollowers(
             @AuthenticationPrincipal MemberDetails memberDetails,
             @RequestParam("limit") int limit,
-            @RequestParam("lastId") int lastId)
-    {
+            @RequestParam("lastId") int lastId) throws NoContentException {
         MyFollowConditionDto condition = MyFollowConditionDto.builder().limit(limit).lastId(lastId).build();
         return memberService.getMyFollowers(condition, memberDetails.getMember());
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "나의 팔로잉 목록 조회가 성공했을 경우 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
+    })
+    @ApiOperation(value = "나의 Following 목록 조회 API")
+    @GetMapping("/my-followings")
+    public DataResDto<?> getMyFollowings(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @RequestParam("limit") int limit,
+            @RequestParam("lastId") int lastId) throws NoContentException {
+        MyFollowConditionDto condition = MyFollowConditionDto.builder().limit(limit).lastId(lastId).build();
+        return memberService.getMyFollowings(condition, memberDetails.getMember());
     }
 }

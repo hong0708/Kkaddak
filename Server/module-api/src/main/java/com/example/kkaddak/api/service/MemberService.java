@@ -8,6 +8,7 @@ import com.example.kkaddak.api.dto.member.LogoutReqDto;
 import com.example.kkaddak.api.dto.member.ProfileReqDto;
 import com.example.kkaddak.core.dto.MyFollowConditionDto;
 import com.example.kkaddak.core.entity.Member;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,5 +28,6 @@ public interface MemberService {
     DataResDto<?> logout(Member member, LogoutReqDto logoutReqDto);
     DataResDto<?> saveAccount(Member member, AccountReqDto accountReqDto);
     DataResDto<?> getMyProfile(Member member);
-    DataResDto<?> getMyFollowers(MyFollowConditionDto condition, Member member);
+    DataResDto<?> getMyFollowers(MyFollowConditionDto condition, Member member) throws NoContentException;
+    DataResDto<?> getMyFollowings(MyFollowConditionDto condition, Member member) throws NoContentException;
 }
