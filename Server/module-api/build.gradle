@@ -1,0 +1,12 @@
+repositories {
+
+    maven {
+        name = "TarsosDSP repository"
+        url = "https://mvn.0110.be/releases"
+    }
+}
+dependencies {
+    implementation 'be.tarsos.dsp:core:2.5'
+    implementation 'be.tarsos.dsp:jvm:2.5'
+    implementation 'com.googlecode.soundlibs:jlayer:1.0.1-1'
+}
