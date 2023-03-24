@@ -119,15 +119,14 @@
                 android:layout_marginHorizontal="36dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
-                android:visibility="gone"
                 android:fontFamily="@font/gmarket_sans_bold"
                 android:text="@string/content_no_wallet"
                 android:textColor="@color/white"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_balance" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,8 +159,6 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_recent_transaction_list" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
