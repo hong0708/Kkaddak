@@ -4,14 +4,18 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.market.NftItem
+import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MarketViewModel @Inject constructor(
-    private val getAllNftsUseCase: GetAllNftsUseCase
+    private val getAllNftsUseCase: GetAllNftsUseCase,
+    private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
+    private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase
 ) : ViewModel() {
 
     private val _nftListData: MutableLiveData<List<NftItem>?> = MutableLiveData()
@@ -20,17 +24,20 @@ class MarketViewModel @Inject constructor(
     private val _nftTempData: MutableLiveData<List<NftItem>?> = MutableLiveData()
     val nftTempData: LiveData<List<NftItem>?> = _nftTempData
 
+    private val _nftData: MutableLiveData<NftItem> = MutableLiveData()
+    val nftData: LiveData<NftItem> = _nftData
+
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
     private fun dup(list1: List<NftItem>, list2: List<NftItem>) : Boolean {
         if(list1.isNotEmpty() && list2.isNotEmpty()) {
-            if (list1[list1.size - 1].acutionId <= list2[list2.size - 1].acutionId) {
+            if (list1[list1.size - 1].auctionId <= list2[list2.size - 1].auctionId) {
                 return true
             }
         }
         return false
     }
 
-    fun getAllNfts(lastId: Long, limit: Long, onlySelling: Boolean) = viewModelScope.launch {
+    fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
         when (val value = getAllNftsUseCase(lastId, limit, onlySelling)) {
             is Resource.Success<List<NftItem>> -> {
                 _nftTempData.value = value.data
@@ -39,6 +46,10 @@ class MarketViewModel @Inject constructor(
                 Log.e("getAllNfts", "getAllNfts: ${value.errorMessage}")
             }
         }
+    }
+
+    fun getData(item: NftItem) = viewModelScope.launch {
+        _nftData.value = item
     }
 
     fun clearData() {
@@ -68,8 +79,8 @@ class MarketViewModel @Inject constructor(
         _nftListData.value = joinedList
     }
 
-    fun getLastId(): Long? {
-        return _nftListData.value?.size?.let { _nftListData.value?.get(it - 1) }?.acutionId?.toLong()
+    fun getLastId(): Int? {
+        return _nftListData.value?.size?.let { _nftListData.value?.get(it - 1) }?.auctionId
     }
 
     fun getTempSize(): Int? {
@@ -78,5 +89,13 @@ class MarketViewModel @Inject constructor(
 
     fun getSize(): Int? {
         return _nftListData.value?.size
+    }
+
+    fun requestBookmark(auctionId: Int) = viewModelScope.launch {
+        requestMarketBookmarkUseCase(auctionId)
+    }
+
+    fun cancelBookmark(auctionId: Int) = viewModelScope.launch {
+        cancelMarketBookmarkUseCase(auctionId)
     }
 }

@@ -6,14 +6,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
+import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
-    private var nftadapter: NftItemAdapter? = null
     private val marketViewModel by activityViewModels<MarketViewModel>()
+    private val nftadapter by lazy { NftItemAdapter(this::getNftItem) }
     private var isLoading = false
 
     override fun initView() {
@@ -35,7 +37,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.clearData()
         marketViewModel.getAllNfts(-1, 20, false)
 
-        nftadapter = NftItemAdapter()
         binding.rvMarketNftList.apply {
             adapter = nftadapter
             layoutManager =
@@ -47,7 +48,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
 
         marketViewModel.nftTempData.observe(viewLifecycleOwner) { marketViewModel.getSum() }
 
-        marketViewModel.nftListData.observe(viewLifecycleOwner) { response -> response?.let { nftadapter!!.setNfts(it) } }
+        marketViewModel.nftListData.observe(viewLifecycleOwner) { response -> response?.let { nftadapter.setNfts(it) } }
 
         binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -64,11 +65,11 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             }
         })
     }
+
     private fun allRecyclerView() {
         marketViewModel.clearData()
         marketViewModel.getAllNfts(-1, 20, false)
 
-        nftadapter = NftItemAdapter()
         binding.rvMarketNftList.apply {
             adapter = nftadapter
             layoutManager =
@@ -80,7 +81,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         }
 
         marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
-            response?.let { nftadapter!!.setNfts(it) }
+            response?.let { nftadapter.setNfts(it) }
         }
 
         binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -103,7 +104,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         marketViewModel.clearData()
         marketViewModel.getAllNfts(-1, 20, true)
 
-        nftadapter = NftItemAdapter()
         binding.rvMarketNftList.apply {
             adapter = nftadapter
             layoutManager =
@@ -115,7 +115,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         }
 
         marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
-            response?.let { nftadapter!!.setNfts(it) }
+            response?.let { nftadapter.setNfts(it) }
         }
 
         binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -186,5 +186,11 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
                 }
             }
         }
+    }
+
+    private fun getNftItem(item: NftItem) {
+        navigate(
+            MarketFragmentDirections.actionMarketFragmentToBidMarketFragment(item)
+        )
     }
 }

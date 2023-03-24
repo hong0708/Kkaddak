@@ -10,7 +10,9 @@ import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetPlayListUseCase
 import com.ssafy.kkaddak.domain.usecase.song.GetSongDetailUseCase
@@ -77,6 +79,16 @@ object UseCaseModule {
     @Provides
     fun provideGetAllNftsUseCase(marketRepository: MarketRepository): GetAllNftsUseCase =
         GetAllNftsUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestMarketBookmarkUseCase(marketRepository: MarketRepository): RequestMarketBookmarkUseCase =
+        RequestMarketBookmarkUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideCancelMarketBookmarkUseCase(marketRepository: MarketRepository): CancelMarketBookmarkUseCase =
+        CancelMarketBookmarkUseCase(marketRepository)
 
     @Singleton
     @Provides
