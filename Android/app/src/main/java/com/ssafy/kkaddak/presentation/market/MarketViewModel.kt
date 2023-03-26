@@ -44,7 +44,7 @@ class MarketViewModel @Inject constructor(
     fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
         when (val value = getAllNftsUseCase(lastId, limit, onlySelling)) {
             is Resource.Success<List<NftItem>> -> {
-                _nftListData.value = value.data
+                _nftTempData.value = value.data
             }
             is Resource.Error -> {
                 Log.e("getAllNfts", "getAllNfts: ${value.errorMessage}")
