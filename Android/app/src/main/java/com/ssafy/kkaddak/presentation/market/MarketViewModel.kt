@@ -1,7 +1,10 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
@@ -41,7 +44,7 @@ class MarketViewModel @Inject constructor(
     fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
         when (val value = getAllNftsUseCase(lastId, limit, onlySelling)) {
             is Resource.Success<List<NftItem>> -> {
-                _nftTempData.value = value.data
+                _nftListData.value = value.data
             }
             is Resource.Error -> {
                 Log.e("getAllNfts", "getAllNfts: ${value.errorMessage}")
