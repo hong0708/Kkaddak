@@ -8,6 +8,7 @@ import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -91,11 +92,25 @@ class MarketViewModel @Inject constructor(
         return _nftListData.value?.size
     }
 
-    fun requestBookmark(auctionId: Int) = viewModelScope.launch {
-        requestMarketBookmarkUseCase(auctionId)
-    }
+    suspend fun requestBookmark(auctionId: Int) = viewModelScope.async {
+        when (val value = requestMarketBookmarkUseCase(auctionId)) {
+            is Resource.Success<Boolean> ->
+                return@async value.data.toString()
+            is Resource.Error -> {
+                Log.e("requestMarektBookmark", "requestMarektBookmark: ${value.errorMessage}")
+                return@async "error"
+            }
+        }
+    }.await()
 
-    fun cancelBookmark(auctionId: Int) = viewModelScope.launch {
-        cancelMarketBookmarkUseCase(auctionId)
-    }
+    suspend fun cancelBookmark(auctionId: Int) = viewModelScope.async {
+        when (val value = cancelMarketBookmarkUseCase(auctionId)) {
+            is Resource.Success<Boolean> ->
+                return@async value.data.toString()
+            is Resource.Error -> {
+                Log.e("cancelMarektBookmark", "cancelMarektBookmark: ${value.errorMessage}")
+                return@async "error"
+            }
+        }
+    }.await()
 }

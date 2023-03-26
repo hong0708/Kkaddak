@@ -5,9 +5,9 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 interface MarketRepository {
 
-    suspend fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) : Resource<List<NftItem>>
+    suspend fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean): Resource<List<NftItem>>
 
-    suspend fun requestMarketBookmark(auctionId: Int)
+    suspend fun requestMarketBookmark(auctionId: Int): Resource<Boolean>
 
-    suspend fun cancelMarketBookmark(auctionId: Int)
+    suspend fun cancelMarketBookmark(auctionId: Int): Resource<Boolean>
 }

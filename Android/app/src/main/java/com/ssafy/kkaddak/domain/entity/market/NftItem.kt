@@ -13,7 +13,7 @@ data class NftItem(
     val nftPrice: Double,
     val isClosed: Boolean,
     val cntLikeAcution: Int,
-    val isLike: Boolean
+    var isLike: Boolean
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
