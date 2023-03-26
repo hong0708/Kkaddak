@@ -31,13 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gmarket_sans_bold"
-            android:text="@string/title_bid_song_title"
+            android:text="@{nftItem.nftSongTitle}"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_back"
+            tools:text="@string/title_bid_song_title" />
 
         <ImageView
             android:id="@+id/iv_bid_nft_image"
