@@ -154,6 +154,8 @@
     <string name="title_coupon">쿠폰함</string>
     <string name="content_exchange_nft">NFT로 교환하시겠습니까?</string>
     <string name="title_playlist">PLAYLIST</string>
+    <string name="content_create_nft">음악에 대한 NFT를\n 발급받으시겠습니까?</string>
+    <string name="content_delete_user_song">음악을 삭제하시겠습니까?</string>
 
     <!-- Playlist -->
     <string name="image_song">image_song</string>

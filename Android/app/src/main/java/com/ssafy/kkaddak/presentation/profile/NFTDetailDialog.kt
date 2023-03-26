@@ -26,6 +26,7 @@ class NFTDetailDialog(
 ) : Dialog(activity) {
 
     private lateinit var binding: DialogNftDetailBinding
+    private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,19 @@ class NFTDetailDialog(
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(true)
         setCancelable(true)
+        initListener()
+    }
+
+    private fun initListener() {
+        binding.ivImageDownload.setOnClickListener {
+            binding.apply {
+                ivNft.isDrawingCacheEnabled = true
+                ivNft.buildDrawingCache()
+                bitmap = Bitmap.createBitmap(ivNft.drawingCache)
+                ivNft.isDrawingCacheEnabled = false
+            }
+            saveImageToGallery()
+        }
     }
 
     private fun saveImageToGallery() {
@@ -58,9 +72,10 @@ class NFTDetailDialog(
     }
 
     private fun imageExternalSave(context: Context, bitmap: Bitmap, path: String): Boolean {
-        val state = Environment.getExternalStorageState()
-        if (Environment.MEDIA_MOUNTED == state) {
 
+        val state = Environment.getExternalStorageState()
+
+        if (Environment.MEDIA_MOUNTED == state) {
             val rootPath =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                     .toString()
