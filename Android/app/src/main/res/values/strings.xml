@@ -192,4 +192,15 @@
     <string name="title_music_atmosphere_hip">힙한</string>
     <string name="content_register_music">등록하기</string>
 
+    <!-- Subscribe -->
+    <string name="title_subscribe">SUBSCRIBE</string>
+    <string name="content_subscribe">무한 스트리밍 구독권 (한달)</string>
+    <string name="title_creator">크리에이터</string>
+    <string name="title_receiver_address">Receiver Address</string>
+    <string name="title_wallet_balance">Wallet Balance</string>
+    <string name="title_total_balance">Total Balance (KAT)</string>
+    <string name="image_subscribe_profile">image_subscribe_profile</string>
+    <string name="content_unit_kat">KAT</string>
+    <string name="content_price">0.5</string>
+    <string name="content_payment">결제하기</string>
 </resources>
