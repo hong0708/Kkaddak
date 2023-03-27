@@ -1,8 +1,10 @@
 package com.ssafy.kkaddak.presentation.profile
 
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMypageBinding
 import com.ssafy.kkaddak.presentation.MainActivity
@@ -16,6 +18,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     private val myPageHistoryAdapter by lazy { MyPageHistoryAdapter(this::getSongDetail) }
     private val myPageLikeAdapter by lazy { MyPageLikeAdapter(this::getSongDetail) }
     private val songViewModel by activityViewModels<SongViewModel>()
+    private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun initView() {
         (activity as MainActivity).HideBottomNavigation(true)
@@ -38,6 +41,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
             }
             ivBack.setOnClickListener {
                 popBackStack()
+            }
+            tvLogout.setOnClickListener {
+                profileViewModel.requestLogout()
+                ApplicationClass.preferences.apply {
+                    accessToken = null
+                    refreshToken = null
+                    isLoggedIn = false
+                }
+                navigate(MyPageFragmentDirections.actionMyPageFragmentToSplashFragment())
+                Toast.makeText(requireContext(), "로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

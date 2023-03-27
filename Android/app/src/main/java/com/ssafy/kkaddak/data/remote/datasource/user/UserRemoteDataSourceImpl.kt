@@ -36,4 +36,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getUserProfileImg(): String? =
         userApiService.getUserProfile()
+
+    override suspend fun logout(atk: String, rtk: String): Boolean =
+        userApiService.logout(LogoutRequest(atk, rtk)).data!!
 }

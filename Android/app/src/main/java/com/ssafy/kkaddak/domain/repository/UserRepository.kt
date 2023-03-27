@@ -17,4 +17,6 @@ interface UserRepository {
     suspend fun cancelSignUp(): Resource<Boolean>
 
     suspend fun getUserProfile(): Resource<String?>
+
+    suspend fun logout(atk: String, rtk: String): Resource<Boolean>
 }

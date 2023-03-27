@@ -20,6 +20,7 @@ import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -128,4 +129,9 @@ object UseCaseModule {
     @Provides
     fun provideGetLikeListUseCase(songRepository: SongRepository): GetLikeListUseCase =
         GetLikeListUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideLogoutUseCase(userRepository: UserRepository): LogoutUseCase =
+        LogoutUseCase(userRepository)
 }

@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_likeListFragment"
             app:destination="@id/likeListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
 
     <fragment
@@ -124,4 +127,10 @@
             android:id="@+id/action_likeListFragment_to_songDetailFragment"
             app:destination="@id/songDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash" />
 </navigation>
