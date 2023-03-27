@@ -177,27 +177,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_content_selling" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rect_trans20_white_trans10_gainsboro_radius30_stroke3"
-                    app:layout_constraintStart_toStartOf="@id/iv_nft_image"
-                    app:layout_constraintEnd_toEndOf="@id/iv_nft_image"
-                    app:layout_constraintTop_toBottomOf="@id/tv_content_selling_history">
-
-                    <ListView
-                        android:id="@+id/lv_history"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:divider="@android:color/transparent"
-                        android:overScrollMode="never"
-                        android:scrollbars="none"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_upload"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

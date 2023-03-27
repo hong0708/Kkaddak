@@ -29,7 +29,7 @@ class BuyMarketFragment :
             if (it!!.isLike) {
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_selected)
             } else {
-                binding.ivNftLike.setImageResource(R.drawable.ic_market_like)
+                binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
         }
         marketViewModel.getData(args.nftItem)
@@ -46,7 +46,7 @@ class BuyMarketFragment :
                         binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
                         args.nftItem.isLike = true
                     } else if (like == "false") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like)
+                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
                         args.nftItem.isLike = false
                     }
                 }
@@ -54,7 +54,7 @@ class BuyMarketFragment :
                 lifecycleScope.launch {
                     val like = marketViewModel.cancelBookmark(args.nftItem.marketId)
                     if (like == "true") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like)
+                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
                         args.nftItem.isLike = false
                     } else if (like == "false") {
                         binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
