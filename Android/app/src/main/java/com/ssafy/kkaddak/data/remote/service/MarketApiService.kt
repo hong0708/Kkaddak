@@ -18,9 +18,9 @@ interface MarketApiService {
     ) : BaseResponse<List<NftItemResponse>>
 
     @POST("/api/v3/auction/like/{auctionId}")
-    suspend fun requestMarketBookmark(@Path("auctionId") auctionId: Int)
+    suspend fun requestMarketBookmark(@Path("auctionId") auctionId: Int): BaseResponse<Boolean>
 
     @POST("/api/v3/auction/unlike/{auctionId}")
-    suspend fun cancelMarketBookmark(@Path("auctionId") auctionId: Int)
+    suspend fun cancelMarketBookmark(@Path("auctionId") auctionId: Int): BaseResponse<Boolean>
 
 }
