@@ -52,6 +52,10 @@
         <action
             android:id="@+id/action_profileFragment_to_myPageFragment"
             app:destination="@id/myPageFragment" />
+        <argument
+            android:name="nickname"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -81,6 +85,9 @@
         <action
             android:id="@+id/action_songDetailFragment_to_songListFragment"
             app:destination="@id/songListFragment" />
+        <action
+            android:id="@+id/action_songDetailFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment

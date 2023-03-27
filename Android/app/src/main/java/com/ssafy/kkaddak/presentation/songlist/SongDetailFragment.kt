@@ -45,6 +45,9 @@ class SongDetailFragment:
                     binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
             }
         }
+        binding.tvSongCreator.setOnClickListener {
+            navigate(SongDetailFragmentDirections.actionSongDetailFragmentToProfileFragment(it.toString()))
+        }
     }
 
     private fun getData() {

@@ -2,6 +2,7 @@ package com.ssafy.kkaddak.presentation.profile
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
@@ -12,12 +13,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
+    private val args by navArgs<ProfileFragmentArgs>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun initView() {
         initListener()
         initTabLayout()
         setData()
+        setFollowButton()
+    }
+
+    private fun setFollowButton() {
+
     }
 
     private fun initListener() {
@@ -52,6 +59,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         profileViewModel.profileData.observe(viewLifecycleOwner) {
             binding.profile = it
         }
-        profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
+        if (args.nickname.equals(null)) {
+            profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
+        } else {
+            profileViewModel.getProfileInfo(args.nickname!!)
+        }
     }
 }
