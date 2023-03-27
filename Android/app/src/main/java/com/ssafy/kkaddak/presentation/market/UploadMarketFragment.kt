@@ -33,16 +33,6 @@ class UploadMarketFragment :
                 }
             })
         }
-        binding.tvSelectDeadline.setOnClickListener {
-            val dialog = DialogUploadNftDeadLineFragment()
-            dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDeadLineFragment")
-
-            dialog.setFragmentInterfacer(object : DialogUploadNftDeadLineFragment.FragmentInterfacer {
-                override fun onButtonClick(input: String) {
-                    binding.tvUploadDeadline.setText(input)
-                }
-            })
-        }
     }
 
     override fun onPause() {
