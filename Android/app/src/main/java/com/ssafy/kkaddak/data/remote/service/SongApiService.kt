@@ -20,6 +20,9 @@ interface SongApiService {
     @GET("/api/v2/song/myPlay/list")
     suspend fun getPlayList(): BaseResponse<List<SongResponse>>
 
+    @GET("/api/v2/song/like/list")
+    suspend fun getLikeList(): BaseResponse<List<SongResponse>>
+
     @GET("/api/v2/song/search")
     suspend fun searchMusic(
         @Query("keyWord") keyWord: String,

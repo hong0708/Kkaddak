@@ -14,6 +14,8 @@ interface SongRepository {
 
     suspend fun getPlayList(): Resource<List<SongItem>>
 
+    suspend fun getLikeList(): Resource<List<SongItem>>
+
     suspend fun searchMusic(keyWord: String, filter: String): Resource<List<SongItem>>
 
     suspend fun deletePlayList(songId: String)
