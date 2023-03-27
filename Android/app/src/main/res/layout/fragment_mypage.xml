@@ -13,7 +13,7 @@
         android:background="@color/black">
 
         <ImageView
-            android:id="@+id/btn_back"
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -31,10 +31,10 @@
             android:text="@string/title_mypage"
             android:textColor="@color/white"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
 
         <TextView
             android:id="@+id/tv_title_favorite"
@@ -50,6 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title_mypage" />
 
         <TextView
+            android:id="@+id/tv_entire_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="21dp"
@@ -65,10 +66,11 @@
             android:id="@+id/rv_favorite"
             android:layout_width="0dp"
             android:layout_height="145dp"
+            android:layout_marginStart="13dp"
             android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="@id/tv_title_favorite"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_favorite"
             tools:listitem="@layout/item_mypage_song" />
 
@@ -81,10 +83,11 @@
             android:text="@string/title_history"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/rv_favorite"
+            app:layout_constraintStart_toStartOf="@id/tv_title_favorite"
             app:layout_constraintTop_toBottomOf="@id/rv_favorite" />
 
         <TextView
+            android:id="@+id/tv_entire_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="21dp"
@@ -100,27 +103,13 @@
             android:id="@+id/rv_history"
             android:layout_width="0dp"
             android:layout_height="145dp"
+            android:layout_marginStart="13dp"
             android:layout_marginTop="24dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="@id/tv_title_history"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_history"
             tools:listitem="@layout/item_mypage_song" />
-
-        <TextView
-            android:id="@+id/tv_coupon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="28dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_rect_nero_radius10"
-            android:fontFamily="@font/gmarket_sans_medium"
-            android:gravity="center"
-            android:paddingVertical="13dp"
-            android:text="@string/content_coupon"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@id/tv_logout" />
 
         <TextView
             android:id="@+id/tv_logout"

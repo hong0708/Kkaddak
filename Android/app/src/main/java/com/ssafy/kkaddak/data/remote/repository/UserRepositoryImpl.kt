@@ -38,7 +38,12 @@ class UserRepositoryImpl @Inject constructor(
         }
 
     override suspend fun getUserProfile(): Resource<String?> =
-        wrapToResource{
+        wrapToResource {
             userRemoteDataSource.getUserProfileImg()
+        }
+
+    override suspend fun logout(atk: String, rtk: String): Resource<Boolean> =
+        wrapToResource {
+            userRemoteDataSource.logout(atk, rtk)
         }
 }

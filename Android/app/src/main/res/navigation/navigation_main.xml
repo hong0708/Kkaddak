@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_profileFragment_to_songDetailFragment"
             app:destination="@id/songDetailFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
 
     <fragment
@@ -95,4 +98,39 @@
         android:name="com.ssafy.kkaddak.presentation.songlist.UploadSongFragment"
         android:label="UploadSongFragment"
         tools:layout="@layout/fragment_upload_song" />
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_mypage">
+        <action
+            android:id="@+id/action_myPageFragment_to_playListFragment"
+            app:destination="@id/playListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_likeListFragment"
+            app:destination="@id/likeListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/likeListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.LikeListFragment"
+        android:label="LikeListFragment"
+        tools:layout="@layout/fragment_like_list">
+        <action
+            android:id="@+id/action_likeListFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash" />
 </navigation>

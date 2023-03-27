@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
+import com.ssafy.kkaddak.data.remote.datasource.user.LogoutRequest
 import com.ssafy.kkaddak.data.remote.datasource.user.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,4 +23,7 @@ interface UserApiService {
 
     @GET("/api/v1/members/member-image")
     suspend fun getUserProfile(): String?
+
+    @POST("/api/v1/members/logout")
+    suspend fun logout(@Body body: LogoutRequest): BaseResponse<Boolean>
 }

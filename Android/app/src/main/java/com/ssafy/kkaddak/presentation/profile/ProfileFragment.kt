@@ -24,6 +24,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         binding.ivUploadSong.setOnClickListener {
             navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
         }
+        binding.ivBtnToMypage.setOnClickListener {
+            navigate(ProfileFragmentDirections.actionProfileFragmentToMyPageFragment())
+        }
     }
 
     private fun initTabLayout() {
@@ -35,7 +38,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 tlProfile, vpCuration
             ) { tab, position ->
                 tab.setIcon(tabIcons[position])
-                tab.icon?.setTintList(ContextCompat.getColorStateList(requireContext(), R.color.selector_profile_tab_icon_color))
+                tab.icon?.setTintList(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.selector_profile_tab_icon_color
+                    )
+                )
             }.attach()
         }
     }

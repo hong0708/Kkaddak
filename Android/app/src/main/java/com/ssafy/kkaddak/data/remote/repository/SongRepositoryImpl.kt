@@ -32,6 +32,11 @@ class SongRepositoryImpl @Inject constructor(
             songRemoteDataSource.getPlayList().map { it.toDomainModel() }
         }
 
+    override suspend fun getLikeList(): Resource<List<SongItem>> =
+        wrapToResource {
+            songRemoteDataSource.getLikeList().map { it.toDomainModel() }
+        }
+
     override suspend fun searchMusic(keyWord: String, filter: String): Resource<List<SongItem>> =
         wrapToResource {
             songRemoteDataSource.searchMusic(keyWord, filter).map { it.toDomainModel() }
@@ -49,6 +54,7 @@ class SongRepositoryImpl @Inject constructor(
         songTitle: String
     ): Resource<SongItem> =
         wrapToResource {
-            songRemoteDataSource.uploadMusic(coverFile, songFile, moods, genre, songTitle).toDomainModel()
+            songRemoteDataSource.uploadMusic(coverFile, songFile, moods, genre, songTitle)
+                .toDomainModel()
         }
 }

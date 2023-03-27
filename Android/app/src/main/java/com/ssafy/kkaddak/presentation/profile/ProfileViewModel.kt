@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
+import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +21,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getProfileInfoUseCase: GetProfileInfoUseCase,
     private val getProfileSongUseCase: GetProfileSongUseCase,
-    private val deleteMySongUseCase: DeleteMySongUseCase
+    private val deleteMySongUseCase: DeleteMySongUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -52,5 +55,12 @@ class ProfileViewModel @Inject constructor(
 
     fun deleteMySong(songId: String) = viewModelScope.launch {
         deleteMySongUseCase(songId)
+    }
+
+    fun requestLogout() = viewModelScope.launch {
+        logoutUseCase(
+            ApplicationClass.preferences.accessToken!!,
+            ApplicationClass.preferences.refreshToken!!
+        )
     }
 }

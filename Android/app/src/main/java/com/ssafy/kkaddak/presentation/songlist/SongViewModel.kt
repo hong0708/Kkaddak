@@ -24,6 +24,7 @@ class SongViewModel @Inject constructor(
     private val requestBookmarkUseCase: RequestBookmarkUseCase,
     private val getSongDetailUseCase: GetSongDetailUseCase,
     private val getPlayListUseCase: GetPlayListUseCase,
+    private val getLikeListUseCase: GetLikeListUseCase,
     private val searchMusicUseCase: SearchMusicUseCase,
     private val deletePlayListUseCase: DeletePlayListUseCase,
     private val uploadSongUseCase: UploadSongUseCase
@@ -37,6 +38,9 @@ class SongViewModel @Inject constructor(
 
     private val _playListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val playListData: LiveData<List<SongItem>?> = _playListData
+
+    private val _likeListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
+    val likeListData: LiveData<List<SongItem>?> = _likeListData
 
     // Create
     private val _coverFile: MutableLiveData<Uri?> = MutableLiveData()
@@ -89,6 +93,17 @@ class SongViewModel @Inject constructor(
         when (val value = getPlayListUseCase()) {
             is Resource.Success<List<SongItem>> -> {
                 _playListData.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("getPlayList", "getPlayList: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun getLikeList() = viewModelScope.launch {
+        when (val value = getLikeListUseCase()) {
+            is Resource.Success<List<SongItem>> -> {
+                _likeListData.value = value.data
             }
             is Resource.Error -> {
                 Log.e("getPlayList", "getPlayList: ${value.errorMessage}")

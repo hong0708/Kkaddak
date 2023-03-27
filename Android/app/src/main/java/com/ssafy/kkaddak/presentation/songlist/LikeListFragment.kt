@@ -4,48 +4,42 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.databinding.FragmentPlaylistBinding
+import com.ssafy.kkaddak.databinding.FragmentLikeListBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlayListFragment :
-    BaseFragment<FragmentPlaylistBinding>(R.layout.fragment_playlist) {
+class LikeListFragment : BaseFragment<FragmentLikeListBinding>(R.layout.fragment_like_list) {
 
-    private val songAdapter by lazy { PlayListAdapter(this::getSongDetail, this::deleteSong) }
+    private val likeListAdapter by lazy { LikeListAdapter(this::getSongDetail) }
     private val songViewModel by activityViewModels<SongViewModel>()
 
     override fun initView() {
-        initListener()
         initRecyclerView()
+        initListener()
     }
 
     private fun initListener() {
-        binding.btnBack.setOnClickListener { popBackStack() }
+        binding.ivBack.setOnClickListener { popBackStack() }
     }
 
     private fun initRecyclerView() {
-        binding.rvPlaylist.apply {
-            adapter = songAdapter
+        binding.rvLikeList.apply {
+            adapter = likeListAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
-        songViewModel.playListData.observe(viewLifecycleOwner) { response ->
-            response?.let { songAdapter.setSong(it) }
+        songViewModel.likeListData.observe(viewLifecycleOwner) { response ->
+            response?.let { likeListAdapter.setSong(it) }
         }
-        songViewModel.getPlayList()
+        songViewModel.getLikeList()
     }
 
     private fun getSongDetail(songId: String) {
         navigate(
-            PlayListFragmentDirections.actionPlayListFragmentToSongDetailFragment(
+            LikeListFragmentDirections.actionLikeListFragmentToSongDetailFragment(
                 songId
             )
         )
-    }
-
-    private fun deleteSong(songId: String) {
-        songViewModel.deletePlayList(songId)
-        songViewModel.getPlayList()
     }
 }
