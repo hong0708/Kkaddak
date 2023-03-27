@@ -69,11 +69,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 ApplicationClass.preferences.nickname = it.nickname
                 if (it.mySongs == 0) {
                     binding.apply {
+                        tvTitleHome.setText(R.string.title_home_1_listener)
                         tvSubTitleHomeArtist.visibility = View.GONE
                         tvSubTitleHomeListener.visibility = View.VISIBLE
                     }
                 } else {
                     binding.apply {
+                        tvTitleHome.setText(R.string.title_home_1_creator)
                         tvSubTitleHomeArtist.visibility = View.VISIBLE
                         tvSubTitleHomeListener.visibility = View.GONE
                         tvSongCount.text = it.mySongs.toString()
