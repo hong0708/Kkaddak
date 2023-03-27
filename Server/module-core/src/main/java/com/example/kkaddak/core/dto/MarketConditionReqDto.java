@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuctionConditionReqDto {
+public class MarketConditionReqDto {
 
     private int limit;
     private int lastId;
     private boolean onlySelling;
 
     @Builder
-    public AuctionConditionReqDto(int limit, int lastId, boolean onlySelling) {
+    public MarketConditionReqDto(int limit, int lastId, boolean onlySelling) {
         this.limit = limit;
         this.lastId = lastId;
         this.onlySelling = onlySelling;

@@ -30,4 +30,6 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     Boolean existsByCombination(String combination);
 
+    Integer countByMember(Member member);
+
 }
