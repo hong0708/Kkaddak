@@ -31,7 +31,7 @@ class MarketViewModel @Inject constructor(
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
     private fun dup(list1: List<NftItem>, list2: List<NftItem>) : Boolean {
         if(list1.isNotEmpty() && list2.isNotEmpty()) {
-            if (list1[list1.size - 1].auctionId <= list2[list2.size - 1].auctionId) {
+            if (list1[list1.size - 1].marketId <= list2[list2.size - 1].marketId) {
                 return true
             }
         }
@@ -81,7 +81,7 @@ class MarketViewModel @Inject constructor(
     }
 
     fun getLastId(): Int? {
-        return _nftListData.value?.size?.let { _nftListData.value?.get(it - 1) }?.auctionId
+        return _nftListData.value?.size?.let { _nftListData.value?.get(it - 1) }?.marketId
     }
 
     fun getTempSize(): Int? {
@@ -92,8 +92,8 @@ class MarketViewModel @Inject constructor(
         return _nftListData.value?.size
     }
 
-    suspend fun requestBookmark(auctionId: Int) = viewModelScope.async {
-        when (val value = requestMarketBookmarkUseCase(auctionId)) {
+    suspend fun requestBookmark(marketId: Int) = viewModelScope.async {
+        when (val value = requestMarketBookmarkUseCase(marketId)) {
             is Resource.Success<Boolean> ->
                 return@async value.data.toString()
             is Resource.Error -> {
@@ -103,8 +103,8 @@ class MarketViewModel @Inject constructor(
         }
     }.await()
 
-    suspend fun cancelBookmark(auctionId: Int) = viewModelScope.async {
-        when (val value = cancelMarketBookmarkUseCase(auctionId)) {
+    suspend fun cancelBookmark(marketId: Int) = viewModelScope.async {
+        when (val value = cancelMarketBookmarkUseCase(marketId)) {
             is Resource.Success<Boolean> ->
                 return@async value.data.toString()
             is Resource.Error -> {

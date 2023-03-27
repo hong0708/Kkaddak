@@ -41,7 +41,7 @@ class BuyMarketFragment :
             val isLike = args.nftItem.isLike
             if(!isLike) {
                 lifecycleScope.launch {
-                    val like = marketViewModel.requestBookmark(args.nftItem.auctionId)
+                    val like = marketViewModel.requestBookmark(args.nftItem.marketId)
                     if (like == "true") {
                         binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
                         args.nftItem.isLike = true
@@ -52,7 +52,7 @@ class BuyMarketFragment :
                 }
             } else {
                 lifecycleScope.launch {
-                    val like = marketViewModel.cancelBookmark(args.nftItem.auctionId)
+                    val like = marketViewModel.cancelBookmark(args.nftItem.marketId)
                     if (like == "true") {
                         binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like)
                         args.nftItem.isLike = false

@@ -4,14 +4,14 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class NftItem(
-    val auctionId: Int,
+    val marketId: Int,
     val nftId: String,
     val nftCreator: String,
     val nftSongTitle: String,
     val nftImagePath: String,
-    val nftDeadline: String,
+    val nftCreateDate: String,
     val nftPrice: Double,
-    val isClosed: Boolean,
+    val isClose: Boolean,
     val cntLikeAcution: Int,
     var isLike: Boolean
 ): Parcelable {
@@ -30,14 +30,14 @@ data class NftItem(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(auctionId)
+        parcel.writeInt(marketId)
         parcel.writeString(nftId)
         parcel.writeString(nftCreator)
         parcel.writeString(nftSongTitle)
         parcel.writeString(nftImagePath)
-        parcel.writeString(nftDeadline)
+        parcel.writeString(nftCreateDate)
         parcel.writeDouble(nftPrice)
-        parcel.writeByte(if (isClosed) 1 else 0)
+        parcel.writeByte(if (isClose) 1 else 0)
         parcel.writeInt(cntLikeAcution)
         parcel.writeByte(if (isLike) 1 else 0)
     }

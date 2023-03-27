@@ -29,7 +29,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         }
         binding.tvAllNfts.setOnClickListener { onButtonClick(binding.tvAllNfts) }
         binding.tvSellingNft.setOnClickListener { onButtonClick(binding.tvSellingNft) }
-        binding.tvBiddingNft.setOnClickListener { onButtonClick(binding.tvBiddingNft) }
         binding.tvBookmarkNft.setOnClickListener { onButtonClick(binding.tvBookmarkNft) }
     }
 
@@ -154,7 +153,6 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
                 tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
                 binding.apply {
                     tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                    tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                     tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                 }
                 allRecyclerView()
@@ -163,26 +161,15 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
                 tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
                 binding.apply {
                     tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                    tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                     tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                 }
                 sellingRecyclerView()
-            }
-            binding.tvBiddingNft -> {
-                tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
-                binding.apply {
-                    tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                    tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                    tvBookmarkNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                }
-
             }
             binding.tvBookmarkNft -> {
                 tv.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2)
                 binding.apply {
                     tvAllNfts.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                     tvSellingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
-                    tvBiddingNft.setBackgroundResource(R.drawable.bg_rect_bastille_radius50)
                 }
             }
         }
@@ -190,7 +177,7 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
 
     private fun getNftItem(item: NftItem) {
         navigate(
-            MarketFragmentDirections.actionMarketFragmentToBidMarketFragment(item)
+            MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(item)
         )
     }
 }
