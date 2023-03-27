@@ -18,6 +18,7 @@ import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.user.RequestCancelSignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,6 +47,11 @@ object UseCaseModule {
     @Provides
     fun provideCheckDuplicationUseCase(userRepository: UserRepository): CheckDuplicationUseCase =
         CheckDuplicationUseCase(userRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestCancelSignUpUseCase(userRepository: UserRepository): RequestCancelSignUpUseCase =
+        RequestCancelSignUpUseCase(userRepository)
 
     @Singleton
     @Provides
