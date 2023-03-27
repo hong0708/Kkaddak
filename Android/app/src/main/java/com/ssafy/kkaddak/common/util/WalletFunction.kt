@@ -126,6 +126,20 @@ class WalletFunction {
         }.start()
     }
 
+    fun transfer(targetAddress: String, amount: Long) {
+        Thread {
+            val katToken = ERC20_sol_KATToken.load(
+                CONTRACT_ADDRESS,
+                web3j,
+                Credentials.create(privateKey),
+                contractGasProvider
+            )
+
+            katToken.transfer(targetAddress, amount.toUInt())
+
+        }.start()
+    }
+
     private fun generateAccountAddress(publicKey: ByteArray): String {
         // Add 04 prefix to indicate that it's uncompressed public key.
         val uncompressedPublicKey = byteArrayOf(0x04) + publicKey
