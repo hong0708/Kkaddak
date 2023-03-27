@@ -10,22 +10,20 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuctionReqDto {
+public class MarketReqDto {
 
     private String nftId;
     private String creatorName;
     private String nftImagePath;
     private String songTitle;
-    private LocalDate expiredDate;
-    private Double bidStartPrice;
+    private Double price;
 
     @Builder
-    public AuctionReqDto(String nftId, String nftImagePath, String creatorName, String songTitle, String expiredDate, Double bidStartPrice) {
+    public MarketReqDto(String nftId, String nftImagePath, String creatorName, String songTitle, Double price) {
         this.nftId = nftId;
         this.nftImagePath = nftImagePath;
         this.creatorName = creatorName;
         this.songTitle = songTitle;
-        this.expiredDate = LocalDate.parse(expiredDate, DateTimeFormatter.ISO_DATE);
-        this.bidStartPrice = bidStartPrice;
+        this.price = price;
     }
 }

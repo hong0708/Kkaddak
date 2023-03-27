@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LikeAuction {
+public class LikeMarket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,11 +18,11 @@ public class LikeAuction {
 
     @ManyToOne
     @ToString.Exclude
-    private Auction auction;
+    private Market market;
 
     @Builder
-    public LikeAuction(Member liker, Auction auction) {
+    public LikeMarket(Member liker, Market market) {
         this.liker = liker;
-        this.auction = auction;
+        this.market = market;
     }
 }

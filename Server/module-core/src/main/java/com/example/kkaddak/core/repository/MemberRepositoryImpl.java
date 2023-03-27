@@ -1,7 +1,5 @@
 package com.example.kkaddak.core.repository;
 
-import com.example.kkaddak.core.dto.AuctionConditionReqDto;
-import com.example.kkaddak.core.dto.AuctionConditionResDto;
 import com.example.kkaddak.core.dto.MyFollowConditionDto;
 import com.example.kkaddak.core.dto.MyFollowerResDto;
 import com.example.kkaddak.core.entity.*;
@@ -16,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
