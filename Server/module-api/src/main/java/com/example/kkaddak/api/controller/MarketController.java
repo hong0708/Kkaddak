@@ -4,9 +4,9 @@ package com.example.kkaddak.api.controller;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
 import com.example.kkaddak.core.exception.NoContentException;
-import com.example.kkaddak.api.service.AuctionService;
-import com.example.kkaddak.core.dto.AuctionConditionReqDto;
-import com.example.kkaddak.core.dto.AuctionReqDto;
+import com.example.kkaddak.api.service.MarketService;
+import com.example.kkaddak.core.dto.MarketConditionReqDto;
+import com.example.kkaddak.core.dto.MarketReqDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -16,92 +16,92 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(tags = "경매 API")
+@Api(tags = "마켓 API")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v3/auction")
-public class AuctionController {
-    private final AuctionService auctionService;
+@RequestMapping("/api/v3/market")
+public class MarketController {
+    private final MarketService marketService;
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "정상적으로 경매 등록이 성공한 응답"),
+            @ApiResponse(code = 200, message = "정상적으로 마켓 등록이 성공한 응답"),
             @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
-    @ApiOperation(value = "경매 생성 API", notes = "")
+    @ApiOperation(value = "마켓 생성 API", notes = "")
     @PostMapping("/create")
-    public DataResDto<?> createAuction(
+    public DataResDto<?> createMarket(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            AuctionReqDto auctionReqDto)
+            MarketReqDto marketReqDto)
     {
-        return auctionService.createAuction(auctionReqDto, memberDetails.getMember());
+        return marketService.createMarket(marketReqDto, memberDetails.getMember());
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "정상적으로 경매 조건 조회가 성공한 경우 응답"),
+            @ApiResponse(code = 200, message = "정상적으로 마켓 조건 조회가 성공한 경우 응답"),
             @ApiResponse(code = 204, message = "조회된 아이템이 없을 경우 응답"),
             @ApiResponse(code = 400, message = "입력 타입 또는 값이 적적하지 않을 경우 응답"),
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
-    @ApiOperation(value = "경매 조건 조회 API",
-            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 경매들 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
+    @ApiOperation(value = "마켓 조건 조회 API",
+            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 마켓 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
             "전체 목록 조회 시 onlySelling = false, selling 목록 조회 시 true 입니다.")
     @GetMapping("/condition")
-    public DataResDto<?> getAuctionByCondition(
+    public DataResDto<?> getMarketByCondition(
             @AuthenticationPrincipal MemberDetails memberDetails,
             @RequestParam("limit") int limit,
             @RequestParam("lastId") int lastId,
             @RequestParam("onlySelling") boolean onlySelling) throws NoContentException {
-        AuctionConditionReqDto conditionReqDto = AuctionConditionReqDto.builder()
+        MarketConditionReqDto conditionReqDto = MarketConditionReqDto.builder()
                 .limit(limit).lastId(lastId).onlySelling(onlySelling)
                 .build();
-        return auctionService.getAuctionAllByCondition(conditionReqDto, memberDetails.getMember());
+        return marketService.getMarketAllByCondition(conditionReqDto, memberDetails.getMember());
     }
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "정상적으로 경매 등록이 성공한 응답"),
+            @ApiResponse(code = 200, message = "정상적으로 마켓 등록이 성공한 응답"),
             @ApiResponse(code = 204, message = "조회된 아이템이 없을 경우 응답"),
             @ApiResponse(code = 400, message = "입력 타입 또는 값이 적적하지 않을 경우 응답"),
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
-    @ApiOperation(value = "경매 북마크 API",
-            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 경매들 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
+    @ApiOperation(value = "마켓 북마크 API",
+            notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 마켓 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
                     "전체 목록 조회 시 onlySelling = false, selling 목록 조회 시 true 입니다.\n" +
                     "")
     @GetMapping("/my-like")
-    public DataResDto<?> getAuctionByMyLike(
+    public DataResDto<?> getMarketByMyLike(
             @AuthenticationPrincipal MemberDetails memberDetails,
             @RequestParam("limit") int limit,
             @RequestParam("lastId") int lastId,
             @RequestParam("onlySelling") boolean onlySelling) throws NoContentException {
-        AuctionConditionReqDto conditionReqDto = AuctionConditionReqDto.builder()
+        MarketConditionReqDto conditionReqDto = MarketConditionReqDto.builder()
                 .limit(limit).lastId(lastId).onlySelling(onlySelling)
                 .build();
-        return auctionService.getAuctionAllByMyLike(conditionReqDto, memberDetails.getMember());
+        return marketService.getMarketAllByMyLike(conditionReqDto, memberDetails.getMember());
     }
 
     @ApiResponses({
-            @ApiResponse(code = 200, message = "경매 북마크 성공시 응답"),
+            @ApiResponse(code = 200, message = "마켓 북마크 성공시 응답"),
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우")
     })
-    @ApiOperation(value = "경매 북마크 API")
-    @PostMapping("/like/{auctionId}")
+    @ApiOperation(value = "마켓 북마크 API")
+    @PostMapping("/like/{marketId}")
     public DataResDto<?> followMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            @PathVariable("auctionId") Integer auctionId)
+            @PathVariable("marketId") Integer marketId)
     {
-        return auctionService.likeAuction(memberDetails.getMember(), auctionId);
+        return marketService.likeMarket(memberDetails.getMember(), marketId);
     }
 
     @ApiResponses({
-            @ApiResponse(code = 204, message = "경매 북마크 취소 성공시 응답"),
+            @ApiResponse(code = 204, message = "마켓 북마크 취소 성공시 응답"),
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
     })
-    @ApiOperation(value = "경매 북마크 취소 API")
-    @PostMapping("/unlike/{auctionId}")
+    @ApiOperation(value = "마켓 북마크 취소 API")
+    @PostMapping("/unlike/{marketId}")
     public DataResDto<?> unfollowMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            @PathVariable("auctionId") Integer auctionId)
+            @PathVariable("marketId") Integer auctionId)
     {
-        return auctionService.unlikeAuction(memberDetails.getMember(), auctionId);
+        return marketService.unlikeMarket(memberDetails.getMember(), auctionId);
     }
 }
