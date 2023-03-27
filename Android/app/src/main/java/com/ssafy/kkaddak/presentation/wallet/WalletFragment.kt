@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.wallet
 
+import android.util.Log
 import android.view.View
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
@@ -26,6 +27,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         binding.apply {
             ivOpenWalletDialog.setOnClickListener {
                 SetWalletDialog(requireActivity(), this@WalletFragment).show()
+            }
+
+            clCharge.setOnClickListener {
+                Log.d("asd", "initListener: ")
+                WalletFunction().transfer("0x8fdED880ED0E79c1209130c0e477A7eeE8956CE4", 1)
             }
         }
     }

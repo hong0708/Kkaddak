@@ -1,8 +1,10 @@
 package com.ssafy.kkaddak
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.kakao.sdk.common.KakaoSdk
+import com.ssafy.kkaddak.common.util.KeyStoreHelper
 import com.ssafy.kkaddak.data.local.datasource.SharedPreferences
 import dagger.hilt.android.HiltAndroidApp
 import org.bouncycastle.jce.provider.BouncyCastleProvider
@@ -19,6 +21,7 @@ class ApplicationClass: Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setupBouncyCastle()
+        //keyStore = KeyStoreHelper(this)
     }
 
     // BouncyCastleProvider가 아니면 Security에 BouncyCastleProvider를 등록
@@ -33,5 +36,7 @@ class ApplicationClass: Application() {
 
     companion object {
         lateinit var preferences: SharedPreferences
+        @SuppressLint("StaticFieldLeak")
+        lateinit var keyStore: KeyStoreHelper
     }
 }

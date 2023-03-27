@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.common.util
 
+import android.util.Log
 import android.widget.TextView
 import com.ssafy.kkaddak.ApplicationClass
 import org.bouncycastle.crypto.digests.KeccakDigest
@@ -9,7 +10,10 @@ import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
+import org.web3j.tx.FastRawTransactionManager
+import org.web3j.tx.RawTransactionManager
 import org.web3j.tx.ReadonlyTransactionManager
+import org.web3j.tx.gas.DefaultGasProvider
 import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
@@ -27,6 +31,16 @@ class WalletFunction {
     private val gasPrice = BigInteger.valueOf(20_000_000_000L) // 20 Gwei
     private val gasLimit = BigInteger.valueOf(4_300_000) // 가스 한도
     private val contractGasProvider = StaticGasProvider(gasPrice, gasLimit)
+
+
+    val customGasProvider123 = object :
+        StaticGasProvider(BigInteger.valueOf(22_000_000_000L), BigInteger.valueOf(1_000_000)) {
+        override fun getGasPrice(contractFunc: String?): BigInteger {
+            // 이 부분에서 가스 가격을 동적으로 계산하는 로직을 구현할 수 있습니다.
+            return super.getGasPrice(contractFunc)
+        }
+    }
+
 
     // 트랜잭션 매니저 조회용
     private val transactionManager = ReadonlyTransactionManager(web3j, CONTRACT_ADDRESS)
@@ -101,6 +115,28 @@ class WalletFunction {
     }
 
     fun balanceOf(walletAddress: String, textView: TextView) {
+        /*var byteArray: ByteArray
+
+        Log.d(TAG, "암호전: ${ApplicationClass.preferences.walletAddress}")
+
+        Log.d(
+            TAG,
+            "암호: ${
+                String(ApplicationClass.keyStore.encryptData(ApplicationClass.preferences.walletAddress!!.toByteArray()))
+            }"
+        )
+
+        Log.d(
+            TAG,
+            "복호: ${
+                String(
+                    ApplicationClass.keyStore.decryptData(
+                        ApplicationClass.keyStore.encryptData(ApplicationClass.preferences.walletAddress!!.toByteArray())
+                    )
+                )
+            }"
+        )
+*/
 
         Thread {
             val katToken = ERC20_sol_KATToken.load(
@@ -127,16 +163,49 @@ class WalletFunction {
     }
 
     fun transfer(targetAddress: String, amount: Long) {
+
         Thread {
+
+            //val credentials = Credentials.create("b89cd06cf5acd5e0d1b1dc0c7e29233c318d42f8c77a3af82a8f3ff53ae1577c")
+            //val gasProvider = DynamicGasProvider(20_000_000_000L, web3j.ethGasPrice().send().gasPrice)
+
+            //val transactionManager = FastRawTransactionManager(web3j, credentials, DefaultGasProvider())
+            //val contract = MyContract.load(contractAddress, web3j, transactionManager, gasProvider)
+
+            val credentials =
+                Credentials.create("b89cd06cf5acd5e0d1b1dc0c7e29233c318d42f8c77a3af82a8f3ff53ae1577c")
+            val transactionManager = RawTransactionManager(web3j, credentials)
+
+
             val katToken = ERC20_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
-                Credentials.create(privateKey),
+                //Credentials.create(ApplicationClass.keyStore.getPrivateKey().toString()),
+                //Credentials.create(ApplicationClass.preferences.privateKey),
+                transactionManager,
                 contractGasProvider
             )
 
-            katToken.transfer(targetAddress, amount.toUInt())
+            val remoteFunctionCall1 =
+                katToken.balanceOf("0xf10ccb49335c686147bdba507482bb3d3e3af1c4")
 
+            try {
+
+                val remoteFunctionCall = katToken.transferFrom(
+                    "0xf10ccb49335c686147bdba507482bb3d3e3af1c4",
+                    targetAddress,
+                    amount.toBigInteger()
+                )
+
+                remoteFunctionCall.send()
+
+                val balance = remoteFunctionCall1.send().toString()
+                val formattedBalance = (balance.toFloat() / 100000000).toString()
+                Log.d(TAG, "transfer: $formattedBalance")
+
+            } catch (e: Exception) {
+                System.err.println("Error while transfer the balance: ${e.message}")
+            }
         }.start()
     }
 
