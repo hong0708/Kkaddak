@@ -23,6 +23,11 @@ class BuyMarketFragment :
         getData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).HideBottomNavigation(false)
+    }
+
     private fun getData() {
         marketViewModel.nftData.observe(viewLifecycleOwner) {
             binding.nftItem = it
