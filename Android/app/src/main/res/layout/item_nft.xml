@@ -50,7 +50,7 @@
                         android:id="@+id/iv_nft_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_market_like"
+                        android:background="@drawable/ic_market_like"
                         android:contentDescription="@string/image_nft_like" />
 
                     <Space
