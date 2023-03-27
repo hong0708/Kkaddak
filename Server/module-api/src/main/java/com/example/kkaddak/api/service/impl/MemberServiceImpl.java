@@ -12,6 +12,7 @@ import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.core.repository.FollowRepository;
 import com.example.kkaddak.core.repository.MemberRepository;
 import com.example.kkaddak.core.repository.RedisDao;
+import com.example.kkaddak.core.repository.SongRepository;
 import com.example.kkaddak.core.utils.ErrorMessageEnum;
 import com.example.kkaddak.core.utils.ImageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,6 +48,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository  memberRepository;
     private final FollowRepository followRepository;
+    private final SongRepository songRepository;
     private final RedisDao redisDao;
     private final JwtProvider jwtProvider;
     private final ImageUtil imageUtil;
@@ -363,9 +365,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public DataResDto<?> getMyProfile(Member member) {
+        Integer mySongs = songRepository.countByMember(member);
         return DataResDto.builder()
                 .statusMessage("조회한 유저의 프로필 정보입니다.")
-                .data(HomeProfileResDto.builder().member(member).build())
+                .data(HomeProfileResDto.builder().member(member).mySongs(mySongs).build())
                 .build();
     }
 
