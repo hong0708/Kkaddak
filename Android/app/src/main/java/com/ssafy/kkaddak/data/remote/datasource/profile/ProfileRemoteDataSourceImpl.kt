@@ -13,4 +13,8 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getProfileSong(nickname: String): List<SongResponse> =
         profileApiService.getProfileSong(nickname).data!!
+
+    override suspend fun deleteMySong(songId: String) {
+        profileApiService.deleteMySong(songId)
+    }
 }

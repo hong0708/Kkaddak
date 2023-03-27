@@ -9,4 +9,6 @@ interface ProfileRepository {
     suspend fun getProfileInfo(nickname: String): Resource<ProfileItem>
 
     suspend fun getProfileSong(nickname: String): Resource<List<SongItem>>
+
+    suspend fun deleteMySong(songId: String)
 }

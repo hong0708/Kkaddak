@@ -10,17 +10,17 @@ data class SongResponse(
     @SerializedName("songTitle")
     val songTitle: String,
     @SerializedName("songPath")
-    val songPath: String,
+    val songPath: String?,
     @SerializedName("coverPath")
     val coverPath: String,
     @SerializedName("genre")
-    val genre: String,
+    val genre: String?,
     @SerializedName("mood")
     val mood: List<String>?,
     @SerializedName("nickname")
     val nickname: String?,
     @SerializedName("like")
-    val like: Boolean,
+    val like: Boolean?,
     @SerializedName("combination")
     val combination: List<Int>?,
     @SerializedName("songStatus")

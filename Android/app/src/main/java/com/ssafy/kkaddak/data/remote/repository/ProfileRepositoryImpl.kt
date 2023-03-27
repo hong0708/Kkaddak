@@ -21,4 +21,8 @@ class ProfileRepositoryImpl @Inject constructor(
         wrapToResource {
             profileRemoteDataSource.getProfileSong(nickname).map { it.toDomainModel() }
         }
+
+    override suspend fun deleteMySong(songId: String) {
+        profileRemoteDataSource.deleteMySong(songId)
+    }
 }

@@ -7,4 +7,6 @@ interface ProfileRemoteDataSource {
     suspend fun getProfileInfo(nickname: String): ProfileResponse
 
     suspend fun getProfileSong(nickname: String): List<SongResponse>
+
+    suspend fun deleteMySong(songId: String)
 }

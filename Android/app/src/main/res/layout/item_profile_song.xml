@@ -11,15 +11,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_margin="1dp">
+        android:layout_width="117dp"
+        android:layout_height="117dp"
+        android:layout_marginHorizontal="3dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/image_home_new_song"
-            android:normalImgStr="@{song.coverPath}"
+            android:coverNFTImgStr="@{song.coverPath}"
             android:scaleType="fitXY"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -28,7 +28,7 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/tmon_monsori"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -37,5 +37,11 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Out of time" />
 
+        <ImageView
+            android:id="@+id/iv_song_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/image_profile_status"
+            tools:src="@drawable/ic_profile_song_approved" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
