@@ -11,8 +11,8 @@ import javax.inject.Singleton
 class RequestMarketBookmarkUseCase @Inject constructor(
     private val marketRepository: MarketRepository
 ){
-    suspend operator fun invoke(auctionId: Int) : Resource<Boolean> =
+    suspend operator fun invoke(marketId: Int) : Resource<Boolean> =
         withContext(Dispatchers.IO) {
-            marketRepository.requestMarketBookmark(auctionId)
+            marketRepository.requestMarketBookmark(marketId)
         }
 }

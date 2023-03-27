@@ -20,13 +20,13 @@ class MarketRepositoryImpl @Inject constructor(
             marketRemoteDataSource.getAllNfts(lastId, limit, onlySelling).map { it.toDomainModel() }
         }
 
-    override suspend fun requestMarketBookmark(auctionId: Int): Resource<Boolean> =
+    override suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean> =
         wrapToResource {
-            marketRemoteDataSource.requestMarketBookmark(auctionId)
+            marketRemoteDataSource.requestMarketBookmark(marketId)
         }
 
-    override suspend fun cancelMarketBookmark(auctionId: Int): Resource<Boolean> =
+    override suspend fun cancelMarketBookmark(marketId: Int): Resource<Boolean> =
         wrapToResource {
-            marketRemoteDataSource.cancelMarketBookmark(auctionId)
+            marketRemoteDataSource.cancelMarketBookmark(marketId)
         }
 }

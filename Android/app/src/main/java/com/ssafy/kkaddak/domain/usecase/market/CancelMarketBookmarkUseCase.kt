@@ -11,8 +11,8 @@ import javax.inject.Singleton
 class CancelMarketBookmarkUseCase @Inject constructor(
     private val marketRepository: MarketRepository
 ){
-    suspend operator fun invoke(auctionId: Int): Resource<Boolean> =
+    suspend operator fun invoke(marketId: Int): Resource<Boolean> =
         withContext(Dispatchers.IO) {
-            marketRepository.cancelMarketBookmark(auctionId)
+            marketRepository.cancelMarketBookmark(marketId)
         }
 }
