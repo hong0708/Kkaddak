@@ -43,7 +43,7 @@ class SongRemoteDataSourceImpl @Inject constructor(
             map["moods[$index]"] = listBody
         }
         map["genre"] = genre.toRequestBody("text/plain".toMediaTypeOrNull())
-        map["songTitle"] = genre.toRequestBody("text/plain".toMediaTypeOrNull())
+        map["songTitle"] = songTitle.toRequestBody("text/plain".toMediaTypeOrNull())
         return songApiService.uploadMusic(map, coverFile, songFile).data!!
     }
 }

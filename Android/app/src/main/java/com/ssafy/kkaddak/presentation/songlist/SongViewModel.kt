@@ -49,11 +49,6 @@ class SongViewModel @Inject constructor(
 
     private var songFileMultiPart: MultipartBody.Part? = null
 
-    var songTitle = ""
-    var genre = ""
-    var moods = arrayListOf<String>()
-
-
     // Search
     var keyword = ""
     var filter = arrayListOf<String>()
@@ -121,20 +116,20 @@ class SongViewModel @Inject constructor(
             _coverFile.value = uri
             val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             coverFileMultiPart =
-                MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
+                MultipartBody.Part.createFormData("coverFile", file.name, requestFile)
         }
     }
 
     fun setSongFile(uri: Uri, file: File) {
         viewModelScope.launch {
             _songFile.value = uri
-            val requestFile = file.asRequestBody("audio/mpeg".toMediaTypeOrNull())
+            val requestFile = file.asRequestBody("audio/*".toMediaTypeOrNull())
             songFileMultiPart =
-                MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
+                MultipartBody.Part.createFormData("songFile", file.name, requestFile)
         }
     }
 
-    fun uploadSong() {
+    fun uploadSong(songTitle: String, genre: String, moods: ArrayList<String>) {
         viewModelScope.launch {
             when (val value =
                 uploadSongUseCase(

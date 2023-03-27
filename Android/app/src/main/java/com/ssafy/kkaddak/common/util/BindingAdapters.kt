@@ -24,8 +24,6 @@ object BindingAdapters {
     fun ImageView.setNormalImg(imgUri: Uri?) {
         Glide.with(this.context)
             .load(imgUri)
-            .placeholder(R.drawable.ic_profile_image)
-            .error(R.drawable.ic_profile_image)
             .into(this)
     }
 

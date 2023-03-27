@@ -13,7 +13,7 @@
         android:background="@color/black">
 
         <ImageView
-            android:id="@+id/btn_back"
+            android:id="@+id/iv_back"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginStart="30dp"
@@ -31,10 +31,10 @@
             android:text="@string/title_upload_music"
             android:textColor="@color/white"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -99,10 +99,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_music_file">
 
                     <EditText
+                        android:id="@+id/et_song_name"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:autofillHints="no"
                         android:background="@drawable/bg_rect_stroke1_neon_pink50_radius10"
+                        android:enabled="false"
                         android:fontFamily="@font/gmarket_sans_medium"
                         android:inputType="text"
                         android:paddingStart="15dp"
@@ -128,20 +130,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/cancel_upload_music"
-                        android:layout_width="45dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="7dp"
-                        android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius40"
-                        android:fontFamily="@font/gmarket_sans_medium"
-                        android:gravity="center"
-                        android:text="@string/content_music_cancel"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_upload_music"
-                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -156,32 +144,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cl_music_file" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_music_cover"
+                <ImageView
+                    android:id="@+id/iv_music_cover"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/nero"
+                    android:background="@drawable/ic_song_cover"
+                    android:contentDescription="@string/image_music_cover"
+                    android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_music_cover_picture">
-
-                    <ImageView
-                        android:id="@+id/iv_camera_icon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:contentDescription="@string/image_music_cover"
-                        android:src="@drawable/ic_camera"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/iv_music_cover_picture"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/image_music_cover" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@id/tv_music_cover_picture" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -191,8 +163,8 @@
                     android:text="@string/content_music_cover_info"
                     android:textColor="@color/bitter_sweet"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_music_cover"
-                    app:layout_constraintStart_toEndOf="@id/cl_music_cover" />
+                    app:layout_constraintBottom_toBottomOf="@id/iv_music_cover"
+                    app:layout_constraintStart_toEndOf="@id/iv_music_cover" />
 
                 <TextView
                     android:id="@+id/tv_genre_title"
@@ -204,7 +176,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_music_cover" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_music_cover" />
 
                 <LinearLayout
                     android:id="@+id/ll_genre_list"
@@ -214,106 +186,93 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/tv_genre_title">
 
-                    <RadioGroup
-                        android:id="@+id/rg_genre"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_genre_1"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_indigo_to_navy_blue_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_dance"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <RadioButton
-                                android:id="@+id/rb_1"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_dance"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_genre_2"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_hiphop"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <RadioButton
-                                android:id="@+id/rb_2"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="9dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_hiphop"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_genre_3"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_rb"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <RadioButton
-                                android:id="@+id/rb_3"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="9dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_rb"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_genre_4"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_indie"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
-                            <RadioButton
-                                android:id="@+id/rb_4"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="9dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_indie"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_genre_5"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_rock"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <RadioButton
-                                android:id="@+id/rb_5"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_rock"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_genre_6"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_jazz"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-                            <RadioButton
-                                android:id="@+id/rb_6"
-                                android:layout_width="50dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="9dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_jazz"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <RadioButton
-                                android:id="@+id/rb_7"
-                                android:layout_width="60dp"
-                                android:layout_height="30dp"
-                                android:layout_marginStart="9dp"
-                                android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
-                                android:button="@null"
-                                android:gravity="center"
-                                android:text="@string/content_genre_ballade"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </RadioGroup>
+                        <TextView
+                            android:id="@+id/tv_genre_7"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="9dp"
+                            android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
+                            android:gravity="center"
+                            android:text="@string/content_genre_ballade"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <TextView
@@ -342,6 +301,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_mood_1"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:background="@drawable/bg_rect_indigo_to_navy_blue_radius40"
@@ -351,6 +311,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_mood_2"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="9dp"
@@ -361,6 +322,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_mood_3"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="9dp"
@@ -371,6 +333,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_mood_4"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="9dp"
@@ -388,6 +351,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_mood_5"
                             android:layout_width="60dp"
                             android:layout_height="30dp"
                             android:background="@drawable/bg_rect_stroke1_han_purple_radius40"
@@ -397,6 +361,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_mood_6"
                             android:layout_width="70dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="9dp"
@@ -407,6 +372,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_mood_7"
                             android:layout_width="50dp"
                             android:layout_height="30dp"
                             android:layout_marginStart="9dp"

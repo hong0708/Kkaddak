@@ -7,9 +7,8 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
-import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -45,47 +44,125 @@ class UploadSongFragment :
     ) { result: ActivityResult ->
         result.data?.let {
             if (it.data != null) {
+                val selectedFileUri = it.data as Uri
+                val selectedFilePath = File(absolutelySongPath(selectedFileUri, requireContext()))
+                binding.etSongName.setText(selectedFilePath.name.toString())
                 songViewModel.setSongFile(
-                    it.data as Uri,
-                    File(absolutelySongPath(it.data, requireContext()))
+                    selectedFileUri,
+                    selectedFilePath
                 )
             }
         }
     }
+    private val genreList: ArrayList<TextView> = arrayListOf()
+    private val moodList: ArrayList<TextView> = arrayListOf()
+    var selectedGenre = ""
+    var selectedMood = arrayListOf<String>()
 
     override fun initView() {
         (activity as MainActivity).HideBottomNavigation(true)
+        initGenre()
+        initMood()
         initListener()
-        setData()
+        setCoverImage()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).HideBottomNavigation(false)
+        songViewModel.coverFile.value = null
     }
 
-    private fun setData() {
-        songViewModel.songFile.observe(viewLifecycleOwner) {
-            binding.ivCameraIcon.visibility = View.GONE
-            binding.ivMusicCoverPicture.setNormalImg(it)
+    private fun setCoverImage() {
+        songViewModel.coverFile.observe(viewLifecycleOwner) {
+            binding.ivMusicCover.setNormalImg(it)
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    private fun initGenre() {
+        for (i in 1..7) {
+            val filter =
+                resources.getIdentifier("tv_genre_${i}", "id", requireContext().packageName)
+            (requireView().findViewById(filter) as TextView).apply {
+                genreList.add(this)
+            }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    private fun initMood() {
+        for (i in 1..7) {
+            val filter =
+                resources.getIdentifier("tv_mood_${i}", "id", requireContext().packageName)
+            (requireView().findViewById(filter) as TextView).apply {
+                moodList.add(this)
+            }
         }
     }
 
     @SuppressLint("DiscouragedApi")
     private fun initListener() {
-        binding.clMusicCover.setOnClickListener {
-            setAlbumView()
+        binding.apply {
+            ivBack.setOnClickListener {
+                popBackStack()
+            }
+            ivMusicCover.setOnClickListener {
+                setAlbumView()
+                songViewModel.coverFile.value = null
+            }
+            tvUploadMusic.setOnClickListener {
+                setSongFileView()
+            }
+            clConfirmUpload.setOnClickListener {
+                if (etMusicTitle.text == null || selectedGenre == "" || selectedMood.isEmpty()
+                    || songViewModel.coverFile.value == null || songViewModel.songFile.value == null
+                ) {
+                    Toast.makeText(requireContext(), "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                } else {
+                    songViewModel.uploadSong(
+                        etMusicTitle.text.toString(),
+                        selectedGenre,
+                        selectedMood
+                    )
+                    popBackStack()
+                    Toast.makeText(requireContext(), "등록되었습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        binding.tvUploadMusic.setOnClickListener {
-            setSongFileView()
+        initGenreListener()
+        initMoodListener()
+    }
+
+    private fun initGenreListener() {
+        for (i in 0..6) {
+            genreList[i].let { genre ->
+                genre.setOnClickListener {
+                    for (j in 0..6) {
+                        genreList[j].setBackgroundResource(R.drawable.bg_rect_stroke1_han_purple_radius40)
+                    }
+                    genre.setBackgroundResource(R.drawable.bg_rect_indigo_to_navy_blue_radius40)
+                    selectedGenre = genre.text.toString()
+                }
+            }
         }
-        binding.rgGenre.setOnCheckedChangeListener { _, checkedId ->
-            Log.d("asdf", "initListener: ${checkedId}")
-            val index =
-                resources.getIdentifier("rb_${checkedId}", "id", requireContext().packageName)
-            val selectedButton = requireView().findViewById(index) as TextView
-            songViewModel.genre = selectedButton.text.toString()
-            selectedButton.setBackgroundResource(R.drawable.bg_rect_indigo_to_navy_blue_radius40)
+    }
+
+    private fun initMoodListener() {
+        for (i in 0..6) {
+            moodList[i].let { filter ->
+                filter.setOnClickListener {
+                    if (filter.isSelected) {
+                        filter.isSelected = false
+                        filter.setBackgroundResource(R.drawable.bg_rect_stroke1_han_purple_radius40)
+                        selectedMood.remove(moodList[i].text.toString())
+                    } else {
+                        filter.isSelected = true
+                        filter.setBackgroundResource(R.drawable.bg_rect_indigo_to_navy_blue_radius40)
+                        selectedMood.add(moodList[i].text.toString())
+                    }
+                }
+            }
         }
     }
 
