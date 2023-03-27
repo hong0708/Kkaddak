@@ -28,7 +28,7 @@ class ProfileSongFragment :
             adapter = profileSongAdapter
             layoutManager =
                 GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-            addItemDecoration(GridSpaceItemDecoration(3, 5))
+            addItemDecoration(GridSpaceItemDecoration(3, 3))
         }
         profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
             response?.let { profileSongAdapter.setSong(it) }
@@ -53,10 +53,9 @@ class ProfileSongFragment :
     }
 
     override fun onConfirmButtonClicked(songId: String) {
-
         profileViewModel.deleteMySong(songId)
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
         Toast.makeText(requireContext(), "음악이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-
+        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 }
