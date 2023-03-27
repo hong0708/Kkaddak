@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.profile
 
-import androidx.fragment.app.viewModels
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
@@ -11,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
-    private val profileViewModel by viewModels<ProfileViewModel>()
+    private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun initView() {
         initListener()
@@ -26,13 +27,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initTabLayout() {
-        val tabIcons = listOf(R.drawable.ic_profile_tab_song, R.drawable.ic_profile_tab_nft)
+        val tabIcons =
+            listOf(R.drawable.ic_profile_tab_song, R.drawable.ic_profile_tab_nft)
         binding.apply {
             vpCuration.adapter = ProfileAdapter(this@ProfileFragment)
             TabLayoutMediator(
                 tlProfile, vpCuration
             ) { tab, position ->
                 tab.setIcon(tabIcons[position])
+                tab.icon?.setTintList(ContextCompat.getColorStateList(requireContext(), R.color.selector_profile_tab_icon_color))
             }.attach()
         }
     }

@@ -15,6 +15,7 @@ import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
@@ -117,4 +118,9 @@ object UseCaseModule {
     @Provides
     fun provideUploadSongUseCase(songRepository: SongRepository): UploadSongUseCase =
         UploadSongUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetProfileSongUseCase(profileRepository: ProfileRepository): GetProfileSongUseCase =
+        GetProfileSongUseCase(profileRepository)
 }
