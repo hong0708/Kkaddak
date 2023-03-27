@@ -43,23 +43,20 @@
 
 
     <!-- biding market-->
-    <string name="title_bid_song_title">까딱까딱</string>
+    <string name="title_nft_song_title">까딱까딱</string>
     <string name="content_by">by</string>
-    <string name="content_bid_creator">갱갱</string>
-    <string name="content_min_eth">최소 금액</string>
-    <string name="content_bid_min_eth">0.008</string>
-    <string name="content_deadline">마감 기한</string>
-    <string name="content_bid_deadline">2023.03.04</string>
-    <string name="content_my_eth">내 입찰가</string>
-    <string name="content_bid_my_eth">0.000</string>
-    <string name="content_bid_nft">입찰하기</string>
+    <string name="content_nft_creator">갱갱</string>
+    <string name="content_selling_eth_price">0.008</string>
+    <string name="content_selling_history">판매 히스토리</string>
+    <string name="content_sell">구매하기</string>
+
     <string name="content_holding_eth">보유 금액</string>
     <string name="content_bid_holding_eth">0.135</string>
     <string name="content_bidding_eth">입찰 금액</string>
     <string name="content_bid_bidding_eth">0.15</string>
-    <string name="image_bid_nft_image">image_bid_nft_image</string>
-    <string name="image_bid_nft_like">image_bid_nft_like</string>
-    <string name="image_bid_nft_creator_profile">image_bid_nft_creator_profile</string>
+    <string name="image_nft_image">image_nft_image</string>
+    <string name="image_selling_nft_like">image_selling_nft_like</string>
+    <string name="image_nft_creator_profile">image_nft_creator_profile</string>
 
     <!-- Splash -->
     <string name="splash_main">splash_main</string>
