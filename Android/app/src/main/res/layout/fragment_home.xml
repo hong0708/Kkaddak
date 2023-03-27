@@ -32,7 +32,6 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="50dp"
                     android:fontFamily="@font/tmon_monsori"
-                    android:text="@{homeProfile.mySongs==0 ? @string/title_home_1_listener : @string/title_home_1_creator}"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
