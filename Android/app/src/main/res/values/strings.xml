@@ -101,6 +101,7 @@
     <string name="title_profile_following">following</string>
     <string name="image_follow_btn">image_follow_btn</string>
     <string name="title_follow_btn">Follow</string>
+    <string name="image_profile_status">image_profile_status</string>
 
     <!-- Wallet -->
     <string name="title_wallet">WALLET</string>

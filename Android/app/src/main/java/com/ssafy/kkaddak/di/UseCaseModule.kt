@@ -13,8 +13,10 @@ import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
@@ -47,11 +49,6 @@ object UseCaseModule {
     @Provides
     fun provideCheckDuplicationUseCase(userRepository: UserRepository): CheckDuplicationUseCase =
         CheckDuplicationUseCase(userRepository)
-
-    @Singleton
-    @Provides
-    fun provideRequestCancelSignUpUseCase(userRepository: UserRepository): RequestCancelSignUpUseCase =
-        RequestCancelSignUpUseCase(userRepository)
 
     @Singleton
     @Provides
@@ -117,4 +114,14 @@ object UseCaseModule {
     @Provides
     fun provideUploadSongUseCase(songRepository: SongRepository): UploadSongUseCase =
         UploadSongUseCase(songRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetProfileSongUseCase(profileRepository: ProfileRepository): GetProfileSongUseCase =
+        GetProfileSongUseCase(profileRepository)
+
+    @Singleton
+    @Provides
+    fun provideDeleteMySongUseCase(profileRepository: ProfileRepository): DeleteMySongUseCase =
+        DeleteMySongUseCase(profileRepository)
 }

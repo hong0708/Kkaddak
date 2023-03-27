@@ -15,13 +15,15 @@ data class ProfileResponse(
     val account: String?,
     @SerializedName("myFollowers")
     val myFollowers: Int,
-    @SerializedName("myFolloings")
+    @SerializedName("myFollowings")
     val myFollowings: Int,
     @SerializedName("mySongs")
     val mySongs: Int,
-    @SerializedName("mine")
-    val mine: Boolean,
+    @SerializedName("isMine")
+    val isMine: Boolean,
+    @SerializedName("isFollowing")
+    val isFollowing: Boolean?
 ) : DataToDomainMapper<ProfileItem> {
     override fun toDomainModel(): ProfileItem =
-        ProfileItem(memberId, nickname, profilepath, account, myFollowers, myFollowings, mySongs, mine)
+        ProfileItem(memberId, nickname, profilepath, account, myFollowers, myFollowings, mySongs, isMine, isFollowing)
 }

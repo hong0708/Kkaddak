@@ -50,13 +50,13 @@ class SongDetailFragment:
     private fun getData() {
         songViewModel.songData.observe(viewLifecycleOwner) {
             binding.songDetail = it
-            if (it!!.like)
+            if (it!!.like!!)
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
             else
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
 
             if (it != null) {
-                buildMediaSource(it.songPath).let {
+                buildMediaSource(it.songPath!!).let {
                     player?.prepare(it)
                 }
             }

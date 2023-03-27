@@ -8,5 +8,6 @@ data class ProfileItem(
     val myFollowers: Int,
     val myFollowings: Int,
     val mySongs: Int,
-    val mine: Boolean,
+    val isMine: Boolean,
+    val isFollowing: Boolean?
 )

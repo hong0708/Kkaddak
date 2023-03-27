@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_profileFragment_to_uploadSongFragment"
             app:destination="@id/uploadSongFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
     </fragment>
 
     <fragment
