@@ -120,7 +120,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_deadline"
+            android:id="@+id/cl_selling_eth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -129,79 +129,18 @@
             app:layout_constraintTop_toBottomOf="@+id/cl_song_title">
 
             <TextView
-                android:id="@+id/tv_deadline"
+                android:id="@+id/tv_selling_eth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gmarket_sans_medium"
-                android:text="@string/content_deadline_date"
+                android:text="@string/content_selling_eth"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_upload_deadline"
-                android:layout_width="173dp"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_select_deadline"
-                app:layout_constraintTop_toBottomOf="@id/tv_deadline">
-
-                <TextView
-                    android:id="@+id/tv_upload_deadline"
-                    android:layout_width="173dp"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/gmarket_sans_light"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:paddingStart="15dp"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="RtlSymmetry" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_select_deadline"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius10"
-                android:gravity="center"
-                android:text="@string/content_select_nft"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_upload_deadline" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_min_bid_eth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_deadline">
-
-            <TextView
-                android:id="@+id/tv_min_bid_eth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gmarket_sans_medium"
-                android:text="@string/content_min_bid_eth"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_upload_min_bid_eth"
+                android:id="@+id/cl_upload_selling_eth"
                 android:layout_width="173dp"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="30dp"
@@ -209,10 +148,10 @@
                 android:background="@drawable/bg_rect_trans50_neon_pink50_radius10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_ethereum"
-                app:layout_constraintTop_toBottomOf="@id/tv_min_bid_eth">
+                app:layout_constraintTop_toBottomOf="@id/tv_selling_eth">
 
                 <EditText
-                    android:id="@+id/tv_upload_min_bid_eth"
+                    android:id="@+id/tv_upload_selling_eth"
                     android:layout_width="173dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gmarket_sans_medium"
@@ -239,7 +178,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cl_upload_min_bid_eth" />
+                app:layout_constraintStart_toEndOf="@id/cl_upload_selling_eth" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
