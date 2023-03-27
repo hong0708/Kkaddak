@@ -1,14 +1,17 @@
 package com.example.kkaddak.api.service.impl;
 
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.OwnerSongResDto;
 import com.example.kkaddak.api.dto.SongReqDto;
 import com.example.kkaddak.api.dto.SongResDto;
+import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.NFTService;
 import com.example.kkaddak.api.service.SongService;
 import com.example.kkaddak.api.utils.DynamicTimeWarping;
 import com.example.kkaddak.api.utils.FeatureExtractor;
 import com.example.kkaddak.core.entity.*;
 import com.example.kkaddak.core.repository.*;
+import com.example.kkaddak.core.utils.ErrorMessageEnum;
 import com.example.kkaddak.core.utils.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -34,11 +37,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SongServiceImpl implements SongService {
     private final SongRepository songRepository;
+    private final MemberRepository memberRepository;
 
     private final LikeListRepository likeListRepository;
 
@@ -454,6 +459,18 @@ public class SongServiceImpl implements SongService {
         } catch (Exception e) {
             return DataResDto.builder().statusCode(500).statusMessage("서버 에러").build();
         }
+    }
+
+    @Override
+    public DataResDto<?> getMemberSongs(Member member, String nickname) {
+        Member profileOwner = memberRepository.findByNickname(nickname)
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
+        List<OwnerSongResDto> ownerSongs = songRepository.findByMemberOrderByUploadDateDesc(profileOwner)
+                .stream().map(song -> OwnerSongResDto.builder().song(song).build())
+                .collect(Collectors.toList());
+        return DataResDto.builder()
+                .statusMessage(String.format("%s 님의 작품 목록입니다.", nickname))
+                .data(ownerSongs).build();
     }
 
     private File getAmazonObject(String songPath) {
