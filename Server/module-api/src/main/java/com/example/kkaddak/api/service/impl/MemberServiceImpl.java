@@ -291,6 +291,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                     .isMine(true)
                     .myFollowers(followRepository.countByFollowing(requester))
                     .myFollowings(followRepository.countByFollower(requester))
+                    .mySongs(songRepository.countByMember(requester))
                     .build();
         }
         else{
@@ -302,6 +303,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                     .isFollowing(followRepository.existsByFollowerAndFollowing(requester, other))
                     .myFollowers(followRepository.countByFollowing(other))
                     .myFollowings(followRepository.countByFollower(other))
+                    .mySongs(songRepository.countByMember(other))
                     .build();
         }
         return DataResDto.builder()
