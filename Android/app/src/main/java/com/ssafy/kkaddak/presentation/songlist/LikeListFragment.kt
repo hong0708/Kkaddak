@@ -42,6 +42,4 @@ class LikeListFragment : BaseFragment<FragmentLikeListBinding>(R.layout.fragment
             )
         )
     }
-
-
 }
