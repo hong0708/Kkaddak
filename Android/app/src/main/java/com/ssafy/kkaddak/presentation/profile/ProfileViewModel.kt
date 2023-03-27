@@ -45,7 +45,7 @@ class ProfileViewModel @Inject constructor(
                 _profileSongData.value = value.data
             }
             is Resource.Error -> {
-                Log.e("getProfileInfo", "getProfileInfo: ${value.errorMessage}")
+                Log.e("getProfileSong", "getProfileSong: ${value.errorMessage}")
             }
         }
     }

@@ -17,10 +17,23 @@ class ProfileSongFragment :
     DeleteRejectedSongDialogListener {
 
     private val profileViewModel by activityViewModels<ProfileViewModel>()
-    private val profileSongAdapter by lazy { ProfileSongAdapter(this::getSongDetail, this::deleteMySong) }
+    private val profileSongAdapter by lazy {
+        ProfileSongAdapter(
+            this::getSongDetail,
+            this::deleteMySong
+        )
+    }
 
     override fun initView() {
         setProfileSong()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
+            response?.let { profileSongAdapter.setSong(it) }
+        }
+        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 
     private fun setProfileSong() {
