@@ -20,7 +20,7 @@ class LikeListFragment : BaseFragment<FragmentLikeListBinding>(R.layout.fragment
     }
 
     private fun initListener() {
-        binding.btnBack.setOnClickListener { popBackStack() }
+        binding.ivBack.setOnClickListener { popBackStack() }
     }
 
     private fun initRecyclerView() {
