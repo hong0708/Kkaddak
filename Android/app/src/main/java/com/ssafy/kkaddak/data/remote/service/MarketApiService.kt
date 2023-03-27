@@ -7,7 +7,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 interface MarketApiService {
 
     @GET("/api/v3/market/condition")
@@ -22,5 +21,4 @@ interface MarketApiService {
 
     @POST("/api/v3/market/unlike/{marketId}")
     suspend fun cancelMarketBookmark(@Path("marketId") marketId: Int): BaseResponse<Boolean>
-
 }
