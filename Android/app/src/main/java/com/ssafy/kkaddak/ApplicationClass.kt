@@ -21,7 +21,7 @@ class ApplicationClass: Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         setupBouncyCastle()
-        //keyStore = KeyStoreHelper(this)
+        keyStore = KeyStoreHelper(this)
     }
 
     // BouncyCastleProvider가 아니면 Security에 BouncyCastleProvider를 등록

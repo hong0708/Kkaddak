@@ -41,7 +41,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         else {
             visibility(true)
             WalletFunction().balanceOf(
-                ApplicationClass.preferences.walletAddress.toString(),
                 binding.tvTotalBalance
             )
         }

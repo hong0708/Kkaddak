@@ -16,17 +16,15 @@ class KeyStoreHelper(private val context: Context) {
     private val KEYSTORE_PROVIDER = "AndroidKeyStore"
     private val ASYMMETRIC_KEY_ALIAS = "my_key_alias"
 
-    //    클래스 생성자에서 호출되는 함수입니다.
-    //    createAsymmetricKeyPair() 함수를 호출하여
-    //    키스토어에 키 쌍이 존재하지 않는 경우에만 공개키 및 개인키를 생성합니다.
+    // 클래스 생성자에서 호출되는 함수입니다.
+    // createAsymmetricKeyPair() 함수를 호출하여
+    // 키스토어에 키 쌍이 존재하지 않는 경우에만 공개키 및 개인키를 생성합니다.
 
     init {
         // 안드로이드 키스토어에 키 생성
         createAsymmetricKeyPair()
-
         Log.d("key store info", "key store 생성 ")
     }
-
 
     //    키스토어에 공개키 및 개인키 쌍을 생성하는 함수입니다.
     //    isAsymmetricKeyPairExist() 함수를 호출하여 이미 키 쌍이 존재하는지 확인합니다.
@@ -69,10 +67,10 @@ class KeyStoreHelper(private val context: Context) {
         return privateKey != null
     }
 
-    //    전달받은 data 바이트 배열을 공개키로 암호화하는 함수입니다.
-    //    Cipher.getInstance()를 사용하여 RSA 알고리즘 및 PKCS1 패딩을 사용하는 Cipher 객체를 생성합니다.
-    //    cipher.init()를 사용하여 암호화 모드로 설정한 후, 공개키를 인자로 전달합니다.
-    //    cipher.doFinal()를 사용하여 데이터를 암호화한 후, 암호화된 데이터를 반환합니다.
+    // 전달받은 data 바이트 배열을 공개키로 암호화하는 함수입니다.
+    // Cipher.getInstance()를 사용하여 RSA 알고리즘 및 PKCS1 패딩을 사용하는 Cipher 객체를 생성합니다.
+    // cipher.init()를 사용하여 암호화 모드로 설정한 후, 공개키를 인자로 전달합니다.
+    // cipher.doFinal()를 사용하여 데이터를 암호화한 후, 암호화된 데이터를 반환합니다.
 
     fun encryptData(data: ByteArray): ByteArray {
 
@@ -86,18 +84,15 @@ class KeyStoreHelper(private val context: Context) {
         val algorithmName = cipher.algorithm
 
         Log.d("key store info", "암호화 알고리즘: $algorithmName, 블록 크기: $blockSize")
-
-
         Log.d("key store info", "암호화한 데이터 : ${cipher.doFinal(data)} ")
 
         return cipher.doFinal(data)
     }
 
-
-    //    전달받은 data 바이트 배열을 개인키로 복호화하는 함수입니다.
-    //    Cipher.getInstance()를 사용하여 RSA 알고리즘 및 PKCS1 패딩을 사용하는 Cipher 객체를 생성합니다.
-    //    cipher.init()를 사용하여 복호화 모드로 설정한 후, 개인키를 인자로 전달합니다.
-    //    cipher.doFinal()를 사용하여 데이터를 복호화한 후, 복호화된 데이터를 반환합니다.
+    // 전달받은 data 바이트 배열을 개인키로 복호화하는 함수입니다.
+    // Cipher.getInstance()를 사용하여 RSA 알고리즘 및 PKCS1 패딩을 사용하는 Cipher 객체를 생성합니다.
+    // cipher.init()를 사용하여 복호화 모드로 설정한 후, 개인키를 인자로 전달합니다.
+    // cipher.doFinal()를 사용하여 데이터를 복호화한 후, 복호화된 데이터를 반환합니다.
 
     fun decryptData(data: ByteArray): ByteArray {
 
@@ -106,13 +101,11 @@ class KeyStoreHelper(private val context: Context) {
         val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
         cipher.init(Cipher.DECRYPT_MODE, getPrivateKey())
 
-
         // 사용되는 블록 크기와 알고리즘 이름을 가져옵니다.
         val blockSize = cipher.blockSize
         val algorithmName = cipher.algorithm
 
         Log.d("key store info", "복호화 알고리즘: $algorithmName, 블록 크기: $blockSize")
-
 
         Log.d("key store info", "복호화한 데이터 : ${cipher.doFinal(data)} ")
         Log.d("key store info", "복호화한 데이터 : ${String(cipher.doFinal(data))} ")
@@ -120,11 +113,9 @@ class KeyStoreHelper(private val context: Context) {
         return cipher.doFinal(data)
     }
 
-
-//    공개키를 가져오는 함수입니다.
-//    KeyStore.getInstance()를 사용하여 KEYSTORE_PROVIDER에 해당하는 키스토어를 가져온 후,
-//    ASYMMETRIC_KEY_ALIAS에 해당하는 공개키를 가져옵니다.
-
+    // 공개키를 가져오는 함수입니다.
+    // KeyStore.getInstance()를 사용하여 KEYSTORE_PROVIDER에 해당하는 키스토어를 가져온 후,
+    // ASYMMETRIC_KEY_ALIAS에 해당하는 공개키를 가져옵니다.
     fun getPublicKey(): PublicKey {
         val keyStore = KeyStore.getInstance(KEYSTORE_PROVIDER)
         keyStore.load(null)
@@ -132,8 +123,7 @@ class KeyStoreHelper(private val context: Context) {
         return publicKey
     }
 
-
-    //    개인키를 가져오는 함수입니다.
+    // 개인키를 가져오는 함수입니다.
     fun getPrivateKey(): PrivateKey {
         val keyStore = KeyStore.getInstance(KEYSTORE_PROVIDER)
         keyStore.load(null)
