@@ -24,10 +24,11 @@
 
                 <ImageView
                     android:id="@+id/iv_nft_item"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:contentDescription="@string/image_nft_item"
                     android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/ic_nft_mockup1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_rect_bastille_radius30"
+                    android:background="@drawable/bg_rect_trans50_white_radius30"
                     android:gravity="center"
                     android:padding="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,7 @@
                         android:id="@+id/iv_nft_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_market_like"
+                        android:background="@drawable/ic_market_like"
                         android:contentDescription="@string/image_nft_like" />
 
                     <Space
@@ -100,7 +101,8 @@
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_contour"/>
+                        app:layout_constraintEnd_toStartOf="@id/tv_contour"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
                         android:id="@+id/tv_contour"

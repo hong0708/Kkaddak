@@ -7,6 +7,12 @@ class MarketRemoteDataSourceImpl @Inject constructor(
     private val marketApiService: MarketApiService
 ) : MarketRemoteDataSource {
 
-    override suspend fun getAllNfts(lastId: Long, limit: Long): List<NftItemResponse> =
-        marketApiService.getAllNfts(lastId, limit).data!!
+    override suspend fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean): List<NftItemResponse> =
+        marketApiService.getAllNfts(lastId, limit, onlySelling).data!!
+
+    override suspend fun requestMarketBookmark(marketId: Int): Boolean =
+        marketApiService.requestMarketBookmark(marketId).data!!
+
+    override suspend fun cancelMarketBookmark(marketId: Int): Boolean =
+        marketApiService.cancelMarketBookmark(marketId).data!!
 }

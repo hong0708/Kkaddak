@@ -11,11 +11,14 @@ import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
+import com.ssafy.kkaddak.domain.usecase.user.RequestCancelSignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +50,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideRequestCancelSignUpUseCase(userRepository: UserRepository): RequestCancelSignUpUseCase =
+        RequestCancelSignUpUseCase(userRepository)
+
+    @Singleton
+    @Provides
     fun provideGetSongsUseCase(songRepository: SongRepository): GetSongsUseCase =
         GetSongsUseCase(songRepository)
 
@@ -69,6 +77,16 @@ object UseCaseModule {
     @Provides
     fun provideGetAllNftsUseCase(marketRepository: MarketRepository): GetAllNftsUseCase =
         GetAllNftsUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestMarketBookmarkUseCase(marketRepository: MarketRepository): RequestMarketBookmarkUseCase =
+        RequestMarketBookmarkUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideCancelMarketBookmarkUseCase(marketRepository: MarketRepository): CancelMarketBookmarkUseCase =
+        CancelMarketBookmarkUseCase(marketRepository)
 
     @Singleton
     @Provides

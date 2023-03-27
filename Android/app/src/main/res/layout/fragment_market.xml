@@ -104,13 +104,16 @@
                 android:id="@+id/tv_all_nfts"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/selector_market_btn"
-                android:clickable="true"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_bastille_radius50_stroke2"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
                 android:text="@string/content_market_allnfts"
                 android:textColor="@color/white"
                 android:textSize="12sp"
+                android:clickable="true"
+                android:onClick="onButtonClick"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintEnd_toStartOf="@id/tv_selling_nft"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -127,23 +130,8 @@
                 android:text="@string/content_market_selling"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@id/tv_bidding_nft"
-                app:layout_constraintStart_toEndOf="@id/tv_all_nfts"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_bidding_nft"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/selector_market_btn"
-                android:gravity="center"
-                android:paddingHorizontal="10dp"
-                android:text="@string/content_market_bidding"
-                android:textColor="@color/white"
-                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_bookmark_nft"
-                app:layout_constraintStart_toEndOf="@id/tv_selling_nft"
+                app:layout_constraintStart_toEndOf="@id/tv_all_nfts"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -157,7 +145,7 @@
                 android:text="@string/content_market_bookmark"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/tv_bidding_nft"
+                app:layout_constraintStart_toEndOf="@id/tv_selling_nft"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -172,9 +160,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_market_btn"
             app:spanCount="2">
-
         </androidx.recyclerview.widget.RecyclerView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
