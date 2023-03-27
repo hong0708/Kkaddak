@@ -25,7 +25,7 @@
             android:background="@drawable/bg_image_radius10"
             android:clipToOutline="true"
             android:contentDescription="@string/image_song"
-            android:normalImgUri="@{song.coverPath}"
+            android:coverNFTImgStr="@{song.coverPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

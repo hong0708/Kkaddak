@@ -2,6 +2,8 @@ package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface SongApiService {
@@ -26,4 +28,12 @@ interface SongApiService {
 
     @DELETE("/api/v2/song/myPlay/{songId}/delete")
     suspend fun deletePlayList(@Path("songId") songId: String)
+
+    @Multipart
+    @POST("/api/v2/song/upload")
+    suspend fun uploadMusic(
+        @PartMap map: Map<String, @JvmSuppressWildcards RequestBody>,
+        @Part coverFile: MultipartBody.Part?,
+        @Part songFile: MultipartBody.Part?
+    ): BaseResponse<SongResponse>
 }

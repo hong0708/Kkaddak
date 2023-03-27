@@ -82,7 +82,7 @@ class SongDetailFragment:
     private fun buildMediaSource(songPath: String): MediaSource {
         val dataSourceFactory = DefaultDataSourceFactory(requireContext(), "sample")
         return ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri("http://j8d208.p.ssafy.io:8087/images$songPath"))
+            .createMediaSource(MediaItem.fromUri(songPath))
     }
 
     // 일시중지

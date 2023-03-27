@@ -2,6 +2,7 @@ package com.ssafy.kkaddak.domain.repository
 
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
+import okhttp3.MultipartBody
 
 interface SongRepository {
 
@@ -16,4 +17,12 @@ interface SongRepository {
     suspend fun searchMusic(keyWord: String, filter: String): Resource<List<SongItem>>
 
     suspend fun deletePlayList(songId: String)
+
+    suspend fun uploadMusic(
+        coverFile: MultipartBody.Part?,
+        songFile: MultipartBody.Part?,
+        moods: List<String>,
+        genre: String,
+        songTitle: String
+    ): Resource<SongItem>
 }

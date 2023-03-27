@@ -5,6 +5,7 @@ import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.song.SongRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.repository.SongRepository
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class SongRepositoryImpl @Inject constructor(
@@ -39,4 +40,15 @@ class SongRepositoryImpl @Inject constructor(
     override suspend fun deletePlayList(songId: String) {
         songRemoteDataSource.deletePlayList(songId)
     }
+
+    override suspend fun uploadMusic(
+        coverFile: MultipartBody.Part?,
+        songFile: MultipartBody.Part?,
+        moods: List<String>,
+        genre: String,
+        songTitle: String
+    ): Resource<SongItem> =
+        wrapToResource {
+            songRemoteDataSource.uploadMusic(coverFile, songFile, moods, genre, songTitle).toDomainModel()
+        }
 }
