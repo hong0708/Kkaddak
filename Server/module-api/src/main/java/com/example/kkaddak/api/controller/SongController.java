@@ -160,4 +160,15 @@ public class SongController {
     public DataResDto<?> getPopularityList(@AuthenticationPrincipal MemberDetails memberDetails) {
         return songService.getPopularityList(memberDetails.getMember());
     }
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "nickname 유저가 업로드한 음악 목록 조회 성공했을 때 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "nickname 유저가 업로드한 음악 목록 반환하는 API")
+    @GetMapping("/profile/{nickname}")
+    public DataResDto<?> getMemberSongs(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable String nickname) {
+        return songService.getMemberSongs(memberDetails.getMember(), nickname);
+    }
 }
