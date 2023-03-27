@@ -44,6 +44,7 @@ import java.util.stream.Collectors;
 public class SongServiceImpl implements SongService {
     private final SongRepository songRepository;
     private final MemberRepository memberRepository;
+    private final FollowRepository followRepository;
 
     private final LikeListRepository likeListRepository;
 
@@ -389,9 +390,14 @@ public class SongServiceImpl implements SongService {
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (PlayList plays: playList) {
                 boolean isLike = likeListRepository.existsByMemberAndSong(member, plays.getSong());
-                songResDtoList.add(SongResDto.builder().song(plays.getSong()).isLike(isLike).build());
+                Boolean isSubscribe = followRepository.existsByFollowerAndFollowing(member, plays.getMember());
+                songResDtoList.add(
+                        SongResDto.builder()
+                                .song(plays.getSong())
+                                .isLike(isLike)
+                                .isSubscribe(isSubscribe)
+                                .build());
             }
-
             return DataResDto.builder().data(songResDtoList)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
         } catch (Exception e) {

@@ -38,8 +38,9 @@ public class SongResDto {
     List<Integer> combination = new ArrayList<>();
     @ApiModelProperty(example = "음악 업로드 상태 정보")
     SongStatus songStatus;
+    Boolean isSubscribe;
     @Builder
-    public SongResDto(Song song, Boolean isLike, List<Integer> combination, SongStatus songStatus) {
+    public SongResDto(Song song, Boolean isLike, List<Integer> combination, SongStatus songStatus, Boolean isSubscribe) {
         this.songId = song.getSongUuid();
         this.songTitle = song.getTitle();
         this.songPath = song.getSongPath();
@@ -59,5 +60,6 @@ public class SongResDto {
         if (!song.getMoods().getMood3().equals("")) {
             this.moods.add(song.getMoods().getMood3());
         }
+        this.isSubscribe = isSubscribe;
     }
 }
