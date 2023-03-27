@@ -63,10 +63,6 @@ class BuyMarketFragment :
                 }
             }
         }
-        binding.clUpload.setOnClickListener {
-
-        }
-
+        binding.clUpload.setOnClickListener {}
     }
-
 }
