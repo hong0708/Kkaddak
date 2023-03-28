@@ -122,7 +122,7 @@
     <string name="content_make_wallet">지갑 생성</string>
     <string name="content_wallet_address">지갑 주소</string>
     <string name="content_wallet_key">개인 키</string>
-    <string name="content_wallet_info">개인키의 경우 앱에서 확인 불가능하니 \n따로 보관하세요</string>
+    <string name="content_wallet_info">항상 개인키 보안에 신경쓰세요!</string>
     <string name="content_info_wallet">지갑 정보</string>
     <string name="content_no_wallet">생성 또는 불러오기가 필요합니다.</string>
 

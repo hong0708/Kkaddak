@@ -23,15 +23,24 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         visibility(true)
     }
 
+    override fun generateWallet() {
+        WalletFunction().generateWallet(binding.tvTotalBalance)
+        visibility(true)
+    }
+
     private fun initListener() {
         binding.apply {
             ivOpenWalletDialog.setOnClickListener {
                 SetWalletDialog(requireActivity(), this@WalletFragment).show()
             }
 
+            clWalletInfo.setOnClickListener {
+                WalletInfoDialog(requireActivity()).show()
+            }
+
             clCharge.setOnClickListener {
                 Log.d("asd", "initListener: ")
-                WalletFunction().transfer("0x8fdED880ED0E79c1209130c0e477A7eeE8956CE4", 1)
+                WalletFunction().transfer("0x8fdED880ED0E79c1209130c0e477A7eeE8956CE4", 1200000000)
             }
         }
     }
