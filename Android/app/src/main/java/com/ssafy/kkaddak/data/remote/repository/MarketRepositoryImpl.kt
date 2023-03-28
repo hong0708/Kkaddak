@@ -20,6 +20,15 @@ class MarketRepositoryImpl @Inject constructor(
             marketRemoteDataSource.getAllNfts(lastId, limit, onlySelling).map { it.toDomainModel() }
         }
 
+    override suspend fun getBookmarks(
+        lastId: Int,
+        limit: Int,
+        onlySelling: Boolean
+    ): Resource<List<NftItem>> =
+        wrapToResource {
+            marketRemoteDataSource.getBookmarks(lastId, limit, onlySelling).map { it.toDomainModel() }
+        }
+
     override suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean> =
         wrapToResource {
             marketRemoteDataSource.requestMarketBookmark(marketId)

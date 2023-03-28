@@ -7,6 +7,7 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.GetBookmarksUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MarketViewModel @Inject constructor(
     private val getAllNftsUseCase: GetAllNftsUseCase,
+    private val getBookmarksUseCase: GetBookmarksUseCase,
     private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
     private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase,
     private val getProfileInfoUseCase: GetProfileInfoUseCase
@@ -54,6 +56,17 @@ class MarketViewModel @Inject constructor(
         }
     }
 
+    fun getBookmarks(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
+        when (val value = getBookmarksUseCase(lastId, limit, onlySelling)) {
+            is Resource.Success<List<NftItem>> -> {
+                _nftTempData.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("getBookmarks", "getBookmarks: ${value.errorMessage}")
+            }
+        }
+    }
+
     fun getData(item: NftItem) = viewModelScope.launch {
         _nftData.value = item
     }
@@ -76,8 +89,10 @@ class MarketViewModel @Inject constructor(
         // 중복 부분 제거
         if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                for (i in 0..19) {
-                    joinedList.removeAt(joinedList.size - 1)
+                if(joinedList.size >= 20) {
+                    for (i in 0..19) {
+                        joinedList.removeAt(joinedList.size - 1)
+                    }
                 }
             }
         }
