@@ -16,7 +16,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     override fun initView() {
         initListener()
-        initTabLayout()
         setData()
     }
 
@@ -33,7 +32,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         val tabIcons =
             listOf(R.drawable.ic_profile_tab_song, R.drawable.ic_profile_tab_nft)
         binding.apply {
-            vpCuration.adapter = ProfileAdapter(this@ProfileFragment)
+            vpCuration.adapter = ProfileAdapter(
+                this@ProfileFragment,
+                ApplicationClass.preferences.nickname.toString(),
+                profileViewModel.profileData.value!!.isMine
+            )
             TabLayoutMediator(
                 tlProfile, vpCuration
             ) { tab, position ->
@@ -51,6 +54,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private fun setData() {
         profileViewModel.profileData.observe(viewLifecycleOwner) {
             binding.profile = it
+            initTabLayout()
         }
         profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
     }

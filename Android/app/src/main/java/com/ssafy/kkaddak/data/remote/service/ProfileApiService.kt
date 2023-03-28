@@ -5,6 +5,7 @@ import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ProfileApiService {
@@ -17,4 +18,10 @@ interface ProfileApiService {
 
     @DELETE("/api/v2/song/delete/{songId}")
     suspend fun deleteMySong(@Path("songId") songId: String)
+
+    @POST("/api/v1/members/follow/{artistId}")
+    suspend fun followArtist(@Path("artistId") artistId: String)
+
+    @POST("/api/v1/members/unfollow/{artistId}")
+    suspend fun unfollowArtist(@Path("artistId") artistId: String)
 }

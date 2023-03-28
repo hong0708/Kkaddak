@@ -17,4 +17,12 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
     override suspend fun deleteMySong(songId: String) {
         profileApiService.deleteMySong(songId)
     }
+
+    override suspend fun followArtist(artistId: String) {
+        profileApiService.followArtist(artistId)
+    }
+
+    override suspend fun unfollowArtist(artistId: String) {
+        profileApiService.unfollowArtist(artistId)
+    }
 }

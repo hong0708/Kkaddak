@@ -29,33 +29,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="갱갱" />
 
-        <ImageView
-            android:id="@+id/iv_btn_to_mypage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="30dp"
-            android:contentDescription="@string/image_btn_to_mypage"
-            android:src="@drawable/ic_profile_btn_to_mypage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_upload_song"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-1dp"
-            android:layout_marginEnd="22dp"
-            android:contentDescription="@string/image_add_song"
-            android:src="@drawable/ic_add_song"
-            app:layout_constraintEnd_toStartOf="@+id/iv_btn_to_mypage"
-            app:layout_constraintTop_toTopOf="@id/iv_btn_to_mypage" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_profile_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/iv_btn_to_mypage"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_profile_nickname"
             app:layout_constraintTop_toBottomOf="@id/tv_profile_nickname">
 
@@ -190,11 +169,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_edit_profile"
+                android:id="@+id/tv_follow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/bg_rect_charcoal_radius5"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius5"
                 android:fontFamily="@font/gmarket_sans_medium"
                 android:gravity="center"
                 android:paddingVertical="9dp"
@@ -204,6 +183,7 @@
                 app:layout_constraintEnd_toEndOf="@id/cl_profile_detail_info"
                 app:layout_constraintStart_toStartOf="@id/cl_profile_detail_info"
                 app:layout_constraintTop_toBottomOf="@id/cl_profile_detail_info" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout

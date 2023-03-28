@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_songDetailFragment_to_songListFragment"
             app:destination="@id/songListFragment" />
+        <action
+            android:id="@+id/action_songDetailFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -133,4 +136,53 @@
         android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash" />
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_otherProfileFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+        <action
+            android:id="@+id/action_otherProfileFragment_to_subscribeFragment"
+            app:destination="@id/subscribeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileSongFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileSongFragment"
+        android:label="fragment_profile_song"
+        tools:layout="@layout/fragment_profile_song">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="isMine"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subscribeFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.SubscribeFragment"
+        android:label="SubscribeFragment"
+        tools:layout="@layout/fragment_subscribe">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="profileImg"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="memberId"
+            app:argType="string" />
+    </fragment>
 </navigation>

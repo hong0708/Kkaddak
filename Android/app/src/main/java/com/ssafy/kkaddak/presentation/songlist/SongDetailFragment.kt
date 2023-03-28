@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SongDetailFragment:
+class SongDetailFragment :
     BaseFragment<FragmentSongDetailBinding>(R.layout.fragment_song_detail) {
 
     private val args by navArgs<SongDetailFragmentArgs>()
@@ -45,6 +45,13 @@ class SongDetailFragment:
                     binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
             }
         }
+        binding.tvSongCreator.setOnClickListener {
+            navigate(
+                SongDetailFragmentDirections.actionSongDetailFragmentToOtherProfileFragment(
+                    songViewModel.songData.value?.nickname.toString()
+                )
+            )
+        }
     }
 
     private fun getData() {
@@ -64,7 +71,7 @@ class SongDetailFragment:
         songViewModel.getSong(args.songId)
     }
 
-    private fun initPlayer(){
+    private fun initPlayer() {
         player = ExoPlayer.Builder(requireContext()).build()
         binding.playerControlView.player = player
 //        buildMediaSource().let {
