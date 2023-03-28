@@ -168,29 +168,21 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/iv_follow"
+            <TextView
+                android:id="@+id/tv_follow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:contentDescription="@string/image_follow_btn"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg_profile_follow"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius5"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:gravity="center"
+                android:paddingVertical="9dp"
+                android:text="@string/title_edit_profile_btn"
+                android:textColor="@color/white"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/cl_profile_detail_info"
                 app:layout_constraintStart_toStartOf="@id/cl_profile_detail_info"
                 app:layout_constraintTop_toBottomOf="@id/cl_profile_detail_info" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gmarket_sans_bold"
-                android:text="@string/title_follow_btn"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_follow"
-                app:layout_constraintEnd_toEndOf="@id/iv_follow"
-                app:layout_constraintStart_toStartOf="@id/iv_follow"
-                app:layout_constraintTop_toTopOf="@id/iv_follow" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
