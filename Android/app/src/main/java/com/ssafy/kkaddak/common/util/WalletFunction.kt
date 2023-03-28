@@ -203,11 +203,11 @@ class WalletFunction {
         }.start()
     }
 
-    private fun encodeToString(byteArray: ByteArray): String {
+    fun encodeToString(byteArray: ByteArray): String {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 
-    private fun decode(string: String): ByteArray {
+    fun decode(string: String): ByteArray {
         return Base64.decode(string, Base64.DEFAULT)
     }
 }
