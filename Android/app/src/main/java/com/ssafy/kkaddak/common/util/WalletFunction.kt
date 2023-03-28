@@ -158,7 +158,11 @@ class WalletFunction {
 
             try {
                 val approve = katToken.approve(
-                    "0x2c1d4e00a773f659084610f91f5decf963bf78e5",
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
+                    ),
                     remoteFunctionCall.send().toString().toBigInteger()
                 ).send().toString()
                 Log.d(TAG, "approve: $approve")
