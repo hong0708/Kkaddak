@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.data.remote.repository
 import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileRemoteDataSource
+import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.repository.ProfileRepository
@@ -33,4 +34,14 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun unfollowArtist(artistId: String) {
         profileRemoteDataSource.unfollowArtist(artistId)
     }
+
+    override suspend fun getFollowers(lastId: Int, limit: Int): Resource<List<FollowerItem>> =
+        wrapToResource {
+            profileRemoteDataSource.getFollowers(lastId, limit).map { it.toDomainModel() }
+        }
+
+    override suspend fun getFollowings(lastId: Int, limit: Int): Resource<List<FollowerItem>> =
+        wrapToResource {
+            profileRemoteDataSource.getFollowings(lastId, limit).map { it.toDomainModel() }
+        }
 }

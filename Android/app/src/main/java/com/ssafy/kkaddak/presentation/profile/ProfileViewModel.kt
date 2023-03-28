@@ -7,12 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
-import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
-import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
-import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
-import com.ssafy.kkaddak.domain.usecase.profile.RequestFollowUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.*
 import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,7 +22,8 @@ class ProfileViewModel @Inject constructor(
     private val getProfileSongUseCase: GetProfileSongUseCase,
     private val deleteMySongUseCase: DeleteMySongUseCase,
     private val logoutUseCase: LogoutUseCase,
-    private val requestFollowUseCase: RequestFollowUseCase
+    private val requestFollowUseCase: RequestFollowUseCase,
+    private val getFollowInfoUseCase: GetFollowInfoUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -32,6 +31,12 @@ class ProfileViewModel @Inject constructor(
 
     private val _profileSongData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val profileSongData: LiveData<List<SongItem>?> = _profileSongData
+
+    private val _followers: MutableLiveData<List<FollowerItem>?> = MutableLiveData()
+    val followers: LiveData<List<FollowerItem>?> = _followers
+
+    private val _followings: MutableLiveData<List<FollowerItem>?> = MutableLiveData()
+    val followings: LiveData<List<FollowerItem>?> = _followings
 
     fun getProfileInfo(nickname: String) = viewModelScope.launch {
         when (val value = getProfileInfoUseCase(nickname)) {
@@ -72,5 +77,27 @@ class ProfileViewModel @Inject constructor(
 
     fun unfollowArtist(artistId: String) = viewModelScope.launch {
         requestFollowUseCase.unfollowArtist(artistId)
+    }
+
+    fun getFollowers(lastId: Int, limit: Int) = viewModelScope.launch {
+        when (val value = getFollowInfoUseCase.getFollowers(lastId, limit)) {
+            is Resource.Success<List<FollowerItem>> -> {
+                _followers.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("getFollowers", "getFollowers: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun getFollowings(lastId: Int, limit: Int) = viewModelScope.launch {
+        when (val value = getFollowInfoUseCase.getFollowings(lastId, limit)) {
+            is Resource.Success<List<FollowerItem>> -> {
+                _followings.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("getFollowings", "getFollowings: ${value.errorMessage}")
+            }
+        }
     }
 }
