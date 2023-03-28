@@ -206,4 +206,6 @@
     <string name="content_price">0.5</string>
     <string name="content_payment">결제하기</string>
     <string name="content_dialog_cancel_subscribe">구독을 취소하시겠습니까?\n(금액은 반환되지 않습니다.)</string>
+    <string name="title_following">Following</string>
+    <string name="title_follower">Follower</string>
 </resources>

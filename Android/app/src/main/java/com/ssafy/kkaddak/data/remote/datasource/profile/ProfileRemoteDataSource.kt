@@ -13,4 +13,8 @@ interface ProfileRemoteDataSource {
     suspend fun followArtist(artistId: String)
 
     suspend fun unfollowArtist(artistId: String)
+
+    suspend fun getFollowers(lastId: Int, limit: Int): List<FollowerResponse>
+
+    suspend fun getFollowings(lastId: Int, limit: Int): List<FollowerResponse>
 }

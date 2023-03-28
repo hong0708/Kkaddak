@@ -25,4 +25,10 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
     override suspend fun unfollowArtist(artistId: String) {
         profileApiService.unfollowArtist(artistId)
     }
+
+    override suspend fun getFollowers(lastId: Int, limit: Int): List<FollowerResponse> =
+        profileApiService.getFollowers(lastId, limit).data!!
+
+    override suspend fun getFollowings(lastId: Int, limit: Int): List<FollowerResponse> =
+        profileApiService.getFollowings(lastId, limit).data!!
 }

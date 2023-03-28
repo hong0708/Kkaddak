@@ -52,6 +52,12 @@
         <action
             android:id="@+id/action_profileFragment_to_myPageFragment"
             app:destination="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myFollowingFragment"
+            app:destination="@id/myFollowingFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myFollowerFragment"
+            app:destination="@id/myFollowerFragment" />
     </fragment>
 
     <fragment
@@ -184,5 +190,25 @@
         <argument
             android:name="memberId"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFollowingFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyFollowingFragment"
+        android:label="MyFollowingFragment"
+        tools:layout="@layout/fragment_my_following">
+        <action
+            android:id="@+id/action_myFollowingFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFollowerFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyFollowerFragment"
+        android:label="MyFollowerFragment"
+        tools:layout="@layout/fragment_my_follower">
+        <action
+            android:id="@+id/action_myFollowerFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 </navigation>
