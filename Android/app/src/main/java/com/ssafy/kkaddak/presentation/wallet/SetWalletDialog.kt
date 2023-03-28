@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
 import com.ssafy.kkaddak.ApplicationClass
-import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.DialogSetWalletBinding
 
 class SetWalletDialog(
@@ -52,12 +51,7 @@ class SetWalletDialog(
 
             // 지갑 생성
             tvMakeWallet.setOnClickListener {
-                WalletFunction().generateWallet()
-
-                listener.setWallet(
-                    etWalletAddress.text.toString(),
-                    etWalletKey.text.toString()
-                )
+                listener.generateWallet()
             }
         }
     }
