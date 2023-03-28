@@ -12,6 +12,7 @@ import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.RequestFollowUseCase
 import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,7 +23,8 @@ class ProfileViewModel @Inject constructor(
     private val getProfileInfoUseCase: GetProfileInfoUseCase,
     private val getProfileSongUseCase: GetProfileSongUseCase,
     private val deleteMySongUseCase: DeleteMySongUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val requestFollowUseCase: RequestFollowUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -62,5 +64,13 @@ class ProfileViewModel @Inject constructor(
             ApplicationClass.preferences.accessToken!!,
             ApplicationClass.preferences.refreshToken!!
         )
+    }
+
+    fun followArtist(artistId: String) = viewModelScope.launch {
+        requestFollowUseCase.followArtist(artistId)
+    }
+
+    fun unfollowArtist(artistId: String) = viewModelScope.launch {
+        requestFollowUseCase.unfollowArtist(artistId)
     }
 }

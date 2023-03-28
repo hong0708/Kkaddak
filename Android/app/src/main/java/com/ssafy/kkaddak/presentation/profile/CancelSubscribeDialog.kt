@@ -10,7 +10,7 @@ import com.ssafy.kkaddak.databinding.DialogCancelSubscribeBinding
 
 class CancelSubscribeDialog(
     context: Context,
-    private val nickname: String,
+    private val artistId: String,
     private val listener: CancelSubscribeDialogListener
 ) : Dialog(context) {
 
@@ -35,7 +35,7 @@ class CancelSubscribeDialog(
         binding.apply {
             tvCancel.setOnClickListener { dismiss() }
             tvConfirmCancelSubscribe.setOnClickListener {
-                listener.onConfirmButtonClicked(nickname)
+                listener.onConfirmButtonClicked(artistId)
                 dismiss()
             }
         }

@@ -11,4 +11,8 @@ interface ProfileRepository {
     suspend fun getProfileSong(nickname: String): Resource<List<SongItem>>
 
     suspend fun deleteMySong(songId: String)
+
+    suspend fun followArtist(artistId: String)
+
+    suspend fun unfollowArtist(artistId: String)
 }

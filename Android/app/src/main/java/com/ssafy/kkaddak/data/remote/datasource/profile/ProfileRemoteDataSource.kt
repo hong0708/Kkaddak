@@ -9,4 +9,8 @@ interface ProfileRemoteDataSource {
     suspend fun getProfileSong(nickname: String): List<SongResponse>
 
     suspend fun deleteMySong(songId: String)
+
+    suspend fun followArtist(artistId: String)
+
+    suspend fun unfollowArtist(artistId: String)
 }

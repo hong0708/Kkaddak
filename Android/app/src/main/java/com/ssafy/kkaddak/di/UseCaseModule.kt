@@ -1,11 +1,6 @@
 package com.ssafy.kkaddak.di
 
 import com.ssafy.kkaddak.domain.repository.*
-import com.ssafy.kkaddak.domain.repository.AuthRepository
-import com.ssafy.kkaddak.domain.repository.MarketRepository
-import com.ssafy.kkaddak.domain.repository.ProfileRepository
-import com.ssafy.kkaddak.domain.repository.SongRepository
-import com.ssafy.kkaddak.domain.repository.UserRepository
 import com.ssafy.kkaddak.domain.usecase.auth.GetNewTokenUseCase
 import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
@@ -13,10 +8,11 @@ import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
-import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.DeleteMySongUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileSongUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.RequestFollowUseCase
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
@@ -134,4 +130,9 @@ object UseCaseModule {
     @Provides
     fun provideLogoutUseCase(userRepository: UserRepository): LogoutUseCase =
         LogoutUseCase(userRepository)
+
+    @Singleton
+    @Provides
+    fun provideRequestFollowUseCase(profileRepository: ProfileRepository): RequestFollowUseCase =
+        RequestFollowUseCase(profileRepository)
 }

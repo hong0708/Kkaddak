@@ -25,4 +25,12 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun deleteMySong(songId: String) {
         profileRemoteDataSource.deleteMySong(songId)
     }
+
+    override suspend fun followArtist(artistId: String) {
+        profileRemoteDataSource.followArtist(artistId)
+    }
+
+    override suspend fun unfollowArtist(artistId: String) {
+        profileRemoteDataSource.unfollowArtist(artistId)
+    }
 }

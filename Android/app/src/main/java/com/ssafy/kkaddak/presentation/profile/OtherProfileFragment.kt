@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.profile
 
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
@@ -53,7 +54,7 @@ class OtherProfileFragment :
                     setBackgroundResource(R.drawable.bg_rect_indigo_to_han_purple_angle270_radius5)
                     text = "구독 취소"
                     setOnClickListener { view ->
-                        cancelSubscribe(it.nickname)
+                        cancelSubscribe(it.memberId)
                     }
                 }
             } else {
@@ -65,7 +66,8 @@ class OtherProfileFragment :
                             OtherProfileFragmentDirections.actionOtherProfileFragmentToSubscribeFragment(
                                 it.nickname,
                                 it.profilepath,
-                                it.account ?: ""
+                                it.account ?: "",
+                                it.memberId
                             )
                         )
                     }
@@ -76,8 +78,8 @@ class OtherProfileFragment :
         profileViewModel.getProfileInfo(args.nickname)
     }
 
-    private fun cancelSubscribe(nickname: String) {
-        val dialog = CancelSubscribeDialog(requireContext(), nickname, this)
+    private fun cancelSubscribe(artistId: String) {
+        val dialog = CancelSubscribeDialog(requireContext(), artistId, this)
         dialog.setCanceledOnTouchOutside(true)
         dialog.show()
         dialog.window?.setLayout(
@@ -86,10 +88,9 @@ class OtherProfileFragment :
         )
     }
 
-    override fun onConfirmButtonClicked(nickname: String) {
-//        profileViewModel.deleteMySong(songId)
-//        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
-//        Toast.makeText(requireContext(), "음악이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-//        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
+    override fun onConfirmButtonClicked(artistId: String) {
+        profileViewModel.unfollowArtist(artistId)
+        setData()
+        Toast.makeText(requireContext(), "구독이 취소되었습니다.", Toast.LENGTH_SHORT).show()
     }
 }
