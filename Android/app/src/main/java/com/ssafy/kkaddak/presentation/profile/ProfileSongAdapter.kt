@@ -10,6 +10,7 @@ import com.ssafy.kkaddak.databinding.ItemProfileSongBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 
 class ProfileSongAdapter(
+    private val isMine: Boolean,
     private val onItemClicked: (songId: String) -> Unit,
     private val onRejectBadgeClicked: (songId: String) -> Unit
 ) : RecyclerView.Adapter<ProfileSongAdapter.ViewHolder>() {
@@ -21,7 +22,7 @@ class ProfileSongAdapter(
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), R.layout.item_profile_song, parent, false
         )
-        return ViewHolder(binding, onItemClicked, onRejectBadgeClicked)
+        return ViewHolder(binding, onItemClicked, onRejectBadgeClicked, isMine)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -33,7 +34,8 @@ class ProfileSongAdapter(
     class ViewHolder(
         private val binding: ItemProfileSongBinding,
         private val onItemClicked: (songId: String) -> Unit,
-        private val onRejectBadgeClicked: (songId: String) -> Unit
+        private val onRejectBadgeClicked: (songId: String) -> Unit,
+        private val isMine: Boolean
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SongItem) {
             binding.apply {
@@ -44,14 +46,18 @@ class ProfileSongAdapter(
                 when (data.songStatus) {
                     "PROCEEDING" -> {
                         ivSongState.setImageResource(R.drawable.ic_profile_song_pending)
+                        root.isEnabled = false
                     }
                     "REJECT" -> {
                         ivSongState.apply {
+                            if (!isMine) this.isEnabled = false
                             setImageResource(R.drawable.ic_profile_song_rejected)
                             setOnClickListener { onRejectBadgeClicked(data.songId) }
                         }
                     }
-                    "APPROVE" -> ivSongState.setImageResource(R.drawable.ic_profile_song_approved)
+                    "APPROVE" -> {
+                        if (isMine) ivSongState.setImageResource(R.drawable.ic_profile_song_approved)
+                    }
                     else -> ivSongState.visibility = View.GONE
                 }
             }

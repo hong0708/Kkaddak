@@ -10,7 +10,7 @@ data class ProfileResponse(
     @SerializedName("nickname")
     val nickname: String,
     @SerializedName("profilepath")
-    val profilepath: String,
+    val profilepath: String?,
     @SerializedName("account")
     val account: String?,
     @SerializedName("myFollowers")
@@ -25,5 +25,15 @@ data class ProfileResponse(
     val isFollowing: Boolean?
 ) : DataToDomainMapper<ProfileItem> {
     override fun toDomainModel(): ProfileItem =
-        ProfileItem(memberId, nickname, profilepath, account, myFollowers, myFollowings, mySongs, isMine, isFollowing)
+        ProfileItem(
+            memberId,
+            nickname,
+            profilepath,
+            account,
+            myFollowers,
+            myFollowings,
+            mySongs,
+            isMine,
+            isFollowing
+        )
 }

@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.presentation.profile
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
@@ -12,13 +13,15 @@ import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileSongFragment :
+class ProfileSongFragment() :
     BaseFragment<FragmentProfileSongBinding>(R.layout.fragment_profile_song),
     DeleteRejectedSongDialogListener {
 
+    private val args by navArgs<ProfileSongFragmentArgs>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
     private val profileSongAdapter by lazy {
         ProfileSongAdapter(
+            args.isMine,
             this::getSongDetail,
             this::deleteMySong
         )
@@ -33,7 +36,7 @@ class ProfileSongFragment :
         profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
             response?.let { profileSongAdapter.setSong(it) }
         }
-        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
+        profileViewModel.getProfileSong(args.nickname)
     }
 
     private fun setProfileSong() {
@@ -46,13 +49,20 @@ class ProfileSongFragment :
         profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
             response?.let { profileSongAdapter.setSong(it) }
         }
-        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
+        profileViewModel.getProfileSong(args.nickname)
     }
 
     private fun getSongDetail(songId: String) {
-        navigate(
-            ProfileFragmentDirections.actionProfileFragmentToSongDetailFragment(songId)
-        )
+        if (args.isMine) {
+            navigate(
+                ProfileFragmentDirections.actionProfileFragmentToSongDetailFragment(songId)
+            )
+        } else {
+            navigate(
+                OtherProfileFragmentDirections.actionOtherProfileFragmentToSongDetailFragment(songId)
+            )
+        }
+
     }
 
     private fun deleteMySong(songId: String) {

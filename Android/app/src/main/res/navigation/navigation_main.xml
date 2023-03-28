@@ -52,10 +52,6 @@
         <action
             android:id="@+id/action_profileFragment_to_myPageFragment"
             app:destination="@id/myPageFragment" />
-        <argument
-            android:name="nickname"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -86,8 +82,8 @@
             android:id="@+id/action_songDetailFragment_to_songListFragment"
             app:destination="@id/songListFragment" />
         <action
-            android:id="@+id/action_songDetailFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_songDetailFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -140,4 +136,30 @@
         android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash" />
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_otherProfileFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileSongFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileSongFragment"
+        android:label="fragment_profile_song"
+        tools:layout="@layout/fragment_profile_song">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="isMine"
+            app:argType="boolean" />
+    </fragment>
 </navigation>

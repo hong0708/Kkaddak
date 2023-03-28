@@ -100,7 +100,9 @@
     <string name="title_profile_follower">follower</string>
     <string name="title_profile_following">following</string>
     <string name="image_follow_btn">image_follow_btn</string>
+    <string name="image_edit_profile">image_edit_profile</string>
     <string name="title_follow_btn">Follow</string>
+    <string name="title_edit_profile_btn">프로필 수정</string>
     <string name="image_profile_status">image_profile_status</string>
 
     <!-- Wallet -->

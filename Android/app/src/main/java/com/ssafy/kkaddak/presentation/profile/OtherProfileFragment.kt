@@ -2,30 +2,22 @@ package com.ssafy.kkaddak.presentation.profile
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.databinding.FragmentProfileBinding
+import com.ssafy.kkaddak.databinding.FragmentOtherProfileBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
+class OtherProfileFragment :
+    BaseFragment<FragmentOtherProfileBinding>(R.layout.fragment_other_profile) {
 
+    private val args by navArgs<OtherProfileFragmentArgs>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun initView() {
-        initListener()
         setData()
-    }
-
-    private fun initListener() {
-        binding.ivUploadSong.setOnClickListener {
-            navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
-        }
-        binding.ivBtnToMypage.setOnClickListener {
-            navigate(ProfileFragmentDirections.actionProfileFragmentToMyPageFragment())
-        }
     }
 
     private fun initTabLayout() {
@@ -33,8 +25,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             listOf(R.drawable.ic_profile_tab_song, R.drawable.ic_profile_tab_nft)
         binding.apply {
             vpCuration.adapter = ProfileAdapter(
-                this@ProfileFragment,
-                ApplicationClass.preferences.nickname.toString(),
+                this@OtherProfileFragment,
+                args.nickname,
                 profileViewModel.profileData.value!!.isMine
             )
             TabLayoutMediator(
@@ -56,6 +48,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             binding.profile = it
             initTabLayout()
         }
-        profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
+        profileViewModel.getProfileInfo(args.nickname)
     }
 }
