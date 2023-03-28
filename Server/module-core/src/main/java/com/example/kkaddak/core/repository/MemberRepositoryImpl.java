@@ -32,7 +32,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
         List<Integer> ids = jpaQueryFactory
                 .select(member.id)
                 .from(member)
-                .where(gtAuctionId(c.getLastId()), f1.following.id.eq(memberId))
+                .where(gtMemberId(c.getLastId()), f1.following.id.eq(memberId))
                 .leftJoin(f1).on(f1.follower.id.eq(member.id))
                 .orderBy(member.id.asc())
                 .limit(c.getLimit())
@@ -52,7 +52,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                                 .as("isFollowing"))
                 )
                 .from(member)
-                .leftJoin(f1).on(f1.follower.id.eq(member.id))
                 .leftJoin(f2).on(f2.follower.id.eq(memberId).and(f2.following.id.eq(f1.follower.id)))
                 .where(member.id.in(ids))
                 .fetch();
@@ -64,7 +63,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
         List<Integer> ids = jpaQueryFactory
                 .select(member.id)
                 .from(member)
-                .where(gtAuctionId(c.getLastId()), f1.follower.id.eq(memberId))
+                .where(gtMemberId(c.getLastId()), f1.follower.id.eq(memberId))
                 .leftJoin(f1).on(f1.following.id.eq(member.id))
                 .orderBy(member.id.asc())
                 .limit(c.getLimit())
@@ -76,12 +75,11 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
         return jpaQueryFactory
                 .select(Projections.constructor(MyFollowerResDto.class, member, Expressions.asNumber(1).as("isFollowing")))
                 .from(member)
-                .leftJoin(f1).on(f1.following.id.eq(member.id))
                 .where(member.id.in(ids))
                 .fetch();
     }
 
-    private BooleanExpression gtAuctionId(int followId){
+    private BooleanExpression gtMemberId(int followId){
         if (followId == -1)
             return null;
         return member.id.gt(followId);
