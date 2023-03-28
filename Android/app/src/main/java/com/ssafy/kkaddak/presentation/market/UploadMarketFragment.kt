@@ -5,6 +5,7 @@ import android.view.View
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentUploadMarketBinding
 import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,13 +15,9 @@ class UploadMarketFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).HideBottomNavigation(true)
         initView()
-        binding.ivBack.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host, MarketFragment())
-                .addToBackStack(null)
-                .commit()
-        }
+        binding.ivBack.setOnClickListener { popBackStack() }
     }
 
     override fun initView() {
@@ -37,5 +34,10 @@ class UploadMarketFragment :
 
     override fun onPause() {
         super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).HideBottomNavigation(false)
     }
 }

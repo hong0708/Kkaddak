@@ -4,6 +4,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.BindingAdapters.setProfileImg
 import com.ssafy.kkaddak.databinding.FragmentBuyMarketBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -38,6 +39,8 @@ class BuyMarketFragment :
             }
         }
         marketViewModel.getData(args.nftItem)
+        marketViewModel.getCreatorImg(args.nftItem.nftCreator)
+        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
     }
 
     private fun initListener() {
