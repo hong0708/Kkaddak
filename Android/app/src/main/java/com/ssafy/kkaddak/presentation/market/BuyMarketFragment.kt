@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
+import com.ssafy.kkaddak.common.util.BindingAdapters.setProfileImg
 import com.ssafy.kkaddak.databinding.FragmentBuyMarketBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -41,23 +42,19 @@ class BuyMarketFragment :
         }
         marketViewModel.getData(args.nftItem)
         marketViewModel.getCreatorImg(args.nftItem.nftCreator)
-
-
-
-//        binding.ivNftCreatorProfile.setNormalImg(marketViewModel.creatorImg)
-//        Log.d("creatorImg3", marketViewModel.creatorImg)
     }
 
     private fun setData() {
         binding.ivNftImage.setNormalImg(args.nftItem.nftImagePath)
         binding.tvContentSellingEth.text = args.nftItem.nftPrice.toString()
+        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
     }
 
     private fun initListener() {
         binding.ivBack.setOnClickListener { popBackStack() }
         binding.ivNftLike.setOnClickListener {
             val isLike = args.nftItem.isLike
-            if(!isLike) {
+            if (!isLike) {
                 lifecycleScope.launch {
                     val like = marketViewModel.requestBookmark(args.nftItem.marketId)
                     if (like == "true") {
