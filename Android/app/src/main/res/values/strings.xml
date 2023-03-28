@@ -19,13 +19,13 @@
     <string name="content_market_creator">창작자</string>
     <string name="content_market_contour"> | </string>
     <string name="content_market_song_title">노래 제목</string>
-    <string name="content_market_nft_enddate">23.03.23</string>
+    <string name="content_market_nft_create_date">23.03.23</string>
     <string name="content_market_nft_price">6.64</string>
     <string name="image_market_notification">image_market_notification</string>
     <string name="image_market_upload">image_market_upload</string>
     <string name="image_nft_item">image_nft_item</string>
     <string name="image_nft_like">image_nft_like</string>
-    <string name="image_action_timer">image_action_timer</string>
+    <string name="image_market_timer">image_market_timer</string>
     <string name="image_ethereum">image_ethereum</string>
 
     <!-- upload Market -->
