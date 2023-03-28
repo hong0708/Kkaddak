@@ -116,7 +116,7 @@ class KeyStoreHelper(private val context: Context) {
     // 공개키를 가져오는 함수입니다.
     // KeyStore.getInstance()를 사용하여 KEYSTORE_PROVIDER에 해당하는 키스토어를 가져온 후,
     // ASYMMETRIC_KEY_ALIAS에 해당하는 공개키를 가져옵니다.
-    fun getPublicKey(): PublicKey {
+    private fun getPublicKey(): PublicKey {
         val keyStore = KeyStore.getInstance(KEYSTORE_PROVIDER)
         keyStore.load(null)
         val publicKey = keyStore.getCertificate(ASYMMETRIC_KEY_ALIAS).publicKey
@@ -124,7 +124,7 @@ class KeyStoreHelper(private val context: Context) {
     }
 
     // 개인키를 가져오는 함수입니다.
-    fun getPrivateKey(): PrivateKey {
+    private fun getPrivateKey(): PrivateKey {
         val keyStore = KeyStore.getInstance(KEYSTORE_PROVIDER)
         keyStore.load(null)
         val privateKey =

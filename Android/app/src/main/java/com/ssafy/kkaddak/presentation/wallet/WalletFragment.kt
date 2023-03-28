@@ -34,6 +34,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 SetWalletDialog(requireActivity(), this@WalletFragment).show()
             }
 
+            clWalletInfo.setOnClickListener {
+                WalletInfoDialog(requireActivity()).show()
+            }
+
             clCharge.setOnClickListener {
                 Log.d("asd", "initListener: ")
                 WalletFunction().transfer("0x8fdED880ED0E79c1209130c0e477A7eeE8956CE4", 1200000000)
