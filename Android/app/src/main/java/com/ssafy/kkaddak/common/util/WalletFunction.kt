@@ -119,15 +119,6 @@ class WalletFunction {
             )
             val remoteFunctionCall = katToken.balanceOf(walletAddress)
 
-            val credentials =
-                Credentials.create(
-                    String(
-                        ApplicationClass.keyStore.decryptData(
-                            decode(ApplicationClass.preferences.privateKey.toString())
-                        )
-                    )
-                )
-
             try {
                 val balance = remoteFunctionCall.send().toString()
                 val formattedBalance = (balance.toFloat() / 100000000).toString()
@@ -135,9 +126,6 @@ class WalletFunction {
                 textView.post {
                     textView.text = formattedBalance
                 }
-                Log.d(TAG, "balanceOf: ${credentials.address}, $balance")
-                Log.d(TAG, "balanceOf: ${walletAddress}, $balance")
-
             } catch (e: Exception) {
                 System.err.println("Error while fetching the balance: ${e.message}")
             }
