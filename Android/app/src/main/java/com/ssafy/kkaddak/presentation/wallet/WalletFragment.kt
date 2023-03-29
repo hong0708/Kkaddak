@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentWalletBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -24,6 +25,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         getBalance()
         initRecyclerView()
         WalletFunction().getRecentTransactionList()
+        NFTFunction().getNFTCount()
+        NFTFunction().getTokensOfOwner()
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {

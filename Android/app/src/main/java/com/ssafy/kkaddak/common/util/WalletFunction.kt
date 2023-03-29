@@ -14,7 +14,7 @@ import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
-private const val CONTRACT_ADDRESS = "0x0Acd0Cf85bB7C08f8782Fb1106C98312eE517818"
+private const val CONTRACT_ADDRESS = "0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74"
 private const val TAG = "wallet info"
 
 class WalletFunction {
@@ -194,6 +194,11 @@ class WalletFunction {
 
             try {
                 val remoteFunctionCall = katToken.transfer(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
+                    ),
                     targetAddress,
                     amount.toBigInteger(),
                     transferType
@@ -210,16 +215,29 @@ class WalletFunction {
 
     fun getRecentTransactionList() {
         Thread {
-
+            val credentials =
+                Credentials.create(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            decode(ApplicationClass.preferences.privateKey.toString())
+                        )
+                    )
+                )
             val katToken = KATToken_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
-                transactionManager,
+                credentials,
                 contractGasProvider
             )
 
             try {
-                val remoteFunctionCall = katToken.transferLog
+                val remoteFunctionCall = katToken.getTransferLog(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
+                    )
+                )
                 val transfer = remoteFunctionCall.send().toString()
                 Log.d(TAG, "transfer: $transfer")
 
