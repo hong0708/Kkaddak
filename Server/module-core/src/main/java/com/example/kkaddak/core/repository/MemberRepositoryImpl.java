@@ -52,8 +52,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                                 .as("isFollowing"))
                 )
                 .from(member)
-                .leftJoin(f2).on(f2.follower.id.eq(memberId).and(f2.following.id.eq(f1.follower.id)))
                 .where(member.id.in(ids))
+                .leftJoin(f2).on(f2.follower.id.eq(memberId).and(f2.following.id.eq(member.id)))
                 .fetch();
     }
 
