@@ -27,13 +27,13 @@ class OtherProfileFragment :
         val tabIcons =
             listOf(R.drawable.ic_profile_tab_song, R.drawable.ic_profile_tab_nft)
         binding.apply {
-            vpCuration.adapter = ProfileAdapter(
+            vpProfile.adapter = ProfileAdapter(
                 this@OtherProfileFragment,
                 args.nickname,
                 profileViewModel.profileData.value!!.isMine
             )
             TabLayoutMediator(
-                tlProfile, vpCuration
+                tlProfile, vpProfile
             ) { tab, position ->
                 tab.setIcon(tabIcons[position])
                 tab.icon?.setTintList(

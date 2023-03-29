@@ -212,7 +212,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_curation"
+            android:id="@+id/vp_profile"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="2dp"

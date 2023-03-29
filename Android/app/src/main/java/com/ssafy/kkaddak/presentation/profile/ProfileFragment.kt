@@ -20,11 +20,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initListener() {
-        binding.ivUploadSong.setOnClickListener {
-            navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
-        }
-        binding.ivBtnToMypage.setOnClickListener {
-            navigate(ProfileFragmentDirections.actionProfileFragmentToMyPageFragment())
+        binding.apply {
+            ivUploadSong.setOnClickListener {
+                navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
+            }
+            ivBtnToMypage.setOnClickListener {
+                navigate(ProfileFragmentDirections.actionProfileFragmentToMyPageFragment())
+            }
+            tvProfileFollowingCnt.setOnClickListener {
+                navigate(ProfileFragmentDirections.actionProfileFragmentToMyFollowingFragment())
+            }
+            tvProfileFollowerCnt.setOnClickListener {
+                navigate(ProfileFragmentDirections.actionProfileFragmentToMyFollowerFragment())
+            }
         }
     }
 

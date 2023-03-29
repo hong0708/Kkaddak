@@ -103,6 +103,8 @@
     <string name="title_follow_btn">Follow</string>
     <string name="title_edit_profile_btn">프로필 수정</string>
     <string name="image_profile_status">image_profile_status</string>
+    <string name="title_following">Following</string>
+    <string name="title_follower">Follower</string>
 
     <!-- Wallet -->
     <string name="title_wallet">WALLET</string>

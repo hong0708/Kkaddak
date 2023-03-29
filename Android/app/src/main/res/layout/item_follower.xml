@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.ssafy.kkaddak.domain.entity.profile.FollowerItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp">
+
+        <ImageView
+            android:id="@+id/iv_profile_image"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:contentDescription="@string/image_song"
+            android:profileImgStr="@{user.profilePath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/gmarket_sans_medium"
+            android:text="@{user.nickname}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+            app:layout_constraintStart_toEndOf="@id/iv_profile_image"
+            app:layout_constraintTop_toTopOf="@id/iv_profile_image" />
+
+        <TextView
+            android:id="@+id/tv_follow_state"
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius5"
+            android:fontFamily="@font/gmarket_sans_bold"
+            android:gravity="center"
+            android:paddingVertical="12dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_profile_image"
+            tools:text="Follow" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

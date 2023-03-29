@@ -1,12 +1,10 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
+import com.ssafy.kkaddak.data.remote.datasource.profile.FollowerResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ProfileApiService {
 
@@ -24,4 +22,16 @@ interface ProfileApiService {
 
     @POST("/api/v1/members/unfollow/{artistId}")
     suspend fun unfollowArtist(@Path("artistId") artistId: String)
+
+    @GET("/api/v1/members/my-followers")
+    suspend fun getFollowers(
+        @Query("lastId") lastId: Int,
+        @Query("limit") limit: Int
+    ): BaseResponse<List<FollowerResponse>>
+
+    @GET("/api/v1/members/my-followings")
+    suspend fun getFollowings(
+        @Query("lastId") lastId: Int,
+        @Query("limit") limit: Int
+    ): BaseResponse<List<FollowerResponse>>
 }
