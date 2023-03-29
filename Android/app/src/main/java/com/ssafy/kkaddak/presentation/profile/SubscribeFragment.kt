@@ -36,7 +36,7 @@ class SubscribeFragment :
                     if (tvWalletBalance.text.toString().toFloat() > 1) {
                         profileViewModel.followArtist(args.memberId)
                         // 구독 시 결제 진행
-                        WalletFunction().transfer(args.address, 1, "구독")
+                        WalletFunction().transfer(args.address, 1)
                         popBackStack()
                     } else {
                         Toast.makeText(requireContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT)
