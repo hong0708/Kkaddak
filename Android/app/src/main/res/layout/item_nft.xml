@@ -145,21 +145,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_timer"
-                        android:contentDescription="@string/image_action_timer"
+                        android:contentDescription="@string/image_market_timer"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_nft_action_date"
+                        app:layout_constraintEnd_toStartOf="@id/tv_nft_market_date"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
-                        android:id="@+id/tv_nft_action_date"
+                        android:id="@+id/tv_nft_market_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="3dp"
                         android:paddingTop="2dp"
                         android:fontFamily="@font/gmarket_sans_medium"
                         android:gravity="center"
-                        android:text="@string/content_market_nft_enddate"
+                        android:text="@string/content_market_nft_create_date"
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         tools:ignore="SmallSp"
@@ -174,12 +174,12 @@
                         android:layout_marginEnd="3dp"
                         android:background="@drawable/ic_ethereum"
                         android:contentDescription="@string/image_ethereum"
-                        app:layout_constraintEnd_toStartOf="@id/tv_nft_action_price"
+                        app:layout_constraintEnd_toStartOf="@id/tv_nft_market_price"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
-                        android:id="@+id/tv_nft_action_price"
+                        android:id="@+id/tv_nft_market_price"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingTop="2dp"

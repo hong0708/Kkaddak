@@ -46,14 +46,14 @@ class NftItemAdapter(
         fun onBind(data: NftItem) {
             binding.apply {
                 ivNftItem.setNormalImg(data.nftImagePath)
-                tvNftLike.text = data.cntLikeAcution.toString()
+                tvNftLike.text = data.cntLikeMarket.toString()
                 tvNftCreator.text = data.nftCreator
                 tvNftSongTitle.text = data.nftSongTitle
                 val year = data.nftCreateDate.substring(2, 4)
                 val month = data.nftCreateDate.substring(5, 7)
                 val day = data.nftCreateDate.substring(8, 10)
-                tvNftActionDate.text = String.format("%s.%s.%s", year, month, day)
-                tvNftActionPrice.text = String.format("%.2f", data.nftPrice)
+                tvNftMarketDate.text = String.format("%s.%s.%s", year, month, day)
+                tvNftMarketPrice.text = String.format("%.2f", data.nftPrice)
                 if (data.isLike) {
                     ivNftLike.setImageResource(R.drawable.ic_market_like_selected)
                 }

@@ -16,6 +16,13 @@ interface MarketApiService {
         @Query("onlySelling") onlySelling: Boolean
     ) : BaseResponse<List<NftItemResponse>>
 
+    @GET("/api/v3/market/my-like")
+    suspend fun getBookmarks(
+        @Query("lastId") lastId: Int,
+        @Query("limit") limit: Int,
+        @Query("onlySelling") onlySelling: Boolean
+    ) : BaseResponse<List<NftItemResponse>>
+
     @POST("/api/v3/market/like/{marketId}")
     suspend fun requestMarketBookmark(@Path("marketId") marketId: Int): BaseResponse<Boolean>
 

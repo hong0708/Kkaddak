@@ -4,6 +4,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
+import com.ssafy.kkaddak.common.util.BindingAdapters.setProfileImg
 import com.ssafy.kkaddak.databinding.FragmentBuyMarketBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -21,6 +23,12 @@ class BuyMarketFragment :
         (activity as MainActivity).HideBottomNavigation(true)
         initListener()
         getData()
+        setData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).HideBottomNavigation(false)
     }
 
     private fun getData() {
@@ -33,13 +41,22 @@ class BuyMarketFragment :
             }
         }
         marketViewModel.getData(args.nftItem)
+        marketViewModel.getCreatorImg(args.nftItem.nftCreator)
+    }
+
+    private fun setData() {
+        binding.apply {
+            ivNftImage.setNormalImg(args.nftItem.nftImagePath)
+            tvContentSellingEth.text = args.nftItem.nftPrice.toString()
+            ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+        }
     }
 
     private fun initListener() {
         binding.ivBack.setOnClickListener { popBackStack() }
         binding.ivNftLike.setOnClickListener {
             val isLike = args.nftItem.isLike
-            if(!isLike) {
+            if (!isLike) {
                 lifecycleScope.launch {
                     val like = marketViewModel.requestBookmark(args.nftItem.marketId)
                     if (like == "true") {

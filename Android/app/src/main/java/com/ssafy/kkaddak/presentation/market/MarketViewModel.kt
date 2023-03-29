@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.market.NftItem
+import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
 import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
+import com.ssafy.kkaddak.domain.usecase.market.GetBookmarksUseCase
 import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
+import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -15,8 +18,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MarketViewModel @Inject constructor(
     private val getAllNftsUseCase: GetAllNftsUseCase,
+    private val getBookmarksUseCase: GetBookmarksUseCase,
     private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
-    private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase
+    private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase,
+    private val getProfileInfoUseCase: GetProfileInfoUseCase
 ) : ViewModel() {
 
     private val _nftListData: MutableLiveData<List<NftItem>?> = MutableLiveData()
@@ -28,9 +33,11 @@ class MarketViewModel @Inject constructor(
     private val _nftData: MutableLiveData<NftItem> = MutableLiveData()
     val nftData: LiveData<NftItem> = _nftData
 
+    var creatorImg: String = ""
+
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
-    private fun dup(list1: List<NftItem>, list2: List<NftItem>) : Boolean {
-        if(list1.isNotEmpty() && list2.isNotEmpty()) {
+    private fun dup(list1: List<NftItem>, list2: List<NftItem>): Boolean {
+        if (list1.isNotEmpty() && list2.isNotEmpty()) {
             if (list1[list1.size - 1].marketId <= list2[list2.size - 1].marketId) {
                 return true
             }
@@ -45,6 +52,17 @@ class MarketViewModel @Inject constructor(
             }
             is Resource.Error -> {
                 Log.e("getAllNfts", "getAllNfts: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun getBookmarks(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
+        when (val value = getBookmarksUseCase(lastId, limit, onlySelling)) {
+            is Resource.Success<List<NftItem>> -> {
+                _nftTempData.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("getBookmarks", "getBookmarks: ${value.errorMessage}")
             }
         }
     }
@@ -69,10 +87,12 @@ class MarketViewModel @Inject constructor(
         list2?.let { joinedList.addAll(it) }
 
         // 중복 부분 제거
-        if(list1 != null && list2 != null) {
+        if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                for (i in 0..19) {
-                    joinedList.removeAt(joinedList.size - 1)
+                if(joinedList.size >= 20) {
+                    for (i in 0..19) {
+                        joinedList.removeAt(joinedList.size - 1)
+                    }
                 }
             }
         }
@@ -90,6 +110,17 @@ class MarketViewModel @Inject constructor(
 
     fun getSize(): Int? {
         return _nftListData.value?.size
+    }
+
+    fun getCreatorImg(nickname: String) = viewModelScope.launch {
+        when (val value = getProfileInfoUseCase(nickname)) {
+            is Resource.Success<ProfileItem> -> {
+                creatorImg = value.data.profilepath.toString()
+            }
+            is Resource.Error -> {
+                Log.e("getCreatorImg", "getCreatorImg: ${value.errorMessage}")
+            }
+        }
     }
 
     suspend fun requestBookmark(marketId: Int) = viewModelScope.async {

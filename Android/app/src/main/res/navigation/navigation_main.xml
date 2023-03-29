@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_marketFragment_to_buyMarketFragment"
             app:destination="@id/buyMarketFragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_uploadMarketFragment"
+            app:destination="@+id/uploadMarketFragment" />
     </fragment>
 
     <fragment
@@ -37,6 +40,12 @@
             android:id="@+id/action_buyMarketFragment_to_MarketFragment"
             app:destination="@id/marketFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/uploadMarketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.UploadMarketFragment"
+        android:label="uploadMarketFragment"
+        tools:layout="@layout/fragment_upload_market"/>
 
     <fragment
         android:id="@+id/profileFragment"

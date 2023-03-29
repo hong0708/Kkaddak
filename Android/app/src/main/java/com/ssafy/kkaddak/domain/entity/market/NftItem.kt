@@ -12,7 +12,7 @@ data class NftItem(
     val nftCreateDate: String,
     val nftPrice: Double,
     val isClose: Boolean,
-    val cntLikeAcution: Int,
+    val cntLikeMarket: Int,
     var isLike: Boolean
 ): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -38,7 +38,7 @@ data class NftItem(
         parcel.writeString(nftCreateDate)
         parcel.writeDouble(nftPrice)
         parcel.writeByte(if (isClose) 1 else 0)
-        parcel.writeInt(cntLikeAcution)
+        parcel.writeInt(cntLikeMarket)
         parcel.writeByte(if (isLike) 1 else 0)
     }
 
