@@ -2,6 +2,8 @@ package com.ssafy.kkaddak.presentation.wallet
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.WalletFunction
@@ -14,10 +16,12 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
     SetWalletDialogInterface {
 
     private val walletViewModel by viewModels<WalletViewModel>()
+    private lateinit var recentTransactionListAdapter: RecentTransactionListAdapter
 
     override fun initView() {
         initListener()
         getBalance()
+        initRecyclerView()
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
@@ -36,6 +40,13 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 )
             )
         )
+    }
+
+    private fun initRecyclerView() {
+        binding.rvRecentTransactionList.apply {
+            adapter = recentTransactionListAdapter
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        }
     }
 
     private fun initListener() {

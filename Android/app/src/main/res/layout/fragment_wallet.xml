@@ -135,7 +135,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_rect_white50_radius30"
+            android:background="@drawable/bg_rect_trans20_white_radius30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_total_balance">
 
