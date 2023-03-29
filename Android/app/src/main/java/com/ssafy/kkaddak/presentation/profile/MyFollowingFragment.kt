@@ -59,11 +59,9 @@ class MyFollowingFragment :
 
     private fun follow(memberId: String) {
         profileViewModel.followArtist(memberId)
-        profileViewModel.getFollowers(-1, 100)
     }
 
     private fun unfollow(memberId: String) {
         profileViewModel.unfollowArtist(memberId)
-        profileViewModel.getFollowers(-1, 100)
     }
 }

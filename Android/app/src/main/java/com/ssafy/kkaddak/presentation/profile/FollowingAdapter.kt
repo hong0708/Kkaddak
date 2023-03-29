@@ -43,11 +43,19 @@ class FollowingAdapter(
                 user = data
                 tvFollowState.apply {
                     if (data.isFollowing) {
-                        setOnClickListener { unfollow(data.followerUuid) }
+                        setOnClickListener {
+                            unfollow(data.followerUuid)
+                            setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius5)
+                            text = "Follow"
+                        }
                         setBackgroundResource(R.drawable.bg_rect_indigo_to_han_purple_angle270_radius5)
                         text = "Unfollow"
                     } else {
-                        setOnClickListener { follow(data.followerUuid) }
+                        setOnClickListener {
+                            follow(data.followerUuid)
+                            setBackgroundResource(R.drawable.bg_rect_indigo_to_han_purple_angle270_radius5)
+                            text = "Unfollow"
+                        }
                         setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius5)
                         text = "Follow"
                     }
@@ -59,8 +67,8 @@ class FollowingAdapter(
         }
     }
 
-    fun setList(followingItem: List<FollowerItem>) {
-        this.items = followingItem
+    fun setList(followerItem: List<FollowerItem>) {
+        this.items = followerItem
         notifyDataSetChanged()
     }
 }
