@@ -135,7 +135,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_rect_white50_radius30"
+            android:background="@drawable/bg_rect_trans20_white_radius30"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_total_balance">
 
@@ -156,7 +156,8 @@
                 android:id="@+id/rv_recent_transaction_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="4dp"
+                tools:listitem="@layout/item_recent_transaction"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_recent_transaction_list" />
         </androidx.constraintlayout.widget.ConstraintLayout>
