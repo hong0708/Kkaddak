@@ -45,9 +45,11 @@ class BuyMarketFragment :
     }
 
     private fun setData() {
-        binding.ivNftImage.setNormalImg(args.nftItem.nftImagePath)
-        binding.tvContentSellingEth.text = args.nftItem.nftPrice.toString()
-        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+        binding.apply {
+            ivNftImage.setNormalImg(args.nftItem.nftImagePath)
+            tvContentSellingEth.text = args.nftItem.nftPrice.toString()
+            ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+        }
     }
 
     private fun initListener() {

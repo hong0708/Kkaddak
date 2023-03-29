@@ -115,9 +115,7 @@ class MarketViewModel @Inject constructor(
     fun getCreatorImg(nickname: String) = viewModelScope.launch {
         when (val value = getProfileInfoUseCase(nickname)) {
             is Resource.Success<ProfileItem> -> {
-                Log.d("creatorImg1", value.data.profilepath.toString())
                 creatorImg = value.data.profilepath.toString()
-                Log.d("creatorImg2", creatorImg)
             }
             is Resource.Error -> {
                 Log.e("getCreatorImg", "getCreatorImg: ${value.errorMessage}")
