@@ -32,10 +32,6 @@ class UploadMarketFragment :
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)

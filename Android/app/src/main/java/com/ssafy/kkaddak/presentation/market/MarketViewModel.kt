@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.presentation.market
 import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.domain.entity.market.HistoryItem
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
@@ -33,6 +34,9 @@ class MarketViewModel @Inject constructor(
     private val _nftData: MutableLiveData<NftItem> = MutableLiveData()
     val nftData: LiveData<NftItem> = _nftData
 
+    private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
+    val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
+
     var creatorImg: String = ""
 
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
@@ -43,6 +47,11 @@ class MarketViewModel @Inject constructor(
             }
         }
         return false
+    }
+
+    fun tempHistory() = viewModelScope.launch {
+        val datas = mutableListOf<HistoryItem>()
+        _nftHistoryData.value = datas
     }
 
     fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
