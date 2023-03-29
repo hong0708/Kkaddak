@@ -63,6 +63,5 @@ class MyFollowerFragment :
 
     private fun unfollow(memberId: String) {
         profileViewModel.unfollowArtist(memberId)
-
     }
 }
