@@ -40,12 +40,13 @@
     <string name="content_select_nft_image">content_select_nft_image</string>
     <string name="image_upload_nft_item">image_upload_nft_item</string>
 
-    <!-- biding market-->
+    <!-- buying market-->
     <string name="title_nft_song_title">까딱까딱</string>
     <string name="content_by">by</string>
     <string name="content_nft_creator">갱갱</string>
     <string name="content_selling_eth_price">0.008</string>
     <string name="content_selling_history">판매 히스토리</string>
+    <string name="content_empty_history">판매 이력이 없습니다.</string>
     <string name="content_sell">구매하기</string>
     <string name="content_holding_eth">보유 금액</string>
     <string name="content_bid_holding_eth">0.135</string>

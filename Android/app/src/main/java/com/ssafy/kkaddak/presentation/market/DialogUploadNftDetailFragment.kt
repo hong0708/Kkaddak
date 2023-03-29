@@ -14,7 +14,7 @@ class DialogUploadNftDetailFragment : DialogFragment() {
 
     private var _binding: DialogUploadNftDetailBinding? = null
     private val binding get() = _binding!!
-    var uploadnftadapter: UploadNftItemAdapter? = null
+    private var uploadnftadapter: UploadNftItemAdapter? = null
     private var fragmentInterfacer: FragmentInterfacer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

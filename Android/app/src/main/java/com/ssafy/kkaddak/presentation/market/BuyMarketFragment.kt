@@ -1,8 +1,11 @@
 package com.ssafy.kkaddak.presentation.market
 
+import android.util.Log
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.common.util.BindingAdapters.setProfileImg
@@ -18,10 +21,11 @@ class BuyMarketFragment :
 
     private val args by navArgs<BuyMarketFragmentArgs>()
     private val marketViewModel by activityViewModels<MarketViewModel>()
-
+    private lateinit var historyadapter: HistoryAdapter
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
         initListener()
+        initRecyclerView()
         getData()
         setData()
     }
@@ -42,6 +46,7 @@ class BuyMarketFragment :
         }
         marketViewModel.getData(args.nftItem)
         marketViewModel.getCreatorImg(args.nftItem.nftCreator)
+        marketViewModel.tempHistory()
     }
 
     private fun setData() {
@@ -49,6 +54,26 @@ class BuyMarketFragment :
             ivNftImage.setNormalImg(args.nftItem.nftImagePath)
             tvContentSellingEth.text = args.nftItem.nftPrice.toString()
             ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+        }
+    }
+
+    private fun initRecyclerView() {
+        historyadapter = HistoryAdapter()
+        binding.rvHistory.apply {
+            adapter = historyadapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        marketViewModel.nftHistoryData.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                historyadapter.setDatas(it)
+                if(historyadapter.itemCount == 0) {
+                    Log.d("emptyHistory", "보여라 얍!")
+                    binding.tvEmptyHistory.visibility = View.VISIBLE
+                } else {
+                    binding.tvEmptyHistory.visibility = View.GONE
+                }
+            }
         }
     }
 
