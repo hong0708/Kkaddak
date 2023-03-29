@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.wallet
 
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,7 +61,12 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
             }
 
             clCharge.setOnClickListener {
-
+                if (ApplicationClass.preferences.walletAddress.toString() == "") {
+                    Toast.makeText(requireContext(), "지갑 등록 또는 생성을 진행해주세요.", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    // 충전 플로우
+                }
             }
         }
     }
