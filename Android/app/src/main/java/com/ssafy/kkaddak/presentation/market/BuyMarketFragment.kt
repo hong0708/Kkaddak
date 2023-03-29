@@ -1,6 +1,5 @@
 package com.ssafy.kkaddak.presentation.market
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -68,7 +67,6 @@ class BuyMarketFragment :
             response?.let {
                 historyadapter.setDatas(it)
                 if(historyadapter.itemCount == 0) {
-                    Log.d("emptyHistory", "보여라 얍!")
                     binding.tvEmptyHistory.visibility = View.VISIBLE
                 } else {
                     binding.tvEmptyHistory.visibility = View.GONE
