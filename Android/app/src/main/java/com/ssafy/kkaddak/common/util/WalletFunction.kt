@@ -55,7 +55,7 @@ class WalletFunction {
 
             // ERC20_sol_KATToken 객체 생성
             val katToken =
-                ERC20_sol_KATToken(CONTRACT_ADDRESS, web3j, credentials, contractGasProvider)
+                KATToken_sol_KATToken(CONTRACT_ADDRESS, web3j, credentials, contractGasProvider)
 
             val remoteFunctionCall = katToken.balanceOf(CONTRACT_ADDRESS)
 
@@ -75,7 +75,7 @@ class WalletFunction {
     fun insertUserWallet(walletAddress: String, privateKey: String, textView: TextView) {
 
         Thread {
-            val katToken = ERC20_sol_KATToken.load(
+            val katToken = KATToken_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 Credentials.create(privateKey),
@@ -111,7 +111,7 @@ class WalletFunction {
                 )
             )
         Thread {
-            val katToken = ERC20_sol_KATToken.load(
+            val katToken = KATToken_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
@@ -142,7 +142,7 @@ class WalletFunction {
                         )
                     )
                 )
-            val katToken = ERC20_sol_KATToken.load(
+            val katToken = KATToken_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -173,7 +173,7 @@ class WalletFunction {
         }.start()
     }
 
-    fun transfer(targetAddress: String, amount: Long) {
+    fun transfer(targetAddress: String, amount: Long, transferType: String) {
 
         Thread {
             val credentials =
@@ -185,7 +185,7 @@ class WalletFunction {
                     )
                 )
 
-            val katToken = ERC20_sol_KATToken.load(
+            val katToken = KATToken_sol_KATToken.load(
                 CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -195,7 +195,8 @@ class WalletFunction {
             try {
                 val remoteFunctionCall = katToken.transfer(
                     targetAddress,
-                    amount.toBigInteger()
+                    amount.toBigInteger(),
+                    transferType
                 )
 
                 val transfer = remoteFunctionCall.send().toString()
@@ -207,7 +208,28 @@ class WalletFunction {
         }.start()
     }
 
-    fun encodeToString(byteArray: ByteArray): String {
+    fun getRecentTransactionList() {
+        Thread {
+
+            val katToken = KATToken_sol_KATToken.load(
+                CONTRACT_ADDRESS,
+                web3j,
+                transactionManager,
+                contractGasProvider
+            )
+
+            try {
+                val remoteFunctionCall = katToken.transferLog
+                val transfer = remoteFunctionCall.send().toString()
+                Log.d(TAG, "transfer: $transfer")
+
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
+            }
+        }.start()
+    }
+
+    private fun encodeToString(byteArray: ByteArray): String {
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 

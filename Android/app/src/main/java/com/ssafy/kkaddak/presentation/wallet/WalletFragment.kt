@@ -23,6 +23,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         initListener()
         getBalance()
         initRecyclerView()
+        WalletFunction().getRecentTransactionList()
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
