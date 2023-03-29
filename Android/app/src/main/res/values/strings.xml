@@ -125,6 +125,7 @@
     <string name="content_wallet_info">항상 개인키 보안에 신경쓰세요!</string>
     <string name="content_info_wallet">지갑 정보</string>
     <string name="content_no_wallet">생성 또는 불러오기가 필요합니다.</string>
+    <string name="image_history_type">image_history_type</string>
 
     <!-- Update Profile -->
     <string name="title_update_profile">회원 정보 수정</string>
