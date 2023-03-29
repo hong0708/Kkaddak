@@ -162,11 +162,7 @@ public class MemberController {
         return memberService.logout(memberDetails.getMember(), logoutDTO);
     }
 
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "정상적으로 로그아웃 됐을 경우 응답"),
-            @ApiResponse(code = 400, message = "존재하지 않는 회원일 경우 응답"),
-            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우 응답")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "정상적으로 저장됐을 경우 응답")})
     @ApiOperation(value = "지갑 계정 저장 API")
     @PostMapping("/account")
     public DataResDto<?> logout(@RequestBody AccountReqDto accountReqDto, @AuthenticationPrincipal MemberDetails memberDetails)

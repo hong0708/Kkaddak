@@ -243,7 +243,9 @@ public class SongServiceImpl implements SongService {
 
             SongResDto songResDto = SongResDto.builder()
                     .song(song)
-                    .isLike(isLike).build();
+                    .isLike(isLike)
+                    .isSubscribe(followRepository.existsByFollowerAndFollowing(member, song.getMember()))
+                    .build();
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
         }
@@ -390,7 +392,7 @@ public class SongServiceImpl implements SongService {
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (PlayList plays: playList) {
                 boolean isLike = likeListRepository.existsByMemberAndSong(member, plays.getSong());
-                Boolean isSubscribe = followRepository.existsByFollowerAndFollowing(member, plays.getMember());
+                Boolean isSubscribe = followRepository.existsByFollowerAndFollowing(member, plays.getSong().getMember());
                 songResDtoList.add(
                         SongResDto.builder()
                                 .song(plays.getSong())
