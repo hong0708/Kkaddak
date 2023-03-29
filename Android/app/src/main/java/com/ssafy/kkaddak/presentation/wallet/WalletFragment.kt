@@ -19,6 +19,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
     override fun initView() {
         initListener()
         getBalance()
+        WalletFunction().getRecentTransactionList()
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
