@@ -8,15 +8,22 @@ import com.google.android.exoplayer2.*
 class SongService : Service() {
     private lateinit var player: ExoPlayer
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        player.playWhenReady = true
-        return START_STICKY
-    }
+//    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+//        // Set the media source for the player.
+//        val mediaSource = buildMediaSource(/* ... */)
+//        player.setMediaSource(mediaSource)
+//
+//        // Prepare the player.
+//        player.prepare()
+//        player.playWhenReady = true
+//
+//        // Return START_STICKY to keep the service running in the background.
+//        return START_STICKY
+//    }
 
     override fun onCreate() {
         super.onCreate()
         player = ExoPlayer.Builder(this).build()
-
         player.addListener(object : Player.Listener {
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                 when (playbackState) {
@@ -37,5 +44,10 @@ class SongService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    // Helper method to build a MediaSource object.
+    private fun buildMediaSource(/* ... */) {
+        // ...
     }
 }
