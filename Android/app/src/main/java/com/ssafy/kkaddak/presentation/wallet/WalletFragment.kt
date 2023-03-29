@@ -49,13 +49,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         }
     }
 
-    private fun initRecyclerView() {
-        binding.rvRecentTransactionList.apply {
-            adapter = recentTransactionListAdapter
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        }
-    }
-
     private fun initListener() {
         binding.apply {
             ivOpenWalletDialog.setOnClickListener {
