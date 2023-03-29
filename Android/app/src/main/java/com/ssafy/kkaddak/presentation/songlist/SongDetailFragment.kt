@@ -5,11 +5,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.MediaMetadata
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.ClippingMediaSource
+import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentSongDetailBinding
+import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +28,8 @@ class SongDetailFragment :
     private val songViewModel by activityViewModels<SongViewModel>()
 
     private var player: ExoPlayer? = null
+    private val concatenatingMediaSource = ConcatenatingMediaSource()
+    private val mediaSourceList = mutableListOf<MediaSource>()
 
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
@@ -61,35 +68,73 @@ class SongDetailFragment :
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
             else
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
-
-            if (it != null) {
-                buildMediaSource(it.songPath!!).let {
-                    player?.prepare(it)
-                }
-            }
         }
         songViewModel.getSong(args.songId)
+
+        val startPositionMs = 0L
+        val endPositionMs = 60_000L
+        val dataSourceFactory = DefaultDataSourceFactory(requireContext(), "sample")
+        songViewModel.playListData.observe(viewLifecycleOwner) {
+            it?.forEach { musicItem ->
+                val mediaItem = MediaItem.Builder()
+                    .setUri(musicItem.songPath)
+                    .setMediaId(musicItem.songId)
+                    .setMediaMetadata(
+                        MediaMetadata.Builder()
+                            .setTitle(musicItem.songTitle)
+                            .setArtist(musicItem.nickname)
+                            .setAlbumTitle(musicItem.coverPath)
+                            .setDescription(musicItem.isSubscribe.toString())
+                            .build()
+                    )
+                    .build()
+
+                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+                    .createMediaSource(mediaItem)
+                if (musicItem.isSubscribe) {
+                    mediaSourceList.add(mediaSource)
+                } else {
+                    mediaSourceList.add(
+                        ClippingMediaSource(
+                            mediaSource,
+                            startPositionMs * 1000L,
+                            endPositionMs * 1000L
+                        )
+                    )
+                }
+            }
+            concatenatingMediaSource.addMediaSources(mediaSourceList)
+            player?.prepare(concatenatingMediaSource)
+            player?.playWhenReady = true
+        }
+        songViewModel.getPlayList()
     }
 
     private fun initPlayer() {
         player = ExoPlayer.Builder(requireContext()).build()
         binding.playerControlView.player = player
-//        buildMediaSource().let {
-//            player?.prepare(it)
-//        }
-        val mediaItems = ArrayList<MediaItem>()
-//        makePlayList(mediaItems)
-
-//        player?.setMediaItems(mediaItems)
-//        player?.prepare()
-//        player?.playWhenReady = true
-    }
-
-    // 영상에 출력할 미디어 정보를 가져오는 클래스
-    private fun buildMediaSource(songPath: String): MediaSource {
-        val dataSourceFactory = DefaultDataSourceFactory(requireContext(), "sample")
-        return ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri(songPath))
+        player?.addListener(object : Player.Listener {
+            override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+                super.onMediaItemTransition(mediaItem, reason)
+                mediaItem?.apply {
+                    songViewModel.songData.postValue(
+                        SongItem(
+                            mediaId,
+                            mediaMetadata.title.toString(),
+                            "",
+                            mediaMetadata.albumTitle.toString(),
+                            "",
+                            null,
+                            mediaMetadata.artist.toString(),
+                            true,
+                            null,
+                            "",
+                            mediaMetadata.description.toString() == "true"
+                        )
+                    )
+                }
+            }
+        })
     }
 
     // 일시중지

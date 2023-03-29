@@ -34,7 +34,7 @@ class SongViewModel @Inject constructor(
     val songListData: LiveData<List<SongItem>?> = _songListData
 
     private val _songData: MutableLiveData<SongItem?> = MutableLiveData()
-    val songData: LiveData<SongItem?> = _songData
+    val songData: MutableLiveData<SongItem?> = _songData
 
     private val _playListData: MutableLiveData<List<SongItem>?> = MutableLiveData()
     val playListData: LiveData<List<SongItem>?> = _playListData
