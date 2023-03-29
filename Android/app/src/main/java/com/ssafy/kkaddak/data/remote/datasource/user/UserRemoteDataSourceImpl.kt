@@ -39,4 +39,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun logout(atk: String, rtk: String): Boolean =
         userApiService.logout(LogoutRequest(atk, rtk)).data!!
+
+    override suspend fun registerWalletAccount(walletAccount: String): Boolean =
+        userApiService.registerAccount(WalletAccountRequest(walletAccount)).data!!
 }

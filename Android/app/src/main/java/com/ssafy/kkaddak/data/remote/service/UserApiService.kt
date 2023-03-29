@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.data.remote.service
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
 import com.ssafy.kkaddak.data.remote.datasource.user.LogoutRequest
 import com.ssafy.kkaddak.data.remote.datasource.user.UserResponse
+import com.ssafy.kkaddak.data.remote.datasource.user.WalletAccountRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -26,4 +27,7 @@ interface UserApiService {
 
     @POST("/api/v1/members/logout")
     suspend fun logout(@Body body: LogoutRequest): BaseResponse<Boolean>
+
+    @POST("/api/v1/members/account")
+    suspend fun registerAccount(@Body body: WalletAccountRequest): BaseResponse<Boolean>
 }

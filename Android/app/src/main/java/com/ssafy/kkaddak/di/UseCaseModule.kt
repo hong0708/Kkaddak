@@ -15,6 +15,7 @@ import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.CreateUserInfoUseCase
 import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
+import com.ssafy.kkaddak.domain.usecase.user.RegisterWalletAccountUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +44,11 @@ object UseCaseModule {
     @Provides
     fun provideCheckDuplicationUseCase(userRepository: UserRepository): CheckDuplicationUseCase =
         CheckDuplicationUseCase(userRepository)
+
+    @Singleton
+    @Provides
+    fun provideRegisterWalletAccountUseCase(userRepository: UserRepository): RegisterWalletAccountUseCase =
+        RegisterWalletAccountUseCase(userRepository)
 
     @Singleton
     @Provides

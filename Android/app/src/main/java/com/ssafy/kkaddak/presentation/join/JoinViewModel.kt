@@ -144,7 +144,7 @@ class JoinViewModel @Inject constructor(
 
     suspend fun checkDuplication() =
         viewModelScope.async {
-            when (val value = checkDuplicationUseCase.checkDuplication(nickname.value!!)) {
+            when (val value = checkDuplicationUseCase(nickname.value!!)) {
                 is Resource.Success<Boolean> -> {
                     _isDuplicate.value = value.data
                     return@async 1
