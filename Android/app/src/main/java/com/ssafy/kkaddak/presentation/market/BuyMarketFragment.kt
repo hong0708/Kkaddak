@@ -20,7 +20,7 @@ class BuyMarketFragment :
     private val marketViewModel by activityViewModels<MarketViewModel>()
 
     override fun initView() {
-        (activity as MainActivity).HideBottomNavigation(true)
+        (activity as MainActivity).hideBottomNavigation(true)
         initListener()
         getData()
         setData()
@@ -28,7 +28,7 @@ class BuyMarketFragment :
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity as MainActivity).HideBottomNavigation(false)
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 
     private fun getData() {

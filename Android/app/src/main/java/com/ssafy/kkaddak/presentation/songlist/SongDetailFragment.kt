@@ -25,7 +25,7 @@ class SongDetailFragment :
     private var player: ExoPlayer? = null
 
     override fun initView() {
-        (activity as MainActivity).HideBottomNavigation(true)
+        (activity as MainActivity).hideBottomNavigation(true)
         initListener()
         getData()
         initPlayer()
@@ -107,6 +107,6 @@ class SongDetailFragment :
     override fun onDestroy() {
         super.onDestroy()
         player?.release()
-        (activity as MainActivity).HideBottomNavigation(false)
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 }
