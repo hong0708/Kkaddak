@@ -31,8 +31,11 @@ class MainActivity : AppCompatActivity() {
         val graphInflater = navController.navInflater
         val navGraph = graphInflater.inflate(R.navigation.navigation_main)
 
-        binding.bottomNavigation.setupWithNavController(navController)
-        binding.bottomNavigation.itemIconTintList = null
+        binding.bottomNavigation.apply {
+            setupWithNavController(navController)
+            itemIconTintList = null
+            selectedItemId = R.id.blank
+        }
         binding.fabHome.setOnClickListener {
             navController.navigate(R.id.homeFragment)
         }
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         startService(intent)
     }
 
-    fun HideBottomNavigation(state: Boolean) {
+    fun hideBottomNavigation(state: Boolean) {
         when(state) {
             true -> {
                 binding.bottomNavigation.visibility = View.GONE

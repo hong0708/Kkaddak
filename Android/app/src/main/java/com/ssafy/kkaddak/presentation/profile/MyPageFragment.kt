@@ -21,14 +21,14 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     private val profileViewModel by activityViewModels<ProfileViewModel>()
 
     override fun initView() {
-        (activity as MainActivity).HideBottomNavigation(true)
+        (activity as MainActivity).hideBottomNavigation(true)
         initRecyclerView()
         initListener()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity as MainActivity).HideBottomNavigation(false)
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 
     private fun initListener() {

@@ -15,7 +15,7 @@ class UploadMarketFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).HideBottomNavigation(true)
+        (activity as MainActivity).hideBottomNavigation(true)
         initView()
         binding.ivBack.setOnClickListener { popBackStack() }
     }
@@ -38,6 +38,6 @@ class UploadMarketFragment :
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity as MainActivity).HideBottomNavigation(false)
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 }

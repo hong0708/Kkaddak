@@ -60,7 +60,7 @@ class UploadSongFragment :
     var selectedMood = arrayListOf<String>()
 
     override fun initView() {
-        (activity as MainActivity).HideBottomNavigation(true)
+        (activity as MainActivity).hideBottomNavigation(true)
         initGenre()
         initMood()
         initListener()
@@ -69,7 +69,7 @@ class UploadSongFragment :
 
     override fun onDestroy() {
         super.onDestroy()
-        (activity as MainActivity).HideBottomNavigation(false)
+        (activity as MainActivity).hideBottomNavigation(false)
         songViewModel.coverFile.value = null
     }
 
