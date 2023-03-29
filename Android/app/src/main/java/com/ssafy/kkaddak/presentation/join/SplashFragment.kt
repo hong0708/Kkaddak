@@ -63,7 +63,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             delay(4000)
 
             if (SharedPreferences(requireContext()).isLoggedIn) {
-                joinViewModel.requestLogin(AuthRequest(SharedPreferences(requireContext()).accessToken!!))
+                // 자동 로그인 시 유효성 검사 추가 필요
+                // joinViewModel.requestLogin(AuthRequest(SharedPreferences(requireContext()).accessToken!!))
                 navigate(SplashFragmentDirections.actionSplashFragmentToMainActivity())
             } else {
                 fadeInView(binding.clKakaoLogin, requireContext())

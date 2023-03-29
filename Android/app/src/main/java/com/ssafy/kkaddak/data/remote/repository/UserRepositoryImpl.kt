@@ -46,4 +46,9 @@ class UserRepositoryImpl @Inject constructor(
         wrapToResource {
             userRemoteDataSource.logout(atk, rtk)
         }
+
+    override suspend fun registerWalletAccount(walletAccount: String): Resource<Boolean> =
+        wrapToResource {
+            userRemoteDataSource.registerWalletAccount(walletAccount)
+        }
 }

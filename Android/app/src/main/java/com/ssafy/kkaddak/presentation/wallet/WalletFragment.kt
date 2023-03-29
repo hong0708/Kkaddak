@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.wallet
 
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.WalletFunction
@@ -12,6 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
     SetWalletDialogInterface {
 
+    private val walletViewModel by viewModels<WalletViewModel>()
+
     override fun initView() {
         initListener()
         getBalance()
@@ -20,11 +23,19 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
     override fun setWallet(walletAddress: String, privateKey: String) {
         WalletFunction().insertUserWallet(walletAddress, privateKey, binding.tvTotalBalance)
         visibility(true)
+        walletViewModel.registerWalletAccount(walletAddress)
     }
 
     override fun generateWallet() {
         WalletFunction().generateWallet(binding.tvTotalBalance)
         visibility(true)
+        walletViewModel.registerWalletAccount(
+            String(
+                ApplicationClass.keyStore.decryptData(
+                    WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                )
+            )
+        )
     }
 
     private fun initListener() {
