@@ -16,7 +16,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
     SetWalletDialogInterface {
 
     private val walletViewModel by viewModels<WalletViewModel>()
-    private lateinit var recentTransactionListAdapter: RecentTransactionListAdapter
+    private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
 
     override fun initView() {
         initListener()
