@@ -100,5 +100,7 @@ class OtherProfileFragment :
         Toast.makeText(requireContext(), "구독이 취소되었습니다.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun navigateToProfile(creatorId: String) {}
+    override fun navigateToProfile(creatorId: String) {
+        navigate(OtherProfileFragmentDirections.actionOtherProfileFragmentSelf(creatorId))
+    }
 }

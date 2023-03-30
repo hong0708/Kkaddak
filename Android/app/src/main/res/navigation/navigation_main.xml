@@ -165,6 +165,9 @@
         <action
             android:id="@+id/action_otherProfileFragment_to_subscribeFragment"
             app:destination="@id/subscribeFragment" />
+        <action
+            android:id="@+id/action_otherProfileFragment_self"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
