@@ -268,7 +268,6 @@ class WalletFunction {
                     )
                 }
                 result.postValue(recentTransactionList)
-
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
