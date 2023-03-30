@@ -37,4 +37,9 @@ class RecentTransactionListAdapter :
             binding.apply { }
         }
     }
+
+    fun setData(data: List<RecentTransactionItem>){
+        this.items = data
+        notifyDataSetChanged()
+    }
 }

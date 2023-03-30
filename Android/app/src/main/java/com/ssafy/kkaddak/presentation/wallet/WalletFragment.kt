@@ -30,7 +30,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
         if (ApplicationClass.preferences.walletAddress.toString() != "") {
             val lists = WalletFunction().getRecentTransactionList()
-            for (i in lists) {
+
+            walletViewModel.updateRecentTransactionListData(lists)
+
+            /*for (i in lists) {
                 recentTransactionList.add(
                     RecentTransactionItem(
                         i.sender,
@@ -40,9 +43,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                         i.transferType
                     )
                 )
-            }
+            }*/
+            Log.d("ghdalsrl", "initView: list ${lists}")
         }
-        Log.d("ghdalsrl", "initView: list ${recentTransactionList}")
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
@@ -67,6 +70,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         binding.rvRecentTransactionList.apply {
             adapter = recentTransactionListAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        }
+
+        walletViewModel.recentTransactionListData.observe(viewLifecycleOwner) { response ->
+            response?.let { recentTransactionListAdapter.setData(it) }
+            Log.d("ghdalsrl", "initRecyclerView: ")
         }
     }
 
