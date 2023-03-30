@@ -12,6 +12,17 @@ import java.util.Calendar
 import javax.crypto.Cipher
 import javax.security.auth.x500.X500Principal
 
+/*import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import android.widget.Toast
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import androidx.biometric.BiometricManager*/
+
+
+
 class KeyStoreHelper(private val context: Context) {
     private val KEYSTORE_PROVIDER = "AndroidKeyStore"
     private val ASYMMETRIC_KEY_ALIAS = "my_key_alias"
@@ -131,4 +142,42 @@ class KeyStoreHelper(private val context: Context) {
             keyStore.getKey(ASYMMETRIC_KEY_ALIAS, null) as PrivateKey
         return privateKey
     }
+
+    /*fun generateSecretKey(context: Context, keyName: String) {
+        val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+        val keyStore = KeyStore.getInstance("AndroidKeyStore")
+        keyStore.load(null)
+        val keyGenParameterSpec = KeyGenParameterSpec.Builder(keyName, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+            .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+            .setUserAuthenticationRequired(true)
+            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+            .build()
+        keyGenerator.init(keyGenParameterSpec)
+        keyGenerator.generateKey()
+    }
+
+    fun createBiometricPromptInfo(context: Context): BiometricPrompt.PromptInfo {
+        return BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Title")
+            .setSubtitle("Subtitle")
+            .setDescription("Description")
+            .setNegativeButtonText("Cancel")
+            .build()
+    }
+
+    fun showBiometricPrompt(context: Context, callback: BiometricPrompt.AuthenticationCallback) {
+        val biometricManager = BiometricManager.from(context)
+        when (biometricManager.canAuthenticate()) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                val biometricPrompt = BiometricPrompt(ContextCompat.getMainExecutor(context), callback)
+                val promptInfo = createBiometricPromptInfo(context)
+                biometricPrompt.authenticate(promptInfo)
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE,
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                // handle error cases
+            }
+        }
+    }*/
 }

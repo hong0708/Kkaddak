@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.databinding.FragmentUploadSongBinding
@@ -120,13 +121,18 @@ class UploadSongFragment :
                 ) {
                     Toast.makeText(requireContext(), "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
                 } else {
-                    songViewModel.uploadSong(
-                        etMusicTitle.text.toString(),
-                        selectedGenre,
-                        selectedMood
-                    )
-                    popBackStack()
-                    Toast.makeText(requireContext(), "등록되었습니다", Toast.LENGTH_SHORT).show()
+                    if (ApplicationClass.preferences.walletAddress.toString() == "") {
+                        Toast.makeText(requireContext(), "지갑 등록 또는 생성을 진행해주세요.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        songViewModel.uploadSong(
+                            etMusicTitle.text.toString(),
+                            selectedGenre,
+                            selectedMood
+                        )
+                        popBackStack()
+                        Toast.makeText(requireContext(), "등록되었습니다", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

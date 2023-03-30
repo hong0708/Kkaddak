@@ -48,6 +48,7 @@ class SetWalletDialog(
             // 지갑 생성
             tvMakeWallet.setOnClickListener {
                 listener.generateWallet()
+                dismiss()
             }
         }
     }
