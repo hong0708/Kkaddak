@@ -80,6 +80,15 @@ class MarketViewModel @Inject constructor(
         _nftData.value = item
     }
 
+    fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {
+        _nftData.value?.apply {
+            nftImagePath = args.nftImagePath
+            nftCreator = args.nftCreator
+            nftPrice = args.nftPrice.toDouble()
+        }
+        nftData.value?.let { Log.d("getButData", it.nftCreator) }
+    }
+
     fun clearData() {
         _nftListData.value = listOf()
         _nftTempData.value = listOf()
@@ -98,7 +107,7 @@ class MarketViewModel @Inject constructor(
         // 중복 부분 제거
         if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                if(joinedList.size >= 20) {
+                if (joinedList.size >= 20) {
                     for (i in 0..19) {
                         joinedList.removeAt(joinedList.size - 1)
                     }

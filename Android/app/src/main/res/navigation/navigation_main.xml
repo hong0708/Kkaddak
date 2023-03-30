@@ -45,6 +45,28 @@
         <action
             android:id="@+id/action_buyMarketFragment_to_otherProfileFragment"
             app:destination="@id/otherProfileFragment" />
+        <action
+            android:id="@+id/action_buyMarketFragment_to_BuyFragment"
+            app:destination="@id/buyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.BuyFragment"
+        android:label="buyFragment"
+        tools:layout="@layout/fragment_buy">
+        <argument
+            android:name="nftImagePath"
+            app:argType="string" />
+        <argument
+            android:name="nftCreator"
+            app:argType="string" />
+        <argument
+            android:name="nftPrice"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_buyFragment_to_WalletFragment"
+            app:destination="@id/walletFragment" />
     </fragment>
 
     <fragment
