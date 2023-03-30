@@ -9,7 +9,7 @@ import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
-private const val CONTRACT_ADDRESS = "0xC6c12F436234F5A9E98C10c8562E28228aFf458A"
+private const val NFT_CONTRACT_ADDRESS = "0x04538989c0AE2e43Ab625B146Db57d8480a4BC86"
 private const val TAG = "wallet info"
 
 class NFTFunction {
@@ -22,12 +22,12 @@ class NFTFunction {
     private val contractGasProvider = StaticGasProvider(gasPrice, gasLimit)
 
     // 트랜잭션 매니저 조회용
-    private val transactionManager = ReadonlyTransactionManager(web3j, CONTRACT_ADDRESS)
+    private val transactionManager = ReadonlyTransactionManager(web3j, NFT_CONTRACT_ADDRESS)
 
-    fun getNFTCount(){
+    fun getNFTCount() {
         Thread {
             val katToken = MusicNFT_sol_MusicNFT.load(
-                CONTRACT_ADDRESS,
+                NFT_CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
                 contractGasProvider
@@ -51,10 +51,10 @@ class NFTFunction {
         }.start()
     }
 
-    fun getTokensOfOwner(){
+    fun getTokensOfOwner() {
         Thread {
             val katToken = MusicNFT_sol_MusicNFT.load(
-                CONTRACT_ADDRESS,
+                NFT_CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
                 contractGasProvider
@@ -76,5 +76,13 @@ class NFTFunction {
                 System.err.println("Error while fetching the balance: ${e.message}")
             }
         }.start()
+    }
+
+    fun getMetaData(nftId: String) {
+
+    }
+
+    fun mintMusicNFT(){
+
     }
 }
