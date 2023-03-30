@@ -22,5 +22,4 @@ class MusicFunction {
     // 트랜잭션 매니저 조회용
     private val transactionManager = ReadonlyTransactionManager(web3j, NFT_CONTRACT_ADDRESS)
 
-
 }

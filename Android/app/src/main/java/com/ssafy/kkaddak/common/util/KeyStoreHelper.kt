@@ -12,14 +12,14 @@ import java.util.Calendar
 import javax.crypto.Cipher
 import javax.security.auth.x500.X500Principal
 
-import android.security.keystore.KeyGenParameterSpec
+/*import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
-import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager*/
 
 
 

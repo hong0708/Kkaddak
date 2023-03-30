@@ -101,7 +101,7 @@ dependencies {
     implementation libs.bouncycastle
 
     // 생체인증 라이브러리
-    implementation 'androidx.biometric:biometric-ktx:1.2.0-alpha05'
+    //implementation 'androidx.biometric:biometric-ktx:1.2.0-alpha05'
 }
 
 kapt {

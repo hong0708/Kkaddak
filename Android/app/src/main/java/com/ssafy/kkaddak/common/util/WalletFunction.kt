@@ -26,8 +26,6 @@ private const val TAG = "wallet info"
 
 class WalletFunction {
 
-    private lateinit var result: List<TransferData>
-
     // Ethereum 네트워크에 연결
     private val web3j = Web3j.build(HttpService(INFURA_URL))
 
@@ -57,10 +55,6 @@ class WalletFunction {
             encodeToString(ApplicationClass.keyStore.encryptData(privateKey.toByteArray()))
 
         Thread {
-
-            // 지갑 생성 시 로그로 꼭 확인 및 지갑 정보에서 같은 값인지 확인
-            Log.d(TAG, "generateWallet - Wallet Address: $address  privateKey : $privateKey")
-
             // ERC20_sol_KATToken 객체 생성
             val katToken =
                 KATToken_sol_KATToken(KAT_CONTRACT_ADDRESS, web3j, credentials, contractGasProvider)
@@ -81,7 +75,6 @@ class WalletFunction {
     }
 
     fun insertUserWallet(walletAddress: String, privateKey: String, textView: TextView) {
-
         Thread {
             val katToken = load(
                 KAT_CONTRACT_ADDRESS,
@@ -111,7 +104,6 @@ class WalletFunction {
     }
 
     fun balanceOf(textView: TextView) {
-
         val walletAddress =
             String(
                 ApplicationClass.keyStore.decryptData(
@@ -194,7 +186,6 @@ class WalletFunction {
     }
 
     fun transfer(targetAddress: String, amount: Long, transferType: String) {
-
         Thread {
             val credentials =
                 Credentials.create(
@@ -282,42 +273,7 @@ class WalletFunction {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
         }
-
         return result
-
-
-//        Thread {
-//            val credentials =
-//                Credentials.create(
-//                    String(
-//                        ApplicationClass.keyStore.decryptData(
-//                            decode(ApplicationClass.preferences.privateKey.toString())
-//                        )
-//                    )
-//                )
-//
-//            val katToken = KATToken_sol_KATToken.load(
-//                KAT_CONTRACT_ADDRESS,
-//                web3j,
-//                credentials,
-//                contractGasProvider
-//            )
-//
-//            try {
-//                val remoteFunctionCall = katToken.getTransferLog(
-//                    String(
-//                        ApplicationClass.keyStore.decryptData(
-//                            decode(ApplicationClass.preferences.walletAddress.toString())
-//                        )
-//                    )
-//                ) as RemoteFunctionCall<List<*>>
-//
-//                val transfer = remoteFunctionCall.send() as List<TransferData>
-//
-//            } catch (e: Exception) {
-//                System.err.println("Error while get RecentTransactionList: ${e.message}")
-//            }
-//        }.start()
     }
 
     private fun encodeToString(byteArray: ByteArray): String {

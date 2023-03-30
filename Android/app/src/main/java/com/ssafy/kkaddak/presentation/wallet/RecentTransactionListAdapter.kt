@@ -8,7 +8,8 @@ import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.ItemRecentTransactionBinding
 import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+import java.util.Date
 
 class RecentTransactionListAdapter :
     RecyclerView.Adapter<RecentTransactionListAdapter.RecentTransactionListHolder>() {
