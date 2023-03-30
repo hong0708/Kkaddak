@@ -41,17 +41,18 @@
     <string name="image_upload_nft_item">image_upload_nft_item</string>
 
     <!-- buying market-->
+    <string name="title_market_upper">MARKET</string>
     <string name="title_nft_song_title">까딱까딱</string>
     <string name="content_by">by</string>
     <string name="content_nft_creator">갱갱</string>
     <string name="content_selling_eth_price">0.008</string>
     <string name="content_selling_history">판매 히스토리</string>
     <string name="content_empty_history">판매 이력이 없습니다.</string>
-    <string name="content_sell">구매하기</string>
-    <string name="content_holding_eth">보유 금액</string>
-    <string name="content_bid_holding_eth">0.135</string>
-    <string name="content_bidding_eth">입찰 금액</string>
-    <string name="content_bid_bidding_eth">0.15</string>
+    <string name="content_buy">구매하기</string>
+    <string name="content_buy_nft">NFT 구매</string>
+    <string name="content_buy_payment">결제하기</string>
+    <string name="content_buy_charge">충전하기</string>
+    <string name="content_buy_insufficient">잔액이 부족합니다.</string>
     <string name="image_nft_image">image_nft_image</string>
     <string name="image_selling_nft_like">image_selling_nft_like</string>
     <string name="image_nft_creator_profile">image_nft_creator_profile</string>
