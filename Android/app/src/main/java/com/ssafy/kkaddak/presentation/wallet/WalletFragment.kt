@@ -1,6 +1,5 @@
 package com.ssafy.kkaddak.presentation.wallet
 
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -58,7 +57,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
         walletViewModel.recentTransactionListData.observe(viewLifecycleOwner) { response ->
             response?.let { recentTransactionListAdapter.setData(it) }
-            Log.d("ghdalsrl", "initRecyclerView: ")
         }
     }
 
