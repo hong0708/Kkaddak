@@ -6,6 +6,7 @@ import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.service.MemberService;
 import com.example.kkaddak.core.repository.RedisDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +28,11 @@ public class AppConfig {
     private final MemberService memberService;
     private final RedisDao redisDao;
 
+    @Value("${ethereum.private-key}")
+    private String privateKey;
+
+    @Value("${ethereum.rpc-url}")
+    private String rpcUrl;
 
     // security 설정 활성화
     private static final String[] ALLOWED_ENDPOINT = {
@@ -59,5 +68,15 @@ public class AppConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, memberService, redisDao),
                             UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public Credentials credentials() {
+        return Credentials.create(privateKey);
+    }
+
+    @Bean
+    public Web3j web3j() {
+        return Web3j.build(new HttpService(rpcUrl));
     }
 }
