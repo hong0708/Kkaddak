@@ -3,10 +3,12 @@ package com.ssafy.kkaddak.common.util
 import android.util.Base64
 import android.util.Log
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import com.ssafy.kkaddak.ApplicationClass
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys
+import org.web3j.protocol.core.RemoteFunctionCall
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import org.web3j.tx.ReadonlyTransactionManager
@@ -14,11 +16,9 @@ import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 import com.ssafy.kkaddak.common.util.KATToken_sol_KATToken.*
 import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
-
-import org.web3j.abi.*
-import org.web3j.abi.datatypes.Utf8String
-import org.web3j.protocol.core.RemoteFunctionCall
-import org.web3j.tuples.generated.Tuple5
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
 private const val KAT_CONTRACT_ADDRESS = "0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74"
@@ -83,7 +83,7 @@ class WalletFunction {
     fun insertUserWallet(walletAddress: String, privateKey: String, textView: TextView) {
 
         Thread {
-            val katToken = KATToken_sol_KATToken.load(
+            val katToken = load(
                 KAT_CONTRACT_ADDRESS,
                 web3j,
                 Credentials.create(privateKey),
@@ -119,7 +119,7 @@ class WalletFunction {
                 )
             )
         Thread {
-            val katToken = KATToken_sol_KATToken.load(
+            val katToken = load(
                 KAT_CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
@@ -162,7 +162,7 @@ class WalletFunction {
                         )
                     )
                 )
-            val katToken = KATToken_sol_KATToken.load(
+            val katToken = load(
                 KAT_CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -205,7 +205,7 @@ class WalletFunction {
                     )
                 )
 
-            val katToken = KATToken_sol_KATToken.load(
+            val katToken = load(
                 KAT_CONTRACT_ADDRESS,
                 web3j,
                 credentials,
@@ -233,46 +233,59 @@ class WalletFunction {
         }.start()
     }
 
-    fun getRecentTransactionList(): ArrayList<RecentTransactionItem> {
+    fun getRecentTransactionList(): MutableLiveData<List<RecentTransactionItem>> {
 
-        val recentTransactionList = ArrayList<RecentTransactionItem>()
+        val result = MutableLiveData<List<RecentTransactionItem>>()
 
-        val katToken = KATToken_sol_KATToken.load(
-            KAT_CONTRACT_ADDRESS,
-            web3j,
-            transactionManager,
-            contractGasProvider
-        )
-
-        return try {
-            val remoteFunctionCall = katToken.getTransferLog(
+        CoroutineScope(Dispatchers.IO).launch {
+            val credentials = Credentials.create(
                 String(
                     ApplicationClass.keyStore.decryptData(
-                        decode(ApplicationClass.preferences.walletAddress.toString())
+                        decode(ApplicationClass.preferences.privateKey.toString())
                     )
                 )
-            ) as RemoteFunctionCall<List<*>>
+            )
 
-            //remoteFunctionCall.send() as List<TransferData>
+            val katToken = load(
+                KAT_CONTRACT_ADDRESS,
+                web3j,
+                credentials,
+                contractGasProvider
+            )
 
-            for (i in remoteFunctionCall.send() as List<TransferData>) {
-                recentTransactionList.add(
-                    RecentTransactionItem(
-                        i.sender,
-                        i.recipient,
-                        i.timeStamp,
-                        i.amount,
-                        i.transferType
+            try {
+                val remoteFunctionCall = katToken.getTransferLog(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
                     )
-                )
+                ) as RemoteFunctionCall<List<*>>
+
+                val transferList = remoteFunctionCall.send() as List<TransferData>
+
+                val recentTransactionList = mutableListOf<RecentTransactionItem>()
+                for (i in transferList) {
+                    recentTransactionList.add(
+                        RecentTransactionItem(
+                            i.sender,
+                            i.recipient,
+                            i.timeStamp,
+                            i.amount,
+                            i.transferType
+                        )
+                    )
+                }
+                result.postValue(recentTransactionList)
+
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
-
-            recentTransactionList
-
-        } catch (e: Exception) {
-            System.err.println("Error while get RecentTransactionList: ${e.message}")
-            ArrayList<RecentTransactionItem>()
         }
+
+        return result
+
+
 //        Thread {
 //            val credentials =
 //                Credentials.create(
