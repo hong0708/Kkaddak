@@ -42,7 +42,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 )
             }
         }
-        Log.d("ghdalsrl", "initView: list ${recentTransactionList}")
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
