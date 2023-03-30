@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             ivDelete.setOnClickListener {
                 behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                player?.release()
             }
             ivFavorite.setOnClickListener {
                 lifecycleScope.launch {
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                 val currentFragment =
                     navHostFragment.childFragmentManager.fragments[0] as BaseFragment<*>
                 currentFragment.navigateToProfile(songViewModel.songData.value?.nickname.toString())
+                player?.release()
             }
         }
     }
