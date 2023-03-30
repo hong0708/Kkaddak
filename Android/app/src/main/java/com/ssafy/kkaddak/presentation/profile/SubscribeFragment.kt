@@ -27,4 +27,8 @@ class SubscribeFragment :
             tvPayment.setOnClickListener { profileViewModel.followArtist(args.memberId) }
         }
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(SubscribeFragmentDirections.actionSubscribeFragmentToOtherProfileFragment(creatorId))
+    }
 }

@@ -214,4 +214,8 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(item)
         )
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(MarketFragmentDirections.actionMarketFragmentToOtherProfileFragment(creatorId))
+    }
 }

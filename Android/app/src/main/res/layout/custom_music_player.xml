@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,23 +12,11 @@
         android:layout_height="wrap_content"
         android:maxHeight="3dp"
         android:minHeight="3dp"
-        app:played_color="@color/neon_pink"
-        app:scrubber_drawable="@drawable/player_seek_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-<!--    <SeekBar-->
-<!--        android:id="@+id/exo_progress"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:maxHeight="3dp"-->
-<!--        android:minHeight="3dp"-->
-<!--        android:progressDrawable="@drawable/player_seek_background"-->
-<!--        android:thumb="@drawable/player_seek_thumb"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:progress="40" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        app:played_color="@color/neon_pink"
+        app:scrubber_drawable="@drawable/player_seek_background" />
 
     <TextView
         android:id="@+id/exo_position"
@@ -59,8 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exo_progress">
 
@@ -68,8 +55,8 @@
             android:id="@+id/exo_prev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_song_detail_previous"
             android:contentDescription="@string/image_previous_song"
+            android:src="@drawable/ic_song_detail_previous"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,8 +65,8 @@
             android:id="@+id/exo_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_song_detail_pause"
             android:contentDescription="@string/image_song_play"
+            android:src="@drawable/ic_song_detail_pause"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +76,8 @@
             android:id="@+id/exo_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_song_detail_play"
             android:contentDescription="@string/image_song_play"
+            android:src="@drawable/ic_song_detail_play"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +87,8 @@
             android:id="@+id/exo_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_song_detail_next"
             android:contentDescription="@string/image_next"
+            android:src="@drawable/ic_song_detail_next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

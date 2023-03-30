@@ -223,6 +223,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="60dp"
                     android:orientation="horizontal"
+                    android:paddingBottom="80dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -233,89 +234,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <ImageButton
-            android:id="@+id/btn_home_play_info"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_image_radius10"
-            android:clipToOutline="true"
-            android:contentDescription="@string/image_home_play_info"
-            android:scaleType="center"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            tools:targetApi="s" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_home_play_info"
-            android:padding="10dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@id/btn_home_play_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_home_play_info">
-
-            <TextView
-                android:id="@+id/tv_song_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gmarket_sans_medium"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Out of time" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/gmarket_sans_light"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@id/tv_song_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_song_title"
-                tools:text="The Weekend" />
-
-            <ImageView
-                android:id="@+id/iv_play_info_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="9dp"
-                android:contentDescription="@string/image_home_play_info_next"
-                android:src="@drawable/ic_home_play_info_next"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_play_info_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="7dp"
-                android:contentDescription="@string/image_home_play_info_state"
-                android:src="@drawable/ic_home_play_info_state_play"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_play_info_next"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_play_info_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="7dp"
-                android:contentDescription="@string/image_home_play_info_favorite"
-                android:src="@drawable/ic_home_play_info_favorite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_play_info_state"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

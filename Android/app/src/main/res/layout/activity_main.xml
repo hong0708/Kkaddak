@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="songDetail"
+            type="com.ssafy.kkaddak.domain.entity.song.SongItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,15 +30,185 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/navigation_main" />
 
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/cl_bottom_sheet_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_bottom_sheet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:behavior_hideable="true"
+                    app:behavior_peekHeight="80dp"
+                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_bottom_sheet_expanded"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black">
+
+                        <ImageView
+                            android:id="@+id/iv_delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="30dp"
+                            android:contentDescription="@string/image_arrow_left"
+                            android:src="@drawable/ic_delete_page"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="21dp"
+                            android:layout_marginEnd="30dp"
+                            android:contentDescription="@string/image_song_detail_favorite"
+                            android:src="@drawable/ic_song_detail_favorite"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_song"
+                            android:layout_width="260dp"
+                            android:layout_height="260dp"
+                            android:layout_marginTop="40dp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/bg_image_radius48"
+                            android:clipToOutline="true"
+                            android:contentDescription="@string/image_song"
+                            android:coverNFTImgStr="@{songDetail.coverPath}"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_delete"
+                            tools:targetApi="s" />
+
+                        <TextView
+                            android:id="@+id/tv_song_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:fontFamily="@font/gmarket_sans_bold"
+                            android:text="@{songDetail.songTitle}"
+                            android:textColor="@color/white"
+                            android:textSize="28sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_song"
+                            tools:text="Bank Account" />
+
+                        <TextView
+                            android:id="@+id/tv_song_creator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/gmarket_sans_medium"
+                            android:text="@{songDetail.nickname}"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_song_title"
+                            tools:text="21 Savage" />
+
+                        <com.google.android.exoplayer2.ui.PlayerControlView
+                            android:id="@+id/playerControlView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="40dp"
+                            android:layout_marginTop="40dp"
+                            app:controller_layout_id="@layout/custom_music_player"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_song_creator"
+                            app:show_timeout="0"
+                            app:use_controller="true" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_bottom_sheet_collapsed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.exoplayer2.ui.PlayerControlView
+                            android:id="@+id/playerControlView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:controller_layout_id="@layout/custom_music_player_collapsed"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:show_timeout="0"
+                            app:use_controller="true" />
+
+                        <ImageView
+                            android:id="@+id/iv_song_collapsed"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_marginStart="12dp"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/bg_image_radius48"
+                            android:clipToOutline="true"
+                            android:contentDescription="@string/image_song"
+                            android:coverNFTImgStr="@{songDetail.coverPath}"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="@id/playerControlView2"
+                            app:layout_constraintStart_toStartOf="@id/playerControlView2"
+                            app:layout_constraintTop_toTopOf="@id/playerControlView2"
+                            tools:targetApi="s" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/iv_song_collapsed"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_song_title_collapsed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/gmarket_sans_medium"
+                                android:text="@{songDetail.songTitle}"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="Out of time" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:fontFamily="@font/gmarket_sans_light"
+                                android:text="@{songDetail.nickname}"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintStart_toStartOf="@id/tv_song_title_collapsed"
+                                app:layout_constraintTop_toBottomOf="@id/tv_song_title_collapsed"
+                                tools:text="The Weekend" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_bottom_navigation"
+                android:layout_height="63dp"
+                android:background="@color/black"
                 app:labelVisibilityMode="unlabeled"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:menu="@menu/menu_bottom" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,13 +216,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="15dp"
             android:backgroundTint="@color/black"
             android:contentDescription="@string/image_fab_home"
             android:src="@drawable/ic_menu_home"
             app:fabCustomSize="62dp"
             app:maxImageSize="63dp"
             app:tint="@null" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

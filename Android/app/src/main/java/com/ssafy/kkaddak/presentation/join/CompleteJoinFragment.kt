@@ -12,8 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CompleteJoinFragment :
@@ -31,4 +29,6 @@ class CompleteJoinFragment :
             navigate(CompleteJoinFragmentDirections.actionCompleteJoinFragmentToMainActivity())
         }
     }
+
+    override fun navigateToProfile(creatorId: String) {}
 }

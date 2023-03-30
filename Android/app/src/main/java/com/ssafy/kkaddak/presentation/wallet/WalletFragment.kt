@@ -86,4 +86,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
             }
         }
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(WalletFragmentDirections.actionWalletFragmentToOtherProfileFragment(creatorId))
+    }
 }

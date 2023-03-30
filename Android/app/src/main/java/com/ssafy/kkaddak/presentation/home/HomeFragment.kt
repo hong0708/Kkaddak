@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentHomeBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,11 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun getSongDetail(songId: String) {
-        navigate(
-            HomeFragmentDirections.actionHomeFragmentToSongDetailFragment(
-                songId
-            )
-        )
+        (activity as MainActivity).apply {
+            setSongDetail(songId)
+            setPlay()
+        }
     }
 
     private fun setNewSongs() {
@@ -84,5 +84,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
         homeViewModel.getHomeProfile()
+    }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(HomeFragmentDirections.actionHomeFragmentToOtherProfileFragment(creatorId))
     }
 }

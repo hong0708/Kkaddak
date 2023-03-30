@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentLikeListBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,10 +37,13 @@ class LikeListFragment : BaseFragment<FragmentLikeListBinding>(R.layout.fragment
     }
 
     private fun getSongDetail(songId: String) {
-        navigate(
-            LikeListFragmentDirections.actionLikeListFragmentToSongDetailFragment(
-                songId
-            )
-        )
+        (activity as MainActivity).apply {
+            setSongDetail(songId)
+            setPlay()
+        }
+    }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(LikeListFragmentDirections.actionLikeListFragmentToOtherProfileFragment(creatorId))
     }
 }

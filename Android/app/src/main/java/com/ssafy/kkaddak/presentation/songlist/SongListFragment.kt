@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentSongListBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -106,10 +107,13 @@ class SongListFragment :
     }
 
     private fun getSongDetail(songId: String) {
-        navigate(
-            SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(
-                songId
-            )
-        )
+        (activity as MainActivity).apply {
+            setSongDetail(songId)
+            setPlay()
+        }
+    }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(SongListFragmentDirections.actionSongListFragmentToOtherProfileFragment(creatorId))
     }
 }

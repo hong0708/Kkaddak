@@ -36,4 +36,8 @@ class UploadMarketFragment :
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        UploadMarketFragmentDirections.actionUploadMarketFragmentToOtherProfileFragment(creatorId)
+    }
 }

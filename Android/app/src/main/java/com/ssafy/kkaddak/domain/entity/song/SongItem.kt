@@ -10,5 +10,6 @@ data class SongItem(
     val nickname: String?,
     val like: Boolean?,
     val combination: List<Int>?,
-    val songStatus: String?
+    val songStatus: String?,
+    val isSubscribe: Boolean
 )
