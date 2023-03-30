@@ -11,8 +11,8 @@
         android:label="homeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
+            android:id="@+id/action_homeFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_marketFragment_to_uploadMarketFragment"
             app:destination="@+id/uploadMarketFragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -39,13 +42,20 @@
         <action
             android:id="@+id/action_buyMarketFragment_to_MarketFragment"
             app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_buyMarketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/uploadMarketFragment"
         android:name="com.ssafy.kkaddak.presentation.market.UploadMarketFragment"
         android:label="uploadMarketFragment"
-        tools:layout="@layout/fragment_upload_market"/>
+        tools:layout="@layout/fragment_upload_market">
+        <action
+            android:id="@+id/action_uploadMarketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
@@ -56,9 +66,6 @@
             android:id="@+id/action_profileFragment_to_uploadSongFragment"
             app:destination="@id/uploadSongFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_myPageFragment"
             app:destination="@id/myPageFragment" />
         <action
@@ -67,6 +74,9 @@
         <action
             android:id="@+id/action_profileFragment_to_myFollowerFragment"
             app:destination="@id/myFollowerFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -75,29 +85,17 @@
         android:label="songListFragment"
         tools:layout="@layout/fragment_song_list">
         <action
-            android:id="@+id/action_songListFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
+            android:id="@+id/action_songListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.ssafy.kkaddak.presentation.wallet.WalletFragment"
         android:label="walletFragment"
-        tools:layout="@layout/fragment_wallet" />
-
-    <fragment
-        android:id="@+id/songDetailFragment"
-        android:name="com.ssafy.kkaddak.presentation.songlist.SongDetailFragment"
-        android:label="SongDetailFragment"
-        tools:layout="@layout/fragment_song_detail">
-        <argument
-            android:name="songId"
-            app:argType="string" />
+        tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/action_songDetailFragment_to_songListFragment"
-            app:destination="@id/songListFragment" />
-        <action
-            android:id="@+id/action_songDetailFragment_to_otherProfileFragment"
+            android:id="@+id/action_walletFragment_to_otherProfileFragment"
             app:destination="@id/otherProfileFragment" />
     </fragment>
 
@@ -107,15 +105,19 @@
         android:label="PlayListFragment"
         tools:layout="@layout/fragment_playlist">
         <action
-            android:id="@+id/action_playListFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
+            android:id="@+id/action_playListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/uploadSongFragment"
         android:name="com.ssafy.kkaddak.presentation.songlist.UploadSongFragment"
         android:label="UploadSongFragment"
-        tools:layout="@layout/fragment_upload_song" />
+        tools:layout="@layout/fragment_upload_song">
+        <action
+            android:id="@+id/action_uploadSongFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageFragment"
@@ -126,14 +128,14 @@
             android:id="@+id/action_myPageFragment_to_playListFragment"
             app:destination="@id/playListFragment" />
         <action
-            android:id="@+id/action_myPageFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
-        <action
             android:id="@+id/action_myPageFragment_to_likeListFragment"
             app:destination="@id/likeListFragment" />
         <action
             android:id="@+id/action_myPageFragment_to_splashFragment"
             app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -142,8 +144,8 @@
         android:label="LikeListFragment"
         tools:layout="@layout/fragment_like_list">
         <action
-            android:id="@+id/action_likeListFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
+            android:id="@+id/action_likeListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment
@@ -160,9 +162,6 @@
         <argument
             android:name="nickname"
             app:argType="string" />
-        <action
-            android:id="@+id/action_otherProfileFragment_to_songDetailFragment"
-            app:destination="@id/songDetailFragment" />
         <action
             android:id="@+id/action_otherProfileFragment_to_subscribeFragment"
             app:destination="@id/subscribeFragment" />
@@ -199,6 +198,9 @@
         <argument
             android:name="memberId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subscribeFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
     </fragment>
 
     <fragment

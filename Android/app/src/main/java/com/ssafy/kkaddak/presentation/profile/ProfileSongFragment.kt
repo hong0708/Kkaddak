@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentProfileSongBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,16 +54,10 @@ class ProfileSongFragment() :
     }
 
     private fun getSongDetail(songId: String) {
-        if (args.isMine) {
-            navigate(
-                ProfileFragmentDirections.actionProfileFragmentToSongDetailFragment(songId)
-            )
-        } else {
-            navigate(
-                OtherProfileFragmentDirections.actionOtherProfileFragmentToSongDetailFragment(songId)
-            )
+        (activity as MainActivity).apply {
+            setSongDetail(songId)
+            setPlay()
         }
-
     }
 
     private fun deleteMySong(songId: String) {
@@ -80,5 +75,9 @@ class ProfileSongFragment() :
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
         Toast.makeText(requireContext(), "음악이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
+    }
+
+    override fun navigateToProfile(creatorId: String) {
+
     }
 }

@@ -11,4 +11,8 @@ class ProfileNFTFragment :
 
     override fun initView() {
     }
+
+    override fun navigateToProfile(creatorId: String) {
+
+    }
 }

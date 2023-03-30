@@ -157,4 +157,6 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
     companion object {
         const val REQUEST_READ_STORAGE_PERMISSION = 1
     }
+
+    override fun navigateToProfile(creatorId: String) {}
 }

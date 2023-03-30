@@ -38,6 +38,8 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     abstract fun initView()
 
+    abstract fun navigateToProfile(creatorId: String)
+
     fun navigate(direction: NavDirections) {
         navController.navigate(direction)
     }

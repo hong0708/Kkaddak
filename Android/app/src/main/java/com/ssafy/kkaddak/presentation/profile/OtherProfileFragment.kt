@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentOtherProfileBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +22,11 @@ class OtherProfileFragment :
 
     override fun initView() {
         setData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).hideBottomNavigation(false)
     }
 
     private fun initTabLayout() {
@@ -93,4 +99,6 @@ class OtherProfileFragment :
         setData()
         Toast.makeText(requireContext(), "구독이 취소되었습니다.", Toast.LENGTH_SHORT).show()
     }
+
+    override fun navigateToProfile(creatorId: String) {}
 }

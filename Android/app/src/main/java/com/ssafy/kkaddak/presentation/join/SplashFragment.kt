@@ -107,4 +107,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             }
         }
     }
+
+    override fun navigateToProfile(creatorId: String) {}
 }

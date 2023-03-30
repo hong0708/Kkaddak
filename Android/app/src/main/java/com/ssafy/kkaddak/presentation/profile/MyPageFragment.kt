@@ -78,10 +78,13 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     }
 
     private fun getSongDetail(songId: String) {
-        navigate(
-            MyPageFragmentDirections.actionMyPageFragmentToSongDetailFragment(
-                songId
-            )
-        )
+        (activity as MainActivity).apply {
+            setSongDetail(songId)
+            setPlay()
+        }
+    }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(MyPageFragmentDirections.actionMyPageFragmentToOtherProfileFragment(creatorId))
     }
 }

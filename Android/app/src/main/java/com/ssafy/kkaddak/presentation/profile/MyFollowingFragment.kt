@@ -64,4 +64,8 @@ class MyFollowingFragment :
     private fun unfollow(memberId: String) {
         profileViewModel.unfollowArtist(memberId)
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(MyFollowingFragmentDirections.actionMyFollowingFragmentToOtherProfileFragment(creatorId))
+    }
 }

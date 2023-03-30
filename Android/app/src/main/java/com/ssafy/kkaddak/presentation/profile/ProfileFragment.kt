@@ -66,4 +66,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         }
         profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(ProfileFragmentDirections.actionProfileFragmentToOtherProfileFragment(creatorId))
+    }
 }

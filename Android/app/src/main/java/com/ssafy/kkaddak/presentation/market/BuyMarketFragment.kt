@@ -105,4 +105,8 @@ class BuyMarketFragment :
         }
         binding.clUpload.setOnClickListener {}
     }
+
+    override fun navigateToProfile(creatorId: String) {
+        navigate(BuyMarketFragmentDirections.actionBuyMarketFragmentToOtherProfileFragment(creatorId))
+    }
 }
