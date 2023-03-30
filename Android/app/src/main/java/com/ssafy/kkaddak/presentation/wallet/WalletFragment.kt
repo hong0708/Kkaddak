@@ -51,12 +51,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
         if (ApplicationClass.preferences.walletAddress.toString() != "") {
             WalletFunction().getRecentTransactionList().observe(viewLifecycleOwner) { lists ->
-                walletViewModel.updateRecentTransactionListData(lists)
+                recentTransactionListAdapter.setData(lists)
             }
-        }
-
-        walletViewModel.recentTransactionListData.observe(viewLifecycleOwner) { response ->
-            response?.let { recentTransactionListAdapter.setData(it) }
         }
     }
 
