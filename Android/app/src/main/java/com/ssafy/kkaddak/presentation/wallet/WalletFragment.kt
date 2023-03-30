@@ -11,6 +11,7 @@ import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentWalletBinding
+import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
     SetWalletDialogInterface {
 
+    private var recentTransactionList = ArrayList<RecentTransactionItem>()
     private val walletViewModel by viewModels<WalletViewModel>()
     private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
 
@@ -25,9 +27,22 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         initListener()
         getBalance()
         initRecyclerView()
-        WalletFunction().getRecentTransactionList()
-        NFTFunction().getNFTCount()
-        NFTFunction().getTokensOfOwner()
+
+        if (ApplicationClass.preferences.walletAddress.toString() != "") {
+            val lists = WalletFunction().getRecentTransactionList()
+            for (i in lists) {
+                recentTransactionList.add(
+                    RecentTransactionItem(
+                        i.sender,
+                        i.recipient,
+                        i.timeStamp,
+                        i.amount,
+                        i.transferType
+                    )
+                )
+            }
+        }
+        Log.d("ghdalsrl", "initView: list ${recentTransactionList}")
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {

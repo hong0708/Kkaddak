@@ -143,11 +143,6 @@ class KeyStoreHelper(private val context: Context) {
         return privateKey
     }
 
-
-
-
-
-
     /*fun generateSecretKey(context: Context, keyName: String) {
         val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
         val keyStore = KeyStore.getInstance("AndroidKeyStore")
