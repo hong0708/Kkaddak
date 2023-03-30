@@ -13,6 +13,7 @@ import org.web3j.tx.ReadonlyTransactionManager
 import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 import com.ssafy.kkaddak.common.util.KATToken_sol_KATToken.*
+import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 
 import org.web3j.abi.*
 import org.web3j.abi.datatypes.Utf8String
@@ -232,7 +233,9 @@ class WalletFunction {
         }.start()
     }
 
-    fun getRecentTransactionList(): List<TransferData> {
+    fun getRecentTransactionList(): ArrayList<RecentTransactionItem> {
+
+        val recentTransactionList = ArrayList<RecentTransactionItem>()
 
         val katToken = KATToken_sol_KATToken.load(
             KAT_CONTRACT_ADDRESS,
@@ -250,11 +253,25 @@ class WalletFunction {
                 )
             ) as RemoteFunctionCall<List<*>>
 
-            remoteFunctionCall.send() as List<TransferData>
+            //remoteFunctionCall.send() as List<TransferData>
+
+            for (i in remoteFunctionCall.send() as List<TransferData>) {
+                recentTransactionList.add(
+                    RecentTransactionItem(
+                        i.sender,
+                        i.recipient,
+                        i.timeStamp,
+                        i.amount,
+                        i.transferType
+                    )
+                )
+            }
+
+            recentTransactionList
 
         } catch (e: Exception) {
             System.err.println("Error while get RecentTransactionList: ${e.message}")
-            emptyList()
+            ArrayList<RecentTransactionItem>()
         }
 //        Thread {
 //            val credentials =
