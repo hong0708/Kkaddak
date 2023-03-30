@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentWalletBinding
-import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
     SetWalletDialogInterface {
 
-    private var recentTransactionList = ArrayList<RecentTransactionItem>()
     private val walletViewModel by viewModels<WalletViewModel>()
     private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
 
@@ -27,21 +24,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         initListener()
         getBalance()
         initRecyclerView()
-
-        if (ApplicationClass.preferences.walletAddress.toString() != "") {
-            val lists = WalletFunction().getRecentTransactionList()
-            for (i in lists) {
-                recentTransactionList.add(
-                    RecentTransactionItem(
-                        i.sender,
-                        i.recipient,
-                        i.timeStamp,
-                        i.amount,
-                        i.transferType
-                    )
-                )
-            }
-        }
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {

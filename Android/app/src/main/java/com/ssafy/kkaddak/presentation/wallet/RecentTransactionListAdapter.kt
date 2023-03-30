@@ -53,7 +53,7 @@ class RecentTransactionListAdapter :
         }
     }
 
-    fun setData(data: List<RecentTransactionItem>){
+    fun setData(data: List<RecentTransactionItem>) {
         this.items = data
         notifyDataSetChanged()
     }
