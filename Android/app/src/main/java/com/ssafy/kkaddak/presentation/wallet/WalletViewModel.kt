@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.ApplicationClass
-import com.ssafy.kkaddak.common.util.KATToken_sol_KATToken
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 import com.ssafy.kkaddak.domain.usecase.user.RegisterWalletAccountUseCase

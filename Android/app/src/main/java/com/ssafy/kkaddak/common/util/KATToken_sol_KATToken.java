@@ -73,11 +73,11 @@ public class KATToken_sol_KATToken extends Contract {
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event MSGSENDER_EVENT = new Event("MsgSender",
+    public static final Event MSGSENDER_EVENT = new Event("MsgSender", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
     ;
 
-    public static final Event TRANSFER_EVENT = new Event("Transfer",
+    public static final Event TRANSFER_EVENT = new Event("Transfer", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
     ;
 
@@ -240,9 +240,9 @@ public class KATToken_sol_KATToken extends Contract {
         return executeRemoteCallTransaction(function);
     }
 
-    public RemoteFunctionCall<List> getTransferLog() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETTRANSFERLOG,
-                Arrays.<Type>asList(),
+    public RemoteFunctionCall<List> getTransferLog(String userAddress) {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETTRANSFERLOG, 
+                Arrays.<Type>asList(new Address(160, userAddress)),
                 Arrays.<TypeReference<?>>asList(new TypeReference<DynamicArray<TransferData>>() {}));
         return new RemoteFunctionCall<List>(function,
                 new Callable<List>() {

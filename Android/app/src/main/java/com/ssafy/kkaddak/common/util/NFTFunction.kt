@@ -2,6 +2,7 @@ package com.ssafy.kkaddak.common.util
 
 import android.util.Log
 import com.ssafy.kkaddak.ApplicationClass
+import com.ssafy.kkaddak.common.util.NFT_sol_MusicNFT.*
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import org.web3j.tx.ReadonlyTransactionManager
@@ -9,7 +10,7 @@ import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
-private const val NFT_CONTRACT_ADDRESS = "0x04538989c0AE2e43Ab625B146Db57d8480a4BC86"
+private const val NFT_CONTRACT_ADDRESS = "0xa95d055eCB09bc37ab6eb41dA4C8B02073f21De4 "
 private const val TAG = "wallet info"
 
 class NFTFunction {
@@ -26,7 +27,7 @@ class NFTFunction {
 
     fun getNFTCount() {
         Thread {
-            val katToken = MusicNFT_sol_MusicNFT.load(
+            val katToken = load(
                 NFT_CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
@@ -53,7 +54,7 @@ class NFTFunction {
 
     fun getTokensOfOwner() {
         Thread {
-            val katToken = MusicNFT_sol_MusicNFT.load(
+            val katToken = load(
                 NFT_CONTRACT_ADDRESS,
                 web3j,
                 transactionManager,
