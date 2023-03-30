@@ -6,11 +6,11 @@ import android.os.Parcelable
 data class NftItem(
     val marketId: Int,
     val nftId: String,
-    val nftCreator: String,
+    var nftCreator: String,
     val nftSongTitle: String,
-    val nftImagePath: String,
+    var nftImagePath: String,
     val nftCreateDate: String,
-    val nftPrice: Double,
+    var nftPrice: Double,
     val isClose: Boolean,
     val cntLikeMarket: Int,
     var isLike: Boolean

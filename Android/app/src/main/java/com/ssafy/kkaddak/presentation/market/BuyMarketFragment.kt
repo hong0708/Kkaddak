@@ -66,7 +66,7 @@ class BuyMarketFragment :
         marketViewModel.nftHistoryData.observe(viewLifecycleOwner) { response ->
             response?.let {
                 historyadapter.setDatas(it)
-                if(historyadapter.itemCount == 0) {
+                if (historyadapter.itemCount == 0) {
                     binding.tvEmptyHistory.visibility = View.VISIBLE
                 } else {
                     binding.tvEmptyHistory.visibility = View.GONE
@@ -103,7 +103,15 @@ class BuyMarketFragment :
                 }
             }
         }
-        binding.clUpload.setOnClickListener {}
+        binding.clBuy.setOnClickListener {
+            navigate(
+                BuyMarketFragmentDirections.actionBuyMarketFragmentToBuyFragment(
+                    args.nftItem.nftImagePath,
+                    args.nftItem.nftCreator,
+                    args.nftItem.nftPrice.toString()
+                )
+            )
+        }
     }
 
     override fun navigateToProfile(creatorId: String) {
