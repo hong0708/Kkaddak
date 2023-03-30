@@ -43,10 +43,8 @@ class BuyMarketFragment :
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
         }
-//        marketViewModel.getData(args.nftItem)
         marketViewModel.getNftDetail(args.marketId)
         marketViewModel.nftDetailData.value?.let { marketViewModel.getCreatorImg(it.sellerNickname) }
-//        marketViewModel.tempHistory()
     }
 
     private fun setData() {
@@ -59,11 +57,6 @@ class BuyMarketFragment :
             }
         }
         binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
-//        binding.apply {
-//            ivNftImage.setNormalImg(args.nftItem.nftImagePath)
-//            tvContentSellingEth.text = args.nftItem.nftPrice.toString()
-//
-//        }
     }
 
     private fun initRecyclerView() {

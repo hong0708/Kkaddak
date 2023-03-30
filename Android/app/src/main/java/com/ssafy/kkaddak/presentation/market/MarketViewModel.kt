@@ -133,6 +133,15 @@ class MarketViewModel @Inject constructor(
         }
     }
 
+    fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {
+        _nftData.value?.apply {
+            nftImagePath = args.nftImagePath
+            nftCreator = args.nftCreator
+            nftPrice = args.nftPrice.toDouble()
+        }
+        nftData.value?.let { Log.d("getButData", it.nftCreator) }
+    }
+
     fun clearData() {
         _nftListData.value = listOf()
         _nftTempData.value = listOf()
