@@ -8,17 +8,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="117dp"
+        android:layout_height="117dp"
+        android:layout_marginHorizontal="3dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_profile_song"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            tools:listitem="@layout/item_profile_song" />
+            android:contentDescription="@string/image_home_new_song"
+            android:scaleType="fitXY"
+            tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

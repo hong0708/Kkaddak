@@ -228,7 +228,7 @@ class WalletFunction {
             val katToken = load(
                 KAT_CONTRACT_ADDRESS,
                 web3j,
-                credentials,
+                transactionManager,
                 contractGasProvider
             )
 
