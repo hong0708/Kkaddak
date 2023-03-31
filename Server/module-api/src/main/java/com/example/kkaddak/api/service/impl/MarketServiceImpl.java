@@ -2,6 +2,7 @@ package com.example.kkaddak.api.service.impl;
 
 
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
 import com.example.kkaddak.api.dto.market.MarketDetailDto;
 import com.example.kkaddak.api.dto.market.MarketResDto;
 import com.example.kkaddak.api.exception.NotFoundException;
@@ -24,6 +25,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.kkaddak.api.service.impl.MusicNFTContractWrapper.*;
 
@@ -101,14 +103,13 @@ public class MarketServiceImpl implements MarketService {
                 .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.MARKET_NOT_EXIST.getMessage()));
         Member seller = market.getSeller();
 
-        MusicNFTData musicNFTData = nftContract.getMusicNFTData(new BigInteger(market.getNftId())).send();
         SaleInfo tokenSaleInfo = nftContract.getTokenSaleInfo(new BigInteger(market.getNftId())).send();
         List<SaleHistory> saleHistory = nftContract.getSaleHistory(new BigInteger(market.getNftId())).send();
 
         return DataResDto.builder()
                 .statusMessage("판매 아이템 상세 정보입니다.")
                 .data(MarketDetailDto.builder()
-                        .nft(musicNFTData)
+                        .market(market)
                         .saleInfo(tokenSaleInfo)
                         .histories(saleHistory)
                         .isLike(likeMarketRepository.existsByLikerAndMarket(member, market))
