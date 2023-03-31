@@ -2,6 +2,7 @@ package com.example.kkaddak.api.controller;
 
 
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
 import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.api.service.MarketService;
@@ -64,7 +65,7 @@ public class MarketController {
             @ApiResponse(code = 400, message = "입력 타입 또는 값이 적적하지 않을 경우 응답"),
             @ApiResponse(code = 500, message = "서버 에러에 따른 응답")
     })
-    @ApiOperation(value = "마켓 북마크 API",
+    @ApiOperation(value = "마켓 북마크 목록 API",
             notes = "최초 조회시 lastId 값을 -1으로 전송해주세요. 이 외 경우, 응답받은 마켓 중 가장 작은 auctionId를 입력하시면 됩니다.\n" +
                     "전체 목록 조회 시 onlySelling = false, selling 목록 조회 시 true 입니다.\n" +
                     "")
@@ -110,7 +111,7 @@ public class MarketController {
             @ApiResponse(code = 200, message = "마켓 상세 정보 조회 성공시 응답"),
             @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
     })
-    @ApiOperation(value = "마켓 북마크 취소 API")
+    @ApiOperation(value = "마켓 상세 정보 조회 API")
     @GetMapping("/detail/{marketId}")
     public DataResDto<?> getMarketDetail(
             @AuthenticationPrincipal MemberDetails memberDetails,
@@ -118,5 +119,16 @@ public class MarketController {
         return marketService.getMarketDetail(memberDetails.getMember(), marketId);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "마켓 종료 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
+    })
+    @ApiOperation(value = "판매 종료 API")
+    @PostMapping("/close")
+    public DataResDto<?> closeMarket(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            CloseMarketReqDto closeMarketReqDto) {
+        return marketService.closeMarket(memberDetails.getMember(), closeMarketReqDto);
+    }
 
 }
