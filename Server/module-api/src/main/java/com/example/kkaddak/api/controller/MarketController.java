@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.web3j.abi.datatypes.Int;
 
 
 @Api(tags = "마켓 API")
@@ -100,8 +101,22 @@ public class MarketController {
     @PostMapping("/unlike/{marketId}")
     public DataResDto<?> unfollowMember(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            @PathVariable("marketId") Integer auctionId)
+            @PathVariable("marketId") Integer marketId)
     {
-        return marketService.unlikeMarket(memberDetails.getMember(), auctionId);
+        return marketService.unlikeMarket(memberDetails.getMember(), marketId);
     }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "마켓 상세 정보 조회 성공시 응답"),
+            @ApiResponse(code = 404, message = "존재하지 않는 회원일 경우, 북마크 상태가 아닌 경우")
+    })
+    @ApiOperation(value = "마켓 북마크 취소 API")
+    @GetMapping("/detail/{marketId}")
+    public DataResDto<?> getMarketDetail(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @PathVariable("marketId") Integer marketId) throws Exception {
+        return marketService.getMarketDetail(memberDetails.getMember(), marketId);
+    }
+
+
 }
