@@ -131,7 +131,7 @@ public class MarketServiceImpl implements MarketService {
 
     @Override
     public DataResDto<?> closeMarket(Member member, CloseMarketReqDto reqDto) {
-        Market market = marketRepository.findById(reqDto.getMarketid())
+        Market market = marketRepository.findById(reqDto.getMarketId())
                 .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.MARKET_NOT_EXIST.getMessage()));
         market.closeMarket();
         marketRepository.save(market);

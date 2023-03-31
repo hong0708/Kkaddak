@@ -389,4 +389,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .data(memberRepository.findMyFollowingsByMember(condition, member.getId()))
                 .build();
     }
+    public DataResDto<?> setNFTThumbnail(Member member, String nftImagePath){
+        member.setNFTThumbnail(nftImagePath);
+        memberRepository.save(member);
+        return DataResDto.builder().statusMessage("대표 NFT 이미지가 설정되었습니다.")
+                .data(nftImagePath).build();
+    }
 }

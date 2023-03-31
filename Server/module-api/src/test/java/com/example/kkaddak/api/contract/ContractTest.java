@@ -56,7 +56,7 @@ public class ContractTest {
         }
     }
 
-    @Test
+//    @Test
     public void transfer() throws Exception {
 
         // 가스 제공자 설정

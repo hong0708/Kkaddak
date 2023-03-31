@@ -3,13 +3,14 @@ USE `coredb`;
 
 CREATE TABLE IF NOT EXISTS `member`
 (
-    `id`           INT(11) NOT NULL AUTO_INCREMENT,
-    `email`        VARCHAR(255) DEFAULT NULL,
-    `member_type`  VARCHAR(255) DEFAULT NULL,
-    `nickname`     VARCHAR(255) DEFAULT NULL,
-    `profile_path` VARCHAR(255) DEFAULT NULL,
-    `uuid`         char(36)     DEFAULT NULL,
-    `account`      VARCHAR(225) DEFAULT NULL,
+    `id`             INT(11) NOT NULL AUTO_INCREMENT,
+    `email`          VARCHAR(255) DEFAULT NULL,
+    `member_type`    VARCHAR(255) DEFAULT NULL,
+    `nickname`       VARCHAR(255) DEFAULT NULL,
+    `profile_path`   VARCHAR(255) DEFAULT NULL,
+    `uuid`           char(36)     DEFAULT NULL,
+    `account`        VARCHAR(225) DEFAULT NULL,
+    `nft_image_path` VARCHAR(225) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
 

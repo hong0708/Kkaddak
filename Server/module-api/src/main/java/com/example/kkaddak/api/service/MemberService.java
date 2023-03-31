@@ -30,4 +30,5 @@ public interface MemberService {
     DataResDto<?> getMyProfile(Member member);
     DataResDto<?> getMyFollowers(MyFollowConditionDto condition, Member member) throws NoContentException;
     DataResDto<?> getMyFollowings(MyFollowConditionDto condition, Member member) throws NoContentException;
+    DataResDto<?> setNFTThumbnail(Member member, String nftImagePath);
 }

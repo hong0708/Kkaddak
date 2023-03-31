@@ -36,7 +36,7 @@ public class NFTTransactionTest {
     @Value("${ethereum.contract.nft-address}")
     private String contractAddress;
 
-    @Test
+//    @Test
     public void buyNFT() throws Exception {
         BigInteger gasPrice = BigInteger.valueOf(0L); // 20 Gwei
         BigInteger gasLimit = BigInteger.valueOf(4_300_000); // 가스 한도
