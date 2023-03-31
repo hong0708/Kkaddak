@@ -91,7 +91,6 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
             // 현재 잔액과 nft 가격 비교해서 구매/충전 결정
             binding.apply {
                 if (tvWalletBalance.text.toString().toDouble() > args.nftPrice.toDouble()) {
-                    Log.d("payment", ApplicationClass.preferences.walletAddress.toString())
                     state = true
                     tvPayment.setText(R.string.content_buy_payment)
                 } else {
