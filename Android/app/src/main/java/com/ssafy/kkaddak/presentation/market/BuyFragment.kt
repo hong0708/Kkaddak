@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.util.Log
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,6 +33,8 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
         getBalance()
     }
 
+    override fun navigateToProfile(creatorId: String) {}
+
     private fun initListener() {
         binding.apply {
             tvPayment.setOnClickListener {
@@ -53,6 +56,26 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
             ivNftImage.setNormalImg(args.nftImagePath)
             tvCreatorNickname.text = args.nftCreator
             tvNftKat.text = args.nftPrice
+
+            setWidth()
+        }
+    }
+
+    private fun setWidth() {
+        binding.apply {
+            val titleWidth = tvTitleCreator.measuredWidth * 0.8
+            val nicknameWidth = tvCreatorNickname.measuredWidth
+            if (nicknameWidth >= titleWidth) {
+                var params = tvCreatorNickname.layoutParams as ConstraintLayout.LayoutParams
+                params.startToEnd = ConstraintLayout.LayoutParams.UNSET
+                params.topToTop = ConstraintLayout.LayoutParams.UNSET
+                params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+                params.topToBottom = tvTitleCreator.id
+                tvCreatorNickname.layoutParams = params
+
+                params = tvContentBuyNft.layoutParams as ConstraintLayout.LayoutParams
+                params.topToBottom = tvCreatorNickname.id
+            }
         }
     }
 
@@ -68,7 +91,6 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
             // 현재 잔액과 nft 가격 비교해서 구매/충전 결정
             binding.apply {
                 if (tvWalletBalance.text.toString().toDouble() > args.nftPrice.toDouble()) {
-                    Log.d("payment", ApplicationClass.preferences.walletAddress.toString())
                     state = true
                     tvPayment.setText(R.string.content_buy_payment)
                 } else {
