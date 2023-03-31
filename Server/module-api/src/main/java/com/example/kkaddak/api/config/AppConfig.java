@@ -4,6 +4,7 @@ package com.example.kkaddak.api.config;
 import com.example.kkaddak.api.config.jwt.CustomAuthenticationEntryPoint;
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.service.MemberService;
+import com.example.kkaddak.api.service.impl.MusicNFTContractWrapper;
 import com.example.kkaddak.core.repository.RedisDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ReadonlyTransactionManager;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.gas.ContractGasProvider;
+import org.web3j.tx.gas.StaticGasProvider;
+
+import java.math.BigInteger;
 
 @Configuration
 @EnableWebSecurity
@@ -33,6 +40,9 @@ public class AppConfig {
 
     @Value("${ethereum.rpc-url}")
     private String rpcUrl;
+
+    @Value("${ethereum.contract.nft-address}")
+    private String contractAddress;
 
     // security 설정 활성화
     private static final String[] ALLOWED_ENDPOINT = {
@@ -78,5 +88,16 @@ public class AppConfig {
     @Bean
     public Web3j web3j() {
         return Web3j.build(new HttpService(rpcUrl));
+    }
+
+    @Bean(name = "ReadOnlyMusicNFTContractWrapper")
+    public MusicNFTContractWrapper contractWrapper(Web3j web3j){
+        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, contractAddress);
+        return MusicNFTContractWrapper.load(contractAddress, web3j, transactionManager, createContractGasProvider());
+    }
+    private ContractGasProvider createContractGasProvider(){
+        BigInteger gasPrice = BigInteger.valueOf(0L); // 20 Gwei
+        BigInteger gasLimit = BigInteger.valueOf(4_300_000); // 가스 한도
+        return new StaticGasProvider(gasPrice, gasLimit);
     }
 }

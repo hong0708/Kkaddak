@@ -12,6 +12,7 @@ public interface MarketService {
     DataResDto<?> createMarket(MarketReqDto marketReqDto, Member member);
     DataResDto<?> getMarketAllByCondition(MarketConditionReqDto condition, Member member) throws NoContentException;
     DataResDto<?> getMarketAllByMyLike(MarketConditionReqDto condition, Member member) throws NoContentException;
-    DataResDto<?> likeMarket(Member liker, int auctionId);
-    DataResDto<?> unlikeMarket(Member liker, int auctionId);
+    DataResDto<?> likeMarket(Member liker, int marketId);
+    DataResDto<?> unlikeMarket(Member liker, int marketId);
+    DataResDto<?> getMarketDetail(Member member, int marketId) throws Exception;
 }

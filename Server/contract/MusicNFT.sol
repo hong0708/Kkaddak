@@ -2,26 +2,19 @@
 
 pragma solidity ^0.8.0;
 
-import "./node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-interface IERC20 {
+interface IKATToken {
     function totalSupply() external view returns (uint256);
-
     function balanceOf(address account) external view returns (uint256);
-
     function transfer(address from, address recipient, uint256 amount, string calldata transferType) external returns (bool);
-
     function allowance(address owner, address spender) external view returns (uint256);
-
     function approve(address spender, uint256 amount) external returns (bool);
-
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 
     event Transfer(address indexed from, address indexed to, uint256 value);
-
     event MsgSender(address msgSender);
-
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
@@ -31,9 +24,9 @@ contract MusicNFT is ERC721 {
     using Counters for Counters.Counter; // Counters 라이브러리를 사용하여 ID를 자동으로 증가시킴
     Counters.Counter private _tokenIds; // 지금까지 발급받은 nft 개수
 
-    IERC20 public katToken;
+    IKATToken private katToken;
 
-    struct MusicMetadata {
+    struct MusicNFTData {
         string nftImageUrl;
         string coverImageUrl;
         string creatorNickname;
@@ -54,15 +47,20 @@ contract MusicNFT is ERC721 {
         uint256 price;
     }
 
+    struct MusicNFTMetaData{
+        string nftImageUrl;
+        uint256 tokenId;
+    }
+
     event LogEvent(address msgSender, string logMsg);
 
     // 토큰ID에 따라 struct 저장
-    mapping(uint256 => MusicMetadata) public tokenMetadata;
-    mapping(uint256 => SaleHistory[]) public tokenSaleHistories;
-    mapping(uint256 => SaleInfo) public NFTSaleInfo;
+    mapping(uint256 => MusicNFTData) private musicNFTData;
+    mapping(uint256 => SaleHistory[]) private tokenSaleHistories;
+    mapping(uint256 => SaleInfo) private nftSaleInfo;
 
     constructor(address katTokenAddress) ERC721("MusicNFT", "MUSIC") {
-        katToken = IERC20(katTokenAddress);
+        katToken = IKATToken(katTokenAddress);
     }
 
     function mintMusicNFT(
@@ -76,7 +74,7 @@ contract MusicNFT is ERC721 {
         _tokenIds.increment();
         uint256 tokenId = _tokenIds.current();
 
-        MusicMetadata memory metadata = MusicMetadata({
+        MusicNFTData memory metadata = MusicNFTData({
             coverImageUrl: coverImageUrl,
             creatorNickname: creatorNickname,
             createdDate: block.timestamp,
@@ -90,29 +88,29 @@ contract MusicNFT is ERC721 {
             price: 0
         });
 
-        tokenMetadata[tokenId] = metadata;
-        NFTSaleInfo[tokenId] = saleInfo;
+        musicNFTData[tokenId] = metadata;
+        nftSaleInfo[tokenId] = saleInfo;
         _mint(to, tokenId);
 
         return tokenId;
     }
-    
+
     function sellMusicNFT(uint256 tokenId, uint256 price) public {
         require(msg.sender == ownerOf(tokenId), "You do not have permission for that request.");
-        SaleInfo storage info = NFTSaleInfo[tokenId];
+        SaleInfo storage info = nftSaleInfo[tokenId];
         info.isSelling = true;
         info.price = price;
     }
 
     function buyMusicNFT(uint256 tokenId, uint256 payment) public {
         require(_exists(tokenId), "Token ID not found");
-        SaleInfo storage info = NFTSaleInfo[tokenId];
+        SaleInfo storage info = nftSaleInfo[tokenId];
         require(info.isSelling, "Not For Sale");
         require(payment >= info.price, "Not Enough Payment");
         require(katToken.balanceOf(msg.sender) >= payment, "Not enough KAT tokens");
-
         address seller = ownerOf(tokenId);
-        katToken.transfer(msg.sender, seller, payment, "NFT");
+
+        require(katToken.transfer(msg.sender, seller, payment, "NFT"), "payment error.");
         _transfer(seller, msg.sender, tokenId); // NFT 소유권 이전
 
         info.isSelling = false;
@@ -126,21 +124,35 @@ contract MusicNFT is ERC721 {
         tokenSaleHistories[tokenId].push(saleHistory);
     }
 
+    function getMusicNFTData(uint256 tokenId) public view returns (MusicNFTData memory) {
+        require(_exists(tokenId), "Token ID not found");
+        return musicNFTData[tokenId];
+    }
+
     function getSaleHistory(uint256 tokenId) public view returns (SaleHistory[] memory) {
         require(_exists(tokenId), "Token ID not found");
         return tokenSaleHistories[tokenId];
     }
 
-    function getTokensOfOwner(address owner) public view returns (uint256[] memory) {
+    function getTokenSaleInfo(uint256 tokenId) public view returns (SaleInfo memory) {
+        require(_exists(tokenId), "Token ID not found");
+        return nftSaleInfo[tokenId];
+    }
+
+
+    function getTokensOfOwner(address owner) public view returns (MusicNFTMetaData[] memory) {
         uint256 tokenCount = balanceOf(owner);
-        uint256[] memory tokenIds = new uint256[](tokenCount);
+        MusicNFTMetaData[] memory nftMetaData = new MusicNFTMetaData[](tokenCount);
         uint256 counter = 0;
         for (uint256 i = 1; i <= _tokenIds.current(); i++) {
             if (_exists(i) && ownerOf(i) == owner) {
-                tokenIds[counter] = i;
+                nftMetaData[counter] = MusicNFTMetaData({
+                    nftImageUrl: musicNFTData[i].nftImageUrl,
+                    tokenId: i
+                });
                 counter++;
             }
         }
-        return tokenIds;
+        return nftMetaData;
     }
 }

@@ -43,7 +43,7 @@ public class ContractTest {
 
         ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, contractAddress);
         // ERC20_sol_KATToken 객체 생성
-        ERC20_sol_KATToken katToken = new ERC20_sol_KATToken(contractAddress, web3j, transactionManager, contractGasProvider);
+        KATToken_sol_KATToken katToken = new KATToken_sol_KATToken(contractAddress, web3j, transactionManager, contractGasProvider);
 
         String EOA = "0xba5155e3e46f474c947aee8ce77d4132d1ed93d0";
         RemoteFunctionCall<BigInteger> remoteFunctionCall = katToken.balanceOf(EOA);

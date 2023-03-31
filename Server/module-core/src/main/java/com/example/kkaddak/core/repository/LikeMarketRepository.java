@@ -11,4 +11,5 @@ public interface LikeMarketRepository extends JpaRepository<LikeMarket, Integer>
     List<LikeMarket> findByLiker(Member liker);
     List<LikeMarket> findByMarket(Market market);
     Optional<LikeMarket> findByLikerAndMarket(Member member, Market market);
+    Boolean existsByLikerAndMarket(Member liker, Market market);
 }
