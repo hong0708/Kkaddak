@@ -54,6 +54,12 @@ public class MarketServiceImpl implements MarketService {
     public DataResDto<?> createMarket(MarketReqDto marketReqDto, Member seller) {
         Market market = Market.builder().seller(seller).market(marketReqDto).build();
         Market savedMarket = marketRepository.save(market);
+
+        if (Objects.equals(seller.getNftImagePath(), marketReqDto.getNftImagePath())){
+            seller.deleteNFTThumbnail();
+            memberRepository.save(seller);
+        }
+        
         MarketResDto marketResDto = MarketResDto.builder().market(savedMarket).build();
         return DataResDto.builder().statusMessage("마켓에 성공적으로 생성되었습니다.")
                 .data(marketResDto)
