@@ -23,6 +23,8 @@ public class Member {
     private String profilePath;
     private String account;
 
+    private String nftImagePath;
+
     @Enumerated(value = EnumType.STRING)
     private MemberType memberType;
 
@@ -42,5 +44,13 @@ public class Member {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public void setNFTThumbnail(String nftTokenPath){
+        this.nftImagePath = nftTokenPath;
+    }
+
+    public void deleteNFTThumbnail(){
+        this.nftImagePath = "";
     }
 }

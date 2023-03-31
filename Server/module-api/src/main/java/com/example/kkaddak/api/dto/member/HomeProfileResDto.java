@@ -12,6 +12,7 @@ public class HomeProfileResDto {
     private String memberId;
     private String nickname;
     private String profilepath;
+    private String nftThumbnailUrl;
     private int mySongs;
 
     @Builder
@@ -19,6 +20,7 @@ public class HomeProfileResDto {
         this.memberId = member.getUuid().toString();
         this.nickname = member.getNickname();
         this.profilepath = member.getProfilePath();
+        this.nftThumbnailUrl = member.getNftImagePath();
         this.mySongs = mySongs;
     }
 }

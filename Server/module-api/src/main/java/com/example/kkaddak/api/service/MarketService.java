@@ -1,6 +1,7 @@
 package com.example.kkaddak.api.service;
 
 import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
 import com.example.kkaddak.core.dto.MarketConditionReqDto;
 import com.example.kkaddak.core.dto.MarketReqDto;
 import com.example.kkaddak.core.entity.Member;
@@ -15,4 +16,5 @@ public interface MarketService {
     DataResDto<?> likeMarket(Member liker, int marketId);
     DataResDto<?> unlikeMarket(Member liker, int marketId);
     DataResDto<?> getMarketDetail(Member member, int marketId) throws Exception;
+    DataResDto<?> closeMarket(Member member, CloseMarketReqDto closeMarketReqDto);
 }
