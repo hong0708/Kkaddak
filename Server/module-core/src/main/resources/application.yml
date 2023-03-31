@@ -57,7 +57,7 @@ ethereum:
   contract:
     wallet-address: '0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74'
     song-address: ''
-    nft-address: '0x04538989c0AE2e43Ab625B146Db57d8480a4BC86g'
+    nft-address: '0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8'
   rpc-url: 'https://rpc.ssafy-blockchain.com'
   private-key: '26e3f26438ad12eb31278ae6d1db81d2a17b6fb2b24a48f06a3a8bc5dc50b8db'
 

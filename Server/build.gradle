@@ -111,8 +111,6 @@ project(':module-api') {
 
         // web3j
         implementation 'org.web3j:core:4.9.7'
-        //implementation 'org.web3j:contracts:5.0.0'
-        //implementation 'org.bouncycastle:bcprov-jdk15on:1.68'
 
         // 유사도 관련 라이브러리
         implementation group: 'com.github.fracpete', name: 'musicg', version: '1.4.2.2'
