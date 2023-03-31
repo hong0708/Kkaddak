@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             ivDelete.setOnClickListener {
                 behavior.state = BottomSheetBehavior.STATE_HIDDEN
                 player?.release()
+                hideBottomNavigation(false)
             }
             ivFavorite.setOnClickListener {
                 lifecycleScope.launch {
