@@ -1,32 +1,50 @@
 package com.example.kkaddak.api.service.impl;
 
 
-import com.example.kkaddak.core.exception.NoContentException;
+import com.example.kkaddak.api.dto.DataResDto;
+import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
+import com.example.kkaddak.api.dto.market.MarketDetailDto;
+import com.example.kkaddak.api.dto.market.MarketResDto;
 import com.example.kkaddak.api.exception.NotFoundException;
+import com.example.kkaddak.api.service.MarketService;
+import com.example.kkaddak.api.service.MusicNFTContract;
 import com.example.kkaddak.core.dto.MarketConditionReqDto;
 import com.example.kkaddak.core.dto.MarketConditionResDto;
 import com.example.kkaddak.core.dto.MarketReqDto;
-import com.example.kkaddak.api.dto.market.MarketResDto;
-import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.service.MarketService;
-import com.example.kkaddak.core.entity.Market;
 import com.example.kkaddak.core.entity.LikeMarket;
+import com.example.kkaddak.core.entity.Market;
 import com.example.kkaddak.core.entity.Member;
-import com.example.kkaddak.core.repository.MarketRepository;
+import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.core.repository.LikeMarketRepository;
+import com.example.kkaddak.core.repository.MarketRepository;
 import com.example.kkaddak.core.utils.ErrorMessageEnum;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import java.util.*;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Objects;
+
+import static com.example.kkaddak.api.service.impl.MusicNFTContractWrapper.*;
 
 @Service
-@RequiredArgsConstructor
 public class MarketServiceImpl implements MarketService {
 
     private final MarketRepository marketRepo;
     private final LikeMarketRepository likeMarketRepository;
+    private final MusicNFTContract nftContract;
+
+    @Autowired
+    public MarketServiceImpl(
+            MarketRepository marketRepo,
+            LikeMarketRepository likeMarketRepository,
+            @Qualifier("ReadOnlyMusicNFTContractWrapper") MusicNFTContractWrapper nftContract) {
+        this.marketRepo = marketRepo;
+        this.likeMarketRepository = likeMarketRepository;
+        this.nftContract = nftContract;
+    }
 
     @Override
     public DataResDto<?> createMarket(MarketReqDto marketReqDto, Member seller) {
@@ -48,6 +66,7 @@ public class MarketServiceImpl implements MarketService {
                 .data(res)
                 .build();
     }
+
     @Override
     public DataResDto<?> getMarketAllByMyLike(MarketConditionReqDto condition, Member member) throws NoContentException {
         List<MarketConditionResDto> res = marketRepo.findMarketsByMyLike(condition, member.getId());
@@ -77,5 +96,26 @@ public class MarketServiceImpl implements MarketService {
 
         likeMarketRepository.delete(likeMarket);
         return DataResDto.builder().statusCode(204).statusMessage("해당 마켓 아이템의 북마크가 취소되었습니다.").data(true).build();
+    }
+
+    public DataResDto<?> getMarketDetail(Member member, int marketId) throws Exception {
+        Market market = marketRepo.findById(marketId)
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.MARKET_NOT_EXIST.getMessage()));
+        Member seller = market.getSeller();
+
+        SaleInfo tokenSaleInfo = nftContract.getTokenSaleInfo(new BigInteger(market.getNftId())).send();
+        List<SaleHistory> saleHistory = nftContract.getSaleHistory(new BigInteger(market.getNftId())).send();
+
+        return DataResDto.builder()
+                .statusMessage("판매 아이템 상세 정보입니다.")
+                .data(MarketDetailDto.builder()
+                        .market(market)
+                        .saleInfo(tokenSaleInfo)
+                        .histories(saleHistory)
+                        .isLike(likeMarketRepository.existsByLikerAndMarket(member, market))
+                        .sellerNickname(seller.getNickname())
+                        .sellerAccount(seller.getAccount())
+                        .build()
+                ).build();
     }
 }

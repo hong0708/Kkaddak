@@ -53,6 +53,14 @@ aws:
     bucket: kkaddak
     base-url: 'https://kkaddak.s3.ap-northeast-2.amazonaws.com/'
 
+ethereum:
+  contract:
+    wallet-address: '0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74'
+    song-address: ''
+    nft-address: '0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8'
+  rpc-url: 'https://rpc.ssafy-blockchain.com'
+  private-key: '26e3f26438ad12eb31278ae6d1db81d2a17b6fb2b24a48f06a3a8bc5dc50b8db'
+
   # 부하 테스트 이후 설정 최적화하기
 #  hikari:
 #    connectionTimeout: 30000
