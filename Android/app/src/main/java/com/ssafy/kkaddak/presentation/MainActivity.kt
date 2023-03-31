@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     private val songViewModel by viewModels<SongViewModel>()
     private val concatenatingMediaSource = ConcatenatingMediaSource()
-    private val mediaSourceList = mutableListOf<MediaSource>()
+    private val songList = mutableListOf<SongItem>()
+    // private val mediaSourceList = mutableListOf<MediaSource>()
     private var player: ExoPlayer? = null
     private var songId: String = ""
 
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        observeData()
         initBottomBehavior()
         initNavigation()
         initListener()
@@ -65,15 +68,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        player?.stop()
         player?.release()
+    }
+
+    private fun observeData() {
+        songViewModel.playListData.observe(this) { playList ->
+            playList?.forEach { it ->
+                songList.add(it)
+            }
+        }
     }
 
     private fun initListener() {
         binding.apply {
             ivDelete.setOnClickListener {
                 behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                player?.stop()
                 player?.release()
                 hideBottomNavigation(false)
+                concatenatingMediaSource.clear()
             }
             ivFavorite.setOnClickListener {
                 lifecycleScope.launch {
@@ -89,7 +103,9 @@ class MainActivity : AppCompatActivity() {
                 val currentFragment =
                     navHostFragment.childFragmentManager.fragments[0] as BaseFragment<*>
                 currentFragment.navigateToProfile(songViewModel.songData.value?.nickname.toString())
+                player?.stop()
                 player?.release()
+                concatenatingMediaSource.clear()
             }
         }
     }
@@ -112,7 +128,9 @@ class MainActivity : AppCompatActivity() {
                     hideBottomNavigation(true)
                 }
                 if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    player?.stop()
                     player?.release()
+                    concatenatingMediaSource.clear()
                 }
             }
 
@@ -169,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                             "",
                             null,
                             mediaMetadata.artist.toString(),
-                            true,
+                            mediaMetadata.subtitle.toString() == "true",
                             null,
                             "",
                             mediaMetadata.description.toString() == "true"
@@ -181,45 +199,94 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPlayList() {
+        // songViewModel.getPlayList()
         val startPositionMs = 0L
         val endPositionMs = 60_000L
         val dataSourceFactory = DefaultDataSourceFactory(this, "sample")
-        songViewModel.playListData.observe(this) {
-            it?.forEach { musicItem ->
-                val mediaItem = MediaItem.Builder()
-                    .setUri(musicItem.songPath)
-                    .setMediaId(musicItem.songId)
-                    .setMediaMetadata(
-                        MediaMetadata.Builder()
-                            .setTitle(musicItem.songTitle)
-                            .setArtist(musicItem.nickname)
-                            .setAlbumTitle(musicItem.coverPath)
-                            .setDescription(musicItem.isSubscribe.toString())
-                            .build()
-                    )
-                    .build()
+        val mediaSourceList = mutableListOf<MediaSource>() // 미디어 소스 리스트 초기화
 
-                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(mediaItem)
-                if (musicItem.isSubscribe) {
-                    mediaSourceList.add(mediaSource)
-                } else {
-                    mediaSourceList.add(
-                        ClippingMediaSource(
-                            mediaSource,
-                            startPositionMs * 1000L,
-                            endPositionMs * 1000L
-                        )
+        songList.forEach { musicItem ->
+            val mediaItem = MediaItem.Builder()
+                .setUri(musicItem.songPath)
+                .setMediaId(musicItem.songId)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setTitle(musicItem.songTitle)
+                        .setArtist(musicItem.nickname)
+                        .setAlbumTitle(musicItem.coverPath)
+                        .setDescription(musicItem.isSubscribe.toString())
+                        .setSubtitle(musicItem.like.toString())
+                        .build()
+                )
+                .build()
+
+            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(mediaItem)
+            if (musicItem.isSubscribe) {
+                mediaSourceList.add(mediaSource)
+            } else {
+                mediaSourceList.add(
+                    ClippingMediaSource(
+                        mediaSource,
+                        startPositionMs * 1000L,
+                        endPositionMs * 1000L
                     )
-                }
+                )
             }
-            concatenatingMediaSource.addMediaSources(mediaSourceList)
-            player?.prepare(concatenatingMediaSource)
-            player?.playWhenReady = true
         }
-        songViewModel.getPlayList()
+        Log.d("anjwl", "setPlayList: ${mediaSourceList.toString()}")
+        // concatenatingMediaSource.clear() // 미디어 소스 리스트 초기화
+        concatenatingMediaSource.addMediaSources(mediaSourceList)
+        Log.d("anjwl", "concatenatingMediaSource: ${concatenatingMediaSource.mediaItem.mediaMetadata.toString()}")
+
+        player?.prepare(concatenatingMediaSource)
+
+        player?.playWhenReady = true
+
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
+
+//    private fun setPlayList() {
+//        val startPositionMs = 0L
+//        val endPositionMs = 60_000L
+//        val dataSourceFactory = DefaultDataSourceFactory(this, "sample")
+//        songViewModel.playListData.observe(this) {
+//            it?.forEach { musicItem ->
+//                val mediaItem = MediaItem.Builder()
+//                    .setUri(musicItem.songPath)
+//                    .setMediaId(musicItem.songId)
+//                    .setMediaMetadata(
+//                        MediaMetadata.Builder()
+//                            .setTitle(musicItem.songTitle)
+//                            .setArtist(musicItem.nickname)
+//                            .setAlbumTitle(musicItem.coverPath)
+//                            .setDescription(musicItem.isSubscribe.toString())
+//                            .setSubtitle(musicItem.like.toString())
+//                            .build()
+//                    )
+//                    .build()
+//
+//                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+//                    .createMediaSource(mediaItem)
+//                if (musicItem.isSubscribe) {
+//                    mediaSourceList.add(mediaSource)
+//                } else {
+//                    mediaSourceList.add(
+//                        ClippingMediaSource(
+//                            mediaSource,
+//                            startPositionMs * 1000L,
+//                            endPositionMs * 1000L
+//                        )
+//                    )
+//                }
+//            }
+//            concatenatingMediaSource.addMediaSources(mediaSourceList)
+//            player?.prepare(concatenatingMediaSource)
+//            player?.playWhenReady = true
+//        }
+//        songViewModel.getPlayList()
+//        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//    }
 
     fun setPlay() {
         initPlayer()
