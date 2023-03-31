@@ -12,6 +12,7 @@ import com.ssafy.kkaddak.databinding.FragmentHomeBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
+import com.ssafy.kkaddak.presentation.songlist.SongViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val latestSongAdapter by lazy { LatestSongAdapter(this::getSongDetail) }
     private val popularSongAdapter by lazy { PopularSongAdapter(this::getSongDetail) }
     private val homeViewModel by activityViewModels<HomeViewModel>()
+    private val songViewModel by activityViewModels<SongViewModel>()
 
     override fun initView() {
         initRecyclerView()
@@ -32,9 +34,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun getSongDetail(songId: String) {
+        songViewModel.getPlayList()
         (activity as MainActivity).apply {
-            setSongDetail(songId)
             setPlay()
+            setSongDetail(songId)
         }
     }
 
