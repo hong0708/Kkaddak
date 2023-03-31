@@ -2,7 +2,6 @@ package com.example.kkaddak.api.service.impl;
 
 
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
 import com.example.kkaddak.api.dto.market.MarketDetailDto;
 import com.example.kkaddak.api.dto.market.MarketResDto;
 import com.example.kkaddak.api.exception.NotFoundException;
@@ -25,9 +24,9 @@ import org.springframework.util.ObjectUtils;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Objects;
 
-import static com.example.kkaddak.api.service.impl.MusicNFTContractWrapper.*;
+import static com.example.kkaddak.api.service.impl.MusicNFTContractWrapper.SaleHistory;
+import static com.example.kkaddak.api.service.impl.MusicNFTContractWrapper.SaleInfo;
 
 @Service
 public class MarketServiceImpl implements MarketService {
