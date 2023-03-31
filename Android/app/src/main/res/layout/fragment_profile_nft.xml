@@ -12,13 +12,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_profile_song"
+            android:id="@+id/rv_profile_nft"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
-            tools:listitem="@layout/item_profile_song" />
+            tools:listitem="@layout/item_profile_nft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

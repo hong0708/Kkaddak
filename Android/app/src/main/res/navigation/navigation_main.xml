@@ -184,6 +184,19 @@
     </fragment>
 
     <fragment
+        android:id="@+id/profileNFTFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileNFTFragment"
+        android:label="fragment_profile_nft"
+        tools:layout="@layout/fragment_profile_nft">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="isMine"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
         android:id="@+id/subscribeFragment"
         android:name="com.ssafy.kkaddak.presentation.profile.SubscribeFragment"
         android:label="SubscribeFragment"

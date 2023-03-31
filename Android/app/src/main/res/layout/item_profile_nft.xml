@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="nft"
+            type="com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +18,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/image_home_new_song"
+            android:contentDescription="@string/image_user_nft"
             android:scaleType="fitXY"
+            android:coverNFTImgStr="@{nft.nftImageUrl}"
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,10 @@ class ProfileAdapter(
                 arguments = args.toBundle()
             }
         } else {
-            ProfileNFTFragment()
+            val args = ProfileSongFragmentArgs(nickname, isMine)
+            ProfileNFTFragment().apply {
+                arguments = args.toBundle()
+            }
         }
     }
 }
