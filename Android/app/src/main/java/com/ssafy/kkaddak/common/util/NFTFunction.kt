@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.NFT_sol_MusicNFT.*
-import com.ssafy.kkaddak.domain.entity.profile.NFTItem
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,8 +58,8 @@ class NFTFunction {
         }.start()
     }
 
-    fun getTokensOfOwner(): MutableLiveData<List<NFTItem>> {
-        val result = MutableLiveData<List<NFTItem>>()
+    fun getTokensOfOwner(): MutableLiveData<List<ProfileNFTItem>> {
+        val result = MutableLiveData<List<ProfileNFTItem>>()
 
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -80,12 +80,12 @@ class NFTFunction {
                 ) as RemoteFunctionCall<List<*>>
 
                 val nftList = remoteFunctionCall.send() as List<MusicNFTMetaData>
-                val list = mutableListOf<NFTItem>()
+                val list = mutableListOf<ProfileNFTItem>()
 
                 for (i in nftList) {
                     Log.d(TAG, "getTokensOfOwner: ${i}")
                     list.add(
-                        NFTItem(
+                        ProfileNFTItem(
                             i.nftImageUrl,
                             i.tokenId
                         )
