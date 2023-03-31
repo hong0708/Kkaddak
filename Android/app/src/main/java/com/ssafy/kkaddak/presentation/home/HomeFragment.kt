@@ -34,9 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun getSongDetail(songId: String) {
-        songViewModel.getPlayList()
         (activity as MainActivity).apply {
-            setPlay()
             setSongDetail(songId)
         }
     }

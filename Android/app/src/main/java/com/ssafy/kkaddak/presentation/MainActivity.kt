@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +25,7 @@ import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.songlist.SongViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private val songViewModel by viewModels<SongViewModel>()
     private val concatenatingMediaSource = ConcatenatingMediaSource()
     private val songList = mutableListOf<SongItem>()
+
     // private val mediaSourceList = mutableListOf<MediaSource>()
     private var player: ExoPlayer? = null
     private var songId: String = ""
@@ -74,9 +75,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeData() {
         songViewModel.playListData.observe(this) { playList ->
+
+            songList.clear()
+
             playList?.forEach { it ->
                 songList.add(it)
             }
+        }
+
+        songViewModel.songData.observe(this) {
+            binding.songDetail = it
+            if (it!!.like!!)
+                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
+            else
+                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
         }
     }
 
@@ -159,14 +171,13 @@ class MainActivity : AppCompatActivity() {
 
     fun setSongDetail(songId: String) {
         this.songId = songId
-        songViewModel.songData.observe(this) {
-            binding.songDetail = it
-            if (it!!.like!!)
-                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
-            else
-                binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
+        runBlocking {
+            songViewModel.getSong(this@MainActivity.songId)
         }
-        songViewModel.getSong(songId)
+        runBlocking {
+            songViewModel.getPlayList()
+        }
+        setPlay()
     }
 
     private fun initPlayer() {
@@ -234,10 +245,8 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-        Log.d("anjwl", "setPlayList: ${mediaSourceList.toString()}")
         // concatenatingMediaSource.clear() // 미디어 소스 리스트 초기화
         concatenatingMediaSource.addMediaSources(mediaSourceList)
-        Log.d("anjwl", "concatenatingMediaSource: ${concatenatingMediaSource.mediaItem.mediaMetadata.toString()}")
 
         player?.prepare(concatenatingMediaSource)
 
