@@ -1,9 +1,15 @@
 package com.ssafy.kkaddak.common.util
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.NFT_sol_MusicNFT.*
+import com.ssafy.kkaddak.domain.entity.profile.NFTItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.RemoteFunctionCall
 import org.web3j.protocol.http.HttpService
 import org.web3j.tx.ReadonlyTransactionManager
 import org.web3j.tx.gas.StaticGasProvider
@@ -52,8 +58,11 @@ class NFTFunction {
         }.start()
     }
 
-    fun getTokensOfOwner() {
-        Thread {
+    fun getTokensOfOwner(): MutableLiveData<List<NFTItem>> {
+        val result = MutableLiveData<List<NFTItem>>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+
             val katToken = load(
                 NFT_CONTRACT_ADDRESS,
                 web3j,
@@ -61,23 +70,33 @@ class NFTFunction {
                 contractGasProvider
             )
 
-            val remoteFunctionCall = katToken.getTokensOfOwner(
-                String(
-                    ApplicationClass.keyStore.decryptData(
-                        WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
-                    )
-                )
-            )
-
             try {
-                val count = remoteFunctionCall.send().toString()
-                // MusicNFTData
-                Log.d(TAG, "getTokensOfOwner: $count")
+                val remoteFunctionCall = katToken.getTokensOfOwner(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
+                    )
+                ) as RemoteFunctionCall<List<*>>
 
+                val nftList = remoteFunctionCall.send() as List<MusicNFTMetaData>
+                val list = mutableListOf<NFTItem>()
+
+                for (i in nftList) {
+                    Log.d(TAG, "getTokensOfOwner: ${i}")
+                    list.add(
+                        NFTItem(
+                            i.nftImageUrl,
+                            i.tokenId
+                        )
+                    )
+                }
+                result.postValue(list)
             } catch (e: Exception) {
-                System.err.println("Error while fetching the balance: ${e.message}")
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
-        }.start()
+        }
+        return result
     }
 
     fun getMetaData(nftId: String) {
