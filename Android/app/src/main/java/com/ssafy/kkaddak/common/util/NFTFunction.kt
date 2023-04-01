@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.NFT_sol_MusicNFT.*
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -99,11 +100,39 @@ class NFTFunction {
         return result
     }
 
-    fun getMetaData(nftId: String) {
+    fun getMetaData(nftId: BigInteger): MutableLiveData<ProfileNFTDetailItem> {
 
+        val result = MutableLiveData<ProfileNFTDetailItem>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val katToken = load(
+                NFT_CONTRACT_ADDRESS,
+                web3j,
+                transactionManager,
+                contractGasProvider
+            )
+
+            try {
+                val remoteFunctionCall = katToken.getMusicNFTData(nftId)
+                val remoteFunctionCallResult = remoteFunctionCall.send() as MusicNFTData
+
+                val nftDetail = ProfileNFTDetailItem(
+                    remoteFunctionCallResult.nftImageUrl,
+                    remoteFunctionCallResult.coverImageUrl,
+                    remoteFunctionCallResult.creatorNickname,
+                    remoteFunctionCallResult.createdDate,
+                    remoteFunctionCallResult.trackTitle,
+                    remoteFunctionCallResult.combination
+                )
+                result.postValue(nftDetail)
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
+            }
+        }
+        return result
     }
 
-    fun mintMusicNFT(){
+    fun mintMusicNFT() {
 
     }
 }

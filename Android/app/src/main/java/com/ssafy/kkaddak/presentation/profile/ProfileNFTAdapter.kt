@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.ItemProfileNftBinding
 import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
+import java.math.BigInteger
 
 class ProfileNFTAdapter(
     private val isMine: Boolean,
-    private val onItemClicked: (songId: String) -> Unit,
+    private val onItemClicked: (nftId: BigInteger) -> Unit,
     //private val onRejectBadgeClicked: (songId: String) -> Unit
 ) : RecyclerView.Adapter<ProfileNFTAdapter.ViewHolder>() {
 
@@ -32,13 +33,14 @@ class ProfileNFTAdapter(
 
     class ViewHolder(
         private val binding: ItemProfileNftBinding,
-        private val onItemClicked: (songId: String) -> Unit,
+        private val onItemClicked: (nftId: BigInteger) -> Unit,
         /*private val onRejectBadgeClicked: (songId: String) -> Unit,*/
         private val isMine: Boolean
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ProfileNFTItem) {
             binding.apply {
                 nft = data
+                root.setOnClickListener { onItemClicked(data.tokenId) }
             }
         }
     }

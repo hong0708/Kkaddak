@@ -18,11 +18,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.DialogNftDetailBinding
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
 import java.io.File
 import java.io.FileOutputStream
 
 class NFTDetailDialog(
     val activity: Activity,
+    private val nftDetail: ProfileNFTDetailItem
 ) : Dialog(activity) {
 
     private lateinit var binding: DialogNftDetailBinding
@@ -39,18 +41,24 @@ class NFTDetailDialog(
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(true)
         setCancelable(true)
+
         initListener()
+        binding.nftDetail = this@NFTDetailDialog.nftDetail
     }
 
     private fun initListener() {
-        binding.ivImageDownload.setOnClickListener {
-            binding.apply {
-                ivNft.isDrawingCacheEnabled = true
-                ivNft.buildDrawingCache()
-                bitmap = Bitmap.createBitmap(ivNft.drawingCache)
-                ivNft.isDrawingCacheEnabled = false
+        binding.apply {
+            ivImageDownload.setOnClickListener {
+                binding.apply {
+                    ivNft.isDrawingCacheEnabled = true
+                    ivNft.buildDrawingCache()
+                    bitmap = Bitmap.createBitmap(ivNft.drawingCache)
+                    ivNft.isDrawingCacheEnabled = false
+                }
+                saveImageToGallery()
             }
-            saveImageToGallery()
+
+            ivCloseNftInfoDialog.setOnClickListener { dismiss() }
         }
     }
 
