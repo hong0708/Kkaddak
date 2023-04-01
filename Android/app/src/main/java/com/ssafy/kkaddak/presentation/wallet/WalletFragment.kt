@@ -50,6 +50,49 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         )
     }
 
+    override fun chargeCoin(amount: Double) {
+        val items: MutableList<BootItem> = ArrayList()
+        items.add(BootItem().setName("결제권").setId("1234").setQty(1).setPrice(amount))
+        val payload = Payload()
+
+        payload.setApplicationId(applicationId)
+            .setOrderName("까딱까딱 구독권 결제")
+            .setPg("kcp")
+            .setOrderId("1234")
+            .setPrice(amount)
+            .setExtra(BootExtra()).items = items
+
+        Bootpay.init(requireActivity().supportFragmentManager, requireActivity().applicationContext)
+            .setPayload(payload)
+            .setEventListener(object : BootpayEventListener {
+                override fun onCancel(data: String) {
+                    Log.d("bootpay", "cancel: $data")
+                }
+
+                override fun onError(data: String) {
+                    Log.d("bootpay", "error: $data")
+                }
+
+                override fun onClose() {
+                    Bootpay.removePaymentWindow()
+                }
+
+                override fun onIssued(data: String) {
+                    Log.d("bootpay", "issued: $data")
+                }
+
+                override fun onConfirm(data: String): Boolean {
+                    Log.d("bootpay", "confirm: $data")
+                    return true
+                }
+
+                override fun onDone(data: String) {
+                    Toast.makeText(requireContext(), "충전되었습니다.", Toast.LENGTH_SHORT).show()
+                    // 완료 정보 서버 연결
+                }
+            }).requestPayment()
+    }
+
     private fun initRecyclerView() {
         binding.rvRecentTransactionList.apply {
             adapter = recentTransactionListAdapter
@@ -79,64 +122,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                         .show()
                 } else {
                     // 충전 플로우
-                    chargeKAT()
+                    ChargeCoinDialog(requireActivity(), this@WalletFragment).show()
                 }
             }
         }
-    }
-
-    private fun chargeKAT() {
-        val extra = BootExtra()
-            .setCardQuota("0,2,3") // 일시불, 2개월, 3개월 할부 허용, 할부는 최대 12개월까지 사용됨 (5만원 이상 구매시 할부허용 범위)
-        val items: MutableList<BootItem> = ArrayList()
-        val item1 = BootItem().setName("마우's 스").setId("ITEM_CODE_MOUSE").setQty(1).setPrice(500.0)
-        val item2 = BootItem().setName("키보드").setId("ITEM_KEYBOARD_MOUSE").setQty(1).setPrice(500.0)
-        items.add(item1)
-        items.add(item2)
-        val payload = Payload()
-
-        payload.setApplicationId(applicationId)
-            .setOrderName("부트페이 결제테스트")
-            .setOrderId("1234")
-            .setPrice(1000.0)
-            .setExtra(extra).items = items
-
-        val map: MutableMap<String, Any> = HashMap()
-        map["1"] = "abcdef"
-        map["2"] = "abcdef55"
-        map["3"] = 1234
-        payload.metadata = map
-        //        payload.setMetadata(new Gson().toJson(map));
-        Bootpay.init(requireActivity().supportFragmentManager, requireActivity().applicationContext)
-            .setPayload(payload)
-            .setEventListener(object : BootpayEventListener {
-                override fun onCancel(data: String) {
-                    Log.d("bootpay", "cancel: $data")
-                }
-
-                override fun onError(data: String) {
-                    Log.d("bootpay", "error: $data")
-                }
-
-                override fun onClose() {
-                    Bootpay.removePaymentWindow()
-                }
-
-                override fun onIssued(data: String) {
-                    Log.d("bootpay", "issued: $data")
-                }
-
-                override fun onConfirm(data: String): Boolean {
-                    Log.d("bootpay", "confirm: $data")
-                    //                        Bootpay.transactionConfirm(data); //재고가 있어서 결제를 진행하려 할때 true (방법 1)
-                    return true //재고가 있어서 결제를 진행하려 할때 true (방법 2)
-                    //                        return false; //결제를 진행하지 않을때 false
-                }
-
-                override fun onDone(data: String) {
-                    Log.d("done", data)
-                }
-            }).requestPayment()
     }
 
     private fun getBalance() {
