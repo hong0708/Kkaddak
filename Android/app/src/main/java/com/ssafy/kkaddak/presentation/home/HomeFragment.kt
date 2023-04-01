@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.databinding.FragmentHomeBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -65,8 +66,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun setProfile() {
         homeViewModel.homeProfile.observe(viewLifecycleOwner) { response ->
             response?.let {
+                if (it.profilepath == "") binding.ivHomeNft.setImageResource(R.drawable.ic_home_nft_default)
                 binding.tvTitleHomeNickname.text = it.nickname
                 ApplicationClass.preferences.nickname = it.nickname
+                binding.ivHomeNft.setNormalImg(it.profilepath)
                 if (it.mySongs == 0) {
                     binding.apply {
                         tvTitleHome.setText(R.string.title_home_1_listener)
