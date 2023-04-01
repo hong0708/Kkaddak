@@ -8,6 +8,7 @@ import com.ssafy.kkaddak.databinding.FragmentProfileNftBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigInteger
 
 @AndroidEntryPoint
 class ProfileNFTFragment :
@@ -39,8 +40,10 @@ class ProfileNFTFragment :
         }
     }
 
-    private fun getNFTDetail(nftId: String) {
-        NFTFunction().getMetaData(nftId)
+    private fun getNFTDetail(nftId: BigInteger) {
+        NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) { nftItem ->
+            NFTDetailDialog(requireActivity(), nftItem).show()
+        }
     }
 
     override fun navigateToProfile(creatorId: String) {}
