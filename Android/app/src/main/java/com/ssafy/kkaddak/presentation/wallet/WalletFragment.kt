@@ -29,6 +29,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         WalletFunction().insertUserWallet(walletAddress, privateKey, binding.tvTotalBalance)
         visibility(true)
         walletViewModel.registerWalletAccount(walletAddress)
+        initRecyclerView()
     }
 
     override fun generateWallet() {
@@ -41,6 +42,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 )
             )
         )
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {
@@ -78,12 +80,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
     }
 
     private fun getBalance() {
-        if (ApplicationClass.preferences.walletAddress.toString() == "") visibility(false)
-        else {
+        if (ApplicationClass.preferences.walletAddress.toString() == "") {
+            visibility(false)
+        } else {
             visibility(true)
-            WalletFunction().balanceOf(
-                binding.tvTotalBalance
-            )
+            WalletFunction().balanceOf(binding.tvTotalBalance)
         }
     }
 

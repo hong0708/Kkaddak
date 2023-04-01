@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -24,7 +25,8 @@ import java.io.FileOutputStream
 
 class NFTDetailDialog(
     val activity: Activity,
-    private val nftDetail: ProfileNFTDetailItem
+    private val nftDetail: ProfileNFTDetailItem,
+    private val isMine: Boolean
 ) : Dialog(activity) {
 
     private lateinit var binding: DialogNftDetailBinding
@@ -43,7 +45,14 @@ class NFTDetailDialog(
         setCancelable(true)
 
         initListener()
-        binding.nftDetail = this@NFTDetailDialog.nftDetail
+        binding.apply {
+            if (!isMine) {
+                ivNftHomeProfile.visibility = View.GONE
+                ivImageDownload.visibility = View.GONE
+                ivImageShare.visibility = View.GONE
+            }
+            nftDetail = this@NFTDetailDialog.nftDetail
+        }
     }
 
     private fun initListener() {
@@ -57,7 +66,6 @@ class NFTDetailDialog(
                 }
                 saveImageToGallery()
             }
-
             ivCloseNftInfoDialog.setOnClickListener { dismiss() }
         }
     }

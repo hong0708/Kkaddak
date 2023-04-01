@@ -43,7 +43,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             vpCuration.adapter = ProfileAdapter(
                 this@ProfileFragment,
                 ApplicationClass.preferences.nickname.toString(),
-                profileViewModel.profileData.value!!.isMine
+                profileViewModel.profileData.value!!.isMine,
+                profileViewModel.profileData.value!!.account
             )
             TabLayoutMediator(
                 tlProfile, vpCuration
@@ -68,6 +69,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     override fun navigateToProfile(creatorId: String) {
-        navigate(ProfileFragmentDirections.actionProfileFragmentToOtherProfileFragment(creatorId))
+        navigate(
+            ProfileFragmentDirections.actionProfileFragmentToOtherProfileFragment(
+                creatorId
+            )
+        )
     }
 }
