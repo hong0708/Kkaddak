@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".ApplicationClass"
@@ -54,7 +55,5 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <service android:name=".presentation.songlist.SongService"/>
     </application>
 </manifest>

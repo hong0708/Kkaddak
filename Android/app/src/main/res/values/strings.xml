@@ -128,6 +128,7 @@
     <string name="content_info_wallet">지갑 정보</string>
     <string name="content_no_wallet">생성 또는 불러오기가 필요합니다.</string>
     <string name="image_history_type">image_history_type</string>
+    <string name="title_charge">충전</string>
 
     <!-- Update Profile -->
     <string name="title_update_profile">회원 정보 수정</string>

@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.wallet
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -11,6 +12,11 @@ import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentWalletBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kr.co.bootpay.android.Bootpay
+import kr.co.bootpay.android.events.BootpayEventListener
+import kr.co.bootpay.android.models.BootExtra
+import kr.co.bootpay.android.models.BootItem
+import kr.co.bootpay.android.models.Payload
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
@@ -43,6 +49,49 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         )
     }
 
+    override fun chargeCoin(amount: Double) {
+        val items: MutableList<BootItem> = ArrayList()
+        items.add(BootItem().setName("결제권").setId("1234").setQty(1).setPrice(amount))
+        val payload = Payload()
+
+        payload.setApplicationId(getString(R.string.APPLICATION_ID))
+            .setOrderName("까딱까딱 구독권 결제")
+            .setPg("kcp")
+            .setOrderId("1234")
+            .setPrice(amount)
+            .setExtra(BootExtra()).items = items
+
+        Bootpay.init(requireActivity().supportFragmentManager, requireActivity().applicationContext)
+            .setPayload(payload)
+            .setEventListener(object : BootpayEventListener {
+                override fun onCancel(data: String) {
+                    Log.d("bootpay", "cancel: $data")
+                }
+
+                override fun onError(data: String) {
+                    Log.d("bootpay", "error: $data")
+                }
+
+                override fun onClose() {
+                    Bootpay.removePaymentWindow()
+                }
+
+                override fun onIssued(data: String) {
+                    Log.d("bootpay", "issued: $data")
+                }
+
+                override fun onConfirm(data: String): Boolean {
+                    Log.d("bootpay", "confirm: $data")
+                    return true
+                }
+
+                override fun onDone(data: String) {
+                    Toast.makeText(requireContext(), "충전되었습니다.", Toast.LENGTH_SHORT).show()
+                    // 완료 정보 서버 연결
+                }
+            }).requestPayment()
+    }
+
     private fun initRecyclerView() {
         binding.rvRecentTransactionList.apply {
             adapter = recentTransactionListAdapter
@@ -72,6 +121,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                         .show()
                 } else {
                     // 충전 플로우
+                    ChargeCoinDialog(requireActivity(), this@WalletFragment).show()
                 }
             }
         }
