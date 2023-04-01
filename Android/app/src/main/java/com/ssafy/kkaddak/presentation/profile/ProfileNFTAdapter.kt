@@ -11,7 +11,7 @@ import java.math.BigInteger
 
 class ProfileNFTAdapter(
     private val isMine: Boolean,
-    private val onItemClicked: (nftId: BigInteger) -> Unit,
+    private val onItemClicked: (nftId: BigInteger, isMine: Boolean) -> Unit,
     //private val onRejectBadgeClicked: (songId: String) -> Unit
 ) : RecyclerView.Adapter<ProfileNFTAdapter.ViewHolder>() {
 
@@ -33,14 +33,14 @@ class ProfileNFTAdapter(
 
     class ViewHolder(
         private val binding: ItemProfileNftBinding,
-        private val onItemClicked: (nftId: BigInteger) -> Unit,
+        private val onItemClicked: (nftId: BigInteger, isMine: Boolean) -> Unit,
         /*private val onRejectBadgeClicked: (songId: String) -> Unit,*/
         private val isMine: Boolean
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ProfileNFTItem) {
             binding.apply {
                 nft = data
-                root.setOnClickListener { onItemClicked(data.tokenId) }
+                root.setOnClickListener { onItemClicked(data.tokenId, isMine) }
             }
         }
     }

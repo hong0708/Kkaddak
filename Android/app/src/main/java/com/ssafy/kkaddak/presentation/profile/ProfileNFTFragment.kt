@@ -35,14 +35,14 @@ class ProfileNFTFragment :
             addItemDecoration(GridSpaceItemDecoration(3, 3))
         }
 
-        NFTFunction().getTokensOfOwner().observe(viewLifecycleOwner) { lists ->
+        NFTFunction().getTokensOfOwner(args.walletId).observe(viewLifecycleOwner) { lists ->
             profileNFTAdapter.setData(lists)
         }
     }
 
-    private fun getNFTDetail(nftId: BigInteger) {
+    private fun getNFTDetail(nftId: BigInteger, isMine: Boolean) {
         NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) { nftItem ->
-            NFTDetailDialog(requireActivity(), nftItem).show()
+            NFTDetailDialog(requireActivity(), nftItem, isMine).show()
         }
     }
 

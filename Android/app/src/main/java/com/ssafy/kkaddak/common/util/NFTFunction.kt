@@ -59,7 +59,7 @@ class NFTFunction {
         }.start()
     }
 
-    fun getTokensOfOwner(): MutableLiveData<List<ProfileNFTItem>> {
+    fun getTokensOfOwner(account: String?): MutableLiveData<List<ProfileNFTItem>> {
         val result = MutableLiveData<List<ProfileNFTItem>>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -72,27 +72,24 @@ class NFTFunction {
             )
 
             try {
-                val remoteFunctionCall = katToken.getTokensOfOwner(
-                    String(
-                        ApplicationClass.keyStore.decryptData(
-                            WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
-                        )
-                    )
-                ) as RemoteFunctionCall<List<*>>
+                if (account != null) {
+                    val remoteFunctionCall =
+                        katToken.getTokensOfOwner(account) as RemoteFunctionCall<List<*>>
 
-                val nftList = remoteFunctionCall.send() as List<MusicNFTMetaData>
-                val list = mutableListOf<ProfileNFTItem>()
+                    val nftList = remoteFunctionCall.send() as List<MusicNFTMetaData>
+                    val list = mutableListOf<ProfileNFTItem>()
 
-                for (i in nftList) {
-                    Log.d(TAG, "getTokensOfOwner: ${i}")
-                    list.add(
-                        ProfileNFTItem(
-                            i.nftImageUrl,
-                            i.tokenId
+                    for (i in nftList) {
+                        Log.d(TAG, "getTokensOfOwner: ${i}")
+                        list.add(
+                            ProfileNFTItem(
+                                i.nftImageUrl,
+                                i.tokenId
+                            )
                         )
-                    )
+                    }
+                    result.postValue(list)
                 }
-                result.postValue(list)
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
