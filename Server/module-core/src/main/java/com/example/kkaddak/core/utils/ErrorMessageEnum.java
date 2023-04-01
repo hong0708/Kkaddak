@@ -11,8 +11,9 @@ public enum ErrorMessageEnum {
     NO_MORE_MARKET("마켓 목록이 존재하지 않습니다."),
     NO_MORE_FOLLOWER("팔로워가 존재하지 않습니다."),
     NO_MORE_FOLLOWING("팔로잉이 존재하지 않습니다."),
-    FOLLOW_NOT_EXIST("팔로우하고 있지 않는 유저입니다.");
-
+    FOLLOW_NOT_EXIST("팔로우하고 있지 않는 유저입니다."),
+    SONG_NOT_EXIST("음악이 존재하지 않습니다"),
+    S3_UPLOAD_ERROR("파일 업로드중 오류가 발생했습니다.");
     private String message;
 
     ErrorMessageEnum(String message) {
