@@ -24,7 +24,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
     private val walletViewModel by viewModels<WalletViewModel>()
     private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
-    private var applicationId = "6426738a755e27001ead619f"
 
     override fun initView() {
         initListener()
@@ -55,7 +54,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         items.add(BootItem().setName("결제권").setId("1234").setQty(1).setPrice(amount))
         val payload = Payload()
 
-        payload.setApplicationId(applicationId)
+        payload.setApplicationId(getString(R.string.APPLICATION_ID))
             .setOrderName("까딱까딱 구독권 결제")
             .setPg("kcp")
             .setOrderId("1234")
