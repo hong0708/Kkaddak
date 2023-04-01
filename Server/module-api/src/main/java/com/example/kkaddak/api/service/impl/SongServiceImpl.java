@@ -1,9 +1,10 @@
 package com.example.kkaddak.api.service.impl;
 
-import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.OwnerSongResDto;
-import com.example.kkaddak.api.dto.SongReqDto;
-import com.example.kkaddak.api.dto.SongResDto;
+import com.example.kkaddak.api.dto.*;
+import com.example.kkaddak.api.dto.song.NftReqDto;
+import com.example.kkaddak.api.dto.song.OwnerSongResDto;
+import com.example.kkaddak.api.dto.song.SongReqDto;
+import com.example.kkaddak.api.dto.song.SongResDto;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.NFTService;
 import com.example.kkaddak.api.service.SongService;
@@ -32,10 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -479,6 +477,39 @@ public class SongServiceImpl implements SongService {
         return DataResDto.builder()
                 .statusMessage(String.format("%s 님의 작품 목록입니다.", nickname))
                 .data(ownerSongs).build();
+    }
+
+    @Override
+    public DataResDto<?> uploadNFTImage(NftReqDto nftReqDto) throws IOException {
+        // DB에서 대상 Song 가져오기
+        Song song = songRepository.findBySongUuid(nftReqDto.getSongUUID())
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.SONG_NOT_EXIST.getMessage()));
+
+        // S3에 NFT image파일 업로드
+        MultipartFile nftImage = nftReqDto.getNftImage();
+        String nftImageName = nftImage.getOriginalFilename();
+        String nftFileKey = "nfts/" + nftImageName;
+        String nftFileUrl = s3BaseUrl + nftFileKey;
+
+        try {
+            s3Client.putObject(PutObjectRequest.builder()
+                    .bucket(s3Bucket)
+                    .key(nftFileKey)
+                    .build(), RequestBody.fromInputStream(nftImage.getInputStream(), nftImage.getSize()));
+        } catch (IOException e) {
+            throw new IOException(ErrorMessageEnum.S3_UPLOAD_ERROR.getMessage(), e.getCause());
+        }
+
+        song.setNftImagePath(nftFileUrl);
+        songRepository.save(song);
+
+        Map<String, String> resData = new HashMap<>();
+        resData.put("nftImageUrl", nftFileUrl);
+        return DataResDto.builder()
+                .statusCode(200)
+                .data(resData)
+                .statusMessage("NFT 이미지가 정상적으로 업로드되었습니다.")
+                .build();
     }
 
     private File getAmazonObject(String songPath) {
