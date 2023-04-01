@@ -11,7 +11,7 @@ plugins {
 android {
     namespace 'com.ssafy.kkaddak'
     compileSdk 33
-
+    
     defaultConfig {
         applicationId "com.ssafy.kkaddak"
         minSdk 26

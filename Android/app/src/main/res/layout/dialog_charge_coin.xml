@@ -22,109 +22,67 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_charge_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="35dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/title_charge_amount"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@string/title_charge"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/et_charge_amount"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:autofillHints="no"
-                android:background="@drawable/bg_rect_stroke3_neon_pink50_radius10"
-                android:fontFamily="@font/gmarket_sans_light"
-                android:inputType="text"
-                android:paddingStart="11dp"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_krw"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_charge_amount"
-                tools:ignore="LabelFor,RtlSymmetry"
-                tools:text="20000" />
-
-            <TextView
-                android:id="@+id/tv_krw"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/gmarket_sans_medium"
-                android:text="@string/content_krw"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/et_charge_amount"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_exchange_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/title_exchange_amount"
-                android:textColor="@color/white"
-                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_charge_amount" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/et_exchange_amount"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:autofillHints=""
-                android:background="@drawable/bg_rect_stroke3_neon_pink50_radius10"
-                android:fontFamily="@font/gmarket_sans_light"
-                android:inputType="text"
-                android:paddingStart="11dp"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/tv_eth"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exchange_amount"
-                tools:ignore="LabelFor,RtlSymmetry"
-                tools:text="0.0098" />
+                <TextView
+                    android:id="@+id/tv_charge_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/title_charge_amount"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_eth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/gmarket_sans_medium"
-                android:text="@string/content_eth"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/et_exchange_amount"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <EditText
+                    android:id="@+id/et_charge_amount"
+                    android:layout_width="170dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:autofillHints="no"
+                    android:background="@drawable/bg_rect_stroke3_neon_pink50_radius10"
+                    android:fontFamily="@font/gmarket_sans_light"
+                    android:inputType="text"
+                    android:paddingStart="11dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_krw"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_charge_amount"
+                    tools:ignore="LabelFor,RtlSymmetry"
+                    tools:text="20000" />
 
-            <TextView
-                android:id="@+id/tv_market_price_reflection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/gmarket_sans_light"
-                android:text="@string/content_market_price"
-                android:textColor="@color/bitter_sweet"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_exchange_amount" />
+                <TextView
+                    android:id="@+id/tv_krw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gmarket_sans_medium"
+                    android:text="@string/content_krw"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_charge_amount"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_payment_confirm"
@@ -140,8 +98,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_market_price_reflection" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_payment_cancel"
