@@ -53,7 +53,7 @@ class NftItemAdapter(
                 val month = data.nftCreateDate.substring(5, 7)
                 val day = data.nftCreateDate.substring(8, 10)
                 tvNftMarketDate.text = String.format("%s.%s.%s", year, month, day)
-                tvNftMarketPrice.text = String.format("%.2f", data.nftPrice)
+                tvNftMarketPrice.text = String.format("%.1f", data.nftPrice)
                 if (data.isLike) {
                     ivNftLike.setImageResource(R.drawable.ic_market_like_selected)
                 }
