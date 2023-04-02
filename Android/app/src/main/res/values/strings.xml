@@ -35,6 +35,8 @@
     <string name="content_selling_eth">판매 금액</string>
     <string name="content_ethereum">ETH</string>
     <string name="content_upload_nft">등록하기</string>
+    <string name="content_info_home_nft1">선택한 NFT가 대표NFT일 경우</string>
+    <string name="content_info_home_nft2">홈 화면에서 해제됩니다.</string>
     <string name="image_upload_nft_image">image_upload_nft_image</string>
     <string name="content_upload_selling_eth">content_upload_selling_eth</string>
     <string name="content_select_nft_image">content_select_nft_image</string>
@@ -210,4 +212,5 @@
     <string name="content_price">0.5</string>
     <string name="content_payment">결제하기</string>
     <string name="content_dialog_cancel_subscribe">구독을 취소하시겠습니까?\n(금액은 반환되지 않습니다.)</string>
+    <string name="title_select_nft_item">title_select_nft_item</string>
 </resources>
