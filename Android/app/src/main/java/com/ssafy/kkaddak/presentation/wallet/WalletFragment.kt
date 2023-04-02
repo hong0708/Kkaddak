@@ -61,6 +61,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
             .setPrice(amount)
             .setExtra(BootExtra()).items = items
 
+        val map: MutableMap<String, Any> = HashMap()
+        map["account_address"] = ApplicationClass.preferences.walletAddress.toString()
+        payload.metadata = map
+
         Bootpay.init(requireActivity().supportFragmentManager, requireActivity().applicationContext)
             .setPayload(payload)
             .setEventListener(object : BootpayEventListener {
