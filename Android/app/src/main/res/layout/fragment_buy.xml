@@ -212,7 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/content_buy_insufficient"
-                android:textColor="#F35F5F"
+                android:textColor="@color/bitter_sweet"
                 android:textSize="12sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
