@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity() {
                         SongItem(
                             mediaId,
                             mediaMetadata.title.toString(),
-                            "",
+                            mediaMetadata.composer.toString(),
                             mediaMetadata.albumTitle.toString(),
                             "",
                             null,
@@ -227,6 +227,7 @@ class MainActivity : AppCompatActivity() {
                         .setAlbumTitle(musicItem.coverPath)
                         .setDescription(musicItem.isSubscribe.toString())
                         .setSubtitle(musicItem.like.toString())
+                        .setComposer(musicItem.songPath)
                         .build()
                 )
                 .build()
