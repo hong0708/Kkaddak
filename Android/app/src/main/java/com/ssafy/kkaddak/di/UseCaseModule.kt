@@ -149,4 +149,9 @@ object UseCaseModule {
     @Provides
     fun provideGetFollowInfoUseCase(profileRepository: ProfileRepository): GetFollowInfoUseCase =
         GetFollowInfoUseCase(profileRepository)
+
+    @Singleton
+    @Provides
+    fun provideUploadThumbnailUseCase(profileRepository: ProfileRepository): UploadThumbnailUseCase =
+        UploadThumbnailUseCase(profileRepository)
 }

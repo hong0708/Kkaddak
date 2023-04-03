@@ -5,4 +5,5 @@ data class HomeProfile(
     val nickname: String,
     val profilepath: String?,
     val mySongs: Int,
+    val nftThumbnailUrl: String?
 )

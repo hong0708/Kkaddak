@@ -31,4 +31,8 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getFollowings(lastId: Int, limit: Int): List<FollowerResponse> =
         profileApiService.getFollowings(lastId, limit).data!!
+
+    override suspend fun uploadThumbnail(nftImageUrl: String) {
+        profileApiService.uploadThumbnail(nftImageUrl)
+    }
 }

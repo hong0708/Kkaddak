@@ -13,7 +13,9 @@ data class HomeProfileResponse(
     val profilepath: String?,
     @SerializedName("mySongs")
     val mySongs: Int,
-): DataToDomainMapper<HomeProfile> {
+    @SerializedName("nftThumbnailUrl")
+    val nftThumbnailUrl: String?
+) : DataToDomainMapper<HomeProfile> {
     override fun toDomainModel(): HomeProfile =
-        HomeProfile(memberId, nickname, profilepath, mySongs)
+        HomeProfile(memberId, nickname, profilepath, mySongs, nftThumbnailUrl)
 }

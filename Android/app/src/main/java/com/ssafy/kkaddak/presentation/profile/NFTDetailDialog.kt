@@ -31,7 +31,8 @@ import java.io.FileOutputStream
 class NFTDetailDialog(
     val activity: Activity,
     private val nftDetail: ProfileNFTDetailItem,
-    private val isMine: Boolean
+    private val isMine: Boolean,
+    private val listener: NFTDetailDialogListener
 ) : Dialog(activity) {
 
     private lateinit var binding: DialogNftDetailBinding
@@ -71,6 +72,11 @@ class NFTDetailDialog(
             ivImageShare.setOnClickListener {
                 setNftView()
                 shareToInstagramStory(bitmap)
+                dismiss()
+            }
+            // 대표 NFT
+            ivNftHomeProfile.setOnClickListener {
+                listener.onHomeButtonClicked(nftDetail?.nftImageUrl.toString())
                 dismiss()
             }
             ivCloseNftInfoDialog.setOnClickListener { dismiss() }

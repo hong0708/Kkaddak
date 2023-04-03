@@ -20,4 +20,6 @@ interface ProfileRepository {
     suspend fun getFollowers(lastId: Int, limit: Int): Resource<List<FollowerItem>>
 
     suspend fun getFollowings(lastId: Int, limit: Int): Resource<List<FollowerItem>>
+
+    suspend fun uploadThumbnail(nftImageUrl: String)
 }

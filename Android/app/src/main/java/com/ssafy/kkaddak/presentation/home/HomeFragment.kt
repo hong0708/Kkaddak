@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
+import com.ssafy.kkaddak.common.util.BindingAdapters.setCoverNFTImg
 import com.ssafy.kkaddak.databinding.FragmentHomeBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
-import com.ssafy.kkaddak.presentation.songlist.SongViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +20,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val latestSongAdapter by lazy { LatestSongAdapter(this::getSongDetail) }
     private val popularSongAdapter by lazy { PopularSongAdapter(this::getSongDetail) }
     private val homeViewModel by activityViewModels<HomeViewModel>()
-    private val songViewModel by activityViewModels<SongViewModel>()
 
     override fun initView() {
         initRecyclerView()
@@ -70,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 if (it.profilepath == "") binding.ivHomeNft.setImageResource(R.drawable.ic_home_nft_default)
                 binding.tvTitleHomeNickname.text = it.nickname
                 ApplicationClass.preferences.nickname = it.nickname
-                binding.ivHomeNft.setNormalImg(it.profilepath)
+                binding.ivHomeNft.setCoverNFTImg(it.nftThumbnailUrl)
                 if (it.mySongs == 0) {
                     binding.apply {
                         tvTitleHome.setText(R.string.title_home_1_listener)
