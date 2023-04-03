@@ -18,9 +18,7 @@ public enum ErrorMessageEnum {
     ABNORMAL_PAYMENT("비정상적으로 결제가 이루어졌습니다."),
     ACCOUNT_ADDRESS_REQUIRED("결제 과정에서 계정 주소가 누락되었습니다."),
     UNAUTHORIZED_EXCHANGE_REQUEST("결제자와 요청자의 계정 주소가 다릅니다."),
-    EXPRIRED_RECEIPT("만료된 결제 정보 입니다."),
-    FOLLOW_NOT_EXIST("팔로우하고 있지 않는 유저입니다.");
-
+    EXPIRED_RECEIPT("만료된 결제 정보 입니다.");
     private String message;
 
     ErrorMessageEnum(String message) {

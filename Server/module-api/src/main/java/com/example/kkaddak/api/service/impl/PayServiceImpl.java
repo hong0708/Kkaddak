@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -60,7 +59,7 @@ public DataResDto<?> exchangeCashToCoin(Member member, ExchangeReqDto exchangeRe
         // 결제 완료 상태 이외 receipt 요청 예외 처리
         if (!Objects.equals(result.get("status"), 1.0)) {
             // 결제 과정에서 error 발생
-            throw new IllegalArgumentException(ErrorMessageEnum.EXPRIRED_RECEIPT.getMessage());
+            throw new IllegalArgumentException(ErrorMessageEnum.EXPIRED_RECEIPT.getMessage());
         }
         if (Objects.isNull(result.get("order_id"))){
             // 결제 payload(account address) 누락
