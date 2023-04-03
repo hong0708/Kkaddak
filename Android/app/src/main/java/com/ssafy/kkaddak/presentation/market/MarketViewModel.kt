@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.kkaddak.ApplicationClass
+import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.market.HistoryItem
 import com.ssafy.kkaddak.domain.entity.market.NftDetailItem
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
 import com.ssafy.kkaddak.domain.usecase.market.*
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +45,12 @@ class MarketViewModel @Inject constructor(
 
     private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
     val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
+
+    private val _nftMyData: MutableLiveData<List<ProfileNFTItem>> = MutableLiveData()
+    val nftMyData: LiveData<List<ProfileNFTItem>> = _nftMyData
+
+    private val _nftUploadData: MutableLiveData<ProfileNFTDetailItem> = MutableLiveData()
+    var nftUploadData: LiveData<ProfileNFTDetailItem> = _nftUploadData
 
     var creatorImg: String = ""
 
@@ -82,6 +92,10 @@ class MarketViewModel @Inject constructor(
 
     fun getData(item: NftItem) = viewModelScope.launch {
         _nftData.value = item
+    }
+
+    fun getUploadData(item: ProfileNFTDetailItem) = viewModelScope.launch {
+        _nftUploadData.value = item
     }
 
     fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {

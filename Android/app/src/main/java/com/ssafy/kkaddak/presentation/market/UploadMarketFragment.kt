@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentUploadMarketBinding
-import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,10 +24,10 @@ class UploadMarketFragment :
             val dialog = DialogUploadNftDetailFragment()
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
 
-            dialog.setFragmentInterfacer(object : DialogUploadNftDetailFragment.FragmentInterfacer {
-                override fun onSendNftInfo(input: UploadNftItem) {
-                }
-            })
+//            dialog.setFragmentInterfacer(object : DialogUploadNftDetailFragment.FragmentInterfacer {
+//                override fun onSendNftInfo(input: UploadNftItem) {
+//                }
+//            })
         }
     }
 
