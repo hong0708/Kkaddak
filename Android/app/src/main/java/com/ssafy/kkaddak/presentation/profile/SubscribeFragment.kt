@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
@@ -34,11 +35,13 @@ class SubscribeFragment :
                         .show()
                 } else {
                     if (tvWalletBalance.text.toString().toFloat() > 1) {
+                        binding.tvBalanceLack.visibility = View.GONE
                         profileViewModel.followArtist(args.memberId)
                         // 구독 시 결제 진행
                         WalletFunction().transfer(args.address, 1, "구독")
                         popBackStack()
                     } else {
+                        binding.tvBalanceLack.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT)
                             .show()
                     }

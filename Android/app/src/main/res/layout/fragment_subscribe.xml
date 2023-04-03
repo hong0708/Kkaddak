@@ -206,6 +206,17 @@
                 app:layout_constraintTop_toTopOf="@id/tv_unit_kat" />
 
             <TextView
+                android:id="@+id/tv_balance_lack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@string/content_balance_lack"
+                android:textColor="@color/bitter_sweet"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/tv_unit_kat"
+                app:layout_constraintTop_toBottomOf="@id/tv_unit_kat" />
+
+            <TextView
                 android:id="@+id/tv_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,6 +227,7 @@
                 android:text="@string/content_payment"
                 android:textColor="@color/white"
                 android:textSize="24sp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -211,6 +211,7 @@
     <string name="content_price">0.5</string>
     <string name="content_payment">결제하기</string>
     <string name="content_dialog_cancel_subscribe">구독을 취소하시겠습니까?\n(금액은 반환되지 않습니다.)</string>
+    <string name="content_balance_lack">잔액이 부족합니다.</string>
 
     <!-- Edit Profile -->
     <string name="title_edit_profile">회원 정보 수정</string>
