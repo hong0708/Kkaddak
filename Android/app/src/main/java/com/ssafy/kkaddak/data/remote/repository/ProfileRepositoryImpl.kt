@@ -2,11 +2,13 @@ package com.ssafy.kkaddak.data.remote.repository
 
 import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.data.remote.datasource.profile.NFTImageResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.repository.ProfileRepository
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -43,5 +45,13 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun getFollowings(lastId: Int, limit: Int): Resource<List<FollowerItem>> =
         wrapToResource {
             profileRemoteDataSource.getFollowings(lastId, limit).map { it.toDomainModel() }
+        }
+
+    override suspend fun uploadNFTImage(
+        songId: String,
+        nftImg: MultipartBody.Part?
+    ): Resource<NFTImageResponse> =
+        wrapToResource {
+            profileRemoteDataSource.uploadNFTImage(songId, nftImg)
         }
 }

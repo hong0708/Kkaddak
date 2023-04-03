@@ -2,8 +2,11 @@ package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.FollowerResponse
+import com.ssafy.kkaddak.data.remote.datasource.profile.NFTImageResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ProfileApiService {
@@ -34,4 +37,11 @@ interface ProfileApiService {
         @Query("lastId") lastId: Int,
         @Query("limit") limit: Int
     ): BaseResponse<List<FollowerResponse>>
+
+    @Multipart
+    @POST("/api/v2/song/upload/nft-image")
+    suspend fun uploadNFTImage(
+        @PartMap map: Map<String, @JvmSuppressWildcards RequestBody>,
+        @Part image: MultipartBody.Part?
+    ):BaseResponse<NFTImageResponse>
 }

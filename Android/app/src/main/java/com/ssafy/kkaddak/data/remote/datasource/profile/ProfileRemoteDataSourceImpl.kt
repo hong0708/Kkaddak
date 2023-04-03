@@ -2,6 +2,10 @@ package com.ssafy.kkaddak.data.remote.datasource.profile
 
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
 import com.ssafy.kkaddak.data.remote.service.ProfileApiService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class ProfileRemoteDataSourceImpl @Inject constructor(
@@ -31,4 +35,10 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getFollowings(lastId: Int, limit: Int): List<FollowerResponse> =
         profileApiService.getFollowings(lastId, limit).data!!
+
+    override suspend fun uploadNFTImage(songId: String, nftImg: MultipartBody.Part?): NFTImageResponse {
+        val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
+        map["songUUID"] = songId.toRequestBody("text/plain".toMediaTypeOrNull())
+        return profileApiService.uploadNFTImage(map, nftImg).data!!
+    }
 }

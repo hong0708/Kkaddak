@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.data.remote.datasource.profile.NFTImageResponse
 import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
@@ -14,6 +15,7 @@ import com.ssafy.kkaddak.domain.usecase.profile.*
 import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +25,8 @@ class ProfileViewModel @Inject constructor(
     private val deleteMySongUseCase: DeleteMySongUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val requestFollowUseCase: RequestFollowUseCase,
-    private val getFollowInfoUseCase: GetFollowInfoUseCase
+    private val getFollowInfoUseCase: GetFollowInfoUseCase,
+    private val uploadNFTImageUseCase: UploadNFTImageUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -37,6 +40,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _followings: MutableLiveData<List<FollowerItem>?> = MutableLiveData()
     val followings: LiveData<List<FollowerItem>?> = _followings
+
+    private val _nftImageUrl: MutableLiveData<String?> = MutableLiveData("")
+    val nftImageUrl: LiveData<String?> = _nftImageUrl
 
     fun getProfileInfo(nickname: String) = viewModelScope.launch {
         when (val value = getProfileInfoUseCase(nickname)) {
@@ -97,6 +103,17 @@ class ProfileViewModel @Inject constructor(
             }
             is Resource.Error -> {
                 Log.e("getFollowings", "getFollowings: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun uploadNFTImage(songId: String, nftImg: MultipartBody.Part?) = viewModelScope.launch {
+        when (val value = uploadNFTImageUseCase.invoke(songId, nftImg)) {
+            is Resource.Success<NFTImageResponse> -> {
+                _nftImageUrl.value = value.data.nftImageUrl
+            }
+            is Resource.Error -> {
+                Log.e("uploadNFTImage", "uploadNFTImage: ${value.errorMessage}")
             }
         }
     }

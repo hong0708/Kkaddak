@@ -12,7 +12,8 @@ import com.ssafy.kkaddak.domain.entity.song.SongItem
 class ProfileSongAdapter(
     private val isMine: Boolean,
     private val onItemClicked: (songId: String) -> Unit,
-    private val onRejectBadgeClicked: (songId: String) -> Unit
+    private val onRejectBadgeClicked: (songId: String) -> Unit,
+    private val onApproveBadgeClicked: (data: SongItem) -> Unit
 ) : RecyclerView.Adapter<ProfileSongAdapter.ViewHolder>() {
 
     private var items: List<SongItem> = listOf()
@@ -22,7 +23,13 @@ class ProfileSongAdapter(
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), R.layout.item_profile_song, parent, false
         )
-        return ViewHolder(binding, onItemClicked, onRejectBadgeClicked, isMine)
+        return ViewHolder(
+            binding,
+            onItemClicked,
+            onRejectBadgeClicked,
+            isMine,
+            onApproveBadgeClicked
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,7 +42,8 @@ class ProfileSongAdapter(
         private val binding: ItemProfileSongBinding,
         private val onItemClicked: (songId: String) -> Unit,
         private val onRejectBadgeClicked: (songId: String) -> Unit,
-        private val isMine: Boolean
+        private val isMine: Boolean,
+        private val onApproveBadgeClicked: (data: SongItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: SongItem) {
             binding.apply {
@@ -57,6 +65,7 @@ class ProfileSongAdapter(
                     }
                     "APPROVE" -> {
                         if (isMine) ivSongState.setImageResource(R.drawable.ic_profile_song_approved)
+                        ivSongState.setOnClickListener { onApproveBadgeClicked(data) }
                     }
                     else -> ivSongState.visibility = View.GONE
                 }
