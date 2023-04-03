@@ -217,4 +217,5 @@
     <string name="title_edit_profile">회원 정보 수정</string>
     <string name="content_end_edit_profile">수정하기</string>
     <string name="content_delete_file">사진을 삭제하시겠습니까?</string>
+    <string name="image_toast_logo">image_toast_logo</string>
 </resources>

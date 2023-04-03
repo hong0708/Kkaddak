@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -74,9 +73,9 @@ class EditProfileFragment :
 
     private fun showDuplicateInfo(async: Int) {
         if (profileViewModel.isDuplicate.value == true) {
-            Toast.makeText(context, "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show()
+            showToast("중복된 닉네임입니다.")
         } else {
-            Toast.makeText(context, "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show()
+            showToast("사용할 수 있는 닉네임입니다.")
         }
     }
 
@@ -97,13 +96,13 @@ class EditProfileFragment :
                         profileViewModel.updateProfileWithExistingImg(etCheckNickName.text.toString())
                     }
                 }
-                Toast.makeText(context, "프로필이 수정되었습니다.", Toast.LENGTH_SHORT).show()
+                showToast("프로필이 수정되었습니다.")
                 popBackStack()
             }
 
             tvCheckNickName.setOnClickListener {
                 if (etCheckNickName.text.isEmpty()) {
-                    Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    showToast("닉네임을 입력해주세요.")
                 } else {
                     lifecycleScope.launch {
                         val async =

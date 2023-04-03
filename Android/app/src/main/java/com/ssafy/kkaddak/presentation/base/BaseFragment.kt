@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import com.ssafy.kkaddak.common.util.showToastMessage
 
 abstract class BaseFragment<T : ViewDataBinding>(
     @LayoutRes val layoutRes: Int
@@ -46,6 +47,10 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     fun popBackStack() {
         navController.popBackStack()
+    }
+
+    fun showToast(message: String) {
+        requireContext().showToastMessage(message)
     }
 
     override fun onDestroyView() {

@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -72,14 +71,13 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
                         joinViewModel.updateProfile()
                     }
                 } else {
-                    Toast.makeText(context, "닉네임 중복 확인을 먼저 해주세요.", Toast.LENGTH_SHORT).show()
+                    showToast("닉네임 중복 확인을 먼저 해주세요.")
                 }
             }
 
             tvCheckNickName.setOnClickListener {
                 if (joinViewModel.nickname.value == null) {
-                    //showToast("닉네임을 입력해주세요.")
-                    Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    showToast("닉네임을 입력해주세요.")
                 } else {
                     lifecycleScope.launch {
                         val async = joinViewModel.checkDuplication()
@@ -92,9 +90,9 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
 
     private fun showDuplicateInfo(async: Int) {
         if (joinViewModel.isDuplicate.value == true) {
-            Toast.makeText(context, "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show()
+            showToast("중복된 닉네임입니다.")
         } else {
-            Toast.makeText(context, "사용할 수 있는 닉네임입니다.", Toast.LENGTH_SHORT).show()
+            showToast("사용할 수 있는 닉네임입니다.")
         }
     }
 

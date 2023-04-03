@@ -2,7 +2,6 @@ package com.ssafy.kkaddak.presentation.wallet
 
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -94,7 +93,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 }
 
                 override fun onDone(data: String) {
-                    Toast.makeText(requireContext(), "충전되었습니다.", Toast.LENGTH_SHORT).show()
+                    showToast("충전되었습니다.")
                     // 완료 정보 서버 연결
                 }
             }).requestPayment()
@@ -125,8 +124,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
             clCharge.setOnClickListener {
                 if (ApplicationClass.preferences.walletAddress.toString() == "") {
-                    Toast.makeText(requireContext(), "지갑 등록 또는 생성을 진행해주세요.", Toast.LENGTH_SHORT)
-                        .show()
+                    showToast("지갑 등록 또는 생성을 진행해주세요.")
                 } else {
                     // 충전 플로우
                     ChargeCoinDialog(requireActivity(), this@WalletFragment).show()
