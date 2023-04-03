@@ -7,6 +7,7 @@ import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.repository.ProfileRepository
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -47,5 +48,13 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun uploadThumbnail(nftImageUrl: String) {
         profileRemoteDataSource.uploadThumbnail(nftImageUrl)
+    }
+
+    override suspend fun editUserInfo(
+        isUpdating: Boolean,
+        nickname: String,
+        profileImg: MultipartBody.Part?
+    ) {
+        profileRemoteDataSource.editUserInfo(isUpdating, nickname, profileImg)
     }
 }

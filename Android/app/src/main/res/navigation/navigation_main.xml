@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_profileFragment_to_otherProfileFragment"
             app:destination="@id/otherProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
@@ -242,4 +245,10 @@
             android:id="@+id/action_myFollowerFragment_to_otherProfileFragment"
             app:destination="@id/otherProfileFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

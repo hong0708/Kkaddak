@@ -22,6 +22,10 @@ class SharedPreferences(context: Context) {
         get() = prefs.getString("nickname", null)
         set(value) = prefs.edit().putString("nickname", value).apply()
 
+    var profileImg: String?
+        get() = prefs.getString("profileImg", null)
+        set(value) = prefs.edit().putString("profileImg", value).apply()
+
     var walletAddress: String?
         get() = prefs.getString("walletAddress", "")
         set(value) = prefs.edit().putString("walletAddress", value).apply()

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ssafy.kkaddak.presentation.join.JoinViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/image_arrow_left"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarket_sans_bold"
+            android:text="@string/title_edit_profile"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_edit_profile">
+
+            <ImageView
+                android:id="@+id/iv_profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/image_profile"
+                android:src="@drawable/ic_profile_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_profile_camera_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/image_profile_camera"
+                android:src="@drawable/ic_profile_camera_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/content_nickname"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_profile_image" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rect_stroke3_neon_pink50_radius10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_nick_name">
+
+            <EditText
+                android:id="@+id/et_check_nick_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:autofillHints="nickname"
+                android:fontFamily="@font/gmarket_sans_medium"
+                android:hint="@string/content_join_nick_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="15dp"
+                android:textColor="@color/dark_gray"
+                android:textColorHint="@color/dark_gray"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/tv_check_nick_name"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius40"
+                android:gravity="center"
+                android:text="@string/content_check_nickname"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/bg_rect_bitter_sweet_to_neon_pink_radius15"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gmarket_sans_bold"
+                android:text="@string/content_end_edit_profile"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
