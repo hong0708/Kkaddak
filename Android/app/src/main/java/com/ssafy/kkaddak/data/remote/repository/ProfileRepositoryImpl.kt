@@ -44,4 +44,8 @@ class ProfileRepositoryImpl @Inject constructor(
         wrapToResource {
             profileRemoteDataSource.getFollowings(lastId, limit).map { it.toDomainModel() }
         }
+
+    override suspend fun uploadThumbnail(nftImageUrl: String) {
+        profileRemoteDataSource.uploadThumbnail(nftImageUrl)
+    }
 }

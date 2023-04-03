@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.presentation.profile
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,21 +13,26 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.DialogNftDetailBinding
 import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+
 
 class NFTDetailDialog(
     val activity: Activity,
     private val nftDetail: ProfileNFTDetailItem,
-    private val isMine: Boolean
+    private val isMine: Boolean,
+    private val listener: NFTDetailDialogListener
 ) : Dialog(activity) {
 
     private lateinit var binding: DialogNftDetailBinding
@@ -57,17 +63,31 @@ class NFTDetailDialog(
 
     private fun initListener() {
         binding.apply {
+            // 저장
             ivImageDownload.setOnClickListener {
-                binding.apply {
-                    ivNft.isDrawingCacheEnabled = true
-                    ivNft.buildDrawingCache()
-                    bitmap = Bitmap.createBitmap(ivNft.drawingCache)
-                    ivNft.isDrawingCacheEnabled = false
-                }
+                setNftView()
                 saveImageToGallery()
+            }
+            // 공유
+            ivImageShare.setOnClickListener {
+                setNftView()
+                shareToInstagramStory(bitmap)
+                dismiss()
+            }
+            // 대표 NFT
+            ivNftHomeProfile.setOnClickListener {
+                listener.onHomeButtonClicked(nftDetail?.nftImageUrl.toString())
+                dismiss()
             }
             ivCloseNftInfoDialog.setOnClickListener { dismiss() }
         }
+    }
+
+    private fun setNftView() {
+        binding.ivNft.isDrawingCacheEnabled = true
+        binding.ivNft.buildDrawingCache()
+        bitmap = Bitmap.createBitmap(binding.ivNft.drawingCache)
+        binding.ivNft.isDrawingCacheEnabled = false
     }
 
     private fun saveImageToGallery() {
@@ -88,7 +108,6 @@ class NFTDetailDialog(
     }
 
     private fun imageExternalSave(context: Context, bitmap: Bitmap, path: String): Boolean {
-
         val state = Environment.getExternalStorageState()
 
         if (Environment.MEDIA_MOUNTED == state) {
@@ -122,6 +141,26 @@ class NFTDetailDialog(
             }
         }
         return false
+    }
+
+    private fun shareToInstagramStory(bitmap: Bitmap) {
+        val intent = Intent("com.instagram.share.ADD_TO_STORY").apply {
+            setDataAndType(getImageUri(bitmap), "image/*")
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        }
+        try {
+            startActivity(context, intent, Bundle())
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "인스타그램 앱이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getImageUri(bitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(activity.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path)
     }
 
     private fun checkPermission(activity: Activity, permission: String): Boolean {

@@ -34,4 +34,9 @@ interface ProfileApiService {
         @Query("lastId") lastId: Int,
         @Query("limit") limit: Int
     ): BaseResponse<List<FollowerResponse>>
+
+    @POST("/api/v1/members/nft-thumbnail")
+    suspend fun uploadThumbnail(
+        @Query("nftImageUrl") nftImageUrl: String
+    )
 }

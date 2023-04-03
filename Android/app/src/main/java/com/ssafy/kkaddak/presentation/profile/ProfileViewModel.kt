@@ -23,7 +23,8 @@ class ProfileViewModel @Inject constructor(
     private val deleteMySongUseCase: DeleteMySongUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val requestFollowUseCase: RequestFollowUseCase,
-    private val getFollowInfoUseCase: GetFollowInfoUseCase
+    private val getFollowInfoUseCase: GetFollowInfoUseCase,
+    private val uploadThumbnailUseCase: UploadThumbnailUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -99,5 +100,9 @@ class ProfileViewModel @Inject constructor(
                 Log.e("getFollowings", "getFollowings: ${value.errorMessage}")
             }
         }
+    }
+
+    fun uploadThumbnail(nftImageUrl: String) = viewModelScope.launch {
+        uploadThumbnailUseCase(nftImageUrl)
     }
 }
