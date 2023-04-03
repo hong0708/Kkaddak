@@ -148,9 +148,11 @@ class NFTFunction {
         )
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val remoteFunctionCall = katToken.mintMusicNFT()
-
-                val registerSong = remoteFunctionCall.send()
+//                val remoteFunctionCall = katToken.mintMusicNFT(
+//
+//                )
+//
+//                val registerSong = remoteFunctionCall.send()
 
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
