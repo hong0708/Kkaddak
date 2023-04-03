@@ -27,6 +27,8 @@ public class Song {
 
     private String coverPath;
 
+    private String nftImagePath;
+
     private String genre;
 
     private String combination;
@@ -47,11 +49,12 @@ public class Song {
     private Mood moods;
 
     @Builder
-    public Song(String title, String songPath, String coverPath, String genre, Mood moods, Member member, SongStatus songStatus, String combination) {
+    public Song(String title, String songPath, String coverPath, String nftImagePath, String genre, Mood moods, Member member, SongStatus songStatus, String combination) {
         this.songUuid = UUID.randomUUID();
         this.title = title;
         this.songPath = songPath;
         this.coverPath = coverPath;
+        this.nftImagePath = nftImagePath;
         this.genre = genre;
         this.uploadDate = System.currentTimeMillis();
         this.member = member;

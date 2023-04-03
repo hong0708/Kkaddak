@@ -1,4 +1,4 @@
-package com.example.kkaddak.api.dto;
+package com.example.kkaddak.api.dto.song;
 
 import com.example.kkaddak.core.entity.Song;
 import com.example.kkaddak.core.entity.SongStatus;
