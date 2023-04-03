@@ -42,9 +42,9 @@ class MusicFunction {
         )
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val remoteFunctionCall = katToken.registerSong()
-
-                val registerSong = remoteFunctionCall.send()
+//                val remoteFunctionCall = katToken.registerSong()
+//
+//                val registerSong = remoteFunctionCall.send()
 
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
