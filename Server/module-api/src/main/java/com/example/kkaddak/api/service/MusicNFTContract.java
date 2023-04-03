@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import java.math.BigInteger;
 import java.util.List;
 
-@Component
 public interface MusicNFTContract {
     RemoteFunctionCall<MusicNFTData> getMusicNFTData(BigInteger tokenId);
     RemoteFunctionCall<List> getSaleHistory(BigInteger tokenId);

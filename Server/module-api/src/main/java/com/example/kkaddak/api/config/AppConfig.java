@@ -4,8 +4,10 @@ package com.example.kkaddak.api.config;
 import com.example.kkaddak.api.config.jwt.CustomAuthenticationEntryPoint;
 import com.example.kkaddak.api.config.jwt.JwtProvider;
 import com.example.kkaddak.api.service.MemberService;
+import com.example.kkaddak.api.service.impl.KATTokenContractWrapper;
 import com.example.kkaddak.api.service.impl.MusicNFTContractWrapper;
 import com.example.kkaddak.core.repository.RedisDao;
+import kr.co.bootpay.Bootpay;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +21,6 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ReadonlyTransactionManager;
-import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.StaticGasProvider;
 
@@ -42,7 +43,17 @@ public class AppConfig {
     private String rpcUrl;
 
     @Value("${ethereum.contract.nft-address}")
-    private String contractAddress;
+    private String NFTContractAddress;
+
+    @Value("${ethereum.contract.wallet-address}")
+    private String tokenContractAddress;
+
+    @Value("${boot-pay.verification.rest-application-id}")
+    private String restApplicationId;
+
+    @Value("${boot-pay.verification.private-key}")
+    private String bootPayPrivateKey;
+
 
     // security 설정 활성화
     private static final String[] ALLOWED_ENDPOINT = {
@@ -91,10 +102,21 @@ public class AppConfig {
     }
 
     @Bean(name = "ReadOnlyMusicNFTContractWrapper")
-    public MusicNFTContractWrapper contractWrapper(Web3j web3j){
-        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, contractAddress);
-        return MusicNFTContractWrapper.load(contractAddress, web3j, transactionManager, createContractGasProvider());
+    public MusicNFTContractWrapper musicNFTContractWrapper(Web3j web3j){
+        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j(), NFTContractAddress);
+        return MusicNFTContractWrapper.load(NFTContractAddress, web3j, transactionManager, createContractGasProvider());
     }
+
+    @Bean(name = "KATTokenContractWrapper")
+    public KATTokenContractWrapper tokenContractWrapper(Web3j web3j, Credentials credentials){
+        return KATTokenContractWrapper.load(tokenContractAddress, web3j, credentials, createContractGasProvider());
+    }
+
+    @Bean
+    public Bootpay bootpay(){
+        return new Bootpay(restApplicationId, bootPayPrivateKey);
+    }
+
     private ContractGasProvider createContractGasProvider(){
         BigInteger gasPrice = BigInteger.valueOf(0L); // 20 Gwei
         BigInteger gasLimit = BigInteger.valueOf(4_300_000); // 가스 한도

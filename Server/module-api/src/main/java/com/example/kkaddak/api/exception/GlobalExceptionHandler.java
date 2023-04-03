@@ -16,6 +16,10 @@ public class GlobalExceptionHandler {
     public DataResDto<?> handle(BadRequestException e){
         return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
     }
+    @ExceptionHandler(UnauthorizationException.class)
+    public DataResDto<?> handle(UnauthorizationException e){
+        return DataResDto.builder().statusCode(401).statusMessage(e.getMessage()).build();
+    }
     @ExceptionHandler(IllegalArgumentException.class)
     public DataResDto<?> handle(IllegalArgumentException e){
         return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
@@ -35,6 +39,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PagingQueryException.class)
     public DataResDto<?> handle(PagingQueryException e){
         return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
+    }
+    @ExceptionHandler(ServiceException.class)
+    public DataResDto<?> handle(ServiceException e){
+        return DataResDto.builder().statusCode(500).statusMessage(e.getMessage()).build();
     }
     @ExceptionHandler(IOException.class)
     public DataResDto<?> handle(IOException e){

@@ -1,6 +1,7 @@
 
 package com.example.kkaddak.api.contract;
 
+import com.example.kkaddak.api.service.impl.KATTokenContractWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +44,7 @@ public class ContractTest {
 
         ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, contractAddress);
         // ERC20_sol_KATToken 객체 생성
-        KATToken_sol_KATToken katToken = new KATToken_sol_KATToken(contractAddress, web3j, transactionManager, contractGasProvider);
+        KATTokenContractWrapper katToken = new KATTokenContractWrapper(contractAddress, web3j, transactionManager, contractGasProvider);
 
         String EOA = "0xba5155e3e46f474c947aee8ce77d4132d1ed93d0";
         RemoteFunctionCall<BigInteger> remoteFunctionCall = katToken.balanceOf(EOA);
@@ -65,7 +66,7 @@ public class ContractTest {
         ContractGasProvider contractGasProvider = new StaticGasProvider(gasPrice, gasLimit);
 
         // ERC20_sol_KATToken 객체 생성
-        KATToken_sol_KATToken katToken = new KATToken_sol_KATToken(contractAddress, web3j, credentials, contractGasProvider);
+        KATTokenContractWrapper katToken = new KATTokenContractWrapper(contractAddress, web3j, credentials, contractGasProvider);
 
         System.out.println(credentials.getAddress());
         String EOA = "0x8fdED880ED0E79c1209130c0e477A7eeE8956CE4";
@@ -84,7 +85,7 @@ public class ContractTest {
         BigInteger gasLimit = BigInteger.valueOf(3000000); // 가스 한도
         ContractGasProvider contractGasProvider = new StaticGasProvider(gasPrice, gasLimit);
 
-        KATToken_sol_KATToken katToken = new KATToken_sol_KATToken(contractAddress, web3j, credentials, contractGasProvider);
+        KATTokenContractWrapper katToken = new KATTokenContractWrapper(contractAddress, web3j, credentials, contractGasProvider);
         katToken.getTransferLog("0x1E5eCE0C6abEcB6f0328734651C337ab3a524DDB").send();
 
 
