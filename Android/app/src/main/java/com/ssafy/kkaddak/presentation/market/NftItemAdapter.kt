@@ -15,7 +15,7 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 
 class NftItemAdapter(
-    private val onItemClicked: (nftItem: NftItem) -> Unit
+    private val onItemClicked: (marketId: Int) -> Unit
 ) : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() {
 
     private var items: List<NftItem> = listOf()
@@ -41,7 +41,7 @@ class NftItemAdapter(
 
     class NftItemViewHolder(
         private val binding: ItemNftBinding,
-        private val onItemClicked: (nftItem: NftItem) -> Unit
+        private val onItemClicked: (marketId: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NftItem) {
             binding.apply {
@@ -84,7 +84,7 @@ class NftItemAdapter(
             }
 
             binding.root.setOnClickListener {
-                onItemClicked(data)
+                onItemClicked(data.marketId)
             }
         }
     }

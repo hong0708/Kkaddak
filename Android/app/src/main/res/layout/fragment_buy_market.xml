@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="nftItem"
-            type="com.ssafy.kkaddak.domain.entity.market.NftItem" />
+            name="nftDetailItem"
+            type="com.ssafy.kkaddak.domain.entity.market.NftDetailItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gmarket_sans_bold"
             android:paddingBottom="10dp"
-            android:text="@{nftItem.nftSongTitle}"
+            android:text="@{nftDetailItem.songTitle}"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_back"
@@ -75,7 +75,7 @@
                     android:fontFamily="@font/gmarket_sans_medium"
                     android:gravity="center"
                     android:paddingBottom="5dp"
-                    android:text="@{nftItem.nftSongTitle}"
+                    android:text="@{nftDetailItem.songTitle}"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@id/iv_nft_image"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@{nftItem.nftCreator}"
+                    android:text="@{nftDetailItem.sellerNickname}"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tv_content_by"

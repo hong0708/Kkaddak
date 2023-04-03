@@ -35,25 +35,35 @@ class BuyMarketFragment :
     }
 
     private fun getData() {
-        marketViewModel.nftData.observe(viewLifecycleOwner) {
-            binding.nftItem = it
+        marketViewModel.nftDetailData.observe(viewLifecycleOwner) {
+            binding.nftDetailItem = it
             if (it!!.isLike) {
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_selected)
             } else {
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
         }
-        marketViewModel.getData(args.nftItem)
-        marketViewModel.getCreatorImg(args.nftItem.nftCreator)
-        marketViewModel.tempHistory()
+//        marketViewModel.getData(args.nftItem)
+        marketViewModel.getNftDetail(args.marketId)
+        marketViewModel.nftDetailData.value?.let { marketViewModel.getCreatorImg(it.sellerNickname) }
+//        marketViewModel.tempHistory()
     }
 
     private fun setData() {
-        binding.apply {
-            ivNftImage.setNormalImg(args.nftItem.nftImagePath)
-            tvContentSellingEth.text = args.nftItem.nftPrice.toString()
-            ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+        marketViewModel.nftDetailData.observe(viewLifecycleOwner) {
+            binding.apply {
+                if (it != null) {
+                    ivNftImage.setNormalImg(it.nftImageUrl)
+                    tvContentSellingEth.text = String.format("%f", it.price)
+                }
+            }
         }
+        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+//        binding.apply {
+//            ivNftImage.setNormalImg(args.nftItem.nftImagePath)
+//            tvContentSellingEth.text = args.nftItem.nftPrice.toString()
+//
+//        }
     }
 
     private fun initRecyclerView() {
@@ -76,45 +86,51 @@ class BuyMarketFragment :
     }
 
     private fun initListener() {
-        binding.ivBack.setOnClickListener { popBackStack() }
-        binding.ivNftLike.setOnClickListener {
-            val isLike = args.nftItem.isLike
-            if (!isLike) {
-                lifecycleScope.launch {
-                    val like = marketViewModel.requestBookmark(args.nftItem.marketId)
-                    if (like == "true") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
-                        args.nftItem.isLike = true
-                    } else if (like == "false") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
-                        args.nftItem.isLike = false
+        binding.apply {
+            ivBack.setOnClickListener { popBackStack() }
+            ivNftLike.setOnClickListener {
+                val isLike = marketViewModel.nftDetailData.value!!.isLike
+                if (!isLike) {
+                    lifecycleScope.launch {
+                        val like = marketViewModel.requestBookmark(args.marketId)
+                        if (like == "true") {
+                            ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
+                            marketViewModel.nftDetailData.value!!.isLike = true
+                        } else if (like == "false") {
+                            ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
+                            marketViewModel.nftDetailData.value!!.isLike = false
+                        }
                     }
-                }
-            } else {
-                lifecycleScope.launch {
-                    val like = marketViewModel.cancelBookmark(args.nftItem.marketId)
-                    if (like == "true") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
-                        args.nftItem.isLike = false
-                    } else if (like == "false") {
-                        binding.ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
-                        args.nftItem.isLike = true
+                } else {
+                    lifecycleScope.launch {
+                        val like = marketViewModel.cancelBookmark(args.marketId)
+                        if (like == "true") {
+                            ivNftLike.setBackgroundResource(R.drawable.ic_market_like_nft_detail)
+                            marketViewModel.nftDetailData.value!!.isLike = false
+                        } else if (like == "false") {
+                            ivNftLike.setBackgroundResource(R.drawable.ic_market_like_selected)
+                            marketViewModel.nftDetailData.value!!.isLike = true
+                        }
                     }
                 }
             }
-        }
-        binding.clBuy.setOnClickListener {
-            navigate(
-                BuyMarketFragmentDirections.actionBuyMarketFragmentToBuyFragment(
-                    args.nftItem.nftImagePath,
-                    args.nftItem.nftCreator,
-                    args.nftItem.nftPrice.toString()
+            clBuy.setOnClickListener {
+                navigate(
+                    BuyMarketFragmentDirections.actionBuyMarketFragmentToBuyFragment(
+                        marketViewModel.nftDetailData.value!!.nftImageUrl,
+                        marketViewModel.nftDetailData.value!!.creatorNickname,
+                        marketViewModel.nftDetailData.value!!.price.toString()
+                    )
                 )
-            )
+            }
         }
     }
 
     override fun navigateToProfile(creatorId: String) {
-        navigate(BuyMarketFragmentDirections.actionBuyMarketFragmentToOtherProfileFragment(creatorId))
+        navigate(
+            BuyMarketFragmentDirections.actionBuyMarketFragmentToOtherProfileFragment(
+                creatorId
+            )
+        )
     }
 }

@@ -3,6 +3,7 @@ package com.ssafy.kkaddak.data.remote.repository
 import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.data.remote.datasource.market.MarketRemoteDataSource
+import com.ssafy.kkaddak.domain.entity.market.NftDetailItem
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.repository.MarketRepository
 import javax.inject.Inject
@@ -27,6 +28,11 @@ class MarketRepositoryImpl @Inject constructor(
     ): Resource<List<NftItem>> =
         wrapToResource {
             marketRemoteDataSource.getBookmarks(lastId, limit, onlySelling).map { it.toDomainModel() }
+        }
+
+    override suspend fun getDetailNft(marketId: Int): Resource<NftDetailItem> =
+        wrapToResource {
+            marketRemoteDataSource.getDetailNft(marketId).toDomainModel()
         }
 
     override suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean> =

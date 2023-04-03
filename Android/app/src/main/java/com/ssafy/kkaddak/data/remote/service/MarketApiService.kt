@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
+import com.ssafy.kkaddak.data.remote.datasource.market.NftDetailItemResponse
 import com.ssafy.kkaddak.data.remote.datasource.market.NftItemResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,6 +23,9 @@ interface MarketApiService {
         @Query("limit") limit: Int,
         @Query("onlySelling") onlySelling: Boolean
     ) : BaseResponse<List<NftItemResponse>>
+
+    @GET("/api/v3/market/detail/{marketId}")
+    suspend fun getDetailNft(@Path("marketId") marketId: Int) : BaseResponse<NftDetailItemResponse>
 
     @POST("/api/v3/market/like/{marketId}")
     suspend fun requestMarketBookmark(@Path("marketId") marketId: Int): BaseResponse<Boolean>
