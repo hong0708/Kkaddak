@@ -2,8 +2,9 @@ package com.example.kkaddak.api.controller;
 
 
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.SongIdReqDto;
-import com.example.kkaddak.api.dto.SongReqDto;
+import com.example.kkaddak.api.dto.song.NftReqDto;
+import com.example.kkaddak.api.dto.song.SongIdReqDto;
+import com.example.kkaddak.api.dto.song.SongReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
 import com.example.kkaddak.api.service.SongService;
 import io.swagger.annotations.Api;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -170,5 +170,14 @@ public class SongController {
             @AuthenticationPrincipal MemberDetails memberDetails,
             @PathVariable String nickname) {
         return songService.getMemberSongs(memberDetails.getMember(), nickname);
+    }
+
+    @ApiOperation(value = "Song에 대한 NFT 이미지를 생성하고 생성한 이미지를 서버에 업로드하는 API")
+    @PostMapping("/upload/nft-image")
+    public DataResDto<?> uploadNftImage(
+            @AuthenticationPrincipal MemberDetails memberDetails,
+            @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @Valid NftReqDto nftReqDto) throws IOException {
+
+            return songService.uploadNFTImage(nftReqDto);
     }
 }

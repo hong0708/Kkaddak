@@ -1,4 +1,4 @@
-package com.example.kkaddak.api.dto;
+package com.example.kkaddak.api.dto.song;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

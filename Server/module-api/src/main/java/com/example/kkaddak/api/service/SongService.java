@@ -2,16 +2,12 @@ package com.example.kkaddak.api.service;
 
 
 import com.example.kkaddak.api.dto.DataResDto;
-import com.example.kkaddak.api.dto.SongReqDto;
-import com.example.kkaddak.api.dto.SongResDto;
+import com.example.kkaddak.api.dto.song.NftReqDto;
+import com.example.kkaddak.api.dto.song.SongReqDto;
 import com.example.kkaddak.core.entity.Member;
-import com.example.kkaddak.core.entity.Song;
-import jnr.a64asm.Mem;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -39,6 +35,8 @@ public interface SongService {
     DataResDto<?> getSongByCreator(Member member);
 
     DataResDto<?> getPopularityList(Member member);
+
     DataResDto<?> getMemberSongs(Member member, String nickname);
 
+    DataResDto<?> uploadNFTImage(NftReqDto nftReqDto) throws IOException;
 }
