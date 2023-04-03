@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
@@ -98,7 +97,7 @@ class OtherProfileFragment :
     override fun onConfirmButtonClicked(artistId: String) {
         profileViewModel.unfollowArtist(artistId)
         setData()
-        Toast.makeText(requireContext(), "구독이 취소되었습니다.", Toast.LENGTH_SHORT).show()
+        showToast("구독이 취소되었습니다.")
     }
 
     override fun navigateToProfile(creatorId: String) {

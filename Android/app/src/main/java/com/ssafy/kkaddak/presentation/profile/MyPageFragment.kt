@@ -1,6 +1,5 @@
 package com.ssafy.kkaddak.presentation.profile
 
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +49,7 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
                     isLoggedIn = false
                 }
                 navigate(MyPageFragmentDirections.actionMyPageFragmentToSplashFragment())
-                Toast.makeText(requireContext(), "로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
+                showToast("로그아웃되었습니다.")
             }
         }
     }

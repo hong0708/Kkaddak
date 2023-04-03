@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -72,7 +71,7 @@ class ProfileSongFragment() :
     override fun onConfirmButtonClicked(songId: String) {
         profileViewModel.deleteMySong(songId)
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
-        Toast.makeText(requireContext(), "음악이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+        showToast("음악이 삭제되었습니다.")
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 
