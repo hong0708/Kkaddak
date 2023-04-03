@@ -189,7 +189,7 @@
                     android:paddingBottom="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/cl_buy"
+                    app:layout_constraintBottom_toTopOf="@id/cl_upload"
                     app:layout_constraintTop_toBottomOf="@id/tv_content_selling_history">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -235,8 +235,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gmarket_sans_bold"
                         android:text="@string/content_buy"
-                        android:textSize="24sp"
                         android:textColor="@color/white"
+                        android:textSize="24sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
