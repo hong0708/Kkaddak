@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.domain.repository
 
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.domain.entity.market.NftDetailItem
 import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 interface MarketRepository {
@@ -8,6 +9,8 @@ interface MarketRepository {
     suspend fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean): Resource<List<NftItem>>
 
     suspend fun getBookmarks(lastId: Int, limit: Int, onlySelling: Boolean): Resource<List<NftItem>>
+
+    suspend fun getDetailNft(marketId: Int): Resource<NftDetailItem>
 
     suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean>
 

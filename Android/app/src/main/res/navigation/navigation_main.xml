@@ -37,8 +37,8 @@
         android:label="buyMarketFragment"
         tools:layout="@layout/fragment_buy_market">
         <argument
-            android:name="nftItem"
-            app:argType="com.ssafy.kkaddak.domain.entity.market.NftItem" />
+            android:name="marketId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_buyMarketFragment_to_MarketFragment"
             app:destination="@id/marketFragment" />
