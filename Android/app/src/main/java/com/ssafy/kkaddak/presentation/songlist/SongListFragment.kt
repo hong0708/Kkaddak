@@ -109,7 +109,6 @@ class SongListFragment :
     private fun getSongDetail(songId: String) {
         (activity as MainActivity).apply {
             setSongDetail(songId)
-            setPlay()
         }
     }
 
