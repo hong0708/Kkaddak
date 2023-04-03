@@ -43,9 +43,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvConfirmNftItem.setOnClickListener {
-//            marketViewModel.nftMyData.observe(viewLifecycleOwner) {item ->
-//                uploadNftadapter.setUploadData(it)
-//            }
             marketViewModel.nftId.observe(viewLifecycleOwner) { }
             Log.d("test2", marketViewModel.nftId.value.toString())
             dialog?.dismiss()
@@ -61,7 +58,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     }
 
     private fun nftinit() {
-//        uploadNftadapter = UploadNftItemAdapter()
         binding.rvSelectNftItem.apply {
             adapter = uploadNftadapter
             layoutManager =
@@ -92,5 +88,4 @@ class DialogUploadNftDetailFragment : DialogFragment() {
 //            marketViewModel.getUploadData(nftItem)
 //        }
     }
-
 }
