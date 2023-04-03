@@ -50,4 +50,10 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
         map["isUpdating"] = isUpdating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         profileApiService.editUserInfo(map, profileImg)
     }
+
+    override suspend fun uploadNFTImage(songId: String, nftImg: MultipartBody.Part?): NFTImageResponse {
+        val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
+        map["songUUID"] = songId.toRequestBody("text/plain".toMediaTypeOrNull())
+        return profileApiService.uploadNFTImage(map, nftImg).data!!
+    }
 }
