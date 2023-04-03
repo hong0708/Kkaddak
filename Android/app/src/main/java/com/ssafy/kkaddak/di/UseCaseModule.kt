@@ -79,6 +79,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideUploadNftUseCase(marketRepository: MarketRepository): UploadNftUseCase =
+        UploadNftUseCase(marketRepository)
+
+    @Singleton
+    @Provides
     fun provideGetDetailNftUseCase(marketRepository: MarketRepository): GetDetailNftUseCase =
         GetDetailNftUseCase(marketRepository)
 

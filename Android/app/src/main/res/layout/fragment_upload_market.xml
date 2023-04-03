@@ -60,6 +60,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
                 android:contentDescription="@string/image_upload_nft_image"
                 android:src="@drawable/ic_upload_nft_image"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +108,7 @@
                 android:id="@+id/tv_upload_song_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:fontFamily="@font/gmarket_sans_medium"
                 android:maxLines="1"
                 android:paddingStart="15dp"
@@ -149,7 +151,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_selling_eth">
 
                 <EditText
-                    android:id="@+id/tv_upload_selling_eth"
+                    android:id="@+id/et_upload_selling_eth"
                     android:layout_width="173dp"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/gmarket_sans_medium"
@@ -161,6 +163,7 @@
                     android:paddingEnd="0dp"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp"
+                    android:background="@android:color/transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="Labelfor" />
