@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,9 +12,15 @@ import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.domain.usecase.profile.*
+import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
 import com.ssafy.kkaddak.domain.usecase.user.LogoutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +31,9 @@ class ProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val requestFollowUseCase: RequestFollowUseCase,
     private val getFollowInfoUseCase: GetFollowInfoUseCase,
-    private val uploadThumbnailUseCase: UploadThumbnailUseCase
+    private val uploadThumbnailUseCase: UploadThumbnailUseCase,
+    private val editProfileUseCase: EditProfileUseCase,
+    private val checkDuplicationUseCase: CheckDuplicationUseCase,
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -38,6 +47,27 @@ class ProfileViewModel @Inject constructor(
 
     private val _followings: MutableLiveData<List<FollowerItem>?> = MutableLiveData()
     val followings: LiveData<List<FollowerItem>?> = _followings
+
+    private val _nickname: MutableLiveData<String> = MutableLiveData()
+    val nickname: MutableLiveData<String> = _nickname
+
+    private val _isDuplicate: MutableLiveData<Boolean?> = MutableLiveData(true)
+    val isDuplicate: MutableLiveData<Boolean?> = _isDuplicate
+
+    private val _profileImgUri: MutableLiveData<Uri?> = MutableLiveData()
+    val profileImgUri: MutableLiveData<Uri?> = _profileImgUri
+
+    private val _profileImgStr: MutableLiveData<String?> = MutableLiveData()
+    val profileImgStr: MutableLiveData<String?> = _profileImgStr
+
+    var profileImgMultiPart: MultipartBody.Part? = null
+
+    fun setProfileImg(uri: Uri, file: File) {
+        _profileImgUri.value = uri
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+        profileImgMultiPart =
+            MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
+    }
 
     fun getProfileInfo(nickname: String) = viewModelScope.launch {
         when (val value = getProfileInfoUseCase(nickname)) {
@@ -105,4 +135,36 @@ class ProfileViewModel @Inject constructor(
     fun uploadThumbnail(nftImageUrl: String) = viewModelScope.launch {
         uploadThumbnailUseCase(nftImageUrl)
     }
+
+    // 프로필 이미지를 바꿔 등록
+    fun updateProfile(nickname: String) = viewModelScope.launch {
+        editProfileUseCase(true, nickname, profileImgMultiPart)
+        ApplicationClass.preferences.nickname = nickname
+    }
+
+    // 프로필 이미지를 바꾸지 않고 등록
+    fun updateProfileWithExistingImg(nickname: String) = viewModelScope.launch {
+        editProfileUseCase(false, nickname, null)
+        ApplicationClass.preferences.nickname = nickname
+    }
+
+    // 프로필 이미지를 지우고 등록
+    fun updateProfileWithoutImg(nickname: String) = viewModelScope.launch {
+        editProfileUseCase(true, nickname, null)
+        ApplicationClass.preferences.nickname = nickname
+    }
+
+    suspend fun checkDuplication(nickname: String) =
+        viewModelScope.async {
+            when (val value = checkDuplicationUseCase(nickname)) {
+                is Resource.Success<Boolean> -> {
+                    _isDuplicate.value = value.data
+                    return@async 1
+                }
+                is Resource.Error -> {
+                    Log.e("checkDuplication", "checkDuplication: ${value.errorMessage}")
+                    return@async 0
+                }
+            }
+        }.await()
 }

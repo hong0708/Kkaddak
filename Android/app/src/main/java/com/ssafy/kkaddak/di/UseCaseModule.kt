@@ -154,4 +154,9 @@ object UseCaseModule {
     @Provides
     fun provideUploadThumbnailUseCase(profileRepository: ProfileRepository): UploadThumbnailUseCase =
         UploadThumbnailUseCase(profileRepository)
+
+    @Singleton
+    @Provides
+    fun provideEditProfileUseCase(profileRepository: ProfileRepository): EditProfileUseCase =
+        EditProfileUseCase(profileRepository)
 }

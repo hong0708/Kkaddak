@@ -4,6 +4,7 @@ import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.song.SongItem
+import okhttp3.MultipartBody
 
 interface ProfileRepository {
 
@@ -22,4 +23,10 @@ interface ProfileRepository {
     suspend fun getFollowings(lastId: Int, limit: Int): Resource<List<FollowerItem>>
 
     suspend fun uploadThumbnail(nftImageUrl: String)
+
+    suspend fun editUserInfo(
+        isUpdating: Boolean,
+        nickname: String,
+        profileImg: MultipartBody.Part?
+    )
 }

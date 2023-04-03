@@ -33,6 +33,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             tvProfileFollowerCnt.setOnClickListener {
                 navigate(ProfileFragmentDirections.actionProfileFragmentToMyFollowerFragment())
             }
+            tvEditProfile.setOnClickListener {
+                navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            }
         }
     }
 
@@ -63,6 +66,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private fun setData() {
         profileViewModel.profileData.observe(viewLifecycleOwner) {
             binding.profile = it
+            ApplicationClass.preferences.profileImg = it?.profilepath
+            profileViewModel.profileImgStr.value = it?.profilepath
+            if (it?.profilepath!!.isEmpty()) {
+                profileViewModel.profileImgStr.value = null
+                profileViewModel.profileImgUri.value = null
+            }
             initTabLayout()
         }
         profileViewModel.getProfileInfo(ApplicationClass.preferences.nickname!!)

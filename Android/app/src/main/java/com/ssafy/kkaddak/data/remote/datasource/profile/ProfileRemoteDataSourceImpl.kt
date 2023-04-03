@@ -2,6 +2,10 @@ package com.ssafy.kkaddak.data.remote.datasource.profile
 
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
 import com.ssafy.kkaddak.data.remote.service.ProfileApiService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 class ProfileRemoteDataSourceImpl @Inject constructor(
@@ -34,5 +38,16 @@ class ProfileRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun uploadThumbnail(nftImageUrl: String) {
         profileApiService.uploadThumbnail(nftImageUrl)
+    }
+
+    override suspend fun editUserInfo(
+        isUpdating: Boolean,
+        nickname: String,
+        profileImg: MultipartBody.Part?
+    ) {
+        val map = mutableMapOf<String, @JvmSuppressWildcards RequestBody>()
+        map["nickname"] = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+        map["isUpdating"] = isUpdating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        profileApiService.editUserInfo(map, profileImg)
     }
 }

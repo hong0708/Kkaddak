@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.data.remote.datasource.profile
 
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
+import okhttp3.MultipartBody
 
 interface ProfileRemoteDataSource {
 
@@ -19,4 +20,10 @@ interface ProfileRemoteDataSource {
     suspend fun getFollowings(lastId: Int, limit: Int): List<FollowerResponse>
 
     suspend fun uploadThumbnail(nftImageUrl: String)
+
+    suspend fun editUserInfo(
+        isUpdating: Boolean,
+        nickname: String,
+        profileImg: MultipartBody.Part?
+    )
 }

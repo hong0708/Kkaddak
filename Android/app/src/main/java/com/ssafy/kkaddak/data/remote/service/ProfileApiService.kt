@@ -4,6 +4,8 @@ import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.FollowerResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileResponse
 import com.ssafy.kkaddak.data.remote.datasource.song.SongResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ProfileApiService {
@@ -38,5 +40,12 @@ interface ProfileApiService {
     @POST("/api/v1/members/nft-thumbnail")
     suspend fun uploadThumbnail(
         @Query("nftImageUrl") nftImageUrl: String
+    )
+
+    @Multipart
+    @POST("/api/v1/members/profile")
+    suspend fun editUserInfo(
+        @PartMap map: Map<String, @JvmSuppressWildcards RequestBody>,
+        @Part profileImg: MultipartBody.Part?
     )
 }
