@@ -59,7 +59,13 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         payload.setApplicationId(getString(R.string.APPLICATION_ID))
             .setOrderName("까딱까딱 구독권 결제")
             .setPg("kcp")
-            .setOrderId("1234")
+            .setOrderId(
+                String(
+                    ApplicationClass.keyStore.decryptData(
+                        WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                    )
+                )
+            )
             .setPrice(amount)
             .setExtra(BootExtra()).items = items
 
