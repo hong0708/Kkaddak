@@ -56,7 +56,6 @@ class BuyMarketFragment :
                 }
             }
         }
-        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
     }
 
     private fun initRecyclerView() {

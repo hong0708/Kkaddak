@@ -53,8 +53,6 @@ class MarketViewModel @Inject constructor(
     private val _nftId: MutableLiveData<BigInteger> = MutableLiveData()
     var nftId: LiveData<BigInteger> = _nftId
 
-
-
     private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
     var nftUploadData: LiveData<UploadNftItem?> = _nftUploadData
 
