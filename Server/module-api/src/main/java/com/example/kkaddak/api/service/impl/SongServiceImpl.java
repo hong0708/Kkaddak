@@ -1,10 +1,7 @@
 package com.example.kkaddak.api.service.impl;
 
 import com.example.kkaddak.api.dto.*;
-import com.example.kkaddak.api.dto.song.NftReqDto;
-import com.example.kkaddak.api.dto.song.OwnerSongResDto;
-import com.example.kkaddak.api.dto.song.SongReqDto;
-import com.example.kkaddak.api.dto.song.SongResDto;
+import com.example.kkaddak.api.dto.song.*;
 import com.example.kkaddak.api.exception.NotFoundException;
 import com.example.kkaddak.api.service.NFTService;
 import com.example.kkaddak.api.service.SongService;
@@ -506,9 +503,27 @@ public class SongServiceImpl implements SongService {
         Map<String, String> resData = new HashMap<>();
         resData.put("nftImageUrl", nftFileUrl);
         return DataResDto.builder()
-                .statusCode(200)
                 .data(resData)
                 .statusMessage("NFT 이미지가 정상적으로 업로드되었습니다.")
+                .build();
+    }
+
+    @Override
+    public DataResDto<?> changeSongStatus(StateChangeReqDto stateChangeReqDto) {
+        Song song = songRepository.findBySongUuid(stateChangeReqDto.getSongUUID())
+                .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.SONG_NOT_EXIST.getMessage()));
+
+        song.setSongStatus(stateChangeReqDto.getSongStatus());
+        Song savedSong = songRepository.save(song);
+
+        Boolean res = false;
+
+        if (savedSong.getSongStatus().equals(stateChangeReqDto.getSongStatus()))
+            res = true;
+
+        return DataResDto.builder()
+                .statusMessage("음악 상태가 정상적으로 변경되었습니다.")
+                .data(res)
                 .build();
     }
 

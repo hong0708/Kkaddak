@@ -6,7 +6,9 @@ import com.example.kkaddak.api.dto.song.NftReqDto;
 import com.example.kkaddak.api.dto.song.SongIdReqDto;
 import com.example.kkaddak.api.dto.song.SongReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
+import com.example.kkaddak.api.dto.song.StateChangeReqDto;
 import com.example.kkaddak.api.service.SongService;
+import com.example.kkaddak.core.entity.SongStatus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -172,6 +174,11 @@ public class SongController {
         return songService.getMemberSongs(memberDetails.getMember(), nickname);
     }
 
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "NFT 이미지 업로드 성공시 응답"),
+            @ApiResponse(code = 400, message = "입력 데이터 부적합(파라미터 이미지 파일 확장자, 타입 및 입력값 부적절 시 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
     @ApiOperation(value = "Song에 대한 NFT 이미지를 생성하고 생성한 이미지를 서버에 업로드하는 API")
     @PostMapping("/upload/nft-image")
     public DataResDto<?> uploadNftImage(
@@ -179,5 +186,16 @@ public class SongController {
             @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @Valid NftReqDto nftReqDto) throws IOException {
 
             return songService.uploadNFTImage(nftReqDto);
+    }
+
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "음악 상태 변경 성공시 응답"),
+            @ApiResponse(code = 400, message = "입력 데이터 부적합(타입 및 입력값 부적절 시 응답"),
+            @ApiResponse(code = 401, message = "accessToken 부적합 시 응답"),
+    })
+    @ApiOperation(value = "음악의 상태를 변경하는 API (유사도 검증 이후 NFT발급 받을 시 상태를 COMPLETE로 만들때 사용)")
+    @PostMapping("/change/state")
+    public DataResDto<?> changeSongState(@RequestBody @Valid StateChangeReqDto stateChangeReqDto) {
+        return songService.changeSongStatus(stateChangeReqDto);
     }
 }

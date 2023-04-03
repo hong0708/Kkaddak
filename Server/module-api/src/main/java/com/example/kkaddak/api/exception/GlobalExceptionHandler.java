@@ -6,6 +6,7 @@ import com.example.kkaddak.core.exception.NoContentException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.IOException;
 
@@ -41,6 +42,11 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public DataResDto<?> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        return DataResDto.builder().statusCode(400).statusMessage(exception.getMessage()).build();
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public DataResDto<?> handleMethodArgumentTypeNotMismatch(MethodArgumentTypeMismatchException exception) {
         return DataResDto.builder().statusCode(400).statusMessage(exception.getMessage()).build();
     }
 }
