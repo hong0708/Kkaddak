@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.NFTFunction
+import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.DialogUploadNftDetailBinding
-import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
+import java.math.BigInteger
 
 class DialogUploadNftDetailFragment : DialogFragment() {
 
     private var _binding: DialogUploadNftDetailBinding? = null
     private val binding get() = _binding!!
-    private var uploadnftadapter: UploadNftItemAdapter? = null
-    private var fragmentInterfacer: FragmentInterfacer? = null
+//    private val uploadNftadapter by lazy { UploadNftItemAdapter(this::getNftDetail) }
+    private var uploadNftadapter: UploadNftItemAdapter? = null
+    private val marketViewModel by activityViewModels<MarketViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,23 +55,34 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     }
 
     private fun nftinit() {
-        uploadnftadapter = UploadNftItemAdapter()
+        uploadNftadapter = UploadNftItemAdapter()
         binding.rvSelectNftItem.apply {
-            adapter = uploadnftadapter
+            adapter = uploadNftadapter
             layoutManager =
                 GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             val spanCount = 2
             val space = 40
             addItemDecoration(GridSpaceItemDecoration(spanCount, space))
         }
+
+        NFTFunction().getTokensOfOwner(getWalletId()).observe(viewLifecycleOwner) { lists ->
+            uploadNftadapter!!.setData(lists)
+        }
+
     }
 
-    //UploadMarketFragment에 데이터 넘겨주기 위한 인터페이스
-    interface FragmentInterfacer {
-        fun onSendNftInfo(input: UploadNftItem)
+    private fun getWalletId() : String {
+        return String(
+            ApplicationClass.keyStore.decryptData(
+                WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+            )
+        )
     }
 
-    fun setFragmentInterfacer(fragmentInterfacer: FragmentInterfacer?) {
-        this.fragmentInterfacer = fragmentInterfacer
+    private fun getNftDetail(nftId: BigInteger) {
+//        NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) { nftItem ->
+//            marketViewModel.getUploadData(nftItem)
+//        }
     }
+
 }
