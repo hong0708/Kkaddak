@@ -1,10 +1,11 @@
 package com.example.kkaddak.api.dto.pay;
 
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ExchangeReqDto {
     private String receiptId;
 
