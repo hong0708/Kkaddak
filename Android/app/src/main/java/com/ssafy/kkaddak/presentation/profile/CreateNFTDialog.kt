@@ -24,7 +24,15 @@ class CreateNFTDialog(
 ) : Dialog(activity), UrlToBitmap.UrlToBitmapListener {
 
     private lateinit var binding: DialogCreateNftBinding
+    private lateinit var canvas: Canvas
+
     private val nftBitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888)
+    private val bodyList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
+    private val headList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
+    private val chipList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
+    private val eyeList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
+    private val mouthList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
+    private val earphonesList = arrayListOf(R.drawable.ic_kakao_login, R.drawable.ic_home_nft)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +49,6 @@ class CreateNFTDialog(
         val task = UrlToBitmap(this)
         task.execute(songItem.coverPath)
 
-        //makeNFT(songItem)
         initListener()
     }
 
@@ -56,22 +63,18 @@ class CreateNFTDialog(
     }
 
     private fun makeNFT(songItem: SongItem, background: Bitmap?) {
-        // 조합에 따라 생성
-        songItem.combination
 
-        val c = Canvas(nftBitmap)
-        val res: Resources = activity.resources
-
+        canvas = Canvas(nftBitmap)
         val drawable0: Drawable = BitmapDrawable(background)
         drawable0.setBounds(100, 100, 400, 400)
-        drawable0.draw(c)
+        drawable0.draw(canvas)
 
-        val bitmap1 = BitmapFactory.decodeResource(res, R.drawable.ic_kakao_login)
-        val drawable1: Drawable = BitmapDrawable(bitmap1)
-        drawable1.setBounds(100, 100, 400, 400)
-        drawable1.draw(c)
-
-        // 완성한 비트맵 nft 트랜잭션 발생
+//        drawBitmap(bodyList, songItem.combination!![0])
+//        drawBitmap(headList, songItem.combination[1])
+//        drawBitmap(chipList, songItem.combination[2])
+//        drawBitmap(eyeList, songItem.combination[3])
+//        drawBitmap(mouthList, songItem.combination[4])
+//        drawBitmap(earphonesList, songItem.combination[5])
     }
 
     override fun onSuccess(bitmap: Bitmap?) {
@@ -82,4 +85,11 @@ class CreateNFTDialog(
 
     }
 
+    private fun drawBitmap(list: List<Int>, loc: Int) {
+        val res: Resources = activity.resources
+        val bitmap1 = BitmapFactory.decodeResource(res, list[loc])
+        val drawable1: Drawable = BitmapDrawable(bitmap1)
+        drawable1.setBounds(100, 100, 400, 400)
+        drawable1.draw(canvas)
+    }
 }

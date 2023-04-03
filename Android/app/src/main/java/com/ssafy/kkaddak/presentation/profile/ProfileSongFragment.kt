@@ -18,6 +18,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.MusicFunction
 import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentProfileSongBinding
@@ -29,10 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 
 @AndroidEntryPoint
 class ProfileSongFragment() :
@@ -68,20 +67,30 @@ class ProfileSongFragment() :
     override fun mintNFT(songItem: SongItem, bitmap: Bitmap) {
         // 다이얼로그 에서 이미지 생성 또는 여기서 생성하고 다이얼로그 띄우기
         profileViewModel.nftImageUrl.observe(viewLifecycleOwner) {
-//            if (it != "") {
-//                NFTFunction().mintMusicNFT(
-//                    String(
-//                        ApplicationClass.keyStore.decryptData(
-//                            WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
-//                        )
-//                    ),
-//                    songItem.coverPath,
-//                    songItem.nickname!!,
-//                    songItem.songTitle,
-//                    it!!,
-//                    songItem.combination!!.joinToString(separator = "")
-//                )
-//            }
+            Log.d("ghdalsrl", "mintNFT alsrl:${songItem.songPath} ${songItem.nickname} ${songItem.coverPath} ${songItem.nickname} ${songItem.songTitle} ${songItem.combination}")
+            if (it != "") {
+                NFTFunction().mintMusicNFT(
+                    String(
+                        ApplicationClass.keyStore.decryptData(
+                            WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                        )
+                    ),
+                    songItem.coverPath,
+                    songItem.nickname!!,
+                    songItem.songTitle,
+                    it!!,
+                    songItem.combination!!.joinToString(separator = "")
+                )
+
+                MusicFunction().registerSong(
+                    songItem.songTitle,
+                    songItem.nickname,
+                    songItem.coverPath,
+                    songItem.songPath!!,
+                    System.currentTimeMillis().toBigInteger(),
+                    songItem.combination.fold("") { acc, i -> acc + i }.toBigInteger()
+                )
+            }
         }
         saveImageToGallery(bitmap, songItem.songId)
     }
@@ -133,42 +142,6 @@ class ProfileSongFragment() :
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 
-//    private fun saveBitmapToFile(name: String, bitmap: Bitmap, context: Context): File? {
-//        // 저장소에 파일을 저장할 권한이 있는지 확인합니다.
-//        if (ContextCompat.checkSelfPermission(
-//                context,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // 권한이 없을 경우 권한 요청을 합니다.
-//            ActivityCompat.requestPermissions(
-//                context as Activity,
-//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                1
-//            )
-//            return null
-//        }
-//
-//        // 저장할 파일 객체를 생성합니다.
-//        //val filename = name
-//        val file = File(
-//            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-//            name
-//        )
-//
-//        // 파일에 비트맵을 저장합니다.
-//        try {
-//            val stream = FileOutputStream(file)
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//            stream.flush()
-//            stream.close()
-//            return file
-//        } catch (e: IOException) {
-//            Log.e("saveBitmapToFile", "Error saving bitmap to file", e)
-//        }
-//        return null
-//    }
-
     private fun saveImageToGallery(bitmap: Bitmap, id: String) {
         // 권한 체크
         if (!checkPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) ||
@@ -194,7 +167,6 @@ class ProfileSongFragment() :
         val file = File(nftFile.absolutePath)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val a = MultipartBody.Part.createFormData("nftImage", file.name, requestFile)
-        Log.d("tlqkf", "saveImageToGallery: ${file.path} ${file.absolutePath}, ${file.name}")
 //        val requestFile = nftFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
 //        val a =
 //            MultipartBody.Part.createFormData("coverFile", nftFile.name, requestFile)
@@ -202,7 +174,6 @@ class ProfileSongFragment() :
             id,
             a
         )
-        Log.d("ghdalsrl", "saveImageToGallery: $id")
     }
 
     private fun imageExternalSave(
