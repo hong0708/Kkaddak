@@ -208,7 +208,7 @@ public class MemberController {
     @PostMapping("/nft-thumbnail")
     public DataResDto<?> setNFTThumbnail(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            NFTThumbnailReqDto nftThumbnailReqDto) {
+            @RequestBody NFTThumbnailReqDto nftThumbnailReqDto) {
         return memberService.setNFTThumbnail(memberDetails.getMember(), nftThumbnailReqDto.getNftImageUrl());
     }
 }

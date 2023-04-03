@@ -4,10 +4,10 @@ package com.example.kkaddak.api.controller;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.market.CloseMarketReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
-import com.example.kkaddak.core.exception.NoContentException;
 import com.example.kkaddak.api.service.MarketService;
 import com.example.kkaddak.core.dto.MarketConditionReqDto;
 import com.example.kkaddak.core.dto.MarketReqDto;
+import com.example.kkaddak.core.exception.NoContentException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,7 +15,6 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.web3j.abi.datatypes.Int;
 
 
 @Api(tags = "마켓 API")
@@ -34,7 +33,7 @@ public class MarketController {
     @PostMapping("/create")
     public DataResDto<?> createMarket(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            MarketReqDto marketReqDto)
+            @RequestBody MarketReqDto marketReqDto)
     {
         return marketService.createMarket(marketReqDto, memberDetails.getMember());
     }
@@ -127,7 +126,7 @@ public class MarketController {
     @PostMapping("/close")
     public DataResDto<?> closeMarket(
             @AuthenticationPrincipal MemberDetails memberDetails,
-            CloseMarketReqDto closeMarketReqDto) {
+            @RequestBody CloseMarketReqDto closeMarketReqDto) {
         return marketService.closeMarket(memberDetails.getMember(), closeMarketReqDto);
     }
 

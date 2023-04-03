@@ -112,6 +112,10 @@ project(':module-api') {
         // web3j
         implementation 'org.web3j:core:4.9.7'
 
+        // boot pay
+        implementation 'io.github.bootpay:backend:+'
+
+
         // 유사도 관련 라이브러리
         implementation group: 'com.github.fracpete', name: 'musicg', version: '1.4.2.2'
     }
