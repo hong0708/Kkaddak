@@ -164,16 +164,9 @@ public class SongServiceImpl implements SongService {
             Song savedSong = songRepository.save(song);
 
             // convert combination string to list
-            List<Integer> combList = new ArrayList<>();
-            String[] combArr = combination.split(",");
-
-            for (String s : combArr) {
-                combList.add(Integer.parseInt(s));
-            }
-
+            List<Integer> combList = combStrToList(combination);
             SongResDto songResDto = SongResDto.builder()
                     .song(savedSong)
-                    .songStatus(song.getSongStatus())
                     .combination(combList).build();
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
@@ -236,8 +229,11 @@ public class SongServiceImpl implements SongService {
                     .build();
             playListRepository.save(playList);
 
+            List<Integer> combList = combStrToList(song.getCombination());
+
             SongResDto songResDto = SongResDto.builder()
                     .song(song)
+                    .combination(combList)
                     .isLike(isLike)
                     .isSubscribe(followRepository.existsByFollowerAndFollowing(member, song.getMember()))
                     .build();
@@ -432,7 +428,11 @@ public class SongServiceImpl implements SongService {
             List<SongResDto> songResDtoList = new ArrayList<>();
             for (Song song: createSongList) {
                 boolean isLike = likeListRepository.existsByMemberAndSong(member, song);
-                songResDtoList.add(SongResDto.builder().song(song).isLike(isLike).build());
+                songResDtoList.add(SongResDto.builder()
+                                .song(song)
+                                .combination(combStrToList(song.getCombination()))
+                                .isLike(isLike)
+                                .build());
             }
 
             return DataResDto.builder().data(songResDtoList)
@@ -468,8 +468,13 @@ public class SongServiceImpl implements SongService {
     public DataResDto<?> getMemberSongs(Member member, String nickname) {
         Member profileOwner = memberRepository.findByNickname(nickname)
                 .orElseThrow(() -> new NotFoundException(ErrorMessageEnum.USER_NOT_EXIST.getMessage()));
-        List<OwnerSongResDto> ownerSongs = songRepository.findByMemberOrderByUploadDateDesc(profileOwner)
-                .stream().map(song -> OwnerSongResDto.builder().song(song).build())
+        List<SongResDto> ownerSongs = songRepository.findByMemberOrderByUploadDateDesc(profileOwner)
+                .stream().map(song -> SongResDto
+                        .builder()
+                        .song(song)
+                        .isLike(likeListRepository.existsByMemberAndSong(member, song))
+                        .combination(combStrToList(song.getCombination()))
+                        .build())
                 .collect(Collectors.toList());
         return DataResDto.builder()
                 .statusMessage(String.format("%s 님의 작품 목록입니다.", nickname))
@@ -547,5 +552,14 @@ public class SongServiceImpl implements SongService {
         }
 
         return file;
+    }
+
+    private ArrayList<Integer> combStrToList(String combination) {
+        String[] combArr = combination.split(",");
+        ArrayList<Integer> combList = new ArrayList<>();
+        for (int i = 0; i < combArr.length; i++)
+            combList.add(Integer.parseInt(combArr[i]));
+
+        return combList;
     }
 }

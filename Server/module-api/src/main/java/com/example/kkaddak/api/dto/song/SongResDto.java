@@ -40,7 +40,7 @@ public class SongResDto {
     SongStatus songStatus;
     Boolean isSubscribe;
     @Builder
-    public SongResDto(Song song, Boolean isLike, List<Integer> combination, SongStatus songStatus, Boolean isSubscribe) {
+    public SongResDto(Song song, Boolean isLike, List<Integer> combination, Boolean isSubscribe) {
         this.songId = song.getSongUuid();
         this.songTitle = song.getTitle();
         this.songPath = song.getSongPath();
@@ -50,7 +50,7 @@ public class SongResDto {
         this.nickname = song.getMember().getNickname();
         this.isLike = isLike;
         this.combination = combination;
-        this.songStatus = songStatus;
+        this.songStatus = song.getSongStatus();
         if (!song.getMoods().getMood1().equals("")) {
             this.moods.add(song.getMoods().getMood1());
         }
