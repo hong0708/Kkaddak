@@ -39,7 +39,6 @@ class LikeListFragment : BaseFragment<FragmentLikeListBinding>(R.layout.fragment
     private fun getSongDetail(songId: String) {
         (activity as MainActivity).apply {
             setSongDetail(songId)
-            setPlay()
         }
     }
 

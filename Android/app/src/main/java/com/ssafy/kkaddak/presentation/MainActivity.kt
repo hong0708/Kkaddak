@@ -24,8 +24,7 @@ import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.songlist.SongViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 
 @AndroidEntryPoint
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     private val concatenatingMediaSource = ConcatenatingMediaSource()
     private val songList = mutableListOf<SongItem>()
 
-    // private val mediaSourceList = mutableListOf<MediaSource>()
     private var player: ExoPlayer? = null
     private var songId: String = ""
 
@@ -53,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         initBottomBehavior()
         initNavigation()
         initListener()
-
     }
 
     override fun onResume() {
@@ -75,9 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeData() {
         songViewModel.playListData.observe(this) { playList ->
-
             songList.clear()
-
             playList?.forEach { it ->
                 songList.add(it)
             }
@@ -170,17 +165,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setSongDetail(songId: String) {
-        this.songId = songId
-        runBlocking {
+        this@MainActivity.songId = songId
+        player?.stop()
+        player?.release()
+        CoroutineScope(Dispatchers.Main).launch {
             songViewModel.getSong(this@MainActivity.songId)
-        }
-        runBlocking {
+            delay(100)
             songViewModel.getPlayList()
+            delay(100)
+            setPlay(1)
         }
-        setPlay()
     }
 
     private fun initPlayer() {
+        concatenatingMediaSource.clear()
         player = ExoPlayer.Builder(this).build()
         binding.playerControlView.player = player
         binding.playerControlView2.player = player
@@ -210,7 +208,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPlayList() {
-        // songViewModel.getPlayList()
         val startPositionMs = 0L
         val endPositionMs = 60_000L
         val dataSourceFactory = DefaultDataSourceFactory(this, "sample")
@@ -246,59 +243,13 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-        // concatenatingMediaSource.clear() // 미디어 소스 리스트 초기화
         concatenatingMediaSource.addMediaSources(mediaSourceList)
-
         player?.prepare(concatenatingMediaSource)
-
         player?.playWhenReady = true
-
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-//    private fun setPlayList() {
-//        val startPositionMs = 0L
-//        val endPositionMs = 60_000L
-//        val dataSourceFactory = DefaultDataSourceFactory(this, "sample")
-//        songViewModel.playListData.observe(this) {
-//            it?.forEach { musicItem ->
-//                val mediaItem = MediaItem.Builder()
-//                    .setUri(musicItem.songPath)
-//                    .setMediaId(musicItem.songId)
-//                    .setMediaMetadata(
-//                        MediaMetadata.Builder()
-//                            .setTitle(musicItem.songTitle)
-//                            .setArtist(musicItem.nickname)
-//                            .setAlbumTitle(musicItem.coverPath)
-//                            .setDescription(musicItem.isSubscribe.toString())
-//                            .setSubtitle(musicItem.like.toString())
-//                            .build()
-//                    )
-//                    .build()
-//
-//                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-//                    .createMediaSource(mediaItem)
-//                if (musicItem.isSubscribe) {
-//                    mediaSourceList.add(mediaSource)
-//                } else {
-//                    mediaSourceList.add(
-//                        ClippingMediaSource(
-//                            mediaSource,
-//                            startPositionMs * 1000L,
-//                            endPositionMs * 1000L
-//                        )
-//                    )
-//                }
-//            }
-//            concatenatingMediaSource.addMediaSources(mediaSourceList)
-//            player?.prepare(concatenatingMediaSource)
-//            player?.playWhenReady = true
-//        }
-//        songViewModel.getPlayList()
-//        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//    }
-
-    fun setPlay() {
+    fun setPlay(async: Int) {
         initPlayer()
         setPlayList()
     }

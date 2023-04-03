@@ -80,7 +80,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     private fun getSongDetail(songId: String) {
         (activity as MainActivity).apply {
             setSongDetail(songId)
-            setPlay()
         }
     }
 
