@@ -64,7 +64,7 @@ class ProfileViewModel @Inject constructor(
 
     fun setProfileImg(uri: Uri, file: File) {
         _profileImgUri.value = uri
-        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
         profileImgMultiPart =
             MultipartBody.Part.createFormData("profileImg", file.name, requestFile)
     }
