@@ -42,4 +42,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun registerWalletAccount(walletAccount: String): Boolean =
         userApiService.registerAccount(WalletAccountRequest(walletAccount)).data!!
+
+    override suspend fun chargeCoin(receiptId: String): Boolean =
+        userApiService.chargeCoin(receiptId).data!!
 }

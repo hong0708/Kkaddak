@@ -16,6 +16,7 @@ import kr.co.bootpay.android.events.BootpayEventListener
 import kr.co.bootpay.android.models.BootExtra
 import kr.co.bootpay.android.models.BootItem
 import kr.co.bootpay.android.models.Payload
+import org.json.JSONObject
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
@@ -93,8 +94,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 }
 
                 override fun onDone(data: String) {
+                    val jsonObject = JSONObject(data)
+                    val receiptId = jsonObject.getJSONObject("data").getString("receipt_id")
+                    walletViewModel.chargeCoin(receiptId)
                     showToast("충전되었습니다.")
-                    // 완료 정보 서버 연결
                 }
             }).requestPayment()
     }
