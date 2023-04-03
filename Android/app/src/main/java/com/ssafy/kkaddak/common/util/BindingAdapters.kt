@@ -2,9 +2,13 @@ package com.ssafy.kkaddak.common.util
 
 import android.net.Uri
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.ssafy.kkaddak.R
+import java.math.BigInteger
+import java.text.SimpleDateFormat
+import java.util.*
 
 object BindingAdapters {
 
@@ -56,5 +60,12 @@ object BindingAdapters {
             .placeholder(R.drawable.bg_image_not_found)
             .error(R.drawable.bg_image_not_found)
             .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:setDateFormat")
+    fun TextView.setDateFormat(date: BigInteger?) {
+        val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        this.text = format.format(Date(date!!.toLong() * 1000)).toString()
     }
 }

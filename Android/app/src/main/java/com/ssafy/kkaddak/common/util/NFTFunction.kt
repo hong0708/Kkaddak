@@ -1,17 +1,25 @@
 package com.ssafy.kkaddak.common.util
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.NFT_sol_MusicNFT.*
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.web3j.crypto.Credentials
 import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.RemoteFunctionCall
 import org.web3j.protocol.http.HttpService
 import org.web3j.tx.ReadonlyTransactionManager
 import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
-private const val NFT_CONTRACT_ADDRESS = "0xa95d055eCB09bc37ab6eb41dA4C8B02073f21De4 "
-private const val TAG = "wallet info"
+private const val NFT_CONTRACT_ADDRESS = "0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8"
+private const val TAG = "NFT info"
 
 class NFTFunction {
     // Ethereum 네트워크에 연결
@@ -52,8 +60,11 @@ class NFTFunction {
         }.start()
     }
 
-    fun getTokensOfOwner() {
-        Thread {
+    fun getTokensOfOwner(account: String?): MutableLiveData<List<ProfileNFTItem>> {
+        val result = MutableLiveData<List<ProfileNFTItem>>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+
             val katToken = load(
                 NFT_CONTRACT_ADDRESS,
                 web3j,
@@ -61,29 +72,91 @@ class NFTFunction {
                 contractGasProvider
             )
 
-            val remoteFunctionCall = katToken.getTokensOfOwner(
+            try {
+                if (account != null) {
+                    val remoteFunctionCall =
+                        katToken.getTokensOfOwner(account) as RemoteFunctionCall<List<*>>
+
+                    val nftList = remoteFunctionCall.send() as List<MusicNFTMetaData>
+                    val list = mutableListOf<ProfileNFTItem>()
+
+                    for (i in nftList) {
+                        Log.d(TAG, "getTokensOfOwner: ${i}")
+                        list.add(
+                            ProfileNFTItem(
+                                i.nftImageUrl,
+                                i.tokenId
+                            )
+                        )
+                    }
+                    result.postValue(list)
+                }
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
+            }
+        }
+        return result
+    }
+
+    fun getMetaData(nftId: BigInteger): MutableLiveData<ProfileNFTDetailItem> {
+
+        val result = MutableLiveData<ProfileNFTDetailItem>()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val katToken = load(
+                NFT_CONTRACT_ADDRESS,
+                web3j,
+                transactionManager,
+                contractGasProvider
+            )
+
+            try {
+                val remoteFunctionCall = katToken.getMusicNFTData(nftId)
+                val remoteFunctionCallResult = remoteFunctionCall.send() as MusicNFTData
+
+                val nftDetail = ProfileNFTDetailItem(
+                    remoteFunctionCallResult.nftImageUrl,
+                    remoteFunctionCallResult.coverImageUrl,
+                    remoteFunctionCallResult.creatorNickname,
+                    remoteFunctionCallResult.createdDate,
+                    remoteFunctionCallResult.trackTitle,
+                    remoteFunctionCallResult.combination
+                )
+                result.postValue(nftDetail)
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
+            }
+        }
+        return result
+    }
+
+    fun mintMusicNFT() {
+        val credentials =
+            Credentials.create(
                 String(
                     ApplicationClass.keyStore.decryptData(
-                        WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                        WalletFunction().decode(ApplicationClass.preferences.privateKey.toString())
                     )
                 )
             )
 
+        val katToken = load(
+            NFT_CONTRACT_ADDRESS,
+            web3j,
+            credentials,
+            contractGasProvider
+        )
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val count = remoteFunctionCall.send().toString()
-                Log.d(TAG, "getTokensOfOwner: $count")
+//                val remoteFunctionCall = katToken.mintMusicNFT(
+//
+//                )
+//
+//                val registerSong = remoteFunctionCall.send()
 
             } catch (e: Exception) {
-                System.err.println("Error while fetching the balance: ${e.message}")
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
-        }.start()
-    }
-
-    fun getMetaData(nftId: String) {
-
-    }
-
-    fun mintMusicNFT(){
-
+        }
     }
 }

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="nftDetail"
+            type="com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/iv_close_nft_info_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -54,6 +58,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_image_download" />
 
             <ImageView
+                android:id="@+id/iv_nft_home_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
@@ -68,6 +73,7 @@
                 android:layout_height="165dp"
                 android:layout_marginTop="20dp"
                 android:contentDescription="@string/image_nft"
+                android:coverNFTImgStr="@{nftDetail.nftImageUrl}"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,10 +94,12 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_nft" />
 
             <TextView
+                android:id="@+id/tv_nft_detail_song_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/gmarket_sans_medium"
+                android:text="@{nftDetail.trackTitle}"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/tv_title_song_name"
@@ -112,16 +120,17 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_title_song_name" />
 
             <TextView
+                android:id="@+id/tv_nft_detail_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/gmarket_sans_medium"
                 android:textColor="@color/white"
                 android:textSize="16sp"
+                android:setDateFormat="@{nftDetail.createdDate}"
                 app:layout_constraintStart_toEndOf="@id/tv_created_date"
                 app:layout_constraintTop_toTopOf="@id/tv_created_date"
                 tools:text="2023.03.03" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
