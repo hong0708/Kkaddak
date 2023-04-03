@@ -208,7 +208,7 @@
     <string name="title_total_balance">Total Balance (KAT)</string>
     <string name="image_subscribe_profile">image_subscribe_profile</string>
     <string name="content_unit_kat">KAT</string>
-    <string name="content_price">0.5</string>
+    <string name="content_price">5.0</string>
     <string name="content_payment">결제하기</string>
     <string name="content_dialog_cancel_subscribe">구독을 취소하시겠습니까?\n(금액은 반환되지 않습니다.)</string>
     <string name="content_balance_lack">잔액이 부족합니다.</string>

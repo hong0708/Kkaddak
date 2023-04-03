@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentOtherProfileBinding
 import com.ssafy.kkaddak.presentation.MainActivity
@@ -69,14 +70,23 @@ class OtherProfileFragment :
                     setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius5)
                     text = "구독"
                     setOnClickListener { view ->
-                        navigate(
-                            OtherProfileFragmentDirections.actionOtherProfileFragmentToSubscribeFragment(
-                                it.nickname,
-                                it.profilepath,
-                                it.account ?: "",
-                                it.memberId
+                        if (ApplicationClass.preferences.walletAddress.toString() == "") {
+                            Toast.makeText(
+                                requireContext(),
+                                "지갑 등록 또는 생성을 진행해주세요.",
+                                Toast.LENGTH_SHORT
                             )
-                        )
+                                .show()
+                        } else {
+                            navigate(
+                                OtherProfileFragmentDirections.actionOtherProfileFragmentToSubscribeFragment(
+                                    it.nickname,
+                                    it.profilepath,
+                                    it.account ?: "",
+                                    it.memberId
+                                )
+                            )
+                        }
                     }
                 }
             }
