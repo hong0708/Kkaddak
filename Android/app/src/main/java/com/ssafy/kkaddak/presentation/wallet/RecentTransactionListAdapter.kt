@@ -54,7 +54,7 @@ class RecentTransactionListAdapter :
     }
 
     fun setData(data: List<RecentTransactionItem>) {
-        this.items = data
+        this.items = data.reversed()
         notifyDataSetChanged()
     }
 }

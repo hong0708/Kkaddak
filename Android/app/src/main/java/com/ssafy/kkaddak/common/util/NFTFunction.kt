@@ -130,7 +130,14 @@ class NFTFunction {
         return result
     }
 
-    fun mintMusicNFT() {
+    fun mintMusicNFT(
+        to: String,
+        coverImageUrl: String,
+        creator: String,
+        trackTitle: String,
+        nftImageUrl: String,
+        combination: String
+    ) {
         val credentials =
             Credentials.create(
                 String(
@@ -148,11 +155,15 @@ class NFTFunction {
         )
         CoroutineScope(Dispatchers.IO).launch {
             try {
-//                val remoteFunctionCall = katToken.mintMusicNFT(
-//
-//                )
-//
-//                val registerSong = remoteFunctionCall.send()
+                val remoteFunctionCall = katToken.mintMusicNFT(
+                    to,
+                    coverImageUrl,
+                    creator,
+                    trackTitle,
+                    nftImageUrl,
+                    combination
+                )
+                val registerSong = remoteFunctionCall.send()
 
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
