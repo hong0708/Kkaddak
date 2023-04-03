@@ -1,10 +1,11 @@
 package com.example.kkaddak.api.dto.market;
 
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NFTThumbnailReqDto {
     private String nftImageUrl;
 
