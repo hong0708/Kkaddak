@@ -4,6 +4,7 @@ package com.example.kkaddak.api.service;
 import com.example.kkaddak.api.dto.DataResDto;
 import com.example.kkaddak.api.dto.song.NftReqDto;
 import com.example.kkaddak.api.dto.song.SongReqDto;
+import com.example.kkaddak.api.dto.song.StateChangeReqDto;
 import com.example.kkaddak.core.entity.Member;
 import org.springframework.stereotype.Service;
 
@@ -39,4 +40,6 @@ public interface SongService {
     DataResDto<?> getMemberSongs(Member member, String nickname);
 
     DataResDto<?> uploadNFTImage(NftReqDto nftReqDto) throws IOException;
+
+    DataResDto<?> changeSongStatus(StateChangeReqDto stateChangeReqDto);
 }
