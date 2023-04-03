@@ -36,7 +36,8 @@ class OtherProfileFragment :
             vpProfile.adapter = ProfileAdapter(
                 this@OtherProfileFragment,
                 args.nickname,
-                profileViewModel.profileData.value!!.isMine
+                profileViewModel.profileData.value!!.isMine,
+                profileViewModel.profileData.value!!.account
             )
             TabLayoutMediator(
                 tlProfile, vpProfile
