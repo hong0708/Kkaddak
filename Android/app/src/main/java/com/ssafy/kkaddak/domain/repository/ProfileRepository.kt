@@ -35,4 +35,9 @@ interface ProfileRepository {
         songId: String,
         nftImg: MultipartBody.Part?
     ): Resource<NFTImageResponse>
+
+    suspend fun changeSongState(
+        songStatus: String,
+        songUUID: String
+    ): Resource<Boolean>
 }

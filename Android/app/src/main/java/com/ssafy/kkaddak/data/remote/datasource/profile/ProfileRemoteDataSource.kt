@@ -31,4 +31,9 @@ interface ProfileRemoteDataSource {
         songId: String,
         nftImg: MultipartBody.Part?
     ): NFTImageResponse
+
+    suspend fun changeSongState(
+        songStatus: String,
+        songUUID: String
+    ): Boolean
 }

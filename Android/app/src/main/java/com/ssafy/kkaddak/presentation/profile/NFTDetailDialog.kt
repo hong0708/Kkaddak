@@ -20,7 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.ssafy.kkaddak.R
-import com.ssafy.kkaddak.common.util.CustomToast
+import com.ssafy.kkaddak.common.util.showToastMessage
 import com.ssafy.kkaddak.databinding.DialogNftDetailBinding
 import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
 import java.io.ByteArrayOutputStream
@@ -102,9 +102,9 @@ class NFTDetailDialog(
 
         // 그림 저장
         if (!imageExternalSave(activity, bitmap, activity.getString(R.string.app_name))) {
-            CustomToast.createToast(activity, "그림 저장을 실패하였습니다")
+            activity.showToastMessage("그림 저장을 실패하였습니다")
         }
-        CustomToast.createToast(activity, "그림이 갤러리에 저장되었습니다")
+        activity.showToastMessage("그림이 갤러리에 저장되었습니다")
     }
 
     private fun imageExternalSave(context: Context, bitmap: Bitmap, path: String): Boolean {
@@ -151,7 +151,7 @@ class NFTDetailDialog(
         try {
             startActivity(context, intent, Bundle())
         } catch (e: ActivityNotFoundException) {
-            CustomToast.createToast(context, "인스타그램 앱이 존재하지 않습니다.")
+            activity.showToastMessage("인스타그램 앱이 존재하지 않습니다.")
         }
     }
 

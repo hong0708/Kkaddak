@@ -13,6 +13,7 @@ import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentSubscribeBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.pow
 
 @AndroidEntryPoint
 class SubscribeFragment :
@@ -47,7 +48,11 @@ class SubscribeFragment :
                             setOnClickListener {
                                 profileViewModel.followArtist(args.memberId)
                                 // 구독 시 결제 진행
-                                WalletFunction().transfer(args.address, 5, "구독")
+                                WalletFunction().transfer(
+                                    args.address,
+                                    (5 * 10.0.pow(8)).toLong(),
+                                    "구독"
+                                )
                                 popBackStack()
                             }
                         }

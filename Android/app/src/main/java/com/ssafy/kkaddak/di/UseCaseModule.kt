@@ -171,4 +171,9 @@ object UseCaseModule {
     @Provides
     fun provideUploadNFTImage(profileRepository: ProfileRepository): UploadNFTImageUseCase =
         UploadNFTImageUseCase(profileRepository)
+
+    @Singleton
+    @Provides
+    fun provideChangeSongStateUseCase(profileRepository: ProfileRepository): ChangeSongStateUseCase =
+        ChangeSongStateUseCase(profileRepository)
 }
