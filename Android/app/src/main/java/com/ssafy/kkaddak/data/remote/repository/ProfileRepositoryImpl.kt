@@ -2,6 +2,7 @@ package com.ssafy.kkaddak.data.remote.repository
 
 import com.ssafy.kkaddak.common.util.wrapToResource
 import com.ssafy.kkaddak.data.remote.Resource
+import com.ssafy.kkaddak.data.remote.datasource.profile.NFTImageResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileRemoteDataSource
 import com.ssafy.kkaddak.domain.entity.profile.FollowerItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
@@ -57,4 +58,12 @@ class ProfileRepositoryImpl @Inject constructor(
     ) {
         profileRemoteDataSource.editUserInfo(isUpdating, nickname, profileImg)
     }
+
+    override suspend fun uploadNFTImage(
+        songId: String,
+        nftImg: MultipartBody.Part?
+    ): Resource<NFTImageResponse> =
+        wrapToResource {
+            profileRemoteDataSource.uploadNFTImage(songId, nftImg)
+        }
 }

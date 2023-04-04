@@ -24,7 +24,14 @@ class MusicFunction {
     private val gasLimit = BigInteger.valueOf(4_300_000) // 가스 한도
     private val contractGasProvider = StaticGasProvider(gasPrice, gasLimit)
 
-    fun registerSong(){
+    fun registerSong(
+        title: String,
+        artist: String,
+        cover: String,
+        songFile: String,
+        uploadTime: BigInteger,
+        combination: BigInteger
+    ) {
         val credentials =
             Credentials.create(
                 String(
@@ -42,12 +49,17 @@ class MusicFunction {
         )
         CoroutineScope(Dispatchers.IO).launch {
             try {
-//                val remoteFunctionCall = katToken.registerSong()
-//
-//                val registerSong = remoteFunctionCall.send()
-
+                val remoteFunctionCall = katToken.registerSong(
+                    title,
+                    artist,
+                    cover,
+                    songFile,
+                    uploadTime,
+                    combination
+                )
+                remoteFunctionCall.send()
             } catch (e: Exception) {
-                System.err.println("Error while get RecentTransactionList: ${e.message}")
+                System.err.println("Error while registerSong: ${e.message}")
             }
         }
     }

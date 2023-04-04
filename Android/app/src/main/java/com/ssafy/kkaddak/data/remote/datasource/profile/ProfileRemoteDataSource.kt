@@ -26,4 +26,9 @@ interface ProfileRemoteDataSource {
         nickname: String,
         profileImg: MultipartBody.Part?
     )
+
+    suspend fun uploadNFTImage(
+        songId: String,
+        nftImg: MultipartBody.Part?
+    ): NFTImageResponse
 }
