@@ -1,25 +1,31 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ssafy.kkaddak.data.remote.Resource
 import com.ssafy.kkaddak.domain.entity.market.HistoryItem
+import com.ssafy.kkaddak.domain.entity.market.NftDetailItem
 import com.ssafy.kkaddak.domain.entity.market.NftItem
+import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
-import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
-import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
-import com.ssafy.kkaddak.domain.usecase.market.GetBookmarksUseCase
-import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
+import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
+import com.ssafy.kkaddak.domain.usecase.market.*
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.math.BigInteger
 import javax.inject.Inject
 
 @HiltViewModel
 class MarketViewModel @Inject constructor(
     private val getAllNftsUseCase: GetAllNftsUseCase,
     private val getBookmarksUseCase: GetBookmarksUseCase,
+    private val uploadNftUseCase: UploadNftUseCase,
+    private val getDetailNftUseCase: GetDetailNftUseCase,
     private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
     private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase,
     private val getProfileInfoUseCase: GetProfileInfoUseCase
@@ -31,11 +37,20 @@ class MarketViewModel @Inject constructor(
     private val _nftTempData: MutableLiveData<List<NftItem>?> = MutableLiveData()
     val nftTempData: LiveData<List<NftItem>?> = _nftTempData
 
-    private val _nftData: MutableLiveData<NftItem> = MutableLiveData()
-    val nftData: LiveData<NftItem> = _nftData
+    private val _nftData: MutableLiveData<NftItem?> = MutableLiveData()
+    val nftData: LiveData<NftItem?> = _nftData
+
+    private val _nftDetailData: MutableLiveData<NftDetailItem?> = MutableLiveData()
+    val nftDetailData: LiveData<NftDetailItem?> = _nftDetailData
 
     private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
     val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
+
+    private val _nftId: MutableLiveData<BigInteger> = MutableLiveData()
+    var nftId: LiveData<BigInteger> = _nftId
+
+    private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
+    var nftUploadData: LiveData<UploadNftItem?> = _nftUploadData
 
     var creatorImg: String = ""
 
@@ -49,9 +64,8 @@ class MarketViewModel @Inject constructor(
         return false
     }
 
-    fun tempHistory() = viewModelScope.launch {
-        val datas = mutableListOf<HistoryItem>()
-        _nftHistoryData.value = datas
+    fun tempHistory(historyList: List<HistoryItem>) = viewModelScope.launch {
+        _nftHistoryData.value = historyList
     }
 
     fun getAllNfts(lastId: Int, limit: Int, onlySelling: Boolean) = viewModelScope.launch {
@@ -76,8 +90,40 @@ class MarketViewModel @Inject constructor(
         }
     }
 
-    fun getData(item: NftItem) = viewModelScope.launch {
-        _nftData.value = item
+    fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {
+        _nftData.value?.apply {
+            nftImagePath = args.nftImagePath
+            nftCreator = args.nftCreator
+            nftPrice = args.nftPrice.toDouble()
+        }
+        nftData.value?.let { Log.d("getButData", it.nftCreator) }
+    }
+
+    fun getNftDetail(marketId: Int) = viewModelScope.launch {
+        when (val value = getDetailNftUseCase(marketId)) {
+            is Resource.Success<NftDetailItem> -> {
+                _nftDetailData.value = value.data
+                tempHistory(_nftDetailData.value!!.saleHistoryList)
+            }
+            is Resource.Error -> {
+                Log.e("getNftDetail", "getNftDetail: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun setNftId(nftId: BigInteger) = viewModelScope.launch {
+        _nftId.value = nftId
+    }
+
+    fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {
+        when (val value = uploadNftUseCase(data.creatorNickname!!, nft, data.nftImageUrl!!, price, data.trackTitle!!)) {
+            is Resource.Success<UploadNftItem> -> {
+                _nftUploadData.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("uploadNft", "uploadNft: ${value.errorMessage}")
+            }
+        }
     }
 
     fun clearData() {
@@ -98,7 +144,7 @@ class MarketViewModel @Inject constructor(
         // 중복 부분 제거
         if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                if(joinedList.size >= 20) {
+                if (joinedList.size >= 20) {
                     for (i in 0..19) {
                         joinedList.removeAt(joinedList.size - 1)
                     }

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
-import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -209,9 +208,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         }
     }
 
-    private fun getNftItem(item: NftItem) {
+    private fun getNftItem(marketId: Int) {
         navigate(
-            MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(item)
+            MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(marketId)
         )
     }
 

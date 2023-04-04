@@ -38,8 +38,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: HistoryItem) {
             binding.apply {
-                tvHistoryDate.text = data.historyDate
-                tvHistoryEth.text = data.historyPrice
+                tvHistoryDate.text = data.timestamp
+                tvHistoryPrice.text = String.format("%f", data.price)
             }
         }
     }

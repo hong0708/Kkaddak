@@ -6,10 +6,7 @@ import com.ssafy.kkaddak.domain.usecase.auth.LoginUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetHomeProfileUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetLatestSongsUseCase
 import com.ssafy.kkaddak.domain.usecase.home.GetPopularSongsUseCase
-import com.ssafy.kkaddak.domain.usecase.market.CancelMarketBookmarkUseCase
-import com.ssafy.kkaddak.domain.usecase.market.GetAllNftsUseCase
-import com.ssafy.kkaddak.domain.usecase.market.GetBookmarksUseCase
-import com.ssafy.kkaddak.domain.usecase.market.RequestMarketBookmarkUseCase
+import com.ssafy.kkaddak.domain.usecase.market.*
 import com.ssafy.kkaddak.domain.usecase.profile.*
 import com.ssafy.kkaddak.domain.usecase.song.*
 import com.ssafy.kkaddak.domain.usecase.user.CheckDuplicationUseCase
@@ -79,6 +76,16 @@ object UseCaseModule {
     @Provides
     fun provideGetBookmarksUseCase(marketRepository: MarketRepository): GetBookmarksUseCase =
         GetBookmarksUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideUploadNftUseCase(marketRepository: MarketRepository): UploadNftUseCase =
+        UploadNftUseCase(marketRepository)
+
+    @Singleton
+    @Provides
+    fun provideGetDetailNftUseCase(marketRepository: MarketRepository): GetDetailNftUseCase =
+        GetDetailNftUseCase(marketRepository)
 
     @Singleton
     @Provides

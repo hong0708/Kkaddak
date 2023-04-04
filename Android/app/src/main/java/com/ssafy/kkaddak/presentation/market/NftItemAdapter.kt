@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
@@ -15,7 +16,7 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 
 
 class NftItemAdapter(
-    private val onItemClicked: (nftItem: NftItem) -> Unit
+    private val onItemClicked: (marketId: Int) -> Unit
 ) : RecyclerView.Adapter<NftItemAdapter.NftItemViewHolder>() {
 
     private var items: List<NftItem> = listOf()
@@ -41,11 +42,11 @@ class NftItemAdapter(
 
     class NftItemViewHolder(
         private val binding: ItemNftBinding,
-        private val onItemClicked: (nftItem: NftItem) -> Unit
+        private val onItemClicked: (marketId: Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NftItem) {
             binding.apply {
-                ivNftItem.setNormalImg(data.nftImagePath)
+                ivNftItem.setNormalImg(data.nftImagePath.toUri())
                 tvNftLike.text = data.cntLikeMarket.toString()
                 tvNftCreator.text = data.nftCreator
                 tvNftSongTitle.text = data.nftSongTitle
@@ -53,7 +54,7 @@ class NftItemAdapter(
                 val month = data.nftCreateDate.substring(5, 7)
                 val day = data.nftCreateDate.substring(8, 10)
                 tvNftMarketDate.text = String.format("%s.%s.%s", year, month, day)
-                tvNftMarketPrice.text = String.format("%.2f", data.nftPrice)
+                tvNftMarketPrice.text = String.format("%.1f", data.nftPrice)
                 if (data.isLike) {
                     ivNftLike.setImageResource(R.drawable.ic_market_like_selected)
                 }
@@ -84,7 +85,7 @@ class NftItemAdapter(
             }
 
             binding.root.setOnClickListener {
-                onItemClicked(data)
+                onItemClicked(data.marketId)
             }
         }
     }

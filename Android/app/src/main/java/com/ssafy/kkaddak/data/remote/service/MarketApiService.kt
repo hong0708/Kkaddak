@@ -1,11 +1,11 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
+import com.ssafy.kkaddak.data.remote.datasource.market.NftDetailItemResponse
 import com.ssafy.kkaddak.data.remote.datasource.market.NftItemResponse
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.ssafy.kkaddak.data.remote.datasource.market.UploadNftItemRequest
+import com.ssafy.kkaddak.data.remote.datasource.market.UploadNftItemResponse
+import retrofit2.http.*
 
 interface MarketApiService {
 
@@ -14,14 +14,20 @@ interface MarketApiService {
         @Query("lastId") lastId: Int,
         @Query("limit") limit: Int,
         @Query("onlySelling") onlySelling: Boolean
-    ) : BaseResponse<List<NftItemResponse>>
+    ): BaseResponse<List<NftItemResponse>>
 
     @GET("/api/v3/market/my-like")
     suspend fun getBookmarks(
         @Query("lastId") lastId: Int,
         @Query("limit") limit: Int,
         @Query("onlySelling") onlySelling: Boolean
-    ) : BaseResponse<List<NftItemResponse>>
+    ): BaseResponse<List<NftItemResponse>>
+
+    @POST("/api/v3/market/create")
+    suspend fun uploadNft(@Body body: UploadNftItemRequest): BaseResponse<UploadNftItemResponse>
+
+    @GET("/api/v3/market/detail/{marketId}")
+    suspend fun getDetailNft(@Path("marketId") marketId: Int): BaseResponse<NftDetailItemResponse>
 
     @POST("/api/v3/market/like/{marketId}")
     suspend fun requestMarketBookmark(@Path("marketId") marketId: Int): BaseResponse<Boolean>
