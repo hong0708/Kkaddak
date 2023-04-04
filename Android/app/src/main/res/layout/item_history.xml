@@ -39,16 +39,16 @@
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_eth" />
+            app:layout_constraintEnd_toStartOf="@id/tv_kat" />
 
         <TextView
-            android:id="@+id/tv_eth"
+            android:id="@+id/tv_kat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="20dp"
             android:paddingStart="0dp"
             android:fontFamily="@font/gmarket_sans_bold"
-            android:text="@string/content_ethereum"
+            android:text="@string/content_kat"
             android:textSize="16sp"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"

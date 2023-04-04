@@ -83,8 +83,8 @@ class UploadMarketFragment :
                     tvUploadSongTitle.text = nftItem.trackTitle
                     ivUploadNftImage.setNormalImg(nftItem.nftImageUrl!!.toUri())
 
-                    etUploadSellingEth.addTextChangedListener {
-                        price = binding.etUploadSellingEth.text.toString()
+                    etUploadSellingKat.addTextChangedListener {
+                        price = binding.etUploadSellingKat.text.toString()
                     }
                 }
             }

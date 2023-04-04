@@ -53,7 +53,7 @@ class BuyMarketFragment :
             binding.apply {
                 if (it != null) {
                     ivNftImage.setNormalImg(it.nftImageUrl.toUri())
-                    tvContentSellingEth.text = String.format("%.1f", it.price.toDouble() / 100000000)
+                    tvContentSellingKat.text = String.format("%.1f", it.price.toDouble() / 100000000)
                 }
             }
         }

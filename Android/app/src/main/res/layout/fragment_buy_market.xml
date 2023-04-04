@@ -139,14 +139,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:fontFamily="@font/gmarket_sans_medium"
-                    android:text="@string/content_selling_eth"
+                    android:text="@string/content_selling_price"
                     android:textSize="20sp"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/iv_nft_creator_profile"
                     app:layout_constraintStart_toStartOf="@id/iv_nft_creator_profile" />
 
                 <TextView
-                    android:id="@+id/tv_content_selling_eth"
+                    android:id="@+id/tv_content_selling_kat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -156,19 +156,19 @@
                     app:layout_constraintTop_toTopOf="@id/tv_content_selling"
                     app:layout_constraintStart_toEndOf="@id/tv_content_selling"
                     app:layout_constraintBottom_toBottomOf="@id/tv_content_selling"
-                    tools:text="@string/content_selling_eth_price" />
+                    tools:text="@string/content_selling_kat_price" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/gmarket_sans_light"
-                    android:text="@string/content_ethereum"
+                    android:text="@string/content_kat"
                     android:textSize="20sp"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toTopOf="@id/tv_content_selling"
                     app:layout_constraintBottom_toBottomOf="@id/tv_content_selling"
-                    app:layout_constraintStart_toEndOf="@id/tv_content_selling_eth" />
+                    app:layout_constraintStart_toEndOf="@id/tv_content_selling_kat" />
 
                 <TextView
                     android:id="@+id/tv_content_selling_history"
