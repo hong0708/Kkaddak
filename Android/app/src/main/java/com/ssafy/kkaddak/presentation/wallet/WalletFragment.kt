@@ -95,11 +95,14 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
                 override fun onDone(data: String) {
                     val jsonObject = JSONObject(data)
-                    val receiptId = jsonObject.getJSONObject("data").getString("receipt_id")
-                    walletViewModel.chargeCoin(receiptId)
-                    showToast("충전되었습니다.")
+                    sendReceipt(jsonObject.getJSONObject("data").getString("receipt_id"))
                 }
             }).requestPayment()
+    }
+
+    private fun sendReceipt(receiptId: String) {
+        walletViewModel.chargeCoin(receiptId)
+        showToast("충전되었습니다. \n금액 반영은 1분정도 소요됩니다.")
     }
 
     private fun initRecyclerView() {
