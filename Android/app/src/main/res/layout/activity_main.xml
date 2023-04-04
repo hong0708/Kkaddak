@@ -116,6 +116,16 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_song_title"
                             tools:text="21 Savage" />
 
+                        <ImageView
+                            android:id="@+id/iv_tooltip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_tooltip"
+                            android:contentDescription="@string/image_tooltip"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_song_creator"
+                            app:layout_constraintEnd_toEndOf="@id/playerControlView"
+                            app:layout_constraintTop_toTopOf="@id/tv_song_creator" />
+
                         <com.google.android.exoplayer2.ui.PlayerControlView
                             android:id="@+id/playerControlView"
                             android:layout_width="match_parent"
