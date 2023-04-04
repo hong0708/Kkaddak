@@ -39,7 +39,7 @@ interface ProfileApiService {
 
     @POST("/api/v1/members/nft-thumbnail")
     suspend fun uploadThumbnail(
-        @Query("nftImageUrl") nftImageUrl: String
+        @Body nftImageUrl: String
     )
 
     @Multipart
