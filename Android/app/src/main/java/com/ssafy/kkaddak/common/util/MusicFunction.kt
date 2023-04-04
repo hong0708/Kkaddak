@@ -1,6 +1,5 @@
 package com.ssafy.kkaddak.common.util
 
-import android.util.Log
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.common.util.Song_sol_MusicCopyRight.*
 import kotlinx.coroutines.CoroutineScope
@@ -58,9 +57,7 @@ class MusicFunction {
                     uploadTime,
                     combination
                 )
-
-                val registerSong = remoteFunctionCall.send()
-                Log.d(TAG, "registerSong: $registerSong")
+                remoteFunctionCall.send()
             } catch (e: Exception) {
                 System.err.println("Error while registerSong: ${e.message}")
             }
