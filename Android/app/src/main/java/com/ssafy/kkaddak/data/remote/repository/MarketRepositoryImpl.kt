@@ -54,6 +54,11 @@ class MarketRepositoryImpl @Inject constructor(
             marketRemoteDataSource.getDetailNft(marketId).toDomainModel()
         }
 
+    override suspend fun getDetailNft(marketId: Int): Resource<NftDetailItem> =
+        wrapToResource {
+            marketRemoteDataSource.getDetailNft(marketId).toDomainModel()
+        }
+
     override suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean> =
         wrapToResource {
             marketRemoteDataSource.requestMarketBookmark(marketId)
