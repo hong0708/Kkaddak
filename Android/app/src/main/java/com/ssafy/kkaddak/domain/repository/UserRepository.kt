@@ -20,5 +20,7 @@ interface UserRepository {
 
     suspend fun logout(atk: String, rtk: String): Resource<Boolean>
 
-    suspend fun registerWalletAccount(walletAccount:String): Resource<Boolean>
+    suspend fun registerWalletAccount(walletAccount: String): Resource<Boolean>
+
+    suspend fun chargeCoin(receiptId: String): Resource<Boolean>
 }

@@ -30,4 +30,7 @@ interface UserApiService {
 
     @POST("/api/v1/members/account")
     suspend fun registerAccount(@Body body: WalletAccountRequest): BaseResponse<Boolean>
+
+    @POST("/api/v4/pay/exchange")
+    suspend fun chargeCoin(@Body receiptId: String): BaseResponse<Boolean>
 }

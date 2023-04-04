@@ -51,4 +51,9 @@ class UserRepositoryImpl @Inject constructor(
         wrapToResource {
             userRemoteDataSource.registerWalletAccount(walletAccount)
         }
+
+    override suspend fun chargeCoin(receiptId: String): Resource<Boolean> =
+        wrapToResource {
+            userRemoteDataSource.chargeCoin(receiptId)
+        }
 }

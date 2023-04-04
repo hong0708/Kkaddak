@@ -70,12 +70,7 @@ class OtherProfileFragment :
                     text = "구독"
                     setOnClickListener { view ->
                         if (ApplicationClass.preferences.walletAddress.toString() == "") {
-                            Toast.makeText(
-                                requireContext(),
-                                "지갑 등록 또는 생성을 진행해주세요.",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            showToast("지갑 등록 또는 생성을 진행해주세요.")
                         } else {
                             navigate(
                                 OtherProfileFragmentDirections.actionOtherProfileFragmentToSubscribeFragment(

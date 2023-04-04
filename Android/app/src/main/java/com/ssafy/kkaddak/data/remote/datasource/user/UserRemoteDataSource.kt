@@ -18,5 +18,7 @@ interface UserRemoteDataSource {
 
     suspend fun logout(atk: String, rtk: String): Boolean
 
-    suspend fun registerWalletAccount(walletAccount:String): Boolean
+    suspend fun registerWalletAccount(walletAccount: String): Boolean
+
+    suspend fun chargeCoin(receiptId: String): Boolean
 }
