@@ -19,6 +19,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.showToastMessage
 import com.ssafy.kkaddak.databinding.ActivityMainBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.presentation.base.BaseFragment
@@ -84,6 +85,11 @@ class MainActivity : AppCompatActivity() {
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite_selected)
             else
                 binding.ivFavorite.setBackgroundResource(R.drawable.ic_song_detail_favorite)
+            if (it.isSubscribe) {
+                binding.ivTooltip.visibility = View.GONE
+            } else {
+                binding.ivTooltip.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -114,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                 player?.release()
                 concatenatingMediaSource.clear()
             }
+            ivTooltip.setOnClickListener { this@MainActivity.showToastMessage("구독 시 전체듣기가 가능합니다!") }
         }
     }
 

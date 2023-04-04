@@ -172,6 +172,7 @@
     <string name="image_song_play">image_song_play</string>
     <string name="image_next">image_next</string>
     <string name="title_like_list">좋아요 누른 음악</string>
+    <string name="image_tooltip">image_tooltip</string>
 
     <!-- Song List -->
     <string name="content_genre_dance">댄스</string>
