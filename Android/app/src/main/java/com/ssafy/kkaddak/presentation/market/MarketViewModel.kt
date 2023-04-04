@@ -59,7 +59,7 @@ class MarketViewModel @Inject constructor(
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
     private fun dup(list1: List<NftItem>, list2: List<NftItem>): Boolean {
         if (list1.isNotEmpty() && list2.isNotEmpty()) {
-            if (list1[list1.size - 1].marketId <= list2[list2.size - 1].marketId) {
+            if (list1[list1.size - 1].marketId <= list2[0].marketId) {
                 return true
             }
         }
@@ -152,11 +152,9 @@ class MarketViewModel @Inject constructor(
         // 중복 부분 제거
         if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                if (joinedList.size >= 20) {
-                    for (i in 0..19) {
+                    for (i in 0 until nftTempData.value!!.size) {
                         joinedList.removeAt(joinedList.size - 1)
                     }
-                }
             }
         }
 
