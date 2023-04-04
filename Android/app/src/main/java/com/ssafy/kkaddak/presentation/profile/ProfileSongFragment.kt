@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -67,7 +66,6 @@ class ProfileSongFragment() :
     override fun mintNFT(songItem: SongItem, bitmap: Bitmap) {
         // 다이얼로그 에서 이미지 생성 또는 여기서 생성하고 다이얼로그 띄우기
         profileViewModel.nftImageUrl.observe(viewLifecycleOwner) {
-            Log.d("ghdalsrl", "mintNFT alsrl:${songItem.songPath} ${songItem.nickname} ${songItem.coverPath} ${songItem.nickname} ${songItem.songTitle} ${songItem.combination}")
             if (it != "") {
                 NFTFunction().mintMusicNFT(
                     String(
@@ -152,8 +150,7 @@ class ProfileSongFragment() :
         if (!imageExternalSave(
                 requireActivity(),
                 bitmap,
-                requireActivity().getString(R.string.app_name),
-                id
+                requireActivity().getString(R.string.app_name)
             )
         ) {
             Toast.makeText(activity, "그림 저장을 실패하였습니다", Toast.LENGTH_SHORT).show()
@@ -162,21 +159,14 @@ class ProfileSongFragment() :
 
         val file = File(nftFile.absolutePath)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        val a = MultipartBody.Part.createFormData("nftImage", file.name, requestFile)
-//        val requestFile = nftFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-//        val a =
-//            MultipartBody.Part.createFormData("coverFile", nftFile.name, requestFile)
-        profileViewModel.uploadNFTImage(
-            id,
-            a
-        )
+        val nftMultipart = MultipartBody.Part.createFormData("nftImage", file.name, requestFile)
+        profileViewModel.uploadNFTImage(id, nftMultipart)
     }
 
     private fun imageExternalSave(
         context: Context,
         bitmap: Bitmap,
-        path: String,
-        id: String
+        path: String
     ): Boolean {
 
         val state = Environment.getExternalStorageState()

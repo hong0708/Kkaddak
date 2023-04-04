@@ -163,8 +163,7 @@ class NFTFunction {
                     nftImageUrl,
                     combination
                 )
-                val mintNFT = remoteFunctionCall.send()
-                Log.d(TAG, "mintMusicNFT: $mintNFT")
+                remoteFunctionCall.send()
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
             }

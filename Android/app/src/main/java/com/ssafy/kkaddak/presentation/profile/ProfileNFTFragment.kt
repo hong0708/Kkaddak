@@ -18,8 +18,7 @@ class ProfileNFTFragment :
     private val profileNFTAdapter by lazy {
         ProfileNFTAdapter(
             args.isMine,
-            this::getNFTDetail,
-
+            this::getNFTDetail
         )
     }
 
