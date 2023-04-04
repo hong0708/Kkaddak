@@ -133,11 +133,6 @@ class ProfileSongFragment() :
 
     private fun uploadMySong(songData: SongItem) {
         CreateNFTDialog(requireActivity(), songData, this).show()
-    override fun onConfirmButtonClicked(songId: String) {
-        profileViewModel.deleteMySong(songId)
-        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
-        showToast("음악이 삭제되었습니다.")
-        profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 
     private fun saveImageToGallery(bitmap: Bitmap, id: String) {
@@ -160,6 +155,14 @@ class ProfileSongFragment() :
             Toast.makeText(activity, "그림 저장을 실패하였습니다", Toast.LENGTH_SHORT).show()
         }
         Toast.makeText(activity, "그림이 갤러리에 저장되었습니다", Toast.LENGTH_SHORT).show()
+    private fun checkPermission(activity: Activity, permission: String): Boolean {
+        val permissionChecker =
+            ContextCompat.checkSelfPermission(activity.applicationContext, permission)
+        // 권한이 없으면 권한 요청
+        if (permissionChecker == PackageManager.PERMISSION_GRANTED) return true
+        requestPermission(activity, permission)
+        return false
+    }
 
         val file = File(nftFile.absolutePath)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)

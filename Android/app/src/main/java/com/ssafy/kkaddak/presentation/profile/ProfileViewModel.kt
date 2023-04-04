@@ -32,7 +32,7 @@ class ProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val requestFollowUseCase: RequestFollowUseCase,
     private val getFollowInfoUseCase: GetFollowInfoUseCase,
-    private val uploadNFTImageUseCase: UploadNFTImageUseCase
+    private val uploadNFTImageUseCase: UploadNFTImageUseCase,
     private val uploadThumbnailUseCase: UploadThumbnailUseCase,
     private val editProfileUseCase: EditProfileUseCase,
     private val checkDuplicationUseCase: CheckDuplicationUseCase,
