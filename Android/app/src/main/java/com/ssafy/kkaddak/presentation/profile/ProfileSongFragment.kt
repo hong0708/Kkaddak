@@ -73,6 +73,7 @@ class ProfileSongFragment() :
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
         showToast("음악이 삭제되었습니다.")
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
+        profileViewModel.getProfileSong(args.nickname)
     }
 
     override fun navigateToProfile(creatorId: String) {
