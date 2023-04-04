@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -20,12 +21,17 @@ import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.MusicFunction
 import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
+import com.ssafy.kkaddak.common.util.showToastMessage
 import com.ssafy.kkaddak.databinding.FragmentProfileSongBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import com.ssafy.kkaddak.presentation.market.GridSpaceItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -53,14 +59,33 @@ class ProfileSongFragment :
 
     override fun initView() {
         setProfileSong()
+        initListener()
+    }
+
+    private fun initListener() {
+//        profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
+//            response?.let { profileSongAdapter.setSong(it) }
+//        }
+//        profileViewModel.songStateChange.observe(viewLifecycleOwner) { response ->
+//            //profileViewModel.getProfileSong(args.nickname)
+//            //profileViewModel.resetSongState()
+//            Log.d("ghdalsrl", "initListener: ")
+//        }
     }
 
     override fun onResume() {
         super.onResume()
         profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
-            response?.let { profileSongAdapter.setSong(it) }
+            response?.let {
+                Log.d("ghdalsrl", "onResume: ${response}")
+                profileSongAdapter.setSong(it)
+            }
         }
-        profileViewModel.getProfileSong(args.nickname)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            profileViewModel.getProfileSong(args.nickname)
+        }
     }
 
     override fun mintNFT(songItem: SongItem, bitmap: Bitmap) {
@@ -88,6 +113,12 @@ class ProfileSongFragment :
                     System.currentTimeMillis().toBigInteger(),
                     songItem.combination.fold("") { acc, i -> acc + i }.toBigInteger()
                 )
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    profileViewModel.changeSongState("COMPLETE", songUUID = songItem.songId)
+                    delay(1000)
+                    profileViewModel.getProfileSong(args.nickname)
+                }
             }
         }
         saveImageToGallery(bitmap, songItem.songId)
@@ -152,9 +183,9 @@ class ProfileSongFragment :
                 requireActivity().getString(R.string.app_name)
             )
         ) {
-            Toast.makeText(activity, "그림 저장을 실패하였습니다", Toast.LENGTH_SHORT).show()
+            requireActivity().showToastMessage("그림 저장을 실패하였습니다")
         }
-        Toast.makeText(activity, "그림이 갤러리에 저장되었습니다", Toast.LENGTH_SHORT).show()
+        requireActivity().showToastMessage("그림이 갤러리에 저장되었습니다")
 
         val file = File(nftFile.absolutePath)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)

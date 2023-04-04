@@ -36,6 +36,7 @@ class ProfileViewModel @Inject constructor(
     private val uploadThumbnailUseCase: UploadThumbnailUseCase,
     private val editProfileUseCase: EditProfileUseCase,
     private val checkDuplicationUseCase: CheckDuplicationUseCase,
+    private val changeSongStateUseCase: ChangeSongStateUseCase
 ) : ViewModel() {
 
     private val _profileData: MutableLiveData<ProfileItem?> = MutableLiveData()
@@ -64,6 +65,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _profileImgStr: MutableLiveData<String?> = MutableLiveData()
     val profileImgStr: MutableLiveData<String?> = _profileImgStr
+
+    private val _songStateChange: MutableLiveData<Boolean?> = MutableLiveData(false)
+    val songStateChange: MutableLiveData<Boolean?> = _songStateChange
 
     var profileImgMultiPart: MultipartBody.Part? = null
 
@@ -182,5 +186,20 @@ class ProfileViewModel @Inject constructor(
                 Log.e("uploadNFTImage", "uploadNFTImage: ${value.errorMessage}")
             }
         }
+    }
+
+    fun changeSongState(songStatus: String, songUUID: String) = viewModelScope.launch {
+        when (val value = changeSongStateUseCase.invoke(songStatus, songUUID)) {
+            is Resource.Success<Boolean> -> {
+                _songStateChange.value = value.data
+            }
+            is Resource.Error -> {
+                Log.e("changeSongState", "changeSongState: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun resetSongState() {
+        _songStateChange.value = false
     }
 }
