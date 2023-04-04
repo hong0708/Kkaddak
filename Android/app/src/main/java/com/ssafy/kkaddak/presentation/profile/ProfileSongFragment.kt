@@ -59,7 +59,7 @@ class ProfileSongFragment :
 
     override fun initView() {
         setProfileSong()
-        initListener()
+        // initListener()
     }
 
     private fun initListener() {
@@ -200,7 +200,6 @@ class ProfileSongFragment :
     ): Boolean {
 
         val state = Environment.getExternalStorageState()
-
         if (Environment.MEDIA_MOUNTED == state) {
             val rootPath =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
