@@ -1,6 +1,5 @@
 package com.ssafy.kkaddak.presentation.market
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
@@ -53,7 +52,6 @@ class UploadNftItemAdapter(
             }
 
             binding.root.setOnClickListener {
-                Log.d("clicked", data.tokenId.toString())
                 val beforePosition = selectPosition
                 selectPosition = position
 

@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     private var _binding: DialogUploadNftDetailBinding? = null
     private val binding get() = _binding!!
     private val uploadNftadapter by lazy { UploadNftItemAdapter(this::getNftDetail) }
-//    private var uploadNftadapter: UploadNftItemAdapter? = null
     private val marketViewModel by activityViewModels<MarketViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +42,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
 
         binding.tvConfirmNftItem.setOnClickListener {
             marketViewModel.nftId.observe(viewLifecycleOwner) { }
-            Log.d("test2", marketViewModel.nftId.value.toString())
             dialog?.dismiss()
         }
         binding.tvCancelNftItem.setOnClickListener {
@@ -82,10 +79,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
     }
 
     private fun getNftDetail(nftId: BigInteger) {
-        Log.d("test1", nftId.toString())
         marketViewModel.setNftId(nftId)
-//        NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) { nftItem ->
-//            marketViewModel.getUploadData(nftItem)
-//        }
     }
 }

@@ -116,7 +116,6 @@ class MarketViewModel @Inject constructor(
     }
 
     fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {
-        Log.d("getUploadData", "진입")
         when (val value = uploadNftUseCase(data.creatorNickname!!, nft, data.nftImageUrl!!, price, data.trackTitle!!)) {
             is Resource.Success<UploadNftItem> -> {
                 _nftUploadData.value = value.data

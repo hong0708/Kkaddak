@@ -51,7 +51,6 @@ class UploadMarketFragment :
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
         }
         binding.clUpload.setOnClickListener {
-            marketViewModel.nftUploadData.observe(viewLifecycleOwner){  }
             NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) {
                 marketViewModel.uploadNft(nftId.toString(), price.toDouble(), it)
             }
