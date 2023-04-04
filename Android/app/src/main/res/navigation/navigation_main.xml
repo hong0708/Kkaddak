@@ -75,6 +75,9 @@
         android:label="uploadMarketFragment"
         tools:layout="@layout/fragment_upload_market">
         <action
+            android:id="@+id/action_uploadMarketFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
+        <action
             android:id="@+id/action_uploadMarketFragment_to_otherProfileFragment"
             app:destination="@id/otherProfileFragment" />
     </fragment>

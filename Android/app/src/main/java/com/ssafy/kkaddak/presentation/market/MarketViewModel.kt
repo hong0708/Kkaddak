@@ -12,7 +12,6 @@ import com.ssafy.kkaddak.domain.entity.market.NftItem
 import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileItem
 import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTDetailItem
-import com.ssafy.kkaddak.domain.entity.profile.ProfileNFTItem
 import com.ssafy.kkaddak.domain.usecase.market.*
 import com.ssafy.kkaddak.domain.usecase.profile.GetProfileInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,9 +45,6 @@ class MarketViewModel @Inject constructor(
 
     private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
     val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
-
-    private val _nftMyData: MutableLiveData<ProfileNFTItem> = MutableLiveData()
-    val nftMyData: LiveData<ProfileNFTItem> = _nftMyData
 
     private val _nftId: MutableLiveData<BigInteger> = MutableLiveData()
     var nftId: LiveData<BigInteger> = _nftId
@@ -129,24 +125,6 @@ class MarketViewModel @Inject constructor(
                 Log.e("uploadNft", "uploadNft: ${value.errorMessage}")
             }
         }
-    }
-
-    fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {
-        _nftData.value?.apply {
-            nftImagePath = args.nftImagePath
-            nftCreator = args.nftCreator
-            nftPrice = args.nftPrice.toDouble()
-        }
-        nftData.value?.let { Log.d("getButData", it.nftCreator) }
-    }
-
-    fun getBuyData(args: BuyFragmentArgs) = viewModelScope.launch {
-        _nftData.value?.apply {
-            nftImagePath = args.nftImagePath
-            nftCreator = args.nftCreator
-            nftPrice = args.nftPrice.toDouble()
-        }
-        nftData.value?.let { Log.d("getButData", it.nftCreator) }
     }
 
     fun clearData() {

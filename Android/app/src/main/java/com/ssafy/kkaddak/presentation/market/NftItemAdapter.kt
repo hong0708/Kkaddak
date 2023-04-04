@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
@@ -45,7 +46,7 @@ class NftItemAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NftItem) {
             binding.apply {
-                ivNftItem.setNormalImg(data.nftImagePath)
+                ivNftItem.setNormalImg(data.nftImagePath.toUri())
                 tvNftLike.text = data.cntLikeMarket.toString()
                 tvNftCreator.text = data.nftCreator
                 tvNftSongTitle.text = data.nftSongTitle

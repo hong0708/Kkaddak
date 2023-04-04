@@ -18,7 +18,9 @@ class UploadNftItemAdapter(
 
     private var items: List<ProfileNFTItem> = listOf()
     lateinit var binding: ItemUploadNftBinding
-    var selectPosition = -1
+    var selectPosition = 0
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UploadNftItemViewHolder {
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context), R.layout.item_upload_nft, parent, false
@@ -42,17 +44,13 @@ class UploadNftItemAdapter(
         val binding: ItemUploadNftBinding,
         private val onItemClicked: (nftId: BigInteger) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.ivNftItem.alpha = 1F
-        }
         fun onBind(data: ProfileNFTItem) {
             binding.ivNftItem.setNormalImg(data.nftImageUrl.toUri())
-            if(selectPosition == adapterPosition) {
+            if (selectPosition == adapterPosition) {
                 binding.ivNftItem.alpha = 1F
             } else {
                 binding.ivNftItem.alpha = 0.2F
             }
-
 
             binding.root.setOnClickListener {
                 Log.d("clicked", data.tokenId.toString())

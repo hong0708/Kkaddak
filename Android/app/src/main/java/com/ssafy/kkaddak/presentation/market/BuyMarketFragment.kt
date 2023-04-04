@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -51,11 +52,13 @@ class BuyMarketFragment :
         marketViewModel.nftDetailData.observe(viewLifecycleOwner) {
             binding.apply {
                 if (it != null) {
-                    ivNftImage.setNormalImg(it.nftImageUrl)
-                    tvContentSellingEth.text = String.format("%f", it.price)
+                    ivNftImage.setNormalImg(it.nftImageUrl.toUri())
+                    tvContentSellingEth.text = String.format("%.1f", it.price)
                 }
             }
         }
+        binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
+
     }
 
     private fun initRecyclerView() {

@@ -14,7 +14,7 @@ class MarketRemoteDataSourceImpl @Inject constructor(
         marketApiService.getBookmarks(lastId, limit, onlySelling).data!!
 
     override suspend fun uploadNft(creatorName: String, nftId: String, nftImagePath: String, price: Double, songTitle: String): UploadNftItemResponse =
-        marketApiService.uploadNft(creatorName, nftId, nftImagePath, price, songTitle).data!!
+        marketApiService.uploadNft(UploadNftItemRequest(creatorName, nftId, nftImagePath, price, songTitle)).data!!
 
     override suspend fun getDetailNft(marketId: Int): NftDetailItemResponse =
         marketApiService.getDetailNft(marketId).data!!

@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -21,9 +20,10 @@ class UploadMarketFragment :
     BaseFragment<FragmentUploadMarketBinding>(R.layout.fragment_upload_market) {
 
     private val marketViewModel by activityViewModels<MarketViewModel>()
+    private var uploadNftItem: UploadNftItem? = null
     private lateinit var nftId: BigInteger
     private var price: String = ""
-    private var uploadNftItem: UploadNftItem? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).hideBottomNavigation(true)
@@ -34,8 +34,6 @@ class UploadMarketFragment :
     override fun initView() {
         initListener()
         getData()
-        setData()
-
     }
 
     override fun onDestroy() {
@@ -53,15 +51,12 @@ class UploadMarketFragment :
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
         }
         binding.clUpload.setOnClickListener {
-//            val price = binding.etUploadSellingEth.text.toString()
-
             marketViewModel.nftUploadData.observe(viewLifecycleOwner){  }
             NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) {
-                Log.d("test6", price)
-                Log.d("test7", nftId.toString())
-                Log.d("ㅅㅂ", it.creatorNickname.toString())
                 marketViewModel.uploadNft(nftId.toString(), price.toDouble(), it)
             }
+            showToast("판매 등록이 완료되었습니다.")
+            navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
         }
     }
 
@@ -78,20 +73,8 @@ class UploadMarketFragment :
                         price = binding.etUploadSellingEth.text.toString()
                     }
                 }
-//                marketViewModel.getUploadData(UploadNftItem(it.toString(), nftItem.nftImageUrl,
-//                    nftItem.creatorNickname,
-//                    nftItem.trackTitle,
-//                    price.toDouble()))
             }
         }
     }
 
-    private fun setData() {
-
-//        binding.etUploadSellingEth.addTextChangedListener {
-//            val price = binding.etUploadSellingEth.text
-//            marketViewModel.setUploadData(nftId.toString(), price.toString(), temp).
-////            marketViewModel.nftUploadData.value?.nftPrice = binding.etUploadSellingEth.text.toString().toDouble()
-//        }
-    }
 }

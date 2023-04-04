@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 import com.ssafy.kkaddak.data.remote.datasource.base.DataToDomainMapper
 import com.ssafy.kkaddak.domain.entity.market.HistoryItem
 import com.ssafy.kkaddak.domain.entity.market.NftDetailItem
-import java.math.BigInteger
 
 data class NftDetailItemResponse(
     @SerializedName("nftImageUrl")
@@ -18,7 +17,7 @@ data class NftDetailItemResponse(
     @SerializedName("isSelling")
     val isSelling: Boolean,
     @SerializedName("price")
-    val price: BigInteger,
+    val price: Double,
     @SerializedName("isLike")
     val isLike: Boolean,
     @SerializedName("sellerNickname")
