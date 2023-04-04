@@ -99,6 +99,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideCloseMarketUseCase(marketRepository: MarketRepository): CloseMarketUseCase =
+        CloseMarketUseCase(marketRepository)
+
+    @Singleton
+    @Provides
     fun provideGetProfileInfoUseCase(profileRepository: ProfileRepository): GetProfileInfoUseCase =
         GetProfileInfoUseCase(profileRepository)
 

@@ -28,7 +28,8 @@ class MarketViewModel @Inject constructor(
     private val getDetailNftUseCase: GetDetailNftUseCase,
     private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
     private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase,
-    private val getProfileInfoUseCase: GetProfileInfoUseCase
+    private val getProfileInfoUseCase: GetProfileInfoUseCase,
+    private val closeMarketUseCase: CloseMarketUseCase
 ) : ViewModel() {
 
     private val _nftListData: MutableLiveData<List<NftItem>?> = MutableLiveData()
@@ -53,6 +54,7 @@ class MarketViewModel @Inject constructor(
     var nftUploadData: LiveData<UploadNftItem?> = _nftUploadData
 
     var creatorImg: String = ""
+    var closed: Boolean = false
 
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
     private fun dup(list1: List<NftItem>, list2: List<NftItem>): Boolean {
@@ -116,7 +118,13 @@ class MarketViewModel @Inject constructor(
     }
 
     fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {
-        when (val value = uploadNftUseCase(data.creatorNickname!!, nft, data.nftImageUrl!!, price, data.trackTitle!!)) {
+        when (val value = uploadNftUseCase(
+            data.creatorNickname!!,
+            nft,
+            data.nftImageUrl!!,
+            price,
+            data.trackTitle!!
+        )) {
             is Resource.Success<UploadNftItem> -> {
                 _nftUploadData.value = value.data
             }
@@ -177,6 +185,18 @@ class MarketViewModel @Inject constructor(
             }
         }
     }
+
+    fun closeMarket(marketId: Int) = viewModelScope.launch {
+        when (val value = closeMarketUseCase(marketId)) {
+            is Resource.Success<Boolean> -> {
+                closed = value.data
+            }
+            is Resource.Error -> {
+                Log.e("closeMarket", "closeMarket: ${value.errorMessage}")
+            }
+        }
+    }
+
 
     suspend fun requestBookmark(marketId: Int) = viewModelScope.async {
         when (val value = requestMarketBookmarkUseCase(marketId)) {

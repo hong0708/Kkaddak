@@ -169,4 +169,36 @@ class NFTFunction {
             }
         }
     }
+
+    fun sellMusicNFT(
+        tokenId: BigInteger,
+        price: BigInteger
+    ) {
+        val credentials =
+            Credentials.create(
+                String(
+                    ApplicationClass.keyStore.decryptData(
+                        WalletFunction().decode(ApplicationClass.preferences.privateKey.toString())
+                    )
+                )
+            )
+
+        val katToken = load(
+            NFT_CONTRACT_ADDRESS,
+            web3j,
+            credentials,
+            contractGasProvider
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val remoteFunctionCall = katToken.sellMusicNFT(
+                    tokenId,
+                    price
+                )
+                remoteFunctionCall.send()
+            } catch (e: Exception) {
+                System.err.println("Error while get RecentTransactionList: ${e.message}")
+            }
+        }
+    }
 }

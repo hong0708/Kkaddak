@@ -18,4 +18,6 @@ interface MarketRepository {
     suspend fun requestMarketBookmark(marketId: Int): Resource<Boolean>
 
     suspend fun cancelMarketBookmark(marketId: Int): Resource<Boolean>
+
+    suspend fun closeMarket(marketId: Int): Resource<Boolean>
 }

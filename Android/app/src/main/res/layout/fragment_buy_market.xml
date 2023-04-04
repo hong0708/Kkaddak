@@ -151,12 +151,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:fontFamily="@font/gmarket_sans_light"
-                    android:text="@string/content_selling_eth_price"
                     android:textSize="20sp"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toTopOf="@id/tv_content_selling"
                     app:layout_constraintStart_toEndOf="@id/tv_content_selling"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_content_selling" />
+                    app:layout_constraintBottom_toBottomOf="@id/tv_content_selling"
+                    tools:text="@string/content_selling_eth_price" />
 
                 <TextView
                     android:layout_width="wrap_content"

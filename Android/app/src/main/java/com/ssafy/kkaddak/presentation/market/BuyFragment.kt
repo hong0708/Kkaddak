@@ -1,7 +1,9 @@
 package com.ssafy.kkaddak.presentation.market
 
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,7 +18,6 @@ import com.ssafy.kkaddak.databinding.FragmentBuyBinding
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
@@ -39,23 +40,44 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
         binding.apply {
             tvPayment.setOnClickListener {
                 if (state) {
-                    Log.d("payment", "결제")
-                    // 결제 로직
+                    try {
+                        marketViewModel.closeMarket(args.marketId)
+                        showToast("NFT 구매가 완료되었습니다.")
+                        WalletFunction().transfer(args.sellerAccount, args.nftPrice.toLong(), "NFT 구매")
+                        navigate(BuyFragmentDirections.actionBuyFragmentToMarketFragment())
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        showToast("NFT 구매에 실패하였습니다.")
+                    }
                 } else {
-                    Log.d("payment", "충전")
-                    // 충전 로직
                     goWallet()
                 }
             }
+            tvWalletBalance.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                override fun afterTextChanged(p0: Editable?) {
+                    if (tvWalletBalance.text.toString().toDouble() > args.nftPrice.toDouble() / 100000000) {
+                        state = true
+                        tvPayment.setText(R.string.content_buy_payment)
+                    } else {
+                        state = false
+                        tvPayment.setText(R.string.content_buy_charge)
+                    }
+                }
+            })
         }
     }
 
     private fun getData() {
         marketViewModel.getBuyData(args)
         binding.apply {
-            ivNftImage.setNormalImg(args.nftImagePath)
+            ivNftImage.setNormalImg(args.nftImagePath.toUri())
             tvCreatorNickname.text = args.nftCreator
-            tvNftKat.text = args.nftPrice
+            tvReceiverAddress.text = args.sellerAccount
+            tvNftKat.text = String.format("%.1f", args.nftPrice.toDouble() / 100000000)
 
             setWidth()
         }
@@ -82,23 +104,10 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
     private fun getBalance() {
         if (ApplicationClass.preferences.walletAddress.toString() == "") {
             state = false
+            showToast("지갑 등록 또는 생성을 진행해주세요.")
             binding.tvPayment.setText(R.string.content_buy_charge)
-            // 충전 로직
         } else {
-            WalletFunction().balanceOf(
-                binding.tvWalletBalance
-            )
-            // 현재 잔액과 nft 가격 비교해서 구매/충전 결정
-            binding.apply {
-                if (tvWalletBalance.text.toString().toDouble() > args.nftPrice.toDouble()) {
-                    Log.d("payment", ApplicationClass.preferences.walletAddress.toString())
-                    state = true
-                    tvPayment.setText(R.string.content_buy_payment)
-                } else {
-                    state = false
-                    tvPayment.setText(R.string.content_buy_charge)
-                }
-            }
+            WalletFunction().balanceOf(binding.tvWalletBalance)
         }
     }
 
