@@ -46,9 +46,15 @@ class BuyMarketFragment :
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
             marketViewModel.getCreatorImg(it.sellerNickname)
-            if(ApplicationClass.preferences.nickname == it.sellerNickname) {
-                myNft = true
-                binding.tvBuy.text = "판매종료"
+            if(!it.isSelling) {
+                binding.tvBuy.text = "종 료"
+                binding.tvBuy.setBackgroundResource(R.color.charcoal)
+                binding.tvBuy.isClickable = false
+            } else {
+                if (ApplicationClass.preferences.nickname == it.sellerNickname) {
+                    myNft = true
+                    binding.tvBuy.text = "판매종료"
+                }
             }
         }
         marketViewModel.getNftDetail(args.marketId)
