@@ -31,9 +31,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
 
     override fun onResume() {
         super.onResume()
-
-        Log.d("tpfladl", "onResume: ")
-
         CoroutineScope(Dispatchers.Main).launch {
             binding.apply {
                 delay(1500)
@@ -99,7 +96,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
         joinViewModel.isExist.observe(viewLifecycleOwner) {
             when (it) {
                 true -> {
-                    //navigate(SplashFragmentDirections.actionSplashFragmentToMainActivity())
                     (activity as InitActivity).goToMain()
                 }
                 false -> {
