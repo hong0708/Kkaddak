@@ -127,7 +127,8 @@ class BuyMarketFragment :
                             marketViewModel.nftDetailData.value!!.nftImageUrl,
                             marketViewModel.nftDetailData.value!!.creatorNickname,
                             marketViewModel.nftDetailData.value!!.price.toString(),
-                            marketViewModel.nftDetailData.value!!.sellerAccount
+                            marketViewModel.nftDetailData.value!!.sellerAccount,
+                            args.nftId
                         )
                     )
                 }

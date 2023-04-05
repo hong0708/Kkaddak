@@ -39,6 +39,9 @@
         <argument
             android:name="marketId"
             app:argType="integer" />
+        <argument
+            android:name="nftId"
+            app:argType="string" />
         <action
             android:id="@+id/action_buyMarketFragment_to_MarketFragment"
             app:destination="@id/marketFragment" />
@@ -69,6 +72,9 @@
             app:argType="string" />
         <argument
             android:name="sellerAccount"
+            app:argType="string" />
+        <argument
+            android:name="nftId"
             app:argType="string" />
         <action
             android:id="@+id/action_buyFragment_to_MarketFragment"

@@ -222,9 +222,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
         }
     }
 
-    private fun getNftItem(marketId: Int) {
+    private fun getNftItem(marketId: Int, nftId:String) {
         navigate(
-            MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(marketId)
+            MarketFragmentDirections.actionMarketFragmentToBuyMarketFragment(marketId, nftId)
         )
     }
 
