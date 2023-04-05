@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
+import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.ItemRecentTransactionBinding
 import com.ssafy.kkaddak.domain.entity.wallet.RecentTransactionItem
 import java.text.SimpleDateFormat
@@ -42,7 +44,24 @@ class RecentTransactionListAdapter :
                 tvAmountKat.text = (data.amount.toFloat() / 100000000).toString()
                 val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
                 tvDateHistory.text = format.format(Date(data.timestamp.toLong() * 1000))
-                if (data.transferType == "NFT 구매" || data.transferType == "구독") {
+                if (data.transferType == "NFT 구매") {
+                    if (data.sender ==
+                        String(
+                            ApplicationClass.keyStore.decryptData(
+                                WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                            )
+                        )
+                    ) {
+                        ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
+                        tvSignKat.text = "-"
+                    } else {
+                        ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
+                        tvSignKat.text = "+"
+                        tvTypeHistory.text = "NFT 판매"
+                    }
+                }
+
+                if (data.transferType == "구독") {
                     ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
                     tvSignKat.text = "-"
                 } else {

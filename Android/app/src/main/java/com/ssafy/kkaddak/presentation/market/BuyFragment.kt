@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
+import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.ActivityMainBinding
 import com.ssafy.kkaddak.databinding.FragmentBuyBinding
@@ -43,7 +44,10 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
                     try {
                         marketViewModel.closeMarket(args.marketId)
                         showToast("NFT 구매가 완료되었습니다.")
-                        WalletFunction().transfer(args.sellerAccount, args.nftPrice.toLong(), "NFT 구매")
+                        NFTFunction().buyMusicNFT(
+                            args.nftId.toBigInteger(),
+                            args.nftPrice.toBigInteger()
+                        )
                         navigate(BuyFragmentDirections.actionBuyFragmentToMarketFragment())
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -59,7 +63,9 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    if (tvWalletBalance.text.toString().toDouble() > args.nftPrice.toDouble() / 100000000) {
+                    if (tvWalletBalance.text.toString()
+                            .toDouble() >= args.nftPrice.toDouble() / 100000000
+                    ) {
                         state = true
                         tvPayment.setText(R.string.content_buy_payment)
                     } else {

@@ -1,5 +1,6 @@
 package com.ssafy.kkaddak.presentation.profile
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,6 +46,7 @@ class ProfileNFTFragment :
     private fun getNFTDetail(nftId: BigInteger, isMine: Boolean) {
         NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) { nftItem ->
             NFTDetailDialog(requireActivity(), nftItem, isMine, this).show()
+            Log.d("dydwns", "getNFTDetail: $nftId")
         }
     }
 
