@@ -51,6 +51,8 @@ bouncycastle = "1.68"
 
 bootpay = "4.2.3"
 
+biometric = "1.1.0"
+
 [libraries]
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -93,6 +95,7 @@ web3j-core = { module = "org.web3j:core", version.ref = "web3j_core" }
 web3j-contracts = { module = "org.web3j:contracts", version.ref = "web3j_contracts" }
 bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
 bootpay = { module = "io.github.bootpay:android", version.ref = "bootpay" }
+biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
