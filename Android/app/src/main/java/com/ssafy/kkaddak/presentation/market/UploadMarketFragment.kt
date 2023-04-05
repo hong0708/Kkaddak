@@ -52,10 +52,24 @@ class UploadMarketFragment :
         }
         binding.clUpload.setOnClickListener {
             NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) {
-                marketViewModel.uploadNft(nftId.toString(), price.toDouble(), it)
+                try {
+                    NFTFunction().sellMusicNFT(
+                        nftId,
+                        BigInteger(price).multiply(BigInteger.valueOf(100000000))
+                    )
+                    try {
+                        marketViewModel.uploadNft(nftId.toString(), price.toDouble(), it)
+                        showToast("판매 등록이 완료되었습니다.")
+                        navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        showToast("판매 등록에 실패하였습니다.")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showToast("판매 등록에 실패하였습니다.")
+                }
             }
-            showToast("판매 등록이 완료되었습니다.")
-            navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
         }
     }
 
@@ -68,12 +82,11 @@ class UploadMarketFragment :
                     tvUploadSongTitle.text = nftItem.trackTitle
                     ivUploadNftImage.setNormalImg(nftItem.nftImageUrl!!.toUri())
 
-                    etUploadSellingEth.addTextChangedListener {
-                        price = binding.etUploadSellingEth.text.toString()
+                    etUploadSellingKat.addTextChangedListener {
+                        price = binding.etUploadSellingKat.text.toString()
                     }
                 }
             }
         }
     }
-
 }

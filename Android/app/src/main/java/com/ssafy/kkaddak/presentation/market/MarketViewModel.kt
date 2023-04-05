@@ -28,7 +28,8 @@ class MarketViewModel @Inject constructor(
     private val getDetailNftUseCase: GetDetailNftUseCase,
     private val requestMarketBookmarkUseCase: RequestMarketBookmarkUseCase,
     private val cancelMarketBookmarkUseCase: CancelMarketBookmarkUseCase,
-    private val getProfileInfoUseCase: GetProfileInfoUseCase
+    private val getProfileInfoUseCase: GetProfileInfoUseCase,
+    private val closeMarketUseCase: CloseMarketUseCase
 ) : ViewModel() {
 
     private val _nftListData: MutableLiveData<List<NftItem>?> = MutableLiveData()
@@ -50,14 +51,14 @@ class MarketViewModel @Inject constructor(
     var nftId: LiveData<BigInteger> = _nftId
 
     private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
-    var nftUploadData: LiveData<UploadNftItem?> = _nftUploadData
 
     var creatorImg: String = ""
+    var closed: Boolean = false
 
     // 기존 리스트의 마지막 아이디보다 새로 불러온 리스트의 첫 아이디가 큰 경우는 중복으로 판단
     private fun dup(list1: List<NftItem>, list2: List<NftItem>): Boolean {
         if (list1.isNotEmpty() && list2.isNotEmpty()) {
-            if (list1[list1.size - 1].marketId <= list2[list2.size - 1].marketId) {
+            if (list1[list1.size - 1].marketId <= list2[0].marketId) {
                 return true
             }
         }
@@ -96,7 +97,7 @@ class MarketViewModel @Inject constructor(
             nftCreator = args.nftCreator
             nftPrice = args.nftPrice.toDouble()
         }
-        nftData.value?.let { Log.d("getButData", it.nftCreator) }
+        nftData.value?.let { Log.d("getBuyData", it.nftCreator) }
     }
 
     fun getNftDetail(marketId: Int) = viewModelScope.launch {
@@ -116,7 +117,13 @@ class MarketViewModel @Inject constructor(
     }
 
     fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {
-        when (val value = uploadNftUseCase(data.creatorNickname!!, nft, data.nftImageUrl!!, price, data.trackTitle!!)) {
+        when (val value = uploadNftUseCase(
+            data.creatorNickname!!,
+            nft,
+            data.nftImageUrl!!,
+            price,
+            data.trackTitle!!
+        )) {
             is Resource.Success<UploadNftItem> -> {
                 _nftUploadData.value = value.data
             }
@@ -144,11 +151,9 @@ class MarketViewModel @Inject constructor(
         // 중복 부분 제거
         if (list1 != null && list2 != null) {
             if (dup(list1, list2)) {
-                if (joinedList.size >= 20) {
-                    for (i in 0..19) {
+                    for (i in 0 until nftTempData.value!!.size) {
                         joinedList.removeAt(joinedList.size - 1)
                     }
-                }
             }
         }
 
@@ -174,6 +179,17 @@ class MarketViewModel @Inject constructor(
             }
             is Resource.Error -> {
                 Log.e("getCreatorImg", "getCreatorImg: ${value.errorMessage}")
+            }
+        }
+    }
+
+    fun closeMarket(marketId: Int) = viewModelScope.launch {
+        when (val value = closeMarketUseCase(marketId)) {
+            is Resource.Success<Boolean> -> {
+                closed = value.data
+            }
+            is Resource.Error -> {
+                Log.e("closeMarket", "closeMarket: ${value.errorMessage}")
             }
         }
     }

@@ -34,4 +34,7 @@ interface MarketApiService {
 
     @POST("/api/v3/market/unlike/{marketId}")
     suspend fun cancelMarketBookmark(@Path("marketId") marketId: Int): BaseResponse<Boolean>
+
+    @POST("/api/v3/market/close")
+    suspend fun closeMarket(@Body marketId: Int): BaseResponse<Boolean>
 }

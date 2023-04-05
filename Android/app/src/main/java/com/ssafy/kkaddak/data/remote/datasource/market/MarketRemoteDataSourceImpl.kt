@@ -24,4 +24,7 @@ class MarketRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun cancelMarketBookmark(marketId: Int): Boolean =
         marketApiService.cancelMarketBookmark(marketId).data!!
+
+    override suspend fun closeMarket(marketId: Int): Boolean =
+        marketApiService.closeMarket(marketId).data!!
 }

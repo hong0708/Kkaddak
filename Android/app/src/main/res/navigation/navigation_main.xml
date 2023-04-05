@@ -56,6 +56,9 @@
         android:label="buyFragment"
         tools:layout="@layout/fragment_buy">
         <argument
+            android:name="marketId"
+            app:argType="integer" />
+        <argument
             android:name="nftImagePath"
             app:argType="string" />
         <argument
@@ -64,6 +67,12 @@
         <argument
             android:name="nftPrice"
             app:argType="string" />
+        <argument
+            android:name="sellerAccount"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_buyFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
         <action
             android:id="@+id/action_buyFragment_to_WalletFragment"
             app:destination="@id/walletFragment" />

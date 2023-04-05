@@ -13,4 +13,6 @@ interface MarketRemoteDataSource {
     suspend fun requestMarketBookmark(marketId: Int): Boolean
 
     suspend fun cancelMarketBookmark(marketId: Int): Boolean
+
+    suspend fun closeMarket(marketId: Int): Boolean
 }

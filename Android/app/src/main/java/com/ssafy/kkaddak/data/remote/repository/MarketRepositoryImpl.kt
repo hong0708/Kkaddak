@@ -58,4 +58,9 @@ class MarketRepositoryImpl @Inject constructor(
         wrapToResource {
             marketRemoteDataSource.cancelMarketBookmark(marketId)
         }
+
+    override suspend fun closeMarket(marketId: Int): Resource<Boolean> =
+        wrapToResource {
+            marketRemoteDataSource.closeMarket(marketId)
+        }
 }

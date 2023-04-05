@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.common.util.BindingAdapters.setProfileImg
@@ -22,6 +23,7 @@ class BuyMarketFragment :
     private val args by navArgs<BuyMarketFragmentArgs>()
     private val marketViewModel by activityViewModels<MarketViewModel>()
     private lateinit var historyadapter: HistoryAdapter
+    private var myNft: Boolean = false
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
         initListener()
@@ -43,9 +45,14 @@ class BuyMarketFragment :
             } else {
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
+            marketViewModel.getCreatorImg(it.sellerNickname)
+            if(ApplicationClass.preferences.nickname == it.sellerNickname) {
+                myNft = true
+                binding.tvBuy.text = "판매종료"
+            }
         }
         marketViewModel.getNftDetail(args.marketId)
-        marketViewModel.nftDetailData.value?.let { marketViewModel.getCreatorImg(it.sellerNickname) }
+
     }
 
     private fun setData() {
@@ -53,12 +60,11 @@ class BuyMarketFragment :
             binding.apply {
                 if (it != null) {
                     ivNftImage.setNormalImg(it.nftImageUrl.toUri())
-                    tvContentSellingEth.text = String.format("%.1f", it.price)
+                    tvContentSellingKat.text = String.format("%.1f", it.price.toDouble() / 100000000)
                 }
             }
         }
         binding.ivNftCreatorProfile.setProfileImg(marketViewModel.creatorImg)
-
     }
 
     private fun initRecyclerView() {
@@ -110,13 +116,21 @@ class BuyMarketFragment :
                 }
             }
             clBuy.setOnClickListener {
-                navigate(
-                    BuyMarketFragmentDirections.actionBuyMarketFragmentToBuyFragment(
-                        marketViewModel.nftDetailData.value!!.nftImageUrl,
-                        marketViewModel.nftDetailData.value!!.creatorNickname,
-                        marketViewModel.nftDetailData.value!!.price.toString()
+                if(myNft){
+                    marketViewModel.closeMarket(args.marketId)
+                    showToast("판매를 종료하였습니다.")
+                    navigate(BuyMarketFragmentDirections.actionBuyMarketFragmentToMarketFragment())
+                } else {
+                    navigate(
+                        BuyMarketFragmentDirections.actionBuyMarketFragmentToBuyFragment(
+                            args.marketId,
+                            marketViewModel.nftDetailData.value!!.nftImageUrl,
+                            marketViewModel.nftDetailData.value!!.creatorNickname,
+                            marketViewModel.nftDetailData.value!!.price.toString(),
+                            marketViewModel.nftDetailData.value!!.sellerAccount
+                        )
                     )
-                )
+                }
             }
         }
     }

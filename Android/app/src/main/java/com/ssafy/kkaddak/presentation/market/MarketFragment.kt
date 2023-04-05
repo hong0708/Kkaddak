@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.databinding.FragmentMarketBinding
+import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
@@ -18,8 +18,12 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     private var isLoading = false
 
     override fun initView() {
+        (activity as MainActivity).hideBottomNavigation(false)
         initRecyclerView()
+        initListener()
+    }
 
+    private fun initListener() {
         binding.ivUpload.setOnClickListener {
             navigate(
                 MarketFragmentDirections.actionMarketFragmentToUploadMarketFragment()
@@ -45,17 +49,24 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
 
         marketViewModel.nftTempData.observe(viewLifecycleOwner) { marketViewModel.getSum() }
 
-        marketViewModel.nftListData.observe(viewLifecycleOwner) { response -> response?.let { nftadapter.setNfts(it) } }
+        marketViewModel.nftListData.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                nftadapter.setNfts(
+                    it
+                )
+            }
+        }
 
-        binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.rvMarketNftList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수 -1
 
                 // 스크롤이 최하단에 도착했을 때
-                if(!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                if (!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     isLoading = true
                     addData(false)
                 }
@@ -81,15 +92,16 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             response?.let { nftadapter.setNfts(it) }
         }
 
-        binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.rvMarketNftList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수 -1
 
                 // 스크롤이 최하단에 도착했을 때
-                if(!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                if (!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     isLoading = true
                     addData(false)
                 }
@@ -115,15 +127,16 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             response?.let { nftadapter.setNfts(it) }
         }
 
-        binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.rvMarketNftList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수 -1
 
                 // 스크롤이 최하단에 도착했을 때
-                if(!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                if (!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     isLoading = true
                     addData(true)
                 }
@@ -149,15 +162,16 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
             response?.let { nftadapter.setNfts(it) }
         }
 
-        binding.rvMarketNftList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.rvMarketNftList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition() // 화면에 보이는 마지막 아이템의 position
                 val itemTotalCount = recyclerView.adapter!!.itemCount - 1 // 어댑터에 등록된 아이템의 총 개수 -1
 
                 // 스크롤이 최하단에 도착했을 때
-                if(!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                if (!isLoading && !binding.rvMarketNftList.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                     isLoading = true
                     addData(false)
                 }
@@ -166,9 +180,9 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     }
 
     private fun addData(selling: Boolean) {
-        if(marketViewModel.getTempSize() == null) return
-        if(marketViewModel.getTempSize()!! >= 20) {
-            if(marketViewModel.getSize() != null) {
+        if (marketViewModel.getTempSize() == null) return
+        if (marketViewModel.getTempSize()!! >= 20) {
+            if (marketViewModel.getSize() != null) {
                 val lastId = marketViewModel.getLastId()
                 lastId?.let { marketViewModel.getAllNfts(it, 20, selling) }
                 marketViewModel.nftTempData.observe(viewLifecycleOwner) {

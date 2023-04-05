@@ -41,7 +41,6 @@ class DialogUploadNftDetailFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvConfirmNftItem.setOnClickListener {
-            marketViewModel.nftId.observe(viewLifecycleOwner) { }
             dialog?.dismiss()
         }
         binding.tvCancelNftItem.setOnClickListener {
