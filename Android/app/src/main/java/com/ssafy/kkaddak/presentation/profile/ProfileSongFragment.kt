@@ -8,9 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -59,25 +57,12 @@ class ProfileSongFragment :
 
     override fun initView() {
         setProfileSong()
-        // initListener()
-    }
-
-    private fun initListener() {
-//        profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
-//            response?.let { profileSongAdapter.setSong(it) }
-//        }
-//        profileViewModel.songStateChange.observe(viewLifecycleOwner) { response ->
-//            //profileViewModel.getProfileSong(args.nickname)
-//            //profileViewModel.resetSongState()
-//            Log.d("ghdalsrl", "initListener: ")
-//        }
     }
 
     override fun onResume() {
         super.onResume()
         profileViewModel.profileSongData.observe(viewLifecycleOwner) { response ->
             response?.let {
-                Log.d("ghdalsrl", "onResume: ${response}")
                 profileSongAdapter.setSong(it)
             }
         }
@@ -127,7 +112,7 @@ class ProfileSongFragment :
     override fun onConfirmButtonClicked(songId: String) {
         profileViewModel.deleteMySong(songId)
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
-        Toast.makeText(requireContext(), "음악이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+        showToast("음악이 삭제되었습니다.")
         profileViewModel.getProfileSong(ApplicationClass.preferences.nickname!!)
     }
 
