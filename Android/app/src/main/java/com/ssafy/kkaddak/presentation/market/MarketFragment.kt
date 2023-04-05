@@ -10,7 +10,6 @@ import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_market) {
 
@@ -21,7 +20,10 @@ class MarketFragment : BaseFragment<FragmentMarketBinding>(R.layout.fragment_mar
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(false)
         initRecyclerView()
+        initListener()
+    }
 
+    private fun initListener() {
         binding.ivUpload.setOnClickListener {
             navigate(
                 MarketFragmentDirections.actionMarketFragmentToUploadMarketFragment()

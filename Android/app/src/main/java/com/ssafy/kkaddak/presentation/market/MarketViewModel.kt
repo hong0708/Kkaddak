@@ -51,7 +51,6 @@ class MarketViewModel @Inject constructor(
     var nftId: LiveData<BigInteger> = _nftId
 
     private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
-    var nftUploadData: LiveData<UploadNftItem?> = _nftUploadData
 
     var creatorImg: String = ""
     var closed: Boolean = false
@@ -98,7 +97,7 @@ class MarketViewModel @Inject constructor(
             nftCreator = args.nftCreator
             nftPrice = args.nftPrice.toDouble()
         }
-        nftData.value?.let { Log.d("getButData", it.nftCreator) }
+        nftData.value?.let { Log.d("getBuyData", it.nftCreator) }
     }
 
     fun getNftDetail(marketId: Int) = viewModelScope.launch {
@@ -194,7 +193,6 @@ class MarketViewModel @Inject constructor(
             }
         }
     }
-
 
     suspend fun requestBookmark(marketId: Int) = viewModelScope.async {
         when (val value = requestMarketBookmarkUseCase(marketId)) {

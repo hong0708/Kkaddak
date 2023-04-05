@@ -1,7 +1,6 @@
 package com.ssafy.kkaddak.presentation.market
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
@@ -63,11 +62,11 @@ class UploadMarketFragment :
                         showToast("판매 등록이 완료되었습니다.")
                         navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
                     } catch (e: Exception) {
-                        Log.e("upload error", e.toString())
+                        e.printStackTrace()
                         showToast("판매 등록에 실패하였습니다.")
                     }
                 } catch (e: Exception) {
-                    Log.e("nft contract error", e.toString())
+                    e.printStackTrace()
                     showToast("판매 등록에 실패하였습니다.")
                 }
             }
@@ -90,5 +89,4 @@ class UploadMarketFragment :
             }
         }
     }
-
 }
