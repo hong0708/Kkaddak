@@ -47,8 +47,8 @@ class MarketViewModel @Inject constructor(
     private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
     val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
 
-    private val _nftId: MutableLiveData<BigInteger> = MutableLiveData()
-    var nftId: LiveData<BigInteger> = _nftId
+    private val _nftId: MutableLiveData<BigInteger?> = MutableLiveData()
+    var nftId: LiveData<BigInteger?> = _nftId
 
     private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
 
@@ -65,7 +65,7 @@ class MarketViewModel @Inject constructor(
         return false
     }
 
-    fun tempHistory(historyList: List<HistoryItem>) = viewModelScope.launch {
+    fun getHistory(historyList: List<HistoryItem>) = viewModelScope.launch {
         _nftHistoryData.value = historyList
     }
 
@@ -104,7 +104,7 @@ class MarketViewModel @Inject constructor(
         when (val value = getDetailNftUseCase(marketId)) {
             is Resource.Success<NftDetailItem> -> {
                 _nftDetailData.value = value.data
-                tempHistory(_nftDetailData.value!!.saleHistoryList)
+                getHistory(_nftDetailData.value!!.saleHistoryList)
             }
             is Resource.Error -> {
                 Log.e("getNftDetail", "getNftDetail: ${value.errorMessage}")
@@ -114,6 +114,10 @@ class MarketViewModel @Inject constructor(
 
     fun setNftId(nftId: BigInteger) = viewModelScope.launch {
         _nftId.value = nftId
+    }
+
+    fun clearNftId() = viewModelScope.launch {
+        _nftId.value = null
     }
 
     fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {

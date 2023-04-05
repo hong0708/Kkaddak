@@ -38,7 +38,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: HistoryItem) {
             binding.apply {
-                tvHistoryDate.text = data.timestamp
+                tvHistoryDate.text = data.timestamp.replace("-", ".").substring(0, 10)
                 tvHistoryPrice.text = String.format("%.1f", data.price.toDouble() / 100000000)
             }
         }
