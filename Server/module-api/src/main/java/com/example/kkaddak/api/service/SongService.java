@@ -8,12 +8,13 @@ import com.example.kkaddak.api.dto.song.StateChangeReqDto;
 import com.example.kkaddak.core.entity.Member;
 import org.springframework.stereotype.Service;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.UUID;
 
 @Service
 public interface SongService {
-    DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException;
+    DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException, UnsupportedAudioFileException;
 
     DataResDto<?> deleteSong(Member member, UUID songUuid);
 

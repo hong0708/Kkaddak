@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 @RestControllerAdvice
@@ -55,6 +56,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public DataResDto<?> handleMethodArgumentTypeNotMismatch(MethodArgumentTypeMismatchException exception) {
+        return DataResDto.builder().statusCode(400).statusMessage(exception.getMessage()).build();
+    }
+
+    @ExceptionHandler(UnsupportedAudioFileException.class)
+    public DataResDto<?> handleUnSupportedAudioFileException(UnsupportedAudioFileException exception) {
         return DataResDto.builder().statusCode(400).statusMessage(exception.getMessage()).build();
     }
 }

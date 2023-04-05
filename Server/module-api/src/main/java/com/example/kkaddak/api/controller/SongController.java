@@ -8,7 +8,6 @@ import com.example.kkaddak.api.dto.song.SongReqDto;
 import com.example.kkaddak.api.dto.member.MemberDetails;
 import com.example.kkaddak.api.dto.song.StateChangeReqDto;
 import com.example.kkaddak.api.service.SongService;
-import com.example.kkaddak.core.entity.SongStatus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -20,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.UUID;
@@ -83,7 +83,7 @@ public class SongController {
     @ApiOperation(value = "음악을 생성 및 음악 객체 반환하는 API")
     @PostMapping("/upload")
     public DataResDto<?> uploadSong(@AuthenticationPrincipal MemberDetails memberDetails,
-                                    @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @Valid SongReqDto songReqDto) throws IOException {
+                                    @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)) @Valid SongReqDto songReqDto) throws IOException, UnsupportedAudioFileException {
         // songFile과 coverFile을 songReqDto에 설정
         return songService.uploadSong(songReqDto, memberDetails.getMember());
     }

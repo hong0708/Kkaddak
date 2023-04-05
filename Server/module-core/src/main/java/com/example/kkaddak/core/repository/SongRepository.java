@@ -2,12 +2,11 @@ package com.example.kkaddak.core.repository;
 
 import com.example.kkaddak.core.entity.Member;
 import com.example.kkaddak.core.entity.Song;
+import com.example.kkaddak.core.entity.SongStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +18,7 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     Optional<Song> findByMemberAndSongUuid(Member member, UUID songUuid);
 
     List<Song> findByMember(Member member);
+
     List<Song> findByMemberOrderByUploadDateDesc(Member member);
 
     void deleteById(Integer songId);
@@ -33,4 +33,5 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
 
     Integer countByMember(Member member);
 
+    Page<Song> findBySongStatusNotIn(List<SongStatus> songStatuses, Pageable pageable);
 }
