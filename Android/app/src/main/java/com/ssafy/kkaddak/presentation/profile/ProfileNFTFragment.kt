@@ -51,7 +51,6 @@ class ProfileNFTFragment :
     override fun onHomeButtonClicked(nftImageUrl: String) {
         profileViewModel.uploadThumbnail(nftImageUrl)
         showToast("대표 이미지가 등록되었습니다.")
-        // Toast.makeText(requireContext(), "대표 이미지가 등록되었습니다.", Toast.LENGTH_SHORT).show()
     }
 
     override fun navigateToProfile(creatorId: String) {}

@@ -8,7 +8,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -119,11 +118,10 @@ class UploadSongFragment :
                 if (etMusicTitle.text == null || selectedGenre == "" || selectedMood.isEmpty()
                     || songViewModel.coverFile.value == null || songViewModel.songFile.value == null
                 ) {
-                    Toast.makeText(requireContext(), "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+                    showToast("모든 정보를 입력해주세요")
                 } else {
                     if (ApplicationClass.preferences.walletAddress.toString() == "") {
-                        Toast.makeText(requireContext(), "지갑 등록 또는 생성을 진행해주세요.", Toast.LENGTH_SHORT)
-                            .show()
+                        showToast("지갑 등록 또는 생성을 진행해주세요.")
                     } else {
                         songViewModel.uploadSong(
                             etMusicTitle.text.toString(),
@@ -131,7 +129,7 @@ class UploadSongFragment :
                             selectedMood
                         )
                         popBackStack()
-                        Toast.makeText(requireContext(), "등록되었습니다", Toast.LENGTH_SHORT).show()
+                        showToast("등록되었습니다")
                     }
                 }
             }
@@ -243,6 +241,10 @@ class UploadSongFragment :
     }
 
     override fun navigateToProfile(creatorId: String) {
-        navigate(UploadSongFragmentDirections.actionUploadSongFragmentToOtherProfileFragment(creatorId))
+        navigate(
+            UploadSongFragmentDirections.actionUploadSongFragmentToOtherProfileFragment(
+                creatorId
+            )
+        )
     }
 }

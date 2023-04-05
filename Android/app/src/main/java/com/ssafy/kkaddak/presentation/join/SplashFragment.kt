@@ -31,7 +31,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
 
     override fun onResume() {
         super.onResume()
-
         CoroutineScope(Dispatchers.Main).launch {
             binding.apply {
                 delay(1500)
@@ -64,8 +63,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
 
             if (SharedPreferences(requireContext()).isLoggedIn) {
                 // 자동 로그인 시 유효성 검사 추가 필요
-                // joinViewModel.requestLogin(AuthRequest(SharedPreferences(requireContext()).accessToken!!))
-                navigate(SplashFragmentDirections.actionSplashFragmentToMainActivity())
+                (activity as InitActivity).goToMain()
             } else {
                 fadeInView(binding.clKakaoLogin, requireContext())
             }
@@ -98,7 +96,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
         joinViewModel.isExist.observe(viewLifecycleOwner) {
             when (it) {
                 true -> {
-                    navigate(SplashFragmentDirections.actionSplashFragmentToMainActivity())
+                    (activity as InitActivity).goToMain()
                 }
                 false -> {
                     navigate(SplashFragmentDirections.actionSplashFragmentToJoinFragment())

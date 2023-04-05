@@ -66,4 +66,9 @@ class ProfileRepositoryImpl @Inject constructor(
         wrapToResource {
             profileRemoteDataSource.uploadNFTImage(songId, nftImg)
         }
+
+    override suspend fun changeSongState(songStatus: String, songUUID: String): Resource<Boolean> =
+        wrapToResource {
+            profileRemoteDataSource.changeSongState(songStatus, songUUID)
+        }
 }

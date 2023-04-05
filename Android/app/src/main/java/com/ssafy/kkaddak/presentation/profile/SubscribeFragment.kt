@@ -3,7 +3,6 @@ package com.ssafy.kkaddak.presentation.profile
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.kkaddak.ApplicationClass
@@ -47,14 +46,17 @@ class SubscribeFragment :
                             setOnClickListener {
                                 profileViewModel.followArtist(args.memberId)
                                 // 구독 시 결제 진행
-                                WalletFunction().transfer(args.address, 5, "구독")
+                                WalletFunction().transfer(
+                                    args.address,
+                                    (5 * 100000000).toLong(),
+                                    "구독"
+                                )
                                 popBackStack()
                             }
                         }
                     } else {
                         binding.tvBalanceLack.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT)
-                            .show()
+                        showToast("잔액이 부족합니다.")
                     }
                 }
             })
@@ -68,8 +70,7 @@ class SubscribeFragment :
             tvReceiverAddress.text = args.address
 
             if (ApplicationClass.preferences.walletAddress.toString() == "") {
-                Toast.makeText(requireContext(), "지갑 등록 또는 생성을 진행해주세요.", Toast.LENGTH_SHORT)
-                    .show()
+                showToast("지갑 등록 또는 생성을 진행해주세요.")
             } else {
                 WalletFunction().balanceOf(tvWalletBalance)
             }

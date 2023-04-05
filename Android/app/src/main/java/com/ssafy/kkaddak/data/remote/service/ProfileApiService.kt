@@ -1,6 +1,7 @@
 package com.ssafy.kkaddak.data.remote.service
 
 import com.ssafy.kkaddak.data.remote.datasource.base.BaseResponse
+import com.ssafy.kkaddak.data.remote.datasource.profile.ChangeSongStateRequest
 import com.ssafy.kkaddak.data.remote.datasource.profile.FollowerResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.NFTImageResponse
 import com.ssafy.kkaddak.data.remote.datasource.profile.ProfileResponse
@@ -55,5 +56,10 @@ interface ProfileApiService {
     suspend fun uploadNFTImage(
         @PartMap map: Map<String, @JvmSuppressWildcards RequestBody>,
         @Part image: MultipartBody.Part?
-    ):BaseResponse<NFTImageResponse>
+    ): BaseResponse<NFTImageResponse>
+
+    @POST("/api/v2/song/change/state")
+    suspend fun changeSongState(
+        @Body stateChangeReqDto: ChangeSongStateRequest
+    ): BaseResponse<Boolean>
 }

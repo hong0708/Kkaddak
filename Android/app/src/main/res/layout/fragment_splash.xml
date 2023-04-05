@@ -59,6 +59,7 @@
             android:id="@+id/iv_splash_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
             android:contentDescription="@string/splash_main"
             android:src="@drawable/ic_splash"
             app:layout_constraintBottom_toBottomOf="parent"
