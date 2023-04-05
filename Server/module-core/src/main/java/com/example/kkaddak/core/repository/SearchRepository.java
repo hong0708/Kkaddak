@@ -2,7 +2,9 @@ package com.example.kkaddak.core.repository;
 
 import com.example.kkaddak.core.entity.QSong;
 import com.example.kkaddak.core.entity.Song;
+import com.example.kkaddak.core.entity.SongStatus;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -34,13 +36,31 @@ public class SearchRepository {
             }
         }
 
+        // songStatus가 COMPLETE 또는 APPROVE인 조건
+        BooleanExpression statusCondition = qSong.songStatus.in(SongStatus.COMPLETE, SongStatus.APPROVE);
+
+        // keyword 조건
+        BooleanExpression keywordCondition = null;
         if (!keyWord.equals("")) {
-            builder.and(qSong.member.nickname.containsIgnoreCase(keyWord.trim()).or(qSong.title.containsIgnoreCase(keyWord.trim())));
+            keywordCondition = qSong.member.nickname.containsIgnoreCase(keyWord.trim())
+                    .or(qSong.title.containsIgnoreCase(keyWord.trim()));
         }
+
+        // genre 조건
+        BooleanExpression genreCondition = null;
         if (!genre.equals("")) {
-            builder.and(qSong.genre.eq(genreList.get(0)).or(qSong.genre.eq(genreList.get(1))).or(qSong.genre.eq(genreList.get(2)))
+            genreCondition = qSong.genre.eq(genreList.get(0)).or(qSong.genre.eq(genreList.get(1))).or(qSong.genre.eq(genreList.get(2)))
                     .or(qSong.genre.eq(genreList.get(3))).or(qSong.genre.eq(genreList.get(4))).or(qSong.genre.eq(genreList.get(5)))
-                    .or(qSong.genre.eq(genreList.get(6))));
+                    .or(qSong.genre.eq(genreList.get(6)));
+        }
+
+        // 조건들을 결합합니다.
+        builder.and(statusCondition);
+        if (keywordCondition != null) {
+            builder.and(keywordCondition);
+        }
+        if (genreCondition != null) {
+            builder.and(genreCondition);
         }
 
         List<Song> songs = queryFactory
