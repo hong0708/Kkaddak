@@ -48,8 +48,8 @@ class BuyMarketFragment :
             marketViewModel.getCreatorImg(it.sellerNickname)
             if(!it.isSelling) {
                 binding.tvBuy.text = "종 료"
-                binding.tvBuy.setBackgroundResource(R.color.charcoal)
-                binding.tvBuy.isClickable = false
+                binding.clBuy.setBackgroundResource(R.drawable.bg_rect_night_rider_radius15)
+                binding.clBuy.isClickable = false
             } else {
                 if (ApplicationClass.preferences.nickname == it.sellerNickname) {
                     myNft = true
