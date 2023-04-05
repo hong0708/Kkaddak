@@ -50,6 +50,8 @@
     <string name="content_selling_history">판매 히스토리</string>
     <string name="content_empty_history">판매 이력이 없습니다.</string>
     <string name="content_buy">구매하기</string>
+    <string name="content_close">종료하기</string>
+    <string name="content_closed">판매종료</string>
     <string name="content_buy_nft">NFT 구매</string>
     <string name="content_buy_payment">결제하기</string>
     <string name="content_buy_charge">충전하기</string>

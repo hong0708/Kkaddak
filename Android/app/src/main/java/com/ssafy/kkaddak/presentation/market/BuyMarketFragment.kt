@@ -60,13 +60,13 @@ class BuyMarketFragment :
                     tvContentSellingKat.text = String.format("%.1f", it.price.toDouble() / 100000000)
                 }
                 if(!it!!.isSelling) {
-                    tvBuy.text = "판매종료"
+                    tvBuy.setText(R.string.content_closed)
                     clBuy.setBackgroundResource(R.drawable.bg_rect_night_rider_radius15)
                     clBuy.isClickable = false
                 } else {
                     if (ApplicationClass.preferences.nickname == it.sellerNickname) {
                         myNft = true
-                        tvBuy.text = "종료하기"
+                        tvBuy.setText(R.string.content_close)
                         clBuy.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius15)
                         clBuy.isClickable = true
                     } else {
