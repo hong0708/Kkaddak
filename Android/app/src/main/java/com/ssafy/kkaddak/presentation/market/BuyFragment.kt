@@ -44,8 +44,10 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
                     try {
                         marketViewModel.closeMarket(args.marketId)
                         showToast("NFT 구매가 완료되었습니다.")
-                        NFTFunction().buyMusicNFT(args.nftId.toBigInteger(), args.nftPrice.toBigInteger())
-                        //WalletFunction().transfer(args.sellerAccount, args.nftPrice.toLong(), "NFT 구매")
+                        NFTFunction().buyMusicNFT(
+                            args.nftId.toBigInteger(),
+                            args.nftPrice.toBigInteger()
+                        )
                         navigate(BuyFragmentDirections.actionBuyFragmentToMarketFragment())
                     } catch (e: Exception) {
                         e.printStackTrace()

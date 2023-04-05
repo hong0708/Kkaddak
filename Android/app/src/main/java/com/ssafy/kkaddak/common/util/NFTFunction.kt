@@ -197,7 +197,6 @@ class NFTFunction {
                 )
                 remoteFunctionCall.send()
 
-
             } catch (e: Exception) {
                 System.err.println("Error while get RecentTransactionList: ${e.message}")
             }
