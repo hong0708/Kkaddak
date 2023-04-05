@@ -47,8 +47,8 @@ class MarketViewModel @Inject constructor(
     private val _nftHistoryData: MutableLiveData<List<HistoryItem>?> = MutableLiveData()
     val nftHistoryData: LiveData<List<HistoryItem>?> = _nftHistoryData
 
-    private val _nftId: MutableLiveData<BigInteger> = MutableLiveData()
-    var nftId: LiveData<BigInteger> = _nftId
+    private val _nftId: MutableLiveData<BigInteger?> = MutableLiveData()
+    var nftId: LiveData<BigInteger?> = _nftId
 
     private val _nftUploadData: MutableLiveData<UploadNftItem?> = MutableLiveData()
 
@@ -114,6 +114,10 @@ class MarketViewModel @Inject constructor(
 
     fun setNftId(nftId: BigInteger) = viewModelScope.launch {
         _nftId.value = nftId
+    }
+
+    fun clearNftId() = viewModelScope.launch {
+        _nftId.value = null
     }
 
     fun uploadNft(nft: String, price: Double, data: ProfileNFTDetailItem) = viewModelScope.launch {

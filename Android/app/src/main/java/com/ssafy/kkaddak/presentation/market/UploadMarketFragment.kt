@@ -9,7 +9,6 @@ import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.databinding.FragmentUploadMarketBinding
-import com.ssafy.kkaddak.domain.entity.market.UploadNftItem
 import com.ssafy.kkaddak.presentation.MainActivity
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,8 +19,6 @@ class UploadMarketFragment :
     BaseFragment<FragmentUploadMarketBinding>(R.layout.fragment_upload_market) {
 
     private val marketViewModel by activityViewModels<MarketViewModel>()
-    private var uploadNftItem: UploadNftItem? = null
-    private lateinit var nftId: BigInteger
     private var price: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +35,7 @@ class UploadMarketFragment :
 
     override fun onDestroy() {
         super.onDestroy()
+        marketViewModel.clearNftId()
         (activity as MainActivity).hideBottomNavigation(false)
     }
 
@@ -51,23 +49,27 @@ class UploadMarketFragment :
             dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
         }
         binding.clUpload.setOnClickListener {
-            NFTFunction().getMetaData(nftId).observe(viewLifecycleOwner) {
-                try {
-                    NFTFunction().sellMusicNFT(
-                        nftId,
-                        BigInteger(price).multiply(BigInteger.valueOf(100000000))
-                    )
-                    try {
-                        marketViewModel.uploadNft(nftId.toString(), price.toDouble(), it)
-                        showToast("판매 등록이 완료되었습니다.")
-                        navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        showToast("판매 등록에 실패하였습니다.")
+            marketViewModel.nftId.observe(viewLifecycleOwner) { nftId ->
+                nftId?.let { tokenId ->
+                    NFTFunction().getMetaData(tokenId).observe(viewLifecycleOwner) {
+                        try {
+                            NFTFunction().sellMusicNFT(
+                                tokenId,
+                                BigInteger(price).multiply(BigInteger.valueOf(100000000))
+                            )
+                            try {
+                                marketViewModel.uploadNft(tokenId.toString(), price.toDouble(), it)
+                                showToast("판매 등록이 완료되었습니다.")
+                                navigate(UploadMarketFragmentDirections.actionUploadMarketFragmentToMarketFragment())
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                showToast("판매 등록에 실패하였습니다.")
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            showToast("판매 등록에 실패하였습니다.")
+                        }
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    showToast("판매 등록에 실패하였습니다.")
                 }
             }
         }
@@ -75,15 +77,14 @@ class UploadMarketFragment :
 
     private fun getData() {
         marketViewModel.nftId.observe(viewLifecycleOwner) {
-            nftId = it
-            uploadNftItem?.nftId = it.toString()
-            NFTFunction().getMetaData(it).observe(viewLifecycleOwner) { nftItem ->
-                binding.apply {
-                    tvUploadSongTitle.text = nftItem.trackTitle
-                    ivUploadNftImage.setNormalImg(nftItem.nftImageUrl!!.toUri())
-
-                    etUploadSellingKat.addTextChangedListener {
-                        price = binding.etUploadSellingKat.text.toString()
+            it?.let { tokenId ->
+                NFTFunction().getMetaData(tokenId).observe(viewLifecycleOwner) { nftItem ->
+                    binding.apply {
+                        tvUploadSongTitle.text = nftItem.trackTitle
+                        ivUploadNftImage.setNormalImg(nftItem.nftImageUrl!!.toUri())
+                        etUploadSellingKat.addTextChangedListener {
+                            price = etUploadSellingKat.text.toString()
+                        }
                     }
                 }
             }

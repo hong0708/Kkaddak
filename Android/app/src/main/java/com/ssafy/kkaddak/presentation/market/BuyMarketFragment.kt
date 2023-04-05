@@ -35,6 +35,7 @@ class BuyMarketFragment :
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)
+
     }
 
     private fun getData() {
@@ -46,16 +47,6 @@ class BuyMarketFragment :
                 binding.ivNftLike.setImageResource(R.drawable.ic_market_like_nft_detail)
             }
             marketViewModel.getCreatorImg(it.sellerNickname)
-            if(!it.isSelling) {
-                binding.tvBuy.text = "종 료"
-                binding.clBuy.setBackgroundResource(R.drawable.bg_rect_night_rider_radius15)
-                binding.clBuy.isClickable = false
-            } else {
-                if (ApplicationClass.preferences.nickname == it.sellerNickname) {
-                    myNft = true
-                    binding.tvBuy.text = "판매종료"
-                }
-            }
         }
         marketViewModel.getNftDetail(args.marketId)
 
@@ -67,6 +58,22 @@ class BuyMarketFragment :
                 if (it != null) {
                     ivNftImage.setNormalImg(it.nftImageUrl.toUri())
                     tvContentSellingKat.text = String.format("%.1f", it.price.toDouble() / 100000000)
+                }
+                if(!it!!.isSelling) {
+                    tvBuy.text = "판매종료"
+                    clBuy.setBackgroundResource(R.drawable.bg_rect_night_rider_radius15)
+                    clBuy.isClickable = false
+                } else {
+                    if (ApplicationClass.preferences.nickname == it.sellerNickname) {
+                        myNft = true
+                        tvBuy.text = "종료하기"
+                        clBuy.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius15)
+                        clBuy.isClickable = true
+                    } else {
+                        tvBuy.setText(R.string.content_buy)
+                        clBuy.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius15)
+                        clBuy.isClickable = true
+                    }
                 }
             }
         }
