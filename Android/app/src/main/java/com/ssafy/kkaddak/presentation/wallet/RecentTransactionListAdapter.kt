@@ -44,7 +44,8 @@ class RecentTransactionListAdapter :
                 tvAmountKat.text = (data.amount.toFloat() / 100000000).toString()
                 val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
                 tvDateHistory.text = format.format(Date(data.timestamp.toLong() * 1000))
-                if (data.transferType == "NFT 구매") {
+
+                if (data.transferType == "NFT") {
                     if (data.sender ==
                         String(
                             ApplicationClass.keyStore.decryptData(
@@ -54,14 +55,14 @@ class RecentTransactionListAdapter :
                     ) {
                         ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
                         tvSignKat.text = "-"
+                        tvTypeHistory.text = "NFT 구매"
                     } else {
-                        ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
+                        ivTypeHistory.setImageResource(R.drawable.ic_up_caret)
                         tvSignKat.text = "+"
                         tvTypeHistory.text = "NFT 판매"
                     }
                 }
-
-                if (data.transferType == "구독") {
+                else if (data.transferType == "구독") {
                     ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
                     tvSignKat.text = "-"
                 } else {
