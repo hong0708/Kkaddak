@@ -65,7 +65,7 @@ class MarketViewModel @Inject constructor(
         return false
     }
 
-    fun tempHistory(historyList: List<HistoryItem>) = viewModelScope.launch {
+    fun getHistory(historyList: List<HistoryItem>) = viewModelScope.launch {
         _nftHistoryData.value = historyList
     }
 
@@ -104,7 +104,7 @@ class MarketViewModel @Inject constructor(
         when (val value = getDetailNftUseCase(marketId)) {
             is Resource.Success<NftDetailItem> -> {
                 _nftDetailData.value = value.data
-                tempHistory(_nftDetailData.value!!.saleHistoryList)
+                getHistory(_nftDetailData.value!!.saleHistoryList)
             }
             is Resource.Error -> {
                 Log.e("getNftDetail", "getNftDetail: ${value.errorMessage}")
