@@ -15,15 +15,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.*;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
@@ -65,56 +66,12 @@ public class SongServiceImpl implements SongService {
     private final SearchRepository searchRepository;
 
     @Override
-    public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) {
-        try {
-            // 음악 파일 저장
-            MultipartFile songFile = songReqDto.getSongFile();
-            String songFileName = songFile.getOriginalFilename();
-            String songFileKey = "songs/" + songFileName;
-            String songFileUrl = s3BaseUrl + songFileKey;
-
-            s3Client.putObject(PutObjectRequest.builder()
-                    .bucket(s3Bucket)
-                    .key(songFileKey)
-                    .build(), RequestBody.fromInputStream(songFile.getInputStream(), songFile.getSize()));
-
-            // 커버 이미지 파일 저장
-            MultipartFile coverFile = songReqDto.getCoverFile();
-            String coverFileName = coverFile.getOriginalFilename();
-            String coverFileKey = "covers/" + coverFileName;
-            String coverFileUrl = s3BaseUrl + coverFileKey;
-
-            s3Client.putObject(PutObjectRequest.builder()
-                    .bucket(s3Bucket)
-                    .key(coverFileKey)
-                    .build(), RequestBody.fromInputStream(coverFile.getInputStream(), coverFile.getSize()));
-
-            // DB에 저장
-            Mood mood;
-            if (songReqDto.getMoods().size() == 1) {
-                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
-                        mood2("").mood3("").build();
-            } else if (songReqDto.getMoods().size() == 2) {
-                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
-                        mood2(songReqDto.getMoods().get(1)).mood3("").build();
-            } else {
-                mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
-                        mood2(songReqDto.getMoods().get(1)).mood3(songReqDto.getMoods().get(2)).build();
-            }
-            Mood savedMood = moodRepository.save(mood);
-
-            String combination = "";
-            Boolean isDup = false;
-
-            do {
-                combination = nftService.generateCombination();
-                isDup = songRepository.existsByCombination(combination);
-            } while (isDup);
+    public DataResDto<?> uploadSong(SongReqDto songReqDto, Member member) throws IOException, UnsupportedAudioFileException {
+            Mood savedMood = saveMood(songReqDto);
+            String combination = makeCombination();
 
             Song song = Song.builder()
                     .title(songReqDto.getSongTitle())
-                    .songPath(songFileUrl)
-                    .coverPath(coverFileUrl)
                     .genre(songReqDto.getGenre())
                     .moods(savedMood)
                     .member(member)
@@ -122,59 +79,15 @@ public class SongServiceImpl implements SongService {
                     .songStatus(SongStatus.PROCEEDING)
                     .build();
 
-            List<Song> songs = songRepository.findAll();
-
-            File uploadedMp3File = getAmazonObject(song.getSongPath());
-            float[][] mfcc1 = FeatureExtractor.extractMFCC(uploadedMp3File);
-            // thread로 for문 순회하면서 유사도 검사
-            CompletableFuture.runAsync(() -> {
-                int cnt = 0;
-                // upload된 파일 읽어들이기
-                for (Song s : songs) {
-                    cnt++;
-                    try {
-                        // S3에서 MP3 파일을 가져오기
-                        File sFile = getAmazonObject(s.getSongPath());
-                        float[][] mfcc2 = FeatureExtractor.extractMFCC(sFile);
-                        double similarity = DynamicTimeWarping.calculateDistance(mfcc1, mfcc2);
-
-                        logger.info("Similarity : " + similarity);
-                        if (similarity <= 10) {
-                            song.setSongStatus(SongStatus.REJECT);
-                            songRepository.save(song);
-                            return;
-                        }
-                    } catch (UnsupportedAudioFileException e) {
-                        throw new RuntimeException(e);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-                logger.info("cnt : " + cnt);
-                song.setSongStatus(SongStatus.APPROVE);
-                songRepository.save(song);
-            }).exceptionally(ex -> {
-                // 예외가 발생한 경우 로깅
-                logger.info("CompletableFuture 작업 중 오류 발생: " + ex.getMessage());
-                ex.printStackTrace();
-                return null;
-            });;
-
+            uploadAndSetFilePath(song, songReqDto);
+            checkSimilarity(song);
             Song savedSong = songRepository.save(song);
-
-            // convert combination string to list
             List<Integer> combList = combStrToList(combination);
             SongResDto songResDto = SongResDto.builder()
                     .song(savedSong)
                     .combination(combList).build();
             return DataResDto.builder().data(songResDto)
                     .statusMessage("음악 정보가 정상적으로 출력되었습니다.").build();
-        } catch(IllegalArgumentException e) {
-            return DataResDto.builder().statusCode(400).statusMessage(e.getMessage()).build();
-        } catch(Exception e) {
-            return DataResDto.builder().statusCode(500).statusMessage("서버 에러 : " + e.getMessage()).build();
-        }
     }
 
     @Override
@@ -249,7 +162,8 @@ public class SongServiceImpl implements SongService {
     @Override
     public DataResDto<?> getAllSong(Member member) {
         try {
-            List<Song> songList = songRepository.findAll();
+            List<SongStatus> excludedStatuses = Arrays.asList(SongStatus.REJECT, SongStatus.PROCEEDING);
+            Page<Song> songList = songRepository.findBySongStatusNotIn(excludedStatuses, Pageable.unpaged());
             if (songList == null || songList.isEmpty()) {
                 return DataResDto.builder().data(Collections.emptyList())
                         .statusMessage("음악 리스트 정보가 정상적으로 출력되었습니다.").build();
@@ -271,7 +185,9 @@ public class SongServiceImpl implements SongService {
     @Override
     public DataResDto<?> getLatestSong(Member member) {
         try {
-            List<Song> songList = songRepository.findTop5ByOrderByUploadDateDesc();
+            List<SongStatus> excludedStatuses = Arrays.asList(SongStatus.REJECT, SongStatus.PROCEEDING);
+            PageRequest pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "uploadDate"));
+            Page<Song> songList = songRepository.findBySongStatusNotIn(excludedStatuses, pageable);
             if (songList == null || songList.isEmpty()) {
                 return DataResDto.builder().data(Collections.emptyList())
                         .statusMessage("음악 최신 리스트 정보가 정상적으로 출력되었습니다.").build();
@@ -445,7 +361,9 @@ public class SongServiceImpl implements SongService {
     @Override
     public DataResDto<?> getPopularityList(Member member) {
         try {
-            List<Song> songList = songRepository.findTop12ByOrderByViewsDesc();
+            List<SongStatus> excludedStatuses = Arrays.asList(SongStatus.REJECT, SongStatus.PROCEEDING);
+            PageRequest pageable = PageRequest.of(0, 12, Sort.by(Sort.Direction.DESC, "views"));
+            Page<Song> songList = songRepository.findBySongStatusNotIn(excludedStatuses, pageable);
             if (songList == null || songList.isEmpty()) {
                 return DataResDto.builder().data(Collections.emptyList())
                         .statusMessage("인기 음악 리스트가 정상적으로 출력되었습니다.").build();
@@ -561,5 +479,118 @@ public class SongServiceImpl implements SongService {
             combList.add(Integer.parseInt(combArr[i]));
 
         return combList;
+    }
+
+    private String makeFilePath(MultipartFile file) {
+        String songFileName = file.getOriginalFilename();
+        String fileExtension = "";
+
+        // 파일 확장자 추출
+        int dotIndex = songFileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            fileExtension = songFileName.substring(dotIndex);
+        }
+
+        UUID uuid = UUID.randomUUID();
+        String songFileKey = "songs/" + songFileName.substring(0, dotIndex) + "_" + uuid + fileExtension;
+        String songFileUrl = s3BaseUrl + songFileKey;
+
+        return songFileUrl;
+    }
+
+
+    private void uploadAndSetFilePath(Song song, SongReqDto songReqDto) throws IOException {
+
+        MultipartFile songFile = songReqDto.getSongFile();
+        MultipartFile coverFile = songReqDto.getCoverFile();
+
+        // 음악 파일 저장
+        String songFilePath = saveFileToS3(songFile);
+        // 커버 이미지 파일 저장
+        String coverFilePath = saveFileToS3(coverFile);
+
+        song.setSongPath(songFilePath);
+        song.setCoverPath(coverFilePath);
+    }
+
+    private String saveFileToS3(MultipartFile file) throws IOException {
+        PutObjectResponse response;
+        String filePath = makeFilePath(file);
+        String fileKey = filePath.substring(s3BaseUrl.length());
+
+        response = s3Client.putObject(PutObjectRequest.builder()
+                .bucket(s3Bucket)
+                .key(fileKey)
+                .build(), RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+        if (!response.sdkHttpResponse().isSuccessful()) {
+            throw new IOException(ErrorMessageEnum.S3_UPLOAD_ERROR.getMessage());
+        }
+
+        return filePath;
+    }
+
+    private Mood saveMood(SongReqDto songReqDto) {
+        // DB에 저장
+        Mood mood = null;
+        if (songReqDto.getMoods().size() == 1) {
+            mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                    mood2("").mood3("").build();
+        } else if (songReqDto.getMoods().size() == 2) {
+            mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                    mood2(songReqDto.getMoods().get(1)).mood3("").build();
+        } else {
+            mood = Mood.builder().mood1(songReqDto.getMoods().get(0)).
+                    mood2(songReqDto.getMoods().get(1)).mood3(songReqDto.getMoods().get(2)).build();
+        }
+        return moodRepository.save(mood);
+    }
+
+    private String makeCombination() {
+        String combination = "";
+        Boolean isDup = false;
+
+        do {
+            combination = nftService.generateCombination();
+            isDup = songRepository.existsByCombination(combination);
+        } while (isDup);
+
+        return combination;
+    }
+
+    private void checkSimilarity(Song song) throws UnsupportedAudioFileException, IOException {
+        File uploadedMp3File = getAmazonObject(song.getSongPath());
+        float[][] mfcc1 = FeatureExtractor.extractMFCC(uploadedMp3File);
+        // thread로 for문 순회하면서 유사도 검사
+        List<SongStatus> excludedStatuses = Arrays.asList(SongStatus.REJECT);
+        Page<Song> songs = songRepository.findBySongStatusNotIn(excludedStatuses, Pageable.unpaged());
+        CompletableFuture.runAsync(() -> {
+            // upload된 파일 읽어들이기
+            for (Song s : songs) {
+                try {
+                    // S3에서 MP3 파일을 가져오기
+                    File sFile = getAmazonObject(s.getSongPath());
+                    float[][] mfcc2 = FeatureExtractor.extractMFCC(sFile);
+                    double similarity = DynamicTimeWarping.calculateDistance(mfcc1, mfcc2);
+
+                    logger.info("Similarity : " + similarity);
+                    if (similarity <= 10) {
+                        song.setSongStatus(SongStatus.REJECT);
+                        songRepository.save(song);
+                        return;
+                    }
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e.getMessage());
+                } catch (IOException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+            song.setSongStatus(SongStatus.APPROVE);
+            songRepository.save(song);
+        }).exceptionally(ex -> {
+            // 예외가 발생한 경우 로깅
+            logger.info("CompletableFuture 작업 중 오류 발생: " + ex.getMessage());
+            ex.printStackTrace();
+            throw new RuntimeException(ex.getMessage());
+        });
     }
 }
