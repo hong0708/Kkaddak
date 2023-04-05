@@ -18,6 +18,7 @@ import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import android.view.WindowManager
+import com.ssafy.kkaddak.common.util.BackgroundToBitmap
 import com.ssafy.kkaddak.common.util.UrlToBitmap
 import com.ssafy.kkaddak.databinding.DialogCreateNftBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
@@ -26,10 +27,11 @@ class CreateNFTDialog(
     val activity: Activity,
     private val songItem: SongItem,
     private val listener: CreateNFTDialogInterface
-) : Dialog(activity), UrlToBitmap.UrlToBitmapListener {
+) : Dialog(activity), UrlToBitmap.UrlToBitmapListener, BackgroundToBitmap.UrlToBitmapListener {
 
     private lateinit var binding: DialogCreateNftBinding
     private lateinit var canvas: Canvas
+    private lateinit var darkBackGround: Bitmap
     private val nftBitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +46,8 @@ class CreateNFTDialog(
         setCanceledOnTouchOutside(true)
         setCancelable(true)
 
-        val task = UrlToBitmap(this)
-        task.execute(songItem.coverPath)
+        val task = BackgroundToBitmap(this)
+        task.execute("https://kkaddak.s3.ap-northeast-2.amazonaws.com/covers/grey_blur.png")
 
         initListener()
     }
@@ -68,9 +70,13 @@ class CreateNFTDialog(
 
         val blurBackground = blurBitmap(background!!, activity)
 
-        val drawable0: Drawable = BitmapDrawable(blurBackground)
+        val drawable0: Drawable = BitmapDrawable(background)
         drawable0.setBounds(0, 0, 1000, 1000)
         drawable0.draw(canvas)
+
+        val drawable: Drawable = BitmapDrawable(darkBackGround)
+        drawable.setBounds(0, 0, 1000, 1000)
+        drawable.draw(canvas)
 
         drawBitmap(
             activity.resources.getIdentifier(
@@ -143,5 +149,14 @@ class CreateNFTDialog(
         script.forEach(output)
         output.copyTo(bitmap)
         return bitmap
+    }
+
+    override fun onSuccessBackground(bitmap: Bitmap?) {
+        darkBackGround = bitmap!!
+        val task = UrlToBitmap(this)
+        task.execute(songItem.coverPath)
+    }
+
+    override fun onErrorBackground(e: Exception) {
     }
 }
