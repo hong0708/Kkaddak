@@ -53,10 +53,12 @@ class ProfileSongAdapter(
                 }
                 when (data.songStatus) {
                     "PROCEEDING" -> {
+                        ivSongState.visibility = View.VISIBLE
                         ivSongState.setImageResource(R.drawable.ic_profile_song_pending)
                         root.isEnabled = false
                     }
                     "REJECT" -> {
+                        ivSongState.visibility = View.VISIBLE
                         ivSongState.apply {
                             if (!isMine) this.isEnabled = false
                             setImageResource(R.drawable.ic_profile_song_rejected)
@@ -64,6 +66,7 @@ class ProfileSongAdapter(
                         }
                     }
                     "APPROVE" -> {
+                        ivSongState.visibility = View.VISIBLE
                         if (isMine) ivSongState.setImageResource(R.drawable.ic_profile_song_approved)
                         ivSongState.setOnClickListener { onApproveBadgeClicked(data) }
                     }

@@ -22,7 +22,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private fun initListener() {
         binding.apply {
             ivUploadSong.setOnClickListener {
-                navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
+                if (ApplicationClass.preferences.walletAddress.toString() == "") {
+                    showToast("지갑 등록이 필요합니다.")
+                } else {
+                    navigate(ProfileFragmentDirections.actionProfileFragmentToUploadSongFragment())
+                }
             }
             ivBtnToMypage.setOnClickListener {
                 navigate(ProfileFragmentDirections.actionProfileFragmentToMyPageFragment())

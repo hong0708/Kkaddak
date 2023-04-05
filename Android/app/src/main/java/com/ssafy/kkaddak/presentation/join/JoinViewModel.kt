@@ -83,7 +83,7 @@ class JoinViewModel @Inject constructor(
                 _accessToken.value = accessToken
                 _refreshToken.value = refreshToken
                 _isExist.value = value.data.isExist
-                ApplicationClass.preferences.isLoggedIn = true
+                //ApplicationClass.preferences.isLoggedIn = true
             }
             is Resource.Error -> {
                 Log.d("requestLogin", "requestLogin: ${value.errorMessage}")
@@ -112,7 +112,7 @@ class JoinViewModel @Inject constructor(
                 )) {
                 is Resource.Success<User> -> {
                     ApplicationClass.preferences.nickname = _nickname.value
-                    ApplicationClass.preferences.isLoggedIn = true
+                    //ApplicationClass.preferences.isLoggedIn = true
                     _isSuccess.value = true
                 }
                 is Resource.Error -> {
@@ -131,7 +131,6 @@ class JoinViewModel @Inject constructor(
                 )) {
                 is Resource.Success<User> -> {
                     ApplicationClass.preferences.nickname = _nickname.value
-                    ApplicationClass.preferences.isLoggedIn = true
                     _isSuccess.value = true
                 }
                 is Resource.Error -> {

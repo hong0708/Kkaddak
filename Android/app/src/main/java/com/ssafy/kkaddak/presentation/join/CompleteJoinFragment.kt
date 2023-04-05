@@ -26,7 +26,7 @@ class CompleteJoinFragment :
         }
         viewLifecycleOwner.lifecycleScope.launch {
             delay(1000)
-            navigate(CompleteJoinFragmentDirections.actionCompleteJoinFragmentToMainActivity())
+            (activity as InitActivity).goToMain()
         }
     }
 
