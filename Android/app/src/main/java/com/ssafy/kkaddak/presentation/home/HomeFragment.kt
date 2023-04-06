@@ -67,9 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         homeViewModel.homeProfile.observe(viewLifecycleOwner) { response ->
             response?.let {
                 if (it.profilepath == "") binding.ivHomeNft.setImageResource(R.drawable.ic_home_nft_default)
+                else binding.ivHomeNft.setCoverNFTImg(it.nftThumbnailUrl)
                 binding.tvTitleHomeNickname.text = it.nickname
                 ApplicationClass.preferences.nickname = it.nickname
-                binding.ivHomeNft.setCoverNFTImg(it.nftThumbnailUrl)
                 if (it.mySongs == 0) {
                     binding.apply {
                         tvTitleHome.setText(R.string.title_home_1_listener)
