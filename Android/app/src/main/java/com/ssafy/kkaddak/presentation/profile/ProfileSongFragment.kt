@@ -19,7 +19,6 @@ import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.MusicFunction
 import com.ssafy.kkaddak.common.util.NFTFunction
 import com.ssafy.kkaddak.common.util.WalletFunction
-import com.ssafy.kkaddak.common.util.showToastMessage
 import com.ssafy.kkaddak.databinding.FragmentProfileSongBinding
 import com.ssafy.kkaddak.domain.entity.song.SongItem
 import com.ssafy.kkaddak.presentation.MainActivity
@@ -185,10 +184,9 @@ class ProfileSongFragment :
                 requireActivity().getString(R.string.app_name)
             )
         ) {
-            requireActivity().showToastMessage("그림 저장을 실패하였습니다")
+            showToast("발급이 실패하였습니다.")
         }
-        requireActivity().showToastMessage("그림이 갤러리에 저장되었습니다")
-
+        showToast("발급이 진행됩니다.")
         val file = File(nftFile.absolutePath)
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val nftMultipart = MultipartBody.Part.createFormData("nftImage", file.name, requestFile)

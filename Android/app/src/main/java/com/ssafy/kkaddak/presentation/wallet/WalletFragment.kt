@@ -37,6 +37,11 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         getBalance()
         initRecyclerView()
 
+
+        binding.tvTitleWallet.setOnClickListener {
+            getBalance()
+            initRecyclerView()
+        }
 //        biometricPrompt = setBiometricPrompt()
 //        promptInfo = setPromptInfo()
     }

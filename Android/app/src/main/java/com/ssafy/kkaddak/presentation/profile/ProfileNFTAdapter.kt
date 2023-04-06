@@ -44,7 +44,7 @@ class ProfileNFTAdapter(
     }
 
     fun setData(data: List<ProfileNFTItem>) {
-        this.items = data
+        this.items = data.reversed()
         notifyDataSetChanged()
     }
 }
