@@ -29,6 +29,7 @@ class UploadMarketFragment :
     }
 
     override fun initView() {
+        marketViewModel.clearNftId()
         initListener()
         getData()
     }

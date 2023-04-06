@@ -19,4 +19,8 @@
         android:font="@font/tmon_monsori"
         app:font="@font/tmon_monsori"/>
 
+    <font
+        android:font="@font/urbanist_semibold"
+        app:font="@font/urbanist_semibold"/>
+
 </font-family>
