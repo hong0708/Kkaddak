@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
@@ -26,6 +27,7 @@ class BuyMarketFragment :
     private var myNft: Boolean = false
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
+        Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
         initListener()
         initRecyclerView()
         getData()
@@ -35,7 +37,7 @@ class BuyMarketFragment :
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)
-
+        Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
     }
 
     private fun getData() {
@@ -49,7 +51,6 @@ class BuyMarketFragment :
             marketViewModel.getCreatorImg(it.sellerNickname)
         }
         marketViewModel.getNftDetail(args.marketId)
-
     }
 
     private fun setData() {
@@ -60,13 +61,13 @@ class BuyMarketFragment :
                     tvContentSellingKat.text = String.format("%.1f", it.price.toDouble() / 100000000)
                 }
                 if(!it!!.isSelling) {
-                    tvBuy.text = "판매종료"
+                    tvBuy.setText(R.string.content_closed)
                     clBuy.setBackgroundResource(R.drawable.bg_rect_night_rider_radius15)
                     clBuy.isClickable = false
                 } else {
                     if (ApplicationClass.preferences.nickname == it.sellerNickname) {
                         myNft = true
-                        tvBuy.text = "종료하기"
+                        tvBuy.setText(R.string.content_close)
                         clBuy.setBackgroundResource(R.drawable.bg_rect_bitter_sweet_to_neon_pink_radius15)
                         clBuy.isClickable = true
                     } else {

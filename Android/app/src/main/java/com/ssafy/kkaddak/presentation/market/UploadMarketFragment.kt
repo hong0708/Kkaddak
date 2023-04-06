@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
 import com.ssafy.kkaddak.common.util.NFTFunction
@@ -29,6 +30,7 @@ class UploadMarketFragment :
     }
 
     override fun initView() {
+        marketViewModel.clearNftId()
         initListener()
         getData()
     }
@@ -45,8 +47,12 @@ class UploadMarketFragment :
 
     private fun initListener() {
         binding.tvSelectNftImage.setOnClickListener {
-            val dialog = DialogUploadNftDetailFragment()
-            dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
+            if (ApplicationClass.preferences.walletAddress.toString() == "") {
+                showToast("지갑 등록이 필요합니다.")
+            } else {
+                val dialog = DialogUploadNftDetailFragment()
+                dialog.show(requireActivity().supportFragmentManager, "DialogUploadNftDetailFragment")
+            }
         }
         binding.clUpload.setOnClickListener {
             marketViewModel.nftId.observe(viewLifecycleOwner) { nftId ->

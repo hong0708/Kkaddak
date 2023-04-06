@@ -110,7 +110,7 @@ class BuyFragment : BaseFragment<FragmentBuyBinding>(R.layout.fragment_buy) {
     private fun getBalance() {
         if (ApplicationClass.preferences.walletAddress.toString() == "") {
             state = false
-            showToast("지갑 등록 또는 생성을 진행해주세요.")
+            showToast("지갑 등록이 필요합니다.")
             binding.tvPayment.setText(R.string.content_buy_charge)
         } else {
             WalletFunction().balanceOf(binding.tvWalletBalance)
