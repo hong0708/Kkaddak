@@ -18,6 +18,8 @@ import org.web3j.tx.gas.StaticGasProvider
 import java.math.BigInteger
 
 private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
+
+//private const val NFT_CONTRACT_ADDRESS = "0x2EcAE23EaE157fC279C2cb457624F112F47B387A"
 private const val NFT_CONTRACT_ADDRESS = "0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8"
 private const val TAG = "NFT info"
 
