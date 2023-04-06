@@ -27,8 +27,7 @@ class BuyMarketFragment :
     private var myNft: Boolean = false
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
-        Glide.with(this@BuyMarketFragment)
-            .clear(binding.ivNftCreatorProfile)
+        Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
         initListener()
         initRecyclerView()
         getData()
@@ -38,8 +37,7 @@ class BuyMarketFragment :
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)
-        Glide.with(this@BuyMarketFragment)
-            .clear(binding.ivNftCreatorProfile)
+        Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
     }
 
     private fun getData() {
@@ -53,7 +51,6 @@ class BuyMarketFragment :
             marketViewModel.getCreatorImg(it.sellerNickname)
         }
         marketViewModel.getNftDetail(args.marketId)
-
     }
 
     private fun setData() {
