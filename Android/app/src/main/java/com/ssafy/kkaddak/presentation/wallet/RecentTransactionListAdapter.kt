@@ -61,10 +61,22 @@ class RecentTransactionListAdapter :
                         tvSignKat.text = "+"
                         tvTypeHistory.text = "NFT 판매"
                     }
-                }
-                else if (data.transferType == "구독") {
-                    ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
-                    tvSignKat.text = "-"
+                } else if (data.transferType == "구독") {
+                    if (data.sender ==
+                        String(
+                            ApplicationClass.keyStore.decryptData(
+                                WalletFunction().decode(ApplicationClass.preferences.walletAddress.toString())
+                            )
+                        )
+                    ) {
+                        ivTypeHistory.setImageResource(R.drawable.ic_down_caret)
+                        tvSignKat.text = "-"
+                    } else {
+
+                        ivTypeHistory.setImageResource(R.drawable.ic_up_caret)
+                        tvSignKat.text = "+"
+                        tvTypeHistory.text = "구독 후원"
+                    }
                 } else {
                     ivTypeHistory.setImageResource(R.drawable.ic_up_caret)
                     tvSignKat.text = "+"
