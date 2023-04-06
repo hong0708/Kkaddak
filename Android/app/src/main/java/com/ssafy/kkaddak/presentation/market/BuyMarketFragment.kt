@@ -6,6 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.ssafy.kkaddak.ApplicationClass
 import com.ssafy.kkaddak.R
 import com.ssafy.kkaddak.common.util.BindingAdapters.setNormalImg
@@ -26,6 +27,8 @@ class BuyMarketFragment :
     private var myNft: Boolean = false
     override fun initView() {
         (activity as MainActivity).hideBottomNavigation(true)
+        Glide.with(this@BuyMarketFragment)
+            .clear(binding.ivNftCreatorProfile)
         initListener()
         initRecyclerView()
         getData()
@@ -35,7 +38,8 @@ class BuyMarketFragment :
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).hideBottomNavigation(false)
-
+        Glide.with(this@BuyMarketFragment)
+            .clear(binding.ivNftCreatorProfile)
     }
 
     private fun getData() {

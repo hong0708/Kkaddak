@@ -176,7 +176,7 @@ class MarketViewModel @Inject constructor(
         return _nftListData.value?.size
     }
 
-    fun getCreatorImg(nickname: String) = viewModelScope.async {
+    fun getCreatorImg(nickname: String) = viewModelScope.launch {
         when (val value = getProfileInfoUseCase(nickname)) {
             is Resource.Success<ProfileItem> -> {
                 creatorImg = value.data.profilepath.toString()
