@@ -78,7 +78,13 @@ ethereum:
   contract:
     wallet-address: '0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74'
     song-address: ''
-    nft-address: '0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8'
+    nft-address: '0x2EcAE23EaE157fC279C2cb457624F112F47B387A'
   rpc-url: 'https://rpc.ssafy-blockchain.com'
-  private-key: '26e3f26438ad12eb31278ae6d1db81d2a17b6fb2b24a48f06a3a8bc5dc50b8db'
+  admin-address: '0x1e5ece0c6abecb6f0328734651c337ab3a524ddb'
+  private-key: '26e3f26438ad12eb31278ae6d1db81d2a17d6fc2a24a48f06c3a8ec5dc50b8db'
+  exchange-rate: 1000000
 
+boot-pay:
+  verification:
+    rest-application-id: '6426738a755e27001ead61a1'
+    private-key: 'RiFFkHvn49IC/Bz9+QcO4gVI8qqBR1eDA2NKMzAb98M='
