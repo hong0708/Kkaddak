@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -86,7 +87,9 @@ class ProfileSongFragment :
     override fun mintNFT(songItem: SongItem, bitmap: Bitmap) {
         // 다이얼로그 에서 이미지 생성 또는 여기서 생성하고 다이얼로그 띄우기
         profileViewModel.nftImageUrl.observe(viewLifecycleOwner) {
-            if (it != "") {
+            Log.d("ghdalsrl", "mintNFT: $it")
+
+            if (it != "" && it != profileViewModel.beforeNFT.value) {
                 NFTFunction().mintMusicNFT(
                     String(
                         ApplicationClass.keyStore.decryptData(
@@ -115,6 +118,7 @@ class ProfileSongFragment :
                     profileViewModel.getProfileSong(args.nickname)
                 }
 
+                profileViewModel.checkBeforeNFT(it)
             }
         }
         saveImageToGallery(bitmap, songItem.songId)
@@ -249,69 +253,69 @@ class ProfileSongFragment :
         ActivityCompat.requestPermissions(activity, arrayOf(permission), 1)
     }
 
-   /* private val loginLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            Log.d(TAG, "registerForActivityResult - result : $result")
-            if (result.resultCode == Activity.RESULT_OK) {
-                Log.d(TAG, "registerForActivityResult - RESULT_OK")
-                authenticateToEncrypt()  //생체 인증 가능 여부확인 다시 호출
-            } else {
-                Log.d(TAG, "registerForActivityResult - NOT RESULT_OK")
-            }
-        }
+    /* private val loginLauncher =
+         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+             Log.d(TAG, "registerForActivityResult - result : $result")
+             if (result.resultCode == Activity.RESULT_OK) {
+                 Log.d(TAG, "registerForActivityResult - RESULT_OK")
+                 authenticateToEncrypt()  //생체 인증 가능 여부확인 다시 호출
+             } else {
+                 Log.d(TAG, "registerForActivityResult - NOT RESULT_OK")
+             }
+         }
 
-    private fun setPromptInfo(): BiometricPrompt.PromptInfo {
+     private fun setPromptInfo(): BiometricPrompt.PromptInfo {
 
-        val promptBuilder: BiometricPrompt.PromptInfo.Builder = BiometricPrompt.PromptInfo.Builder()
+         val promptBuilder: BiometricPrompt.PromptInfo.Builder = BiometricPrompt.PromptInfo.Builder()
 
-        promptBuilder.setTitle("Biometric login for KKADDAK")
-        promptBuilder.setSubtitle("Log in using your biometric credential")
-        promptBuilder.setNegativeButtonText("Use account password")
+         promptBuilder.setTitle("Biometric login for KKADDAK")
+         promptBuilder.setSubtitle("Log in using your biometric credential")
+         promptBuilder.setNegativeButtonText("Use account password")
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            //  안면인식 ap사용 android 11부터 지원
-            promptBuilder.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-        }
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+             //  안면인식 ap사용 android 11부터 지원
+             promptBuilder.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+         }
 
-        promptInfo = promptBuilder.build()
-        return promptInfo as BiometricPrompt.PromptInfo
-    }
+         promptInfo = promptBuilder.build()
+         return promptInfo as BiometricPrompt.PromptInfo
+     }
 
-    private fun setBiometricPrompt(): BiometricPrompt {
-        executor = ContextCompat.getMainExecutor(requireContext())
+     private fun setBiometricPrompt(): BiometricPrompt {
+         executor = ContextCompat.getMainExecutor(requireContext())
 
-        biometricPrompt = BiometricPrompt(
-            requireActivity(),
-            executor!!,
-            object : BiometricPrompt.AuthenticationCallback() {
+         biometricPrompt = BiometricPrompt(
+             requireActivity(),
+             executor!!,
+             object : BiometricPrompt.AuthenticationCallback() {
 
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-//                    Toast.makeText(
-//                        requireActivity(),
-//                        """"지문 인식 ERROR [ errorCode: $errorCode, errString: $errString ]""".trimIndent(),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-                    showToast("보안 인식에 실패하였습니다.")
-                }
+                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                     super.onAuthenticationError(errorCode, errString)
+ //                    Toast.makeText(
+ //                        requireActivity(),
+ //                        """"지문 인식 ERROR [ errorCode: $errorCode, errString: $errString ]""".trimIndent(),
+ //                        Toast.LENGTH_SHORT
+ //                    ).show()
+                     showToast("보안 인식에 실패하였습니다.")
+                 }
 
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    showToast("성공! 이제 NFT를 발급 받으세요")
+                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                     super.onAuthenticationSucceeded(result)
+                     showToast("성공! 이제 NFT를 발급 받으세요")
 
-                    checkBio = true
-                }
+                     checkBio = true
+                 }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    showToast("보안 인식에 실패하였습니다.")
-                }
+                 override fun onAuthenticationFailed() {
+                     super.onAuthenticationFailed()
+                     showToast("보안 인식에 실패하였습니다.")
+                 }
 
-            })
-        return biometricPrompt as BiometricPrompt
-    }
+             })
+         return biometricPrompt as BiometricPrompt
+     }
 
-    *//*
+     *//*
     * 생체 인식 인증을 사용할 수 있는지 확인
     * *//*
     fun authenticateToEncrypt() {

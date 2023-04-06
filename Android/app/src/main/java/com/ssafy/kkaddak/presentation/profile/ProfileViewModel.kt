@@ -69,6 +69,9 @@ class ProfileViewModel @Inject constructor(
     private val _songStateChange: MutableLiveData<Boolean?> = MutableLiveData(false)
     val songStateChange: MutableLiveData<Boolean?> = _songStateChange
 
+    private val _beforeNFT: MutableLiveData<String?> = MutableLiveData()
+    val beforeNFT: MutableLiveData<String?> = _beforeNFT
+
     private val _bioCheck: MutableLiveData<Boolean?> = MutableLiveData(false)
     val bioCheck: MutableLiveData<Boolean?> = _bioCheck
 
@@ -208,5 +211,9 @@ class ProfileViewModel @Inject constructor(
 
     fun changeBioCheck(isCheck: Boolean) {
         _bioCheck.value = isCheck
+    }
+
+    fun checkBeforeNFT(nftImageUrl: String) {
+        _nftImageUrl.value = nftImageUrl
     }
 }
