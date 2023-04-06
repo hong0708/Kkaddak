@@ -21,7 +21,8 @@ private const val INFURA_URL = "https://rpc.ssafy-blockchain.com"
 
 //private const val NFT_CONTRACT_ADDRESS = "0x2EcAE23EaE157fC279C2cb457624F112F47B387A"
 //private const val NFT_CONTRACT_ADDRESS = "0x0C0391FF59A532a51cf8E10F3C0632401EA0b4B8"
-private const val NFT_CONTRACT_ADDRESS = "0x2EcAE23EaE157fC279C2cb457624F112F47B387A"
+//private const val NFT_CONTRACT_ADDRESS = "0x2EcAE23EaE157fC279C2cb457624F112F47B387A"
+private const val NFT_CONTRACT_ADDRESS = "0x9B84e6aCBc8B1A82c6eeF1e98EdEb5A355bFc6D7"
 private const val TAG = "NFT info"
 
 class NFTFunction {

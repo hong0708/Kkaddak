@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -87,9 +86,8 @@ class ProfileSongFragment :
     override fun mintNFT(songItem: SongItem, bitmap: Bitmap) {
         // 다이얼로그 에서 이미지 생성 또는 여기서 생성하고 다이얼로그 띄우기
         profileViewModel.nftImageUrl.observe(viewLifecycleOwner) {
-            Log.d("ghdalsrl", "mintNFT: $it")
-
-            if (it != "" && it != profileViewModel.beforeNFT.value) {
+            if (it != "") {
+                profileViewModel.checkBeforeNFT("")
                 NFTFunction().mintMusicNFT(
                     String(
                         ApplicationClass.keyStore.decryptData(
@@ -117,8 +115,6 @@ class ProfileSongFragment :
                     delay(1000)
                     profileViewModel.getProfileSong(args.nickname)
                 }
-
-                profileViewModel.checkBeforeNFT(it)
             }
         }
         saveImageToGallery(bitmap, songItem.songId)
