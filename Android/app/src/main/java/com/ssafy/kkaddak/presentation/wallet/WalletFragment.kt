@@ -20,6 +20,10 @@ import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentWalletBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kr.co.bootpay.android.Bootpay
 import kr.co.bootpay.android.events.BootpayEventListener
 import kr.co.bootpay.android.models.BootExtra
@@ -34,6 +38,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
     private val walletViewModel by viewModels<WalletViewModel>()
     private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
+    private var executor: Executor? = null
+    private var biometricPrompt: BiometricPrompt? = null
+    private var promptInfo: BiometricPrompt.PromptInfo? = null
 
     override fun initView() {
         initListener()
@@ -48,7 +55,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         WalletFunction().insertUserWallet(walletAddress, privateKey, binding.tvTotalBalance)
         visibility(true)
         walletViewModel.registerWalletAccount(walletAddress)
-        initRecyclerView()
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(1000)
+            initRecyclerView()
+        }
     }
 
     override fun generateWallet() {
@@ -145,7 +155,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 if (ApplicationClass.preferences.walletAddress.toString() == "") {
                     showToast("지갑 등록 또는 생성을 진행해주세요.")
                 } else {
-                    Log.d(TAG, "initListener: ")
                     authenticateToEncrypt()
 //                    if ((activity as MainActivity).authenticateToEncrypt()){
 //                        // 충전 플로우
@@ -181,11 +190,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         navigate(WalletFragmentDirections.actionWalletFragmentToOtherProfileFragment(creatorId))
     }
 
-
-    private var executor: Executor? = null
-    private var biometricPrompt: BiometricPrompt? = null
-    private var promptInfo: BiometricPrompt.PromptInfo? = null
-
     private val loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             Log.d(TAG, "registerForActivityResult - result : $result")
@@ -201,7 +205,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
         val promptBuilder: BiometricPrompt.PromptInfo.Builder = BiometricPrompt.PromptInfo.Builder()
 
-        promptBuilder.setTitle("Biometric login for my app")
+        promptBuilder.setTitle("Biometric login for KKADDAK")
         promptBuilder.setSubtitle("Log in using your biometric credential")
         promptBuilder.setNegativeButtonText("Use account password")
 
