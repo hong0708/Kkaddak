@@ -1,16 +1,7 @@
 package com.ssafy.kkaddak.presentation.wallet
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +21,6 @@ import kr.co.bootpay.android.models.BootExtra
 import kr.co.bootpay.android.models.BootItem
 import kr.co.bootpay.android.models.Payload
 import org.json.JSONObject
-import java.util.concurrent.Executor
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wallet),
@@ -38,17 +28,17 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
     private val walletViewModel by viewModels<WalletViewModel>()
     private val recentTransactionListAdapter by lazy { RecentTransactionListAdapter() }
-    private var executor: Executor? = null
-    private var biometricPrompt: BiometricPrompt? = null
-    private var promptInfo: BiometricPrompt.PromptInfo? = null
+//    private var executor: Executor? = null
+//    private var biometricPrompt: BiometricPrompt? = null
+//    private var promptInfo: BiometricPrompt.PromptInfo? = null
 
     override fun initView() {
         initListener()
         getBalance()
         initRecyclerView()
 
-        biometricPrompt = setBiometricPrompt()
-        promptInfo = setPromptInfo()
+//        biometricPrompt = setBiometricPrompt()
+//        promptInfo = setPromptInfo()
     }
 
     override fun setWallet(walletAddress: String, privateKey: String) {
@@ -56,7 +46,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         visibility(true)
         walletViewModel.registerWalletAccount(walletAddress)
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
+            delay(500)
             initRecyclerView()
         }
     }
@@ -155,11 +145,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
                 if (ApplicationClass.preferences.walletAddress.toString() == "") {
                     showToast("지갑 등록 또는 생성을 진행해주세요.")
                 } else {
-                    authenticateToEncrypt()
-//                    if ((activity as MainActivity).authenticateToEncrypt()){
-//                        // 충전 플로우
-//                        ChargeCoinDialog(requireActivity(), this@WalletFragment).show()
-//                    }
+                    // 충전 플로우
+                    ChargeCoinDialog(requireActivity(), this@WalletFragment).show()
+
+                    // authenticateToEncrypt()
                 }
             }
         }
@@ -190,7 +179,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         navigate(WalletFragmentDirections.actionWalletFragmentToOtherProfileFragment(creatorId))
     }
 
-    private val loginLauncher =
+/*    private val loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             Log.d(TAG, "registerForActivityResult - result : $result")
             if (result.resultCode == Activity.RESULT_OK) {
@@ -251,9 +240,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         return biometricPrompt as BiometricPrompt
     }
 
-    /*
+    *//*
     * 생체 인식 인증을 사용할 수 있는지 확인
-    * */
+    * *//*
     fun authenticateToEncrypt() {
         var allow = false
         val biometricManager = BiometricManager.from(requireActivity())
@@ -294,9 +283,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         }
     }
 
-    /*
+    *//*
     * 생체 인식 인증 실행
-    * */
+    * *//*
     private fun goAuthenticate() {
         Log.d(TAG, "goAuthenticate - promptInfo : $promptInfo")
         promptInfo?.let {
@@ -304,9 +293,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
         }
     }
 
-    /*
+    *//*
     * 지문 등록 화면으로 이동
-    * */
+    * *//*
     fun goBiometricSettings() {
         val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
             putExtra(
@@ -319,5 +308,5 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(R.layout.fragment_wal
 
     companion object {
         const val TAG: String = "BiometricActivity"
-    }
+    }*/
 }

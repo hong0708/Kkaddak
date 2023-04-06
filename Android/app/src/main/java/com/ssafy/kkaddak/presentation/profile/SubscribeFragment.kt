@@ -1,18 +1,8 @@
 package com.ssafy.kkaddak.presentation.profile
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.kkaddak.ApplicationClass
@@ -22,7 +12,6 @@ import com.ssafy.kkaddak.common.util.WalletFunction
 import com.ssafy.kkaddak.databinding.FragmentSubscribeBinding
 import com.ssafy.kkaddak.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.Executor
 
 @AndroidEntryPoint
 class SubscribeFragment :
@@ -31,16 +20,16 @@ class SubscribeFragment :
     private val args by navArgs<SubscribeFragmentArgs>()
     private val profileViewModel by activityViewModels<ProfileViewModel>()
 
-    private var executor: Executor? = null
-    private var biometricPrompt: BiometricPrompt? = null
-    private var promptInfo: BiometricPrompt.PromptInfo? = null
+//    private var executor: Executor? = null
+//    private var biometricPrompt: BiometricPrompt? = null
+//    private var promptInfo: BiometricPrompt.PromptInfo? = null
 
     override fun initView() {
         setData()
         initListener()
 
-        biometricPrompt = setBiometricPrompt()
-        promptInfo = setPromptInfo()
+//        biometricPrompt = setBiometricPrompt()
+//        promptInfo = setPromptInfo()
     }
 
     private fun initListener() {
@@ -62,12 +51,16 @@ class SubscribeFragment :
                             visibility = View.VISIBLE
                             tvBalanceLack.visibility = View.GONE
                             setOnClickListener {
-
-                                authenticateToEncrypt()
-
-
-
-
+                                profileViewModel.followArtist(args.memberId)
+                                // 구독 시 결제 진행
+                                WalletFunction().transfer(
+                                    args.address,
+                                    (5 * 100000000).toLong(),
+                                    "구독"
+                                )
+                                showToast("구독 후원이 완료되었습니다.")
+                                popBackStack()
+                                //authenticateToEncrypt()
                             }
                         }
                     } else {
@@ -97,7 +90,7 @@ class SubscribeFragment :
         navigate(SubscribeFragmentDirections.actionSubscribeFragmentToOtherProfileFragment(creatorId))
     }
 
-    private val loginLauncher =
+/*    private val loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             Log.d(TAG, "registerForActivityResult - result : $result")
             if (result.resultCode == Activity.RESULT_OK) {
@@ -166,9 +159,9 @@ class SubscribeFragment :
         return biometricPrompt as BiometricPrompt
     }
 
-    /*
+    *//*
     * 생체 인식 인증을 사용할 수 있는지 확인
-    * */
+    * *//*
     fun authenticateToEncrypt() {
         var allow = false
         val biometricManager = BiometricManager.from(requireActivity())
@@ -209,9 +202,9 @@ class SubscribeFragment :
         }
     }
 
-    /*
+    *//*
     * 생체 인식 인증 실행
-    * */
+    * *//*
     private fun goAuthenticate() {
         Log.d(TAG, "goAuthenticate - promptInfo : $promptInfo")
         promptInfo?.let {
@@ -219,9 +212,9 @@ class SubscribeFragment :
         }
     }
 
-    /*
+    *//*
     * 지문 등록 화면으로 이동
-    * */
+    * *//*
     fun goBiometricSettings() {
         val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
             putExtra(
@@ -234,5 +227,5 @@ class SubscribeFragment :
 
     companion object {
         const val TAG: String = "SubscribeFragment"
-    }
+    }*/
 }

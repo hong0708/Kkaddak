@@ -2,20 +2,13 @@ package com.ssafy.kkaddak.presentation.profile
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.Settings
-import android.util.Log
 import android.view.WindowManager
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -42,7 +35,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.io.FileOutputStream
-import java.util.concurrent.Executor
 
 @AndroidEntryPoint
 class ProfileSongFragment :
@@ -63,15 +55,15 @@ class ProfileSongFragment :
         )
     }
 
-    private var executor: Executor? = null
-    private var biometricPrompt: BiometricPrompt? = null
-    private var promptInfo: BiometricPrompt.PromptInfo? = null
+//    private var executor: Executor? = null
+//    private var biometricPrompt: BiometricPrompt? = null
+//    private var promptInfo: BiometricPrompt.PromptInfo? = null
 
     override fun initView() {
         setProfileSong()
 
-        biometricPrompt = setBiometricPrompt()
-        promptInfo = setPromptInfo()
+//        biometricPrompt = setBiometricPrompt()
+//        promptInfo = setPromptInfo()
     }
 
     override fun onResume() {
@@ -82,6 +74,7 @@ class ProfileSongFragment :
             }
         }
 
+        profileViewModel.getProfileSong(args.nickname)
         CoroutineScope(Dispatchers.Main).launch {
             delay(1000)
             profileViewModel.getProfileSong(args.nickname)
@@ -166,11 +159,13 @@ class ProfileSongFragment :
     }
 
     private fun uploadMySong(songData: SongItem) {
-        if (checkBio) {
+        /*if (checkBio) {
             CreateNFTDialog(requireActivity(), songData, this).show()
         } else {
             authenticateToEncrypt()
-        }
+        }*/
+
+        CreateNFTDialog(requireActivity(), songData, this).show()
     }
 
     private fun saveImageToGallery(bitmap: Bitmap, id: String) {
@@ -254,7 +249,7 @@ class ProfileSongFragment :
         ActivityCompat.requestPermissions(activity, arrayOf(permission), 1)
     }
 
-    private val loginLauncher =
+   /* private val loginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             Log.d(TAG, "registerForActivityResult - result : $result")
             if (result.resultCode == Activity.RESULT_OK) {
@@ -316,9 +311,9 @@ class ProfileSongFragment :
         return biometricPrompt as BiometricPrompt
     }
 
-    /*
+    *//*
     * 생체 인식 인증을 사용할 수 있는지 확인
-    * */
+    * *//*
     fun authenticateToEncrypt() {
         var allow = false
         val biometricManager = BiometricManager.from(requireActivity())
@@ -359,9 +354,9 @@ class ProfileSongFragment :
         }
     }
 
-    /*
+    *//*
     * 생체 인식 인증 실행
-    * */
+    * *//*
     private fun goAuthenticate() {
         Log.d(TAG, "goAuthenticate - promptInfo : $promptInfo")
         promptInfo?.let {
@@ -369,9 +364,9 @@ class ProfileSongFragment :
         }
     }
 
-    /*
+    *//*
     * 지문 등록 화면으로 이동
-    * */
+    * *//*
     fun goBiometricSettings() {
         val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
             putExtra(
@@ -384,5 +379,5 @@ class ProfileSongFragment :
 
     companion object {
         const val TAG: String = "BiometricActivity"
-    }
+    }*/
 }
