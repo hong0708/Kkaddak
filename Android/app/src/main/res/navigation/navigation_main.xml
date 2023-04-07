@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ssafy.kkaddak.presentation.home.HomeFragment"
+        android:label="homeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.MarketFragment"
+        android:label="marketFragment"
+        tools:layout="@layout/fragment_market">
+        <action
+            android:id="@+id/action_marketFragment_to_buyMarketFragment"
+            app:destination="@id/buyMarketFragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_uploadMarketFragment"
+            app:destination="@+id/uploadMarketFragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyMarketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.BuyMarketFragment"
+        android:label="buyMarketFragment"
+        tools:layout="@layout/fragment_buy_market">
+        <argument
+            android:name="marketId"
+            app:argType="integer" />
+        <argument
+            android:name="nftId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_buyMarketFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_buyMarketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+        <action
+            android:id="@+id/action_buyMarketFragment_to_BuyFragment"
+            app:destination="@id/buyFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.BuyFragment"
+        android:label="buyFragment"
+        tools:layout="@layout/fragment_buy">
+        <argument
+            android:name="marketId"
+            app:argType="integer" />
+        <argument
+            android:name="nftImagePath"
+            app:argType="string" />
+        <argument
+            android:name="nftCreator"
+            app:argType="string" />
+        <argument
+            android:name="nftPrice"
+            app:argType="string" />
+        <argument
+            android:name="sellerAccount"
+            app:argType="string" />
+        <argument
+            android:name="nftId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_buyFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_buyFragment_to_WalletFragment"
+            app:destination="@id/walletFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/uploadMarketFragment"
+        android:name="com.ssafy.kkaddak.presentation.market.UploadMarketFragment"
+        android:label="uploadMarketFragment"
+        tools:layout="@layout/fragment_upload_market">
+        <action
+            android:id="@+id/action_uploadMarketFragment_to_MarketFragment"
+            app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_uploadMarketFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileFragment"
+        android:label="profileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_uploadSongFragment"
+            app:destination="@id/uploadSongFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myFollowingFragment"
+            app:destination="@id/myFollowingFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myFollowerFragment"
+            app:destination="@id/myFollowerFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/songListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.SongListFragment"
+        android:label="songListFragment"
+        tools:layout="@layout/fragment_song_list">
+        <action
+            android:id="@+id/action_songListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.ssafy.kkaddak.presentation.wallet.WalletFragment"
+        android:label="walletFragment"
+        tools:layout="@layout/fragment_wallet">
+        <action
+            android:id="@+id/action_walletFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.PlayListFragment"
+        android:label="PlayListFragment"
+        tools:layout="@layout/fragment_playlist">
+        <action
+            android:id="@+id/action_playListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/uploadSongFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.UploadSongFragment"
+        android:label="UploadSongFragment"
+        tools:layout="@layout/fragment_upload_song">
+        <action
+            android:id="@+id/action_uploadSongFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyPageFragment"
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_mypage">
+        <action
+            android:id="@+id/action_myPageFragment_to_playListFragment"
+            app:destination="@id/playListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_likeListFragment"
+            app:destination="@id/likeListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/likeListFragment"
+        android:name="com.ssafy.kkaddak.presentation.songlist.LikeListFragment"
+        android:label="LikeListFragment"
+        tools:layout="@layout/fragment_like_list">
+        <action
+            android:id="@+id/action_likeListFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ssafy.kkaddak.presentation.join.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash" />
+
+    <fragment
+        android:id="@+id/otherProfileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.OtherProfileFragment"
+        android:label="OtherProfileFragment"
+        tools:layout="@layout/fragment_other_profile">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_otherProfileFragment_to_subscribeFragment"
+            app:destination="@id/subscribeFragment" />
+        <action
+            android:id="@+id/action_otherProfileFragment_self"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileSongFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileSongFragment"
+        android:label="fragment_profile_song"
+        tools:layout="@layout/fragment_profile_song">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="isMine"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileNFTFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.ProfileNFTFragment"
+        android:label="fragment_profile_nft"
+        tools:layout="@layout/fragment_profile_nft">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="isMine"
+            app:argType="boolean" />
+        <argument
+            android:name="walletId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subscribeFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.SubscribeFragment"
+        android:label="SubscribeFragment"
+        tools:layout="@layout/fragment_subscribe">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="profileImg"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="memberId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_subscribeFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFollowingFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyFollowingFragment"
+        android:label="MyFollowingFragment"
+        tools:layout="@layout/fragment_my_following">
+        <action
+            android:id="@+id/action_myFollowingFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFollowerFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.MyFollowerFragment"
+        android:label="MyFollowerFragment"
+        tools:layout="@layout/fragment_my_follower">
+        <action
+            android:id="@+id/action_myFollowerFragment_to_otherProfileFragment"
+            app:destination="@id/otherProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.ssafy.kkaddak.presentation.profile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile" />
+</navigation>

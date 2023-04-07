@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black_transparent80">#CC000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_transparent50">#80FFFFFF</color>
+    <color name="white_transparent20">#33FFFFFF</color>
+    <color name="bitter_sweet">#FF6161</color>
+    <color name="han_purple">#530FFF</color>
+    <color name="navy_blue">#025FFF</color>
+    <color name="indigo">#65188D</color>
+    <color name="neon_pink">#FF61D6</color>
+    <color name="nobel">#999999</color>
+    <color name="dark_gray">#AAAAAA</color>
+    <color name="spun_pearl">#A5A5A6</color>
+    <color name="dim_gray">#656565</color>
+    <color name="nobel2">#979797</color>
+    <color name="dim_gray_transparent90">#E6656565</color>
+    <color name="night_rider">#303030</color>
+    <color name="charcoal">#494949</color>
+    <color name="gains_boro_transparent10">#1AD9D9D9</color>
+    <color name="nero">#282828</color>
+    <color name="very_light_grey">#CBCBCB</color>
+    <color name="bastille">#2f2f34</color>
+    <color name="vivid_violet">#8C32A3</color>
+</resources>

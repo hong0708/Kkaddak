@@ -1,0 +1,111 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    namespace 'com.ssafy.kkaddak'
+    compileSdk 33
+    
+    defaultConfig {
+        applicationId "com.ssafy.kkaddak"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk true
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    implementation libs.bundles.androidx
+    implementation libs.android.material
+    implementation libs.hilt
+    implementation libs.databinding
+
+    implementation libs.bundles.retrofit.bundles
+    implementation libs.bundles.okhttp3.bundles
+
+    testImplementation libs.junit
+
+    androidTestImplementation libs.android.test.junit
+    androidTestImplementation libs.android.test.espresso
+
+    kapt libs.hilt.complier
+
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
+
+    implementation libs.viewpager.indicator
+
+    implementation libs.room
+    kapt libs.room.compiler
+
+    implementation libs.firebase.messaging
+
+    implementation platform(libs.firebase.bom)
+
+    implementation libs.lottie
+
+    implementation libs.tedpermission
+
+    // kakao login
+    implementation libs.kakao.sdk.user
+
+    implementation libs.exoplayer
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.ui
+
+    implementation libs.exoplayer
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.ui
+
+    // web3j for wallet
+    implementation libs.web3j.core
+    implementation libs.web3j.contracts
+    implementation libs.bouncycastle
+
+    // 생체인증 라이브러리
+    implementation libs.biometric
+
+    implementation libs.bootpay
+}
+
+kapt {
+    correctErrorTypes true
+}

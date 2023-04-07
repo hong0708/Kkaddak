@@ -1,0 +1,227 @@
+<resources>
+    <string name="app_name">까딱까딱</string>
+
+    <!-- Main -->
+    <string name="content_menu_song_list">목록</string>
+    <string name="content_menu_wallet">지갑</string>
+    <string name="content_menu_home">홈</string>
+    <string name="content_menu_market">마켓</string>
+    <string name="content_menu_profile">프로필</string>
+    <string name="image_fab_home">image_fab_home</string>
+
+    <!-- Market -->
+    <string name="title_market">Market</string>
+    <string name="content_market_allnfts">All NFTs</string>
+    <string name="content_market_selling">Selling</string>
+    <string name="content_market_bookmark">Bookmark</string>
+    <string name="content_market_like">0</string>
+    <string name="content_market_creator">창작자</string>
+    <string name="content_market_contour"> | </string>
+    <string name="content_market_song_title">노래 제목</string>
+    <string name="content_market_nft_create_date">23.03.23</string>
+    <string name="content_market_nft_price">6.64</string>
+    <string name="image_market_upload">image_market_upload</string>
+    <string name="image_nft_item">image_nft_item</string>
+    <string name="image_nft_like">image_nft_like</string>
+    <string name="image_market_timer">image_market_timer</string>
+    <string name="image_kat">image_kat</string>
+
+    <!-- upload Market -->
+    <string name="title_upload_market">판매 등록</string>
+    <string name="content_upload_nft_image">NFT 선택</string>
+    <string name="content_select_nft">선택하기</string>
+    <string name="content_selling_price">판매 금액</string>
+    <string name="content_kat">KAT</string>
+    <string name="content_upload_nft">등록하기</string>
+    <string name="content_info_home_nft1">선택한 NFT가 대표NFT일 경우</string>
+    <string name="content_info_home_nft2">홈 화면에서 해제됩니다.</string>
+    <string name="image_upload_nft_image">image_upload_nft_image</string>
+    <string name="content_upload_selling_kat">content_upload_selling_kat</string>
+    <string name="content_kat_unit">content_kat_unit</string>
+    <string name="content_select_nft_image">content_select_nft_image</string>
+    <string name="image_upload_nft_item">image_upload_nft_item</string>
+
+    <!-- buying market-->
+    <string name="title_market_upper">MARKET</string>
+    <string name="title_nft_song_title">까딱까딱</string>
+    <string name="content_by">by</string>
+    <string name="content_nft_creator">갱갱</string>
+    <string name="content_selling_kat_price">0.008</string>
+    <string name="content_selling_history">판매 히스토리</string>
+    <string name="content_empty_history">판매 이력이 없습니다.</string>
+    <string name="content_buy">구매하기</string>
+    <string name="content_close">종료하기</string>
+    <string name="content_closed">판매종료</string>
+    <string name="content_buy_nft">NFT 구매</string>
+    <string name="content_buy_payment">결제하기</string>
+    <string name="content_buy_charge">충전하기</string>
+    <string name="content_buy_insufficient">잔액이 부족합니다.</string>
+    <string name="image_nft_image">image_nft_image</string>
+    <string name="image_selling_nft_like">image_selling_nft_like</string>
+    <string name="image_nft_creator_profile">image_nft_creator_profile</string>
+    <string name="title_select_nft_item">title_select_nft_item</string>
+
+    <!-- Splash -->
+    <string name="splash_main">splash_main</string>
+    <string name="content_kakao_login">카카오 계정으로 1초 로그인</string>
+    <string name="image_kakao_login_icon">image_kakao_login_icon</string>
+    <string name="image_arrow_left">image_arrow_left</string>
+    <string name="title_join">회원 정보 입력</string>
+    <string name="image_profile_camera">image_profile_camera</string>
+    <string name="content_nickname">닉네임</string>
+    <string name="content_join_nick_name">닉네임을 6자 이내로 입력해주세요.</string>
+    <string name="content_complete_join_kka">까</string>
+    <string name="content_complete_join_ddak">딱</string>
+    <string name="content_complete_join1">에 오신 것을</string>
+    <string name="content_complete_join2">환영합니다! \n 당신의 취향을 찾고 \n 공유해보세요!</string>
+    <string name="content_end_join">시작하기</string>
+    <string name="content_check_nickname">중복 체크</string>
+    <string name="image_logo_word">image_logo_word</string>
+
+    <!-- Home -->
+    <string name="title_home_1_creator">센스있는 창작가</string>
+    <string name="title_home_1_listener">안목있는 리스너</string>
+    <string name="title_home_new_song">들어봐야 하는 신곡</string>
+    <string name="title_home_real_time_chart">실시간 차트</string>
+    <string name="title_home_2">님!</string>
+    <string name="content_home_1">현재까지</string>
+    <string name="content_home_2">개의 작품을</string>
+    <string name="content_home_3">창작하셨군요!</string>
+    <string name="image_home_nft">image_home_nft</string>
+    <string name="image_home_new_song">image_home_new_song</string>
+    <string name="image_home_song_info">image_home_song_info</string>
+    <string name="image_song_play_btn">image_song_play_btn</string>
+    <string name="image_home_play_info">image_home_play_info</string>
+    <string name="image_home_play_info_next">image_home_play_info_next</string>
+    <string name="image_home_play_info_state">image_home_play_info_state</string>
+    <string name="image_home_play_info_favorite">image_home_play_info_favorite</string>
+    <string name="content_home_listener">오늘은 음악을\n창작해보는건\n어떨까요?</string>
+
+    <!-- Profile -->
+    <string name="image_btn_to_mypage">image_btn_to_mypage</string>
+    <string name="image_add_song">image_add_song</string>
+    <string name="image_profile">image_profile</string>
+    <string name="title_profile_work">work</string>
+    <string name="title_profile_follower">follower</string>
+    <string name="title_profile_following">following</string>
+    <string name="image_follow_btn">image_follow_btn</string>
+    <string name="image_edit_profile">image_edit_profile</string>
+    <string name="title_follow_btn">Follow</string>
+    <string name="title_edit_profile_btn">프로필 수정</string>
+    <string name="image_profile_status">image_profile_status</string>
+    <string name="title_following">Following</string>
+    <string name="title_follower">Follower</string>
+
+    <!-- Wallet -->
+    <string name="title_wallet">WALLET</string>
+    <string name="content_total_balance">Total Balance(KAT)</string>
+    <string name="content_charge">충전하기</string>
+    <string name="content_recent_transaction">최근 거래 내역</string>
+    <string name="title_charge_amount">충전 금액</string>
+    <string name="content_krw">KRW</string>
+    <string name="title_exchange_amount">변환 금액</string>
+    <string name="content_eth">ETH</string>
+    <string name="content_market_price">현재 시세를 적용한 변환 금액입니다.</string>
+    <string name="content_payment_confirm">결제하기</string>
+    <string name="content_payment_cancel">취소</string>
+    <string name="image_show_wallet_dialog">image_show_wallet_dialog</string>
+    <string name="content_import_wallet">불러오기</string>
+    <string name="content_make_wallet">지갑 생성</string>
+    <string name="content_wallet_address">지갑 주소</string>
+    <string name="content_wallet_key">개인 키</string>
+    <string name="content_wallet_info">항상 개인키 보안에 신경쓰세요!</string>
+    <string name="content_info_wallet">지갑 정보</string>
+    <string name="content_no_wallet">생성 또는 불러오기가 필요합니다.</string>
+    <string name="image_history_type">image_history_type</string>
+    <string name="title_charge">충전</string>
+
+    <!-- Update Profile -->
+    <string name="title_update_profile">회원 정보 수정</string>
+    <string name="content_update_profile">수정하기</string>
+    <string name="content_register_nft">홈 화면에 등록하시겠습니까?\n기존 NFT가 대체됩니다.</string>
+    <string name="content_confirm">확인</string>
+    <string name="content_cancel">취소</string>
+    <string name="title_song_name">노래 제목</string>
+    <string name="title_created_date">창작 날짜</string>
+    <string name="image_delete_page">image_delete_page</string>
+    <string name="image_download">image_download</string>
+    <string name="image_share">image_share</string>
+    <string name="image_select_home_nft">image_select_home_nft</string>
+    <string name="image_nft">image_nft</string>
+
+    <!-- My Page -->
+    <string name="title_mypage">MYPAGE</string>
+    <string name="title_favorite_song">내가 좋아한 음악</string>
+    <string name="content_show_entire">전체보기</string>
+    <string name="title_history">히스토리</string>
+    <string name="content_coupon">쿠폰함</string>
+    <string name="content_logout">로그아웃</string>
+    <string name="title_coupon">쿠폰함</string>
+    <string name="content_exchange_nft">NFT로 교환하시겠습니까?</string>
+    <string name="title_playlist">PLAYLIST</string>
+    <string name="content_create_nft">음악에 대한 NFT를\n 발급받으시겠습니까?</string>
+    <string name="content_delete_user_song">음악을 삭제하시겠습니까?</string>
+    <string name="image_user_nft">image_user_nft</string>
+
+    <!-- Playlist -->
+    <string name="image_song">image_song</string>
+    <string name="image_song_delete_btn">image_song_delete_btn</string>
+    <string name="content_delete_song">음악을\n플레이리스트에서\n삭제하시겠습니까?</string>
+    <string name="image_playlist_to_detail">image_playlist_to_detail</string>
+    <string name="image_song_detail_favorite">image_song_detail_favorite</string>
+    <string name="image_previous_song">image_previous_song</string>
+    <string name="image_song_play">image_song_play</string>
+    <string name="image_next">image_next</string>
+    <string name="title_like_list">좋아요 누른 음악</string>
+    <string name="image_tooltip">image_tooltip</string>
+
+    <!-- Song List -->
+    <string name="content_genre_dance">댄스</string>
+    <string name="content_genre_hiphop">힙합</string>
+    <string name="content_genre_rb"><![CDATA[R&B]]></string>
+    <string name="content_genre_indie">인디</string>
+    <string name="content_genre_rock">록</string>
+    <string name="content_genre_jazz">재즈</string>
+    <string name="content_genre_ballade">발라드</string>
+    <string name="content_search_song">제목과 창작자로 검색해보세요!</string>
+
+    <!-- Upload Music -->
+    <string name="title_upload_music">업로드</string>
+    <string name="title_music_title">제목</string>
+    <string name="title_music_file">파일</string>
+    <string name="content_music_upload">업로드</string>
+    <string name="content_music_cancel">취소</string>
+    <string name="content_cover_picture">커버 사진</string>
+    <string name="image_music_cover">image_music_cover</string>
+    <string name="content_music_cover_info">음악을 대표할 수 있는\n커버 사진을 등록해주세요!</string>
+    <string name="title_music_genre">장르</string>
+    <string name="title_music_atmosphere">분위기</string>
+    <string name="title_music_atmosphere_funny">신나는</string>
+    <string name="title_music_atmosphere_tranquil">차분한</string>
+    <string name="title_music_atmosphere_comfortable">편안한</string>
+    <string name="title_music_atmosphere_dark">어두운</string>
+    <string name="title_music_atmosphere_fresh">상큼한</string>
+    <string name="title_music_atmosphere_sentimental">감성적인</string>
+    <string name="title_music_atmosphere_hip">힙한</string>
+    <string name="content_register_music">등록하기</string>
+
+    <!-- Subscribe -->
+    <string name="title_subscribe">SUBSCRIBE</string>
+    <string name="content_subscribe">무한 스트리밍 구독권 (한달)</string>
+    <string name="title_creator">크리에이터</string>
+    <string name="title_receiver_address">Receiver Address</string>
+    <string name="title_wallet_balance">Wallet Balance</string>
+    <string name="title_total_balance">Total Balance (KAT)</string>
+    <string name="image_subscribe_profile">image_subscribe_profile</string>
+    <string name="content_unit_kat">KAT</string>
+    <string name="content_price">5.0</string>
+    <string name="content_payment">결제하기</string>
+    <string name="content_dialog_cancel_subscribe">구독을 취소하시겠습니까?\n(금액은 반환되지 않습니다.)</string>
+    <string name="content_balance_lack">잔액이 부족합니다.</string>
+
+    <!-- Edit Profile -->
+    <string name="title_edit_profile">회원 정보 수정</string>
+    <string name="content_end_edit_profile">수정하기</string>
+    <string name="content_delete_file">사진을 삭제하시겠습니까?</string>
+    <string name="image_toast_logo">image_toast_logo</string>
+</resources>
