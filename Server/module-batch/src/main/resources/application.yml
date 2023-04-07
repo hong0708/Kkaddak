@@ -1,0 +1,47 @@
+server:
+  port: 8088
+
+spring:
+  #  빈 정의를 덮어쓰도록 허용하는 방법
+  #  임시 대책이기 때문에 근본대책 필요
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  profiles:
+    active: local # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
+
+  batchdb:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+  coredb:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+
+  redis:
+    host: redisdb
+    port: 6379
+    password: kkaddak208!
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+
+  batch:
+    job:
+      enabled: false   # batch server 실행시켰을 때, 실행되는지 아닌지
+    jdbc:
+      isolation-level-for-create: default
+
+logging:
+  log4j2:
+    config: classpath:log4j2.yml
+
+custom:
+  path:
+    upload-images: '/var/lib/images'
+

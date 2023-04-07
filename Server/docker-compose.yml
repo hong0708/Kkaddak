@@ -1,0 +1,110 @@
+version: "3.2"
+services:
+  coredb:
+    container_name: coredb
+    command: [ '--character-set-server=utf8mb4',
+               '--collation-server=utf8mb4_unicode_ci' ]
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=kkaddak208!
+      - MYSQL_DATABASE_1=coredb
+      - MYSQL_DATABASE_2=batchdb
+    networks:
+      default_bridge:
+        ipv4_address: 172.28.0.6
+    ports:
+      - 3306:3306
+    # 각 서버의 캐릭터셋과 콜레이션을 utf8mb4로 설정
+    restart: unless-stopped
+    volumes:
+      - "/etc/timezone/:/etc/timezone:ro"  # 읽기 전용모드로 호스트의 /etc/timezonev파일을 database 컨테이너와 호스트 간 공유하는 설정
+      - ./backup/local-db/init-schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - type: volume
+        source: data-volume
+        target: /var/lib/data
+
+
+  module-api:
+    build: ./module-api
+    depends_on: # 컨테이너 실행 순서 제어
+      - coredb
+      - redisdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://coredb:3306/coredb?useUnicode=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: kkaddak208!
+      TZ: "Asia/seoul"
+#    links: # 다른 컨테이너와 연결
+    logging: # 컨테이너 로깅 설정
+      driver: "json-file" # json-file로 로그 드라이버 선택, 컨테이너 로그를 json 형식으로 파일에 저장
+      options: # 로그 파일당 100MB로 제한하여 5개의 로그파일만 유지
+        max-file: "5"
+        max-size: "100m"
+    networks:
+      default_bridge:
+        ipv4_address: 172.28.0.7
+    ports:
+      - 8087:8087
+    volumes:
+      - upload-images:/var/lib/images
+
+  module-batch:
+    build: ./module-batch
+    depends_on:
+      - coredb
+      - redisdb
+    environment:
+      SPRING_BATCH_DB_DATASOURCE_URL: jdbc:mariadb://coredb:3306/batchdb?useUnicode=true
+      SPRING_BATCH_DB_DATASOURCE_USERNAME: root # server #local환경에서는 root로 변경
+      SPRING_BATCH_DB_DATASOURCE_PASSWORD: kkaddak208!
+      SPRING_CORE_DB_DATASOURCE_URL: jdbc:mariadb://coredb:3306/coredb?useUnicode=true
+      SPRING_CORE_DB_DATASOURCE_USERNAME: root # server #local환경에서는 root로 변경
+      SPRING_CORE_DATASOURCE_PASSWORD: kkaddak208!
+      TZ: "Asia/seoul"
+    logging: # 컨테이너 로깅 설정
+      driver: "json-file" # json-file로 로그 드라이버 선택, 컨테이너 로그를 json 형식으로 파일에 저장
+      options: # 로그 파일당 100MB로 제한하여 5개의 로그파일만 유지
+        max-file: "5"
+        max-size: "100m"
+    networks:
+      default_bridge:
+        ipv4_address: 172.28.0.8
+    ports:
+      - 8088:8088
+
+
+  redisdb:
+    image: redis:alpine
+    command: redis-server --requirepass kkaddak208! --port 6379
+    container_name: redisdb
+    environment:
+      TZ: "Asia/Seoul"
+      REDIS_PASSWORD: kkaddak208!
+    hostname: redisdb
+    networks:
+      default_bridge:
+        ipv4_address: 172.28.0.9
+    volumes:
+      - type: bind
+        source: ./backup/redis.conf
+        target: /usr/local/etc/redis/redis.conf
+      - type: volume
+        source: redis-data
+        target: /data
+    ports:
+      - 6379:6379
+#    labels:
+#      - "name=redis"
+#      - "mode=standalone"
+
+volumes:
+  upload-images:
+  data-volume:
+  redis-data:
+
+networks:
+  default_bridge:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

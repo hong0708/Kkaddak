@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://coredb:3306/coredb
+    username: root
+    password: kkaddak208!
+
+  redis:
+    host: redisdb # docker 및 배포시 redisdb로 변경해주세요
+    port: 6379
+    password: kkaddak208!

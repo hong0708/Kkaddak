@@ -1,0 +1,11 @@
+spring:
+  batchdb:
+    datasource:
+      jdbc-url: jdbc:mariadb://coredb:3306/batchdb
+      username: root
+      password: kkaddak208!
+  coredb:
+    datasource:
+      jdbc-url: jdbc:mariadb://coredb:3306/coredb
+      username: root
+      password: kkaddak208!

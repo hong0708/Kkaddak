@@ -1,0 +1,15 @@
+spring:
+  batch-db:
+    datasource:
+      jdbc-url: jdbc:mariadb://coredb:3306/batchdb
+      username: kkaddak
+      password: kkaddak208!
+  campinity-db:
+    datasource:
+      jdbc-url: jdbc:mariadb://coredb:3306/coredb
+      username: kkaddak
+      password: kkaddak208!
+
+  jpa:
+    hibernate:
+      ddl-auto: none

@@ -1,0 +1,65 @@
+server:
+  port: 8087
+
+spring:
+  #  빈 정의를 덮어쓰도록 허용하는 방법
+  #  임시 대책이기 때문에 근본대책 필요
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    # 메모리 내에서 coredb 데이터베이스 생성
+    # MySQL과 호환되는 SQL 구문을 사용
+    # 메모리상에 데이터베이스를 유지
+    # JVM을 종료해도 데이터베이스를 유지
+    # SQL 구문에서 대소문자를 무시
+    # 대소문자 구분 없이 데이터베이스와 테이블 이름을 사용
+    url: jdbc:h2:mem:coredb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;IGNORECASE=TRUE;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # h2 데이터베이스를 웹 콘솔로 확인. http://localhost:8087/h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    open-in-view: false # Lazy loading을 사용하기 위해 Session을 Controller까지 유지하는 옵션
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        type:
+          preferred_uuid_jdbc_type: CHAR # UUID 타입을 CHAR 타입으로 매핑
+        show_sql: true #show sql
+    # 어플리케이션 실행 시점에서 데이터베이스 연결이 아직 준비되지 않았더라도 예외가 발생 안함. 어플리케이션 안전성과 신뢰성 높임
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  redis:
+    host: redisdb
+    port: 6379
+    password: kkaddak208!
+
+  config:
+    activate:
+      on-profile: test
+
+#logging:
+#  config: classpath:log4j2.yml
+
+custom:
+  path:
+    upload-images: '/var/lib/images'
+

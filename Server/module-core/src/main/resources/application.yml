@@ -1,0 +1,77 @@
+server:
+  port: 8087
+
+spring:
+  #  빈 정의를 덮어쓰도록 허용하는 방법
+  #  임시 대책이기 때문에 근본대책 필요
+  profiles:
+    active: prod # 기본 환경을 prod로 셋팅 local 개발할때는 local로 바꾸세요.
+
+  jwt:
+    key: service-key
+    live:
+      atk : 12096000000 # 2WN
+      rtk : 12096000000  #2주
+  jpa:
+    open-in-view: false # Lazy loading을 사용하기 위해 Session을 Controller까지 유지하는 옵션
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        type:
+          preferred_uuid_jdbc_type: CHAR # UUID 타입을 CHAR 타입으로 매핑
+        show_sql: true #show sql
+    # 어플리케이션 실행 시점에서 데이터베이스 연결이 아직 준비되지 않았더라도 예외가 발생 안함. 어플리케이션 안전성과 신뢰성 높임
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  sql:
+    init:
+      mode: always
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  log4j2:
+    config: log4j2.yml
+
+custom:
+  path:
+    upload-images: '/var/lib/images'
+
+aws:
+  access-key: 'AKIA6DD3NTVFQMLI45FF'
+  secret-key: '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'
+  region: 'ap-northeast-2'
+  s3:
+    bucket: kkaddak
+    base-url: 'https://kkaddak.s3.ap-northeast-2.amazonaws.com/'
+
+ethereum:
+  contract:
+    wallet-address: '0xfB9843b34f1aB19d82Ba25DB6865897fA1311a74'
+    song-address: ''
+    nft-address: '0x2EcAE23EaE157fC279C2cb457624F112F47B387A'
+  rpc-url: 'https://rpc.ssafy-blockchain.com'
+  admin-address: '0x1e5ece0c6abecb6f0328734651c337ab3a524ddb'
+  private-key: '26e3f26438ad12eb31278ae6d1db81d2a17b6fb2b24a48f06b3b8bc5dc50b8db'
+  exchange-rate: 1000000
+
+boot-pay:
+  verification:
+    rest-application-id: '6426738a755e27001ead61a1'
+    private-key: 'RiFIkHvn49IC/Bz9+QdO4gII8qqBR1eDA2NKMzAb98M='
+
+  # 부하 테스트 이후 설정 최적화하기
+#  hikari:
+#    connectionTimeout: 30000
+#    maximumPoolSize: 30
+#    maxLifeTime: 97
+#    poolName: HikariCP
+#    readOnly: false
