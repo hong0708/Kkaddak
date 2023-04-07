@@ -94,8 +94,8 @@
 > ### 로그인, 회원가입
 > 카카오 로그인을 통해 회원가입이 가능합니다.
 >
-><img src="./img/login.jpg" alt="login" width="200" height="400">
-><img src="./img/userinfo.jpg" alt="userinfo" width="200" height="400">
+><img src="./img/login.JPG" alt="login" width="200" height="400">
+><img src="./img/userinfo.JPG" alt="userinfo" width="200" height="400">
 
 <br>
 
@@ -105,9 +105,9 @@
 > 다양한 조건으로 음원, 창작자를 조회할 수 있습니다.
 > 
 > 
-><img src="./img/화면녹화/home_gif.gif" alt="home_gif" width="200" height="400">
-><img src="./img/음악/listen_gif.gif" alt="listen_gif" width="200" height="400">
-><img src="./img/화면녹화/song_list_gif.gif" alt="song_list_gif" width="200" height="400">
+><img src="./img/record/home_gif.gif" alt="home_gif" width="200" height="400">
+><img src="./img/music/listen_gif.GIF" alt="listen_gif" width="200" height="400">
+><img src="./img/song_list_gif.GIF" alt="song_list_gif" width="200" height="400">
 
 
 <br>
