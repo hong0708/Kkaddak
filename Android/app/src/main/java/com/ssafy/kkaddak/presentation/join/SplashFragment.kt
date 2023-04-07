@@ -63,7 +63,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
 
             if (SharedPreferences(requireContext()).isLoggedIn) {
                 // 자동 로그인 시 유효성 검사 추가 필요
-                (activity as InitActivity).goToMain()
+                //(activity as InitActivity).goToMain()
+                fadeInView(binding.clKakaoLogin, requireContext())
             } else {
                 fadeInView(binding.clKakaoLogin, requireContext())
             }

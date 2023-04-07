@@ -34,11 +34,17 @@ class BuyMarketFragment :
         setData()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         (activity as MainActivity).hideBottomNavigation(false)
         Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        (activity as MainActivity).hideBottomNavigation(false)
+//        Glide.with(this@BuyMarketFragment).clear(binding.ivNftCreatorProfile)
+//    }
 
     private fun getData() {
         marketViewModel.nftDetailData.observe(viewLifecycleOwner) {

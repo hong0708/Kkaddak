@@ -69,6 +69,12 @@ class ProfileViewModel @Inject constructor(
     private val _songStateChange: MutableLiveData<Boolean?> = MutableLiveData(false)
     val songStateChange: MutableLiveData<Boolean?> = _songStateChange
 
+    private val _beforeNFT: MutableLiveData<String?> = MutableLiveData()
+    val beforeNFT: MutableLiveData<String?> = _beforeNFT
+
+    private val _bioCheck: MutableLiveData<Boolean?> = MutableLiveData(false)
+    val bioCheck: MutableLiveData<Boolean?> = _bioCheck
+
     var profileImgMultiPart: MultipartBody.Part? = null
 
     fun setProfileImg(uri: Uri, file: File) {
@@ -201,5 +207,13 @@ class ProfileViewModel @Inject constructor(
 
     fun resetSongState() {
         _songStateChange.value = false
+    }
+
+    fun changeBioCheck(isCheck: Boolean) {
+        _bioCheck.value = isCheck
+    }
+
+    fun checkBeforeNFT(nftImageUrl: String) {
+        _nftImageUrl.value = nftImageUrl
     }
 }
