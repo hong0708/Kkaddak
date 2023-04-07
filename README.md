@@ -16,7 +16,7 @@
 
 ## 📜 프로젝트 소개
 
-<img src="./img/IMG_1255.GIF" alt="blockchain" width="150" height="150">
+<img src="./img/IMG_1255.gif" alt="blockchain" width="150" height="150">
 
 
 *`Web3.0 환경의 크리에이터 이코노미를 실현하다`*
@@ -95,7 +95,7 @@
 > 카카오 로그인을 통해 회원가입이 가능합니다.
 >
 ><img src="./img/login.JPG" alt="login" width="200" height="400">
-><img src="./img/userinfo.JPG" alt="userinfo" width="200" height="400">
+><img src="./img/userinfo.jpg" alt="userinfo" width="200" height="400">
 
 <br>
 
@@ -106,8 +106,8 @@
 > 
 > 
 ><img src="./img/record/home_gif.gif" alt="home_gif" width="200" height="400">
-><img src="./img/music/listen_gif.GIF" alt="listen_gif" width="200" height="400">
-><img src="./img/song_list_gif.GIF" alt="song_list_gif" width="200" height="400">
+><img src="./img/music/listen_gif.gif" alt="listen_gif" width="200" height="400">
+><img src="./img/song_list_gif.gif" alt="song_list_gif" width="200" height="400">
 
 
 <br>
