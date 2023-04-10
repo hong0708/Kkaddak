@@ -56,36 +56,17 @@
 
 ### Android
 
-<img src="https://img.shields.io/badge/androidx_core-v1.7.0-blue?style=plastic&logo=android" alt="androidx" width="80" height= "15">
-<img src="https://img.shields.io/badge/androidx--navigation-v2.5.0-blue?style=plastic&logo=android" alt="자바" width="80" height="15">
-<img src="https://img.shields.io/badge/databinding-7.3.1-blue?style=plastic&logo=android" alt="자바" width="80" height="15" >
-<img src="https://img.shields.io/badge/retrofit-2.9.0-green?style=plastic&logo=retrofit" alt="자바" width="80" height="15" >
-<img src="https://img.shields.io/badge/okhttp3-4.10.0-green?style=plastic&logo=okhttp" alt="okhttp3" width="80" height="15" >
-<img src="https://img.shields.io/badge/kakao-v2.11.2-yellowgreen?style=plastic&logo=kakao" alt="kakao" width= "80" height="15">
-<img src="https://img.shields.io/badge/hilt-2.44-blue?style=plastic&logo=android" alt="hilt" width="80" height="15">
-<img src="https://img.shields.io/badge/exoplayer-2.18.4-blue?style=plastic&logo=android" alt="자바" width="80" height="15" >
-<img src="https://img.shields.io/badge/web3j-4.97-orange?style=plastic&logo=ethereum" alt="web3j" width="80" height="15">
+<img src="https://img.shields.io/badge/androidx_core-v1.7.0-blue?style=plastic&logo=android" alt="androidx" width="80" height= "15"><img src="https://img.shields.io/badge/androidx--navigation-v2.5.0-blue?style=plastic&logo=android" alt="자바" width="80" height="15"><img src="https://img.shields.io/badge/databinding-7.3.1-blue?style=plastic&logo=android" alt="자바" width="80" height="15" ><img src="https://img.shields.io/badge/retrofit-2.9.0-green?style=plastic&logo=retrofit" alt="자바" width="80" height="15" ><img src="https://img.shields.io/badge/okhttp3-4.10.0-green?style=plastic&logo=okhttp" alt="okhttp3" width="80" height="15" ><img src="https://img.shields.io/badge/kakao-v2.11.2-yellowgreen?style=plastic&logo=kakao" alt="kakao" width= "80" height="15"><img src="https://img.shields.io/badge/hilt-2.44-blue?style=plastic&logo=android" alt="hilt" width="80" height="15"><img src="https://img.shields.io/badge/exoplayer-2.18.4-blue?style=plastic&logo=android" alt="자바" width="80" height="15" ><img src="https://img.shields.io/badge/web3j-4.97-orange?style=plastic&logo=ethereum" alt="web3j" width="80" height="15">
 
 
 ### Backend
 
-<img src="https://img.shields.io/badge/Java-v11-brightgreen?style=plastic&logo=java&logoColor=white%22" alt="Java" width="50" height="15">
-<img src="https://img.shields.io/badge/Redis-v7.0.8-red?style=plastic&logo=redis" alt="redis" width="80" height="15">
-<img src="https://img.shields.io/badge/MariaDB-v10.10.2-yellow?style=plastic&logo=mariadb" alt="mariadb" width="80" height="15">
-<img src="https://img.shields.io/badge/H2%20Database-v2.7.9-blueviolet?style=plastic" alt="h2" width="80" height="15">
-<img src="https://img.shields.io/badge/Solidity-v0.8.0-black?style=plastic" alt="solidity" width="80" height="15">
-<img src="https://img.shields.io/badge/Docker-v4.15.0-ff69b4?style=plastic&logo=docker" alt="docker" width="80" height="15">
+<img src="https://img.shields.io/badge/Java-v11-brightgreen?style=plastic&logo=java&logoColor=white%22" alt="Java" width="50" height="15"><img src="https://img.shields.io/badge/Redis-v7.0.8-red?style=plastic&logo=redis" alt="redis" width="80" height="15"><img src="https://img.shields.io/badge/MariaDB-v10.10.2-yellow?style=plastic&logo=mariadb" alt="mariadb" width="80" height="15"><img src="https://img.shields.io/badge/H2%20Database-v2.7.9-blueviolet?style=plastic" alt="h2" width="80" height="15"><img src="https://img.shields.io/badge/Solidity-v0.8.0-black?style=plastic" alt="solidity" width="80" height="15"><img src="https://img.shields.io/badge/Docker-v4.15.0-ff69b4?style=plastic&logo=docker" alt="docker" width="80" height="15">
 <img src="https://img.shields.io/badge/jenkins-v_lts-lightgray?style=plastic&logo=jenkins" alt="jenkins" width="80" height="15">
 
 
-<img src="https://img.shields.io/badge/Spring%20Boot-v2.7.9-green?style=plastic&logo=spring%20boot" alt="Spring%20boot" width="80" height="15">
-<img src="https://img.shields.io/badge/Spring%20Batch-v2.7.9-green?style=plastic&logo=spring%20batch" alt="Spring%20batch" width="80" height="15">
-<img src="https://img.shields.io/badge/Spring%20Security-v2.7.9-green?style=plastic&logo=spring%20security" alt="Spring%20security" width="90" height="15">
-<img src="https://img.shields.io/badge/JUnit%20Jupiter%20API-v5.7.0-orange?style=plastic&logo=junit5" alt="junit" width="80" height="15">
-<img src="https://img.shields.io/badge/JWT-v0.9.1-purple?style=plastic" alt="jwt" width="80" height="15">
-<img src="https://img.shields.io/badge/AWS%20SDK%20for%20Java%20S3-v2.13.0-orange?style=plastic&logo=amazon-s3" alt="s3" width="100" height="15">
-<img src="https://img.shields.io/badge/Web3j-v4.9.7-9cf?style=plastic&logo=ethereum" alt="s3" width="100" height="15">
-<img src="https://img.shields.io/badge/Boot%20pay-v1.0.13-yellowgreen?style=plastic" alt="s3" width="100" height="15">
+<img src="https://img.shields.io/badge/Spring%20Boot-v2.7.9-green?style=plastic&logo=spring%20boot" alt="Spring%20boot" width="80" height="15"><img src="https://img.shields.io/badge/Spring%20Batch-v2.7.9-green?style=plastic&logo=spring%20batch" alt="Spring%20batch" width="80" height="15"><img src="https://img.shields.io/badge/Spring%20Security-v2.7.9-green?style=plastic&logo=spring%20security" alt="Spring%20security" width="90" height="15">
+<img src="https://img.shields.io/badge/JUnit%20Jupiter%20API-v5.7.0-orange?style=plastic&logo=junit5" alt="junit" width="80" height="15"><img src="https://img.shields.io/badge/JWT-v0.9.1-purple?style=plastic" alt="jwt" width="80" height="15"><img src="https://img.shields.io/badge/AWS%20SDK%20for%20Java%20S3-v2.13.0-orange?style=plastic&logo=amazon-s3" alt="s3" width="100" height="15"><img src="https://img.shields.io/badge/Web3j-v4.9.7-9cf?style=plastic&logo=ethereum" alt="s3" width="100" height="15"><img src="https://img.shields.io/badge/Boot%20pay-v1.0.13-yellowgreen?style=plastic" alt="s3" width="100" height="15">
 
 <br>
 
@@ -104,10 +85,12 @@
 >
 > 다양한 조건으로 음원, 창작자를 조회할 수 있습니다.
 > 
+> 음원과 커버를 업로드할 수 있습니다.
 > 
-><img src="./img/record/home_gif.gif" alt="home_gif" width="200" height="400">
+><img src="./img/shortgif/home_gif.gif" alt="home_gif" width="200" height="400">
 ><img src="./img/music/listen_gif.gif" alt="listen_gif" width="200" height="400">
-><img src="./img/song_list_gif.gif" alt="song_list_gif" width="200" height="400">
+><img src="./img/shortgif/list_gif.gif" alt="song_list_gif" width="200" height="400">
+><img src="./img/music/upload_gif.gif" alt="song_list_gif" width="200" height="400">
 
 
 <br>
@@ -121,7 +104,7 @@
 
 <br>
  
-> ### NFT
+> ### NFT 마켓
 > 마켓페이지에서 유저가 판매중이거나 완료된 NFT 거래 목록을 볼 수 있습니다.
 >
 > NFT의 상세 조회는 블록체인에 저장된 정보를 추가된 정보를 볼 수 있습니다.
@@ -130,7 +113,7 @@
 >
 > 보유한 NFT를 마이페이지에서 조회할 수 있습니다.
 >
-><img src="./img/shoutjif/buynft.gif" alt="buynft" width="200" height="400">
+><img src="./img/shortgif/buynft.gif" alt="buynft" width="200" height="400">
 
 <br>
 
